@@ -1,0 +1,11 @@
+{
+  "templates": [
+    {
+      "id": "001",
+      "name": "Tech Minimal",
+      "category": "Technology",
+      "style": "Minimal",
+      "path": "catalog/template_001_tech_minimal"
+    }
+  ]
+}
