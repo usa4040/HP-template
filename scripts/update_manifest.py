@@ -2,7 +2,7 @@ import json
 import os
 import sys
 
-MANIFEST_PATH = "/Users/home/Desktop/HP-template/catalog-manifest.json"
+MANIFEST_PATH = "catalog-manifest.json"
 
 def update_manifest(template_id, name, category, style, path):
     if not os.path.exists(MANIFEST_PATH):
