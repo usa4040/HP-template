@@ -48,6 +48,13 @@
       "category": "Cafe",
       "style": "Retro",
       "path": "catalog/template_007_cafe_retro"
+    },
+    {
+      "id": "008",
+      "name": "Cafe Retro",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_008_cafe_retro"
     }
   ]
 }
