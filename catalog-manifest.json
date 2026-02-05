@@ -181,6 +181,19 @@
         "Navy",
         "Serif"
       ]
+    },
+    {
+      "id": "015",
+      "name": "Urban Structure",
+      "category": "Architecture",
+      "style": "Modern",
+      "path": "catalog/template_015_architecture_modern",
+      "description": "Stark grids and bold mono type",
+      "tags": [
+        "Grid",
+        "Monochrome",
+        "Bold"
+      ]
     }
   ]
 }
