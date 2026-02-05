@@ -41,6 +41,13 @@
       "category": "Beauty",
       "style": "Elegant",
       "path": "catalog/template_006_beauty_elegant"
+    },
+    {
+      "id": "007",
+      "name": "Cafe Retro",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_007_cafe_retro"
     }
   ]
 }
