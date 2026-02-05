@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Elegance & Beauty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#FFF5F5',
+                        'brand-accent': '#C0A080',
+                        'brand-text': '#4A4A4A',
+                    },
+                    fontFamily: {
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'sans': ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+        body { font-family: 'Lato', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-text">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-sm border-b border-rose-100">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-serif text-brand-accent tracking-widest uppercase">
+                {{COMPANY_NAME}}
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest text-gray-600">
+                <a href="#home" class="hover:text-brand-accent transition">Home</a>
+                <a href="#about" class="hover:text-brand-accent transition">About</a>
+                <a href="#services" class="hover:text-brand-accent transition">Menu</a>
+                <a href="#contact" class="hover:text-brand-accent transition">Contact</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-600" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-rose-100 p-6">
+            <div class="flex flex-col space-y-4 text-center">
+                <a href="#home" class="hover:text-brand-accent transition">Home</a>
+                <a href="#about" class="hover:text-brand-accent transition">About</a>
+                <a href="#services" class="hover:text-brand-accent transition">Menu</a>
+                <a href="#contact" class="hover:text-brand-accent transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-brand-accent uppercase tracking-[0.2em] mb-4 block">Welcome to Sanctuary</span>
+            <h1 class="text-5xl md:text-7xl mb-8 font-serif leading-tight text-gray-800">
+                Reveal Your Inner <i class="font-serif text-brand-accent">Radiance</i>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Experience the ultimate relaxation and rejuvenation at {{COMPANY_NAME}}. We provide premium beauty treatments tailored just for you.
+            </p>
+            <a href="#contact" class="inline-block border border-brand-accent text-brand-accent px-8 py-3 hover:bg-brand-accent hover:text-white transition duration-300 uppercase tracking-widest text-sm">
+                Book Appointment
+            </a>
+        </div>
+        <!-- Decorative Circle -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-rose-200 rounded-full -z-10 opacity-50"></div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-white">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="relative">
+                <div class="aspect-[4/5] bg-gray-100 rounded-t-[100px] overflow-hidden">
+                    <!-- Placeholder for Salon Image -->
+                    <div class="w-full h-full bg-rose-100 flex items-center justify-center text-rose-300">
+                        <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-4xl font-serif mb-6 text-gray-800">Our Philosophy</h2>
+                <div class="w-16 h-1 bg-brand-accent mb-8"></div>
+                <p class="text-gray-500 leading-loose mb-6">
+                    At {{COMPANY_NAME}}, we believe that beauty is more than just skin deep. It is a feeling of confidence, peace, and harmony. Our expert stylists and therapists are dedicated to providing you with a personalized experience that transcends the ordinary.
+                </p>
+                <p class="text-gray-500 leading-loose">
+                    Using only the finest organic products, we ensure that every treatment creates a lasting impact on your wellbeing.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Menu -->
+    <section id="services" class="py-24 px-6 bg-brand-bg">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+            <h2 class="text-4xl font-serif mb-4 text-gray-800">Signature Menu</h2>
+            <p class="text-gray-500 uppercase tracking-widest text-sm">Curated Treatments</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto grid gap-8">
+            <!-- Service Item -->
+            <div class="flex justify-between items-baseline border-b border-rose-200 pb-4">
+                <div>
+                    <h3 class="text-xl font-serif text-gray-700">Holistic Facial</h3>
+                    <p class="text-sm text-gray-400 mt-1">60 mins • Deep cleansing & massage</p>
+                </div>
+                <div class="text-xl font-serif text-brand-accent">$120</div>
+            </div>
+            <!-- Service Item -->
+            <div class="flex justify-between items-baseline border-b border-rose-200 pb-4">
+                <div>
+                    <h3 class="text-xl font-serif text-gray-700">Aromatherapy Massage</h3>
+                    <p class="text-sm text-gray-400 mt-1">90 mins • Essential oils blend</p>
+                </div>
+                <div class="text-xl font-serif text-brand-accent">$150</div>
+            </div>
+            <!-- Service Item -->
+            <div class="flex justify-between items-baseline border-b border-rose-200 pb-4">
+                <div>
+                    <h3 class="text-xl font-serif text-gray-700">Luxury Manicure</h3>
+                    <p class="text-sm text-gray-400 mt-1">45 mins • Gel finish included</p>
+                </div>
+                <div class="text-xl font-serif text-brand-accent">$60</div>
+            </div>
+             <!-- Service Item -->
+             <div class="flex justify-between items-baseline border-b border-rose-200 pb-4">
+                <div>
+                    <h3 class="text-xl font-serif text-gray-700">Hair Treatment</h3>
+                    <p class="text-sm text-gray-400 mt-1">60 mins • Repair & Shine</p>
+                </div>
+                <div class="text-xl font-serif text-brand-accent">$100</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 bg-white text-center">
+        <div class="max-w-xl mx-auto">
+            <h2 class="text-4xl font-serif mb-8 text-gray-800">Visit Us</h2>
+            <p class="text-gray-500 mb-10">
+                We are open daily from 10:00 AM to 8:00 PM. <br>
+                Walk-ins are welcome, but appointments are recommended.
+            </p>
+            <div class="bg-rose-50 p-8 rounded-lg border border-rose-100">
+                <p class="mb-4 text-gray-600"><strong class="uppercase text-xs tracking-widest block mb-1 text-brand-accent">Phone</strong> (123) 456-7890</p>
+                <p class="mb-4 text-gray-600"><strong class="uppercase text-xs tracking-widest block mb-1 text-brand-accent">Email</strong> hello@{{COMPANY_NAME}}.com</p>
+                <p class="text-gray-600"><strong class="uppercase text-xs tracking-widest block mb-1 text-brand-accent">Location</strong> 123 Elegant Avenue, Suite 100</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-6 text-center">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-2xl font-serif text-brand-accent mb-6">{{COMPANY_NAME}}</div>
+            <div class="flex justify-center space-x-6 text-sm text-gray-400 mb-8">
+                <a href="#" class="hover:text-white transition">Instagram</a>
+                <a href="#" class="hover:text-white transition">Facebook</a>
+                <a href="#" class="hover:text-white transition">Twitter</a>
+            </div>
+            <p class="text-xs text-gray-600 uppercase tracking-widest">&copy; 2026 {{COMPANY_NAME}}. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
