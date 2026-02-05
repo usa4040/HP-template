@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HP Template Catalog - Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <header class="bg-white border-b border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-2">HP Template Catalog</h1>
+            <p class="text-gray-500">Julesが生成した高品質なテンプレート一覧</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- テンプレートカードがここに挿入されます -->
+        </div>
+    </main>
+
+    <script>
+        async function loadGallery() {
+            try {
+                const response = await fetch('catalog-manifest.json');
+                const data = await response.json();
+                const gallery = document.getElementById('gallery');
+
+                data.templates.forEach(template => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300";
+                    
+                    const indexPath = `${template.path}/index.html`;
+                    
+                    card.innerHTML = `
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold text-indigo-500 uppercase tracking-wider bg-indigo-50 px-2 py-1 rounded">ID: ${template.id}</span>
+                                <span class="text-xs font-medium text-gray-400 italic">${template.style}</span>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-800 mb-2">${template.name}</h2>
+                            <p class="text-sm text-gray-600 mb-6 font-medium">Category: ${template.category}</p>
+                            <a href="${indexPath}" target="_blank" class="block w-full text-center bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
+                                プレビューを開く
+                            </a>
+                        </div>
+                    `;
+                    gallery.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error loading manifest:', error);
+                document.getElementById('gallery').innerHTML = '<p class="text-red-500">マニフェストの読み込みに失敗しました。</p>';
+            }
+        }
+
+        loadGallery();
+    </script>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400 text-sm">
+            &copy; 2026 HP Template Project. Automated by Jules.
+        </div>
+    </footer>
+
+</body>
+</html>
