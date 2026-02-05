@@ -55,6 +55,13 @@
       "category": "Cafe",
       "style": "Retro",
       "path": "catalog/template_008_cafe_retro"
+    },
+    {
+      "id": "009",
+      "name": "Retro Cafe",
+      "category": "Food & Beverage",
+      "style": "Retro",
+      "path": "catalog/template_009_retro_cafe"
     }
   ]
 }
