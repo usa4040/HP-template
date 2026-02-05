@@ -2,10 +2,12 @@ import json
 import os
 import sys
 
-MANIFEST_PATH = os.path.join(os.getcwd(), "catalog-manifest.json")
+MANIFEST_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "catalog-manifest.json")
 
 def update_manifest(template_id, name, category, style, path):
     if not os.path.exists(MANIFEST_PATH):
+        # Fallback or initialization if file doesn't exist
+        print(f"Manifest file not found at {MANIFEST_PATH}, creating new.")
         data = {"templates": []}
     else:
         with open(MANIFEST_PATH, "r") as f:

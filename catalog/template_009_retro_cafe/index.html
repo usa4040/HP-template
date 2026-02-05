@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Retro Cafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        retro: {
+                            bg: '#fdfbf7',
+                            text: '#4a4036',
+                            accent: '#c05621', // orange-700
+                            dark: '#2d241e',
+                            light: '#eaddcf'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Merriweather"', 'serif'],
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-image: radial-gradient(#eaddcf 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-retro-bg text-retro-text font-sans antialiased">
+
+    <!-- Header -->
+    <header class="py-6 border-b-2 border-retro-text/10 bg-retro-bg/90 sticky top-0 z-50 backdrop-blur-sm">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <h1 class="font-serif text-2xl font-bold tracking-widest text-retro-dark">
+                {{COMPANY_NAME}}
+            </h1>
+            <nav class="hidden md:flex space-x-8 font-serif italic text-lg">
+                <a href="#about" class="hover:text-retro-accent transition-colors">About</a>
+                <a href="#menu" class="hover:text-retro-accent transition-colors">Menu</a>
+                <a href="#access" class="hover:text-retro-accent transition-colors">Access</a>
+            </nav>
+            <button class="md:hidden text-retro-dark" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-retro-bg border-t border-retro-text/10 p-4 absolute w-full">
+            <div class="flex flex-col space-y-4 font-serif text-center">
+                <a href="#about" class="block hover:text-retro-accent">About</a>
+                <a href="#menu" class="block hover:text-retro-accent">Menu</a>
+                <a href="#access" class="block hover:text-retro-accent">Access</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative py-24 md:py-32 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-20 sepia"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <p class="font-serif text-retro-accent text-xl md:text-2xl mb-4 italic">Since 1985</p>
+            <h2 class="font-serif text-5xl md:text-7xl font-bold text-retro-dark mb-8 leading-tight">
+                Timeless Flavor,<br>Unforgettable Moments.
+            </h2>
+            <p class="max-w-xl mx-auto text-lg md:text-xl leading-relaxed opacity-90 mb-10">
+                懐かしい香り、あたたかい空間。<br>
+                {{COMPANY_NAME}}で、特別な一杯をお楽しみください。
+            </p>
+            <a href="#menu" class="inline-block border-2 border-retro-dark text-retro-dark px-10 py-3 font-serif font-bold hover:bg-retro-dark hover:text-retro-bg transition-colors duration-300">
+                VIEW MENU
+            </a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-20 bg-retro-light/30">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <span class="inline-block w-16 h-1 bg-retro-accent mb-8"></span>
+            <h3 class="font-serif text-4xl font-bold mb-8 text-retro-dark">Our Story</h3>
+            <p class="text-lg leading-loose mb-6">
+                {{COMPANY_NAME}}は、街の喧騒から少し離れた路地裏に佇む、小さな隠れ家です。<br>
+                創業以来変わらないレシピで淹れるコーヒーと、手作りの焼き菓子。<br>
+                古い時計の音が心地よく響く店内で、<br>
+                自分だけのゆったりとした時間をお過ごしください。
+            </p>
+            <p class="font-serif italic text-retro-accent text-xl">The owner</p>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <section id="menu" class="py-20">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-16">
+                <h3 class="font-serif text-4xl font-bold text-retro-dark">Menu</h3>
+                <p class="mt-2 text-retro-text opacity-70 italic font-serif">Coffee & Sweets</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Drink Column -->
+                <div>
+                    <h4 class="font-serif text-2xl border-b-2 border-retro-accent/30 pb-2 mb-6 text-retro-dark">Drinks</h4>
+                    <ul class="space-y-6">
+                        <li class="flex justify-between items-baseline group">
+                            <span class="font-bold group-hover:text-retro-accent transition-colors">House Blend Coffee</span>
+                            <span class="border-b border-dotted border-retro-text/30 flex-grow mx-4"></span>
+                            <span class="font-serif">¥550</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group">
+                            <span class="font-bold group-hover:text-retro-accent transition-colors">Café au Lait</span>
+                            <span class="border-b border-dotted border-retro-text/30 flex-grow mx-4"></span>
+                            <span class="font-serif">¥600</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group">
+                            <span class="font-bold group-hover:text-retro-accent transition-colors">Earl Grey Tea</span>
+                            <span class="border-b border-dotted border-retro-text/30 flex-grow mx-4"></span>
+                            <span class="font-serif">¥550</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group">
+                            <span class="font-bold group-hover:text-retro-accent transition-colors">Homemade Ginger Ale</span>
+                            <span class="border-b border-dotted border-retro-text/30 flex-grow mx-4"></span>
+                            <span class="font-serif">¥650</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Food Column -->
+                <div>
+                    <h4 class="font-serif text-2xl border-b-2 border-retro-accent/30 pb-2 mb-6 text-retro-dark">Sweets & Food</h4>
+                    <ul class="space-y-6">
+                        <li class="flex justify-between items-baseline group">
+                            <span class="font-bold group-hover:text-retro-accent transition-colors">Classic Pudding</span>
+                            <span class="border-b border-dotted border-retro-text/30 flex-grow mx-4"></span>
+                            <span class="font-serif">¥500</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group">
+                            <span class="font-bold group-hover:text-retro-accent transition-colors">Cheesecake</span>
+                            <span class="border-b border-dotted border-retro-text/30 flex-grow mx-4"></span>
+                            <span class="font-serif">¥600</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group">
+                            <span class="font-bold group-hover:text-retro-accent transition-colors">Egg Sandwich</span>
+                            <span class="border-b border-dotted border-retro-text/30 flex-grow mx-4"></span>
+                            <span class="font-serif">¥750</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group">
+                            <span class="font-bold group-hover:text-retro-accent transition-colors">Napolitan Spaghetti</span>
+                            <span class="border-b border-dotted border-retro-text/30 flex-grow mx-4"></span>
+                            <span class="font-serif">¥950</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information / Access -->
+    <section id="access" class="py-20 bg-retro-dark text-retro-bg">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h3 class="font-serif text-4xl font-bold mb-8">Access</h3>
+                <div class="space-y-4 text-lg font-light">
+                    <p class="flex items-start">
+                        <span class="w-24 font-bold text-retro-accent">Address</span>
+                        <span>〒123-4567<br>東京都レトロ区1-2-3</span>
+                    </p>
+                    <p class="flex items-start">
+                        <span class="w-24 font-bold text-retro-accent">Hours</span>
+                        <span>09:00 - 20:00 (L.O. 19:30)<br>Closed on Tuesdays</span>
+                    </p>
+                    <p class="flex items-start">
+                        <span class="w-24 font-bold text-retro-accent">Phone</span>
+                        <span>03-1234-5678</span>
+                    </p>
+                </div>
+                <div class="mt-8">
+                    <a href="#" class="inline-block border border-retro-bg px-6 py-2 hover:bg-retro-bg hover:text-retro-dark transition-colors">
+                        Google Maps
+                    </a>
+                </div>
+            </div>
+            <div class="h-64 md:h-96 bg-retro-light/10 flex items-center justify-center border-2 border-retro-bg/20">
+                <span class="font-serif italic opacity-50 text-2xl">Map Placeholder</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-retro-dark text-retro-bg/60 text-center border-t border-white/10">
+        <p class="font-serif text-sm">&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

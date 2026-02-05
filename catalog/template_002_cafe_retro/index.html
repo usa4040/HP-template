@@ -3,221 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe Retro - {{COMPANY_NAME}}</title>
+    <title>Cozy Retro Cafe - {{COMPANY_NAME}}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-        body { font-family: 'Lato', sans-serif; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
-    </style>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        coffee: {
-                            50: '#fdf8f6',
-                            100: '#f2e8e5',
-                            800: '#5d4037',
-                            900: '#3e2723',
-                        }
+                        'retro-cream': '#fdfbf7',
+                        'retro-brown': '#4a403a',
+                        'retro-accent': '#c17c74',
+                        'retro-secondary': '#8c8070',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+    </style>
 </head>
-<body class="bg-coffee-50 text-stone-800 antialiased">
+<body class="bg-retro-cream text-retro-brown font-sans antialiased">
+
     <!-- Navigation -->
-    <nav class="bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b border-stone-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex-shrink-0 flex items-center">
-                    <span class="font-bold text-2xl tracking-wider text-coffee-900">{{COMPANY_NAME}}</span>
-                </div>
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#about" class="text-stone-600 hover:text-coffee-800 transition font-medium">Our Story</a>
-                    <a href="#menu" class="text-stone-600 hover:text-coffee-800 transition font-medium">Menu</a>
-                    <a href="#location" class="text-stone-600 hover:text-coffee-800 transition font-medium">Location</a>
-                    <a href="#contact" class="bg-coffee-800 text-white px-6 py-2 rounded-full hover:bg-coffee-900 transition font-medium shadow-md">Reserve</a>
-                </div>
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-stone-600 hover:text-coffee-800 focus:outline-none p-2">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    <nav class="py-6 px-8 max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center border-b-2 border-retro-brown/10">
+        <div class="mb-4 md:mb-0">
+            <a href="#" class="text-3xl font-serif font-bold tracking-wide">{{COMPANY_NAME}}</a>
         </div>
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-100">
-            <div class="px-4 pt-2 pb-6 space-y-2">
-                <a href="#about" class="block px-3 py-2 text-stone-600 hover:text-coffee-800 hover:bg-stone-50 rounded-md font-medium">Our Story</a>
-                <a href="#menu" class="block px-3 py-2 text-stone-600 hover:text-coffee-800 hover:bg-stone-50 rounded-md font-medium">Menu</a>
-                <a href="#location" class="block px-3 py-2 text-stone-600 hover:text-coffee-800 hover:bg-stone-50 rounded-md font-medium">Location</a>
-                <a href="#contact" class="block px-3 py-2 text-coffee-800 font-bold">Reserve Table</a>
-            </div>
+        <div class="flex space-x-8 text-sm uppercase tracking-widest font-bold text-retro-secondary">
+            <a href="#about" class="hover:text-retro-accent transition-colors duration-300">About</a>
+            <a href="#menu" class="hover:text-retro-accent transition-colors duration-300">Menu</a>
+            <a href="#access" class="hover:text-retro-accent transition-colors duration-300">Access</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative bg-stone-900 py-32 lg:py-48 overflow-hidden">
-        <div class="absolute inset-0 opacity-40">
-            <!-- Using a solid color fallback but implying an image -->
-             <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Coffee Shop Interior" class="w-full h-full object-cover">
-        </div>
-        <div class="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/50 to-transparent"></div>
-
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
-                Taste the <span class="text-amber-500 italic">Tradition</span>
+    <header class="relative py-24 md:py-32 px-8 text-center max-w-6xl mx-auto">
+        <div class="absolute inset-0 opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper.png')]"></div>
+        <div class="relative z-10">
+            <p class="text-retro-accent font-serif italic text-xl mb-4">Since 1985</p>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
+                Taste the Nostalgia<br>
+                <span class="text-3xl md:text-5xl font-normal text-retro-secondary">in every cup.</span>
             </h1>
-            <p class="text-xl text-stone-200 mb-10 max-w-2xl mx-auto font-light tracking-wide">
-                Experience the finest handcrafted coffee and vintage atmosphere in the heart of the city. Since 1985.
+            <p class="text-retro-brown/80 max-w-2xl mx-auto leading-relaxed mb-10 font-serif text-lg">
+                Relax in a warm atmosphere where time slows down. Enjoy our hand-dripped coffee and homemade pastries made with love.
             </p>
-            <div class="flex justify-center space-x-4">
-                <a href="#menu" class="bg-amber-600 text-white px-8 py-4 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-amber-700 transition shadow-lg border border-amber-600">View Menu</a>
-                <a href="#about" class="bg-transparent border border-stone-400 text-white px-8 py-4 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-white hover:text-stone-900 transition">Our Story</a>
-            </div>
+            <a href="#menu" class="inline-block border-2 border-retro-brown text-retro-brown hover:bg-retro-brown hover:text-retro-cream px-8 py-3 uppercase tracking-widest text-sm font-bold transition-all duration-300">
+                View Menu
+            </a>
         </div>
     </header>
 
     <!-- About Section -->
-    <section id="about" class="py-24 bg-coffee-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <div class="inline-block border-b-2 border-amber-600 pb-1 mb-4 text-amber-700 font-bold uppercase tracking-widest text-xs">Since 1985</div>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-stone-900 leading-tight">We brew memories,<br>not just coffee.</h2>
-                    <p class="text-stone-600 mb-6 leading-relaxed">
-                        Nestled in a historic building, {{COMPANY_NAME}} brings back the charm of the good old days. We believe in slow brewing, meaningful conversations, and the comfort of a warm cup.
-                    </p>
-                    <p class="text-stone-600 mb-8 leading-relaxed">
-                        Our beans are ethically sourced from family-owned farms and roasted in small batches to preserve their unique character. Every cup tells a story.
-                    </p>
-                    <img src="https://images.unsplash.com/photo-1442512595331-e89e7385a861?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Latte Art" class="rounded-lg shadow-xl sepia-[.25]">
+    <section id="about" class="bg-white py-20 px-8">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/2">
+                <div class="aspect-[4/3] bg-retro-secondary/20 rounded-lg overflow-hidden relative">
+                     <!-- Placeholder for an image -->
+                     <div class="absolute inset-0 flex items-center justify-center text-retro-brown/40 font-serif italic">
+                        [Atmosphere Image]
+                     </div>
                 </div>
-                <div class="relative">
-                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-stone-300 rounded-lg"></div>
-                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Barista pouring coffee" class="relative rounded-lg shadow-2xl sepia-[.25]">
-                </div>
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="text-3xl font-serif font-bold mb-6 text-retro-brown">Our Story</h2>
+                <p class="text-retro-secondary leading-relaxed mb-6">
+                    {{COMPANY_NAME}} was founded with a simple mission: to bring back the charm of the old days. We believe in quality over quantity, silence over noise, and connection over distraction.
+                </p>
+                <p class="text-retro-secondary leading-relaxed">
+                    Every piece of furniture in our cafe has a story, just like every customer who walks through our doors. Come sit with us, read a book, and enjoy the finest coffee in town.
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Menu Section -->
-    <section id="menu" class="py-24 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-stone-900 mb-4">Our Menu</h2>
-                <div class="w-24 h-1 bg-amber-600 mx-auto"></div>
-                <p class="text-stone-500 mt-4 italic">Carefully curated for the perfect moment.</p>
-            </div>
+    <section id="menu" class="py-20 px-8 max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-serif font-bold text-retro-brown relative inline-block">
+                Menu
+                <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-retro-accent"></span>
+            </h2>
+        </div>
 
-            <!-- Coffee List -->
-            <div class="mb-12">
-                <h3 class="text-2xl font-bold text-stone-800 mb-8 border-b border-stone-200 pb-2 inline-block">Espresso Bar</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Coffee Column -->
+            <div>
+                <h3 class="text-xl font-serif font-bold mb-8 text-center text-retro-secondary uppercase tracking-widest">Coffee</h3>
                 <div class="space-y-6">
-                    <div class="flex justify-between items-baseline border-b border-dotted border-stone-300 pb-2">
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-stone-800">Classic Espresso</h4>
-                            <p class="text-stone-500 text-sm italic">Rich, intense, and full-bodied.</p>
-                        </div>
-                        <span class="text-xl font-bold text-amber-700 ml-4">$3.50</span>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">House Blend</span>
+                        <span class="text-retro-accent font-serif italic">$4.50</span>
                     </div>
-                    <div class="flex justify-between items-baseline border-b border-dotted border-stone-300 pb-2">
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-stone-800">Cappuccino</h4>
-                            <p class="text-stone-500 text-sm italic">Espresso, steamed milk, and foam.</p>
-                        </div>
-                        <span class="text-xl font-bold text-amber-700 ml-4">$4.50</span>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Espresso</span>
+                        <span class="text-retro-accent font-serif italic">$3.00</span>
                     </div>
-                    <div class="flex justify-between items-baseline border-b border-dotted border-stone-300 pb-2">
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-stone-800">Vintage Latte</h4>
-                            <p class="text-stone-500 text-sm italic">Infused with our secret vanilla bean syrup.</p>
-                        </div>
-                        <span class="text-xl font-bold text-amber-700 ml-4">$5.00</span>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Cappuccino</span>
+                        <span class="text-retro-accent font-serif italic">$4.80</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Caramel Macchiato</span>
+                        <span class="text-retro-accent font-serif italic">$5.20</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Pastry List -->
+            <!-- Sweets Column -->
             <div>
-                <h3 class="text-2xl font-bold text-stone-800 mb-8 border-b border-stone-200 pb-2 inline-block">Fresh Pastries</h3>
+                <h3 class="text-xl font-serif font-bold mb-8 text-center text-retro-secondary uppercase tracking-widest">Sweets</h3>
                 <div class="space-y-6">
-                    <div class="flex justify-between items-baseline border-b border-dotted border-stone-300 pb-2">
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-stone-800">Butter Croissant</h4>
-                            <p class="text-stone-500 text-sm italic">Flaky, golden, and baked fresh daily.</p>
-                        </div>
-                        <span class="text-xl font-bold text-amber-700 ml-4">$3.00</span>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Classic Cheesecake</span>
+                        <span class="text-retro-accent font-serif italic">$6.00</span>
                     </div>
-                    <div class="flex justify-between items-baseline border-b border-dotted border-stone-300 pb-2">
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-stone-800">Cinnamon Roll</h4>
-                            <p class="text-stone-500 text-sm italic">Warm, gooey, and topped with cream cheese.</p>
-                        </div>
-                        <span class="text-xl font-bold text-amber-700 ml-4">$4.00</span>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Chocolate Tart</span>
+                        <span class="text-retro-accent font-serif italic">$5.50</span>
                     </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Homemade Pudding</span>
+                        <span class="text-retro-accent font-serif italic">$4.50</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Scone & Jam</span>
+                        <span class="text-retro-accent font-serif italic">$3.80</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access Section -->
+    <section id="access" class="bg-retro-brown text-retro-cream py-20 px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-serif font-bold mb-10">Visit Us</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-12 text-left">
+                <div class="flex-1">
+                    <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Address</h4>
+                    <p class="leading-relaxed opacity-80">
+                        123 Nostalgia Lane,<br>
+                        Old Town District,<br>
+                        Cityville, ST 12345
+                    </p>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Hours</h4>
+                    <ul class="space-y-2 opacity-80">
+                        <li class="flex justify-between"><span>Mon - Fri:</span> <span>8:00 AM - 8:00 PM</span></li>
+                        <li class="flex justify-between"><span>Sat - Sun:</span> <span>9:00 AM - 9:00 PM</span></li>
+                    </ul>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Contact</h4>
+                    <p class="leading-relaxed opacity-80">
+                        Phone: (555) 123-4567<br>
+                        Email: hello@{{COMPANY_NAME}}.com
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-stone-900 text-stone-400 py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
-                <!-- Brand -->
-                <div>
-                    <h3 class="text-2xl font-bold text-white mb-6 font-serif">{{COMPANY_NAME}}</h3>
-                    <p class="mb-6 leading-relaxed">Bringing the nostalgic taste of quality coffee to your daily routine. Visit us and slow down time.</p>
-                    <div class="flex justify-center md:justify-start space-x-4">
-                        <a href="#" class="text-white hover:text-amber-500 transition"><span class="sr-only">Facebook</span>FB</a>
-                        <a href="#" class="text-white hover:text-amber-500 transition"><span class="sr-only">Instagram</span>IG</a>
-                        <a href="#" class="text-white hover:text-amber-500 transition"><span class="sr-only">Twitter</span>TW</a>
-                    </div>
-                </div>
-
-                <!-- Hours -->
-                <div>
-                    <h4 class="text-lg font-bold text-white mb-6 uppercase tracking-widest">Opening Hours</h4>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between md:justify-start"><span class="w-24">Mon - Fri:</span> <span class="text-white">7:00 AM - 8:00 PM</span></li>
-                        <li class="flex justify-between md:justify-start"><span class="w-24">Saturday:</span> <span class="text-white">8:00 AM - 9:00 PM</span></li>
-                        <li class="flex justify-between md:justify-start"><span class="w-24">Sunday:</span> <span class="text-white">8:00 AM - 6:00 PM</span></li>
-                    </ul>
-                </div>
-
-                <!-- Contact -->
-                <div>
-                    <h4 class="text-lg font-bold text-white mb-6 uppercase tracking-widest">Contact Us</h4>
-                    <address class="not-italic space-y-2">
-                        <p>123 Vintage Avenue,</p>
-                        <p>Retro City, RC 54321</p>
-                        <p class="pt-4"><a href="tel:+1234567890" class="hover:text-white transition">+1 (234) 567-890</a></p>
-                        <p><a href="mailto:hello@company.com" class="hover:text-white transition">hello@company.com</a></p>
-                    </address>
-                </div>
-            </div>
-            <div class="border-t border-stone-800 mt-16 pt-8 text-center text-sm text-stone-600">
-                <p>&copy; 2026 {{COMPANY_NAME}}. All rights reserved.</p>
-            </div>
-        </div>
+    <footer class="bg-retro-cream py-8 text-center text-sm text-retro-secondary">
+        <p>&copy; 2026 {{COMPANY_NAME}}. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-    </script>
 </body>
 </html>
