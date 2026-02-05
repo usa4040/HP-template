@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Power & Performance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Russo+One&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            DEFAULT: '#D9FF00', /* Neon Lime/Yellow */
+                            hover: '#B8D900',
+                            glow: 'rgba(217, 255, 0, 0.5)'
+                        },
+                        surface: {
+                            900: '#050505',
+                            800: '#121212',
+                            700: '#1E1E1E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                        display: ['"Russo One"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(rgba(5,5,5,0.3), rgba(5,5,5,0.8)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80')",
+                        'texture-pattern': "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%231a1a1a\\' fill-opacity=\\'0.4\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .clip-skew {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+        .neon-shadow {
+            box-shadow: 0 0 15px rgba(217, 255, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-surface-900 text-white font-sans antialiased selection:bg-neon selection:text-surface-900">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 py-4 transition-all duration-300 bg-surface-900/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="#" class="font-display text-2xl tracking-wider text-white italic">
+                {{COMPANY_NAME}}<span class="text-neon">.</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center text-sm font-bold uppercase tracking-widest">
+                <a href="#about" class="hover:text-neon transition-colors">About</a>
+                <a href="#classes" class="hover:text-neon transition-colors">Classes</a>
+                <a href="#trainers" class="hover:text-neon transition-colors">Trainers</a>
+                <a href="#membership" class="hover:text-neon transition-colors">Membership</a>
+                <a href="#contact" class="bg-neon text-surface-900 px-6 py-2 skew-x-[-10deg] hover:bg-neon-hover hover:scale-105 transition-all">
+                    <span class="block skew-x-[10deg]">Join Now</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-surface-900/95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 md:hidden backdrop-blur-xl">
+            <button id="close-menu-btn" class="absolute top-6 right-6 text-white hover:text-neon">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="#about" class="font-display text-3xl uppercase tracking-wider hover:text-neon mobile-link">About</a>
+            <a href="#classes" class="font-display text-3xl uppercase tracking-wider hover:text-neon mobile-link">Classes</a>
+            <a href="#trainers" class="font-display text-3xl uppercase tracking-wider hover:text-neon mobile-link">Trainers</a>
+            <a href="#membership" class="font-display text-3xl uppercase tracking-wider hover:text-neon mobile-link">Membership</a>
+            <a href="#contact" class="text-xl font-bold uppercase bg-neon text-surface-900 px-8 py-3 mobile-link">Join Now</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center bg-hero-pattern bg-cover bg-center bg-fixed clip-skew mb-12">
+        <!-- Overlay Gradient for Readability -->
+        <div class="absolute inset-0 bg-gradient-to-r from-surface-900 via-surface-900/70 to-transparent"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="max-w-3xl">
+                <h2 class="text-neon font-bold tracking-[0.2em] uppercase mb-4 animate-pulse">Welcome to the Next Level</h2>
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl leading-none mb-6 italic">
+                    PUSH YOUR <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">LIMITS</span>
+                </h1>
+                <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-xl font-light">
+                    限界を超えろ。{{COMPANY_NAME}}は、最新のマシンとエキスパートトレーナーによる指導で、あなたのポテンシャルを最大限に引き出します。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#membership" class="bg-neon text-surface-900 font-bold uppercase px-8 py-4 text-center hover:bg-white transition-colors skew-x-[-10deg]">
+                        <span class="block skew-x-[10deg]">Start Free Trial</span>
+                    </a>
+                    <a href="#classes" class="border border-white text-white font-bold uppercase px-8 py-4 text-center hover:bg-white hover:text-surface-900 transition-colors skew-x-[-10deg]">
+                        <span class="block skew-x-[10deg]">View Programs</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Stats / About Section -->
+    <section id="about" class="py-20 bg-surface-900 bg-texture-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                <div class="bg-surface-800 p-8 border-l-4 border-neon hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="font-display text-4xl text-white mb-2">24<span class="text-neon text-2xl">/7</span></h3>
+                    <p class="text-gray-400 text-sm font-bold uppercase tracking-widest">Access</p>
+                </div>
+                <div class="bg-surface-800 p-8 border-l-4 border-neon hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="font-display text-4xl text-white mb-2">50<span class="text-neon text-2xl">+</span></h3>
+                    <p class="text-gray-400 text-sm font-bold uppercase tracking-widest">Machines</p>
+                </div>
+                <div class="bg-surface-800 p-8 border-l-4 border-neon hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="font-display text-4xl text-white mb-2">15<span class="text-neon text-2xl">+</span></h3>
+                    <p class="text-gray-400 text-sm font-bold uppercase tracking-widest">Expert Trainers</p>
+                </div>
+                <div class="bg-surface-800 p-8 border-l-4 border-neon hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="font-display text-4xl text-white mb-2">100<span class="text-neon text-2xl">%</span></h3>
+                    <p class="text-gray-400 text-sm font-bold uppercase tracking-widest">Satisfaction</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="absolute -inset-4 border-2 border-neon opacity-30 translate-x-4 translate-y-4"></div>
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Gym Interior" class="relative w-full shadow-2xl grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div>
+                    <h2 class="font-display text-4xl md:text-5xl mb-6 italic">REDEFINE <span class="text-neon">YOURSELF</span></h2>
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        私たち{{COMPANY_NAME}}は、単なるジムではありません。あなたの身体的、精神的な強さを鍛え上げるためのコミュニティです。
+                        初心者からアスリートまで、それぞれの目標に合わせた最適な環境とプログラムを提供します。
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <svg class="w-5 h-5 text-neon mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            最新鋭のトレーニングマシン完備
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <svg class="w-5 h-5 text-neon mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            清潔で広々としたシャワールーム
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <svg class="w-5 h-5 text-neon mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            栄養指導とサプリメントバー
+                        </li>
+                    </ul>
+                    <a href="#contact" class="text-neon font-bold uppercase tracking-widest hover:text-white transition-colors border-b-2 border-neon pb-1 inline-block">Learn More About Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="py-20 bg-surface-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl md:text-5xl italic mb-4">OUR <span class="text-stroke">PROGRAMS</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    脂肪燃焼、筋力アップ、柔軟性向上。目的に合わせた多彩なクラスを用意しています。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Class 1 -->
+                <div class="group relative overflow-hidden h-96">
+                    <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80" alt="HIIT" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-900 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="w-12 h-1 bg-neon mb-4 transform origin-left transition-transform duration-300 group-hover:scale-x-150"></div>
+                        <h3 class="font-display text-3xl italic mb-2">HIIT</h3>
+                        <p class="text-gray-300 text-sm mb-4 h-0 overflow-hidden group-hover:h-auto transition-all duration-300">
+                            高強度インターバルトレーニングで短時間で最大限の効果を。
+                        </p>
+                        <span class="text-neon font-bold uppercase text-sm tracking-widest">View Details &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Class 2 -->
+                <div class="group relative overflow-hidden h-96">
+                    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Strength" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-900 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="w-12 h-1 bg-neon mb-4 transform origin-left transition-transform duration-300 group-hover:scale-x-150"></div>
+                        <h3 class="font-display text-3xl italic mb-2">POWER LIFT</h3>
+                        <p class="text-gray-300 text-sm mb-4 h-0 overflow-hidden group-hover:h-auto transition-all duration-300">
+                            ビッグ3を中心とした本格的な筋力トレーニングプログラム。
+                        </p>
+                        <span class="text-neon font-bold uppercase text-sm tracking-widest">View Details &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Class 3 -->
+                <div class="group relative overflow-hidden h-96">
+                    <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Yoga" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-900 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="w-12 h-1 bg-neon mb-4 transform origin-left transition-transform duration-300 group-hover:scale-x-150"></div>
+                        <h3 class="font-display text-3xl italic mb-2">FLOW YOGA</h3>
+                        <p class="text-gray-300 text-sm mb-4 h-0 overflow-hidden group-hover:h-auto transition-all duration-300">
+                            心身のバランスを整え、柔軟性とコアの強さを養います。
+                        </p>
+                        <span class="text-neon font-bold uppercase text-sm tracking-widest">View Details &rarr;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Section -->
+    <section id="membership" class="py-20 bg-surface-900 relative">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
+            <div class="absolute top-10 right-0 font-display text-9xl text-white opacity-10 select-none">JOIN</div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl md:text-5xl italic mb-4">MEMBERSHIP <span class="text-neon">PLANS</span></h2>
+                <p class="text-gray-400">ライフスタイルに合わせて選べる3つのプラン</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Plan 1 -->
+                <div class="bg-surface-800 p-8 border border-white/10 hover:border-neon/50 transition-colors">
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-4">Standard</h3>
+                    <div class="flex items-end mb-6">
+                        <span class="text-4xl font-display">¥8,000</span>
+                        <span class="text-gray-500 ml-2">/ month</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-gray-300">
+                        <li class="flex items-center"><span class="text-neon mr-2">✓</span> 24時間ジム利用</li>
+                        <li class="flex items-center"><span class="text-neon mr-2">✓</span> シャワー・ロッカー利用</li>
+                        <li class="flex items-center text-gray-600"><span class="mr-2">×</span> スタジオレッスン参加</li>
+                    </ul>
+                    <a href="#" class="block w-full border border-white/20 text-center py-3 font-bold uppercase tracking-widest hover:bg-white hover:text-surface-900 transition-colors">Select Plan</a>
+                </div>
+
+                <!-- Plan 2 (Popular) -->
+                <div class="bg-surface-800 p-8 border-2 border-neon neon-shadow transform md:-translate-y-4 relative">
+                    <div class="absolute top-0 right-0 bg-neon text-surface-900 text-xs font-bold px-3 py-1 uppercase">Most Popular</div>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-4 text-neon">Premium</h3>
+                    <div class="flex items-end mb-6">
+                        <span class="text-5xl font-display">¥12,000</span>
+                        <span class="text-gray-500 ml-2">/ month</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-gray-300">
+                        <li class="flex items-center"><span class="text-neon mr-2">✓</span> 24時間ジム利用</li>
+                        <li class="flex items-center"><span class="text-neon mr-2">✓</span> シャワー・ロッカー利用</li>
+                        <li class="flex items-center"><span class="text-neon mr-2">✓</span> 全スタジオレッスン参加</li>
+                        <li class="flex items-center"><span class="text-neon mr-2">✓</span> タオル・ウェアレンタル</li>
+                    </ul>
+                    <a href="#" class="block w-full bg-neon text-surface-900 text-center py-4 font-bold uppercase tracking-widest hover:bg-white transition-colors">Select Plan</a>
+                </div>
+
+                <!-- Plan 3 -->
+                <div class="bg-surface-800 p-8 border border-white/10 hover:border-neon/50 transition-colors">
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-4">Day Pass</h3>
+                    <div class="flex items-end mb-6">
+                        <span class="text-4xl font-display">¥2,500</span>
+                        <span class="text-gray-500 ml-2">/ visit</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-gray-300">
+                        <li class="flex items-center"><span class="text-neon mr-2">✓</span> 1回ジム利用 (3時間)</li>
+                        <li class="flex items-center"><span class="text-neon mr-2">✓</span> シャワー・ロッカー利用</li>
+                        <li class="flex items-center text-gray-600"><span class="mr-2">×</span> スタジオレッスン参加</li>
+                    </ul>
+                    <a href="#" class="block w-full border border-white/20 text-center py-3 font-bold uppercase tracking-widest hover:bg-white hover:text-surface-900 transition-colors">Select Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="py-20 bg-neon text-surface-900">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-display text-4xl md:text-6xl italic mb-6">READY TO START?</h2>
+            <p class="text-xl font-bold mb-8">見学・体験は随時受付中。まずは無料カウンセリングから。</p>
+            <div class="bg-surface-900 p-8 skew-x-[-3deg] shadow-2xl">
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-6 skew-x-[3deg]">
+                    <input type="text" placeholder="NAME" class="bg-surface-800 border-none text-white p-4 focus:ring-2 focus:ring-neon outline-none placeholder-gray-500 font-bold uppercase">
+                    <input type="email" placeholder="EMAIL" class="bg-surface-800 border-none text-white p-4 focus:ring-2 focus:ring-neon outline-none placeholder-gray-500 font-bold uppercase">
+                    <select class="bg-surface-800 border-none text-white p-4 focus:ring-2 focus:ring-neon outline-none font-bold uppercase md:col-span-2">
+                        <option>Interested Plan</option>
+                        <option>Standard</option>
+                        <option>Premium</option>
+                        <option>Day Pass</option>
+                    </select>
+                    <button type="button" class="bg-neon text-surface-900 font-display text-xl uppercase py-4 hover:bg-white transition-colors md:col-span-2">
+                        Request Info
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-surface-900 text-white py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <span class="font-display text-2xl italic tracking-wider">{{COMPANY_NAME}}<span class="text-neon">.</span></span>
+                <p class="text-gray-500 text-sm mt-2">© 2024 PowerPulse Gym. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6 text-gray-400">
+                <a href="#" class="hover:text-neon transition-colors">Instagram</a>
+                <a href="#" class="hover:text-neon transition-colors">Twitter</a>
+                <a href="#" class="hover:text-neon transition-colors">YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isClosed = menu.classList.contains('translate-x-full');
+            if (isClosed) {
+                menu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+    </script>
+</body>
+</html>

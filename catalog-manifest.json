@@ -155,6 +155,19 @@
         "Modern",
         "Elegant"
       ]
+    },
+    {
+      "id": "013",
+      "name": "PowerPulse Gym",
+      "category": "Fitness",
+      "style": "Energetic",
+      "path": "catalog/template_013_fitness_energetic",
+      "description": "Neon dark theme for gyms.",
+      "tags": [
+        "Dark",
+        "Neon",
+        "Bold"
+      ]
     }
   ]
 }
