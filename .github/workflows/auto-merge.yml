@@ -10,8 +10,10 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    # Jules (usa4040) によるPRのみを対象にする場合は条件を追加できます
-    if: github.event.pull_request.user.login == 'usa4040'
+    # Jules (usa4040) によるPR、かつ説明文にJulesの自動生成署名がある場合のみ実行
+    if: |
+      github.event.pull_request.user.login == 'usa4040' &&
+      contains(github.event.pull_request.body, 'PR created automatically by Jules')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
