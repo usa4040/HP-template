@@ -7,7 +7,11 @@
       "style": "Minimal",
       "path": "catalog/template_001_tech_minimal",
       "description": "Minimal tech focus with blue accents and Inter font.",
-      "tags": ["Modern", "Blue", "Clean"]
+      "tags": [
+        "Modern",
+        "Blue",
+        "Clean"
+      ]
     },
     {
       "id": "002",
@@ -16,7 +20,11 @@
       "style": "Retro",
       "path": "catalog/template_002_cafe_retro",
       "description": "Warm cream/brown tones, Playfair Display font, focus on atmosphere.",
-      "tags": ["Warm", "Elegant", "Serif"]
+      "tags": [
+        "Warm",
+        "Elegant",
+        "Serif"
+      ]
     },
     {
       "id": "003",
@@ -25,7 +33,11 @@
       "style": "Retro",
       "path": "catalog/template_003_retro_cafe",
       "description": "Vintage nostalgia with radial background and Merriweather font.",
-      "tags": ["Vintage", "Classic", "Serif"]
+      "tags": [
+        "Vintage",
+        "Classic",
+        "Serif"
+      ]
     },
     {
       "id": "004",
@@ -34,7 +46,11 @@
       "style": "Clean",
       "path": "catalog/template_004_medical_clean",
       "description": "Clean medical professional look with blue/white scheme and Noto Sans JP.",
-      "tags": ["Professional", "Blue", "JP Support"]
+      "tags": [
+        "Professional",
+        "Blue",
+        "JP Support"
+      ]
     },
     {
       "id": "005",
@@ -43,7 +59,11 @@
       "style": "Retro",
       "path": "catalog/template_005_nostalgic_brew",
       "description": "Classic coffee aesthetic with sepia tones and Playfair Display font.",
-      "tags": ["Sepia", "Nostalgic", "Serif"]
+      "tags": [
+        "Sepia",
+        "Nostalgic",
+        "Serif"
+      ]
     },
     {
       "id": "006",
@@ -52,7 +72,11 @@
       "style": "Elegant",
       "path": "catalog/template_006_beauty_elegant",
       "description": "Elegant beauty salon theme with soft pink/gold tones and serif fonts.",
-      "tags": ["Luxury", "Soft", "Serif"]
+      "tags": [
+        "Luxury",
+        "Soft",
+        "Serif"
+      ]
     },
     {
       "id": "007",
@@ -61,7 +85,11 @@
       "style": "Retro",
       "path": "catalog/template_007_cafe_retro",
       "description": "Friendly retro vibe with Pacifico script font and amber highlights.",
-      "tags": ["Friendly", "Script", "Amber"]
+      "tags": [
+        "Friendly",
+        "Script",
+        "Amber"
+      ]
     },
     {
       "id": "008",
@@ -70,7 +98,11 @@
       "style": "Retro",
       "path": "catalog/template_008_cafe_retro",
       "description": "Traditional roast aesthetic with aged paper textures and dark amber tones.",
-      "tags": ["Traditional", "Textured", "Dark"]
+      "tags": [
+        "Traditional",
+        "Textured",
+        "Dark"
+      ]
     },
     {
       "id": "009",
@@ -79,7 +111,11 @@
       "style": "Retro",
       "path": "catalog/template_009_retro_cafe",
       "description": "Modern-retro fusion with clean lines, orange accents, and Japanese text support.",
-      "tags": ["Fusion", "Orange", "JP Support"]
+      "tags": [
+        "Fusion",
+        "Orange",
+        "JP Support"
+      ]
     },
     {
       "id": "010",
@@ -88,7 +124,11 @@
       "style": "Retro",
       "path": "catalog/template_010_cafe_retro",
       "description": "Premium cafe feel with large photography, dark gradients, and gold buttons.",
-      "tags": ["Premium", "Photo-rich", "Gold"]
+      "tags": [
+        "Premium",
+        "Photo-rich",
+        "Gold"
+      ]
     },
     {
       "id": "011",
@@ -97,7 +137,24 @@
       "style": "Retro",
       "path": "catalog/template_011_cafe_retro",
       "description": "Artisanal coffee focus with unique border frames and warm peach/orange tones.",
-      "tags": ["Artisanal", "Unique", "Warm"]
+      "tags": [
+        "Artisanal",
+        "Unique",
+        "Warm"
+      ]
+    },
+    {
+      "id": "012",
+      "name": "Luxury Living",
+      "category": "Real Estate",
+      "style": "Luxury",
+      "path": "catalog/template_012_real_estate_luxury",
+      "description": "High-end real estate template with elegant typography, spacious layout, and gold accents.",
+      "tags": [
+        "Luxury",
+        "Modern",
+        "Elegant"
+      ]
     }
   ]
 }

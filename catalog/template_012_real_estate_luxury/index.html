@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Premium Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#FBF5E6',
+                            200: '#F3E2B8',
+                            300: '#EBCF8A',
+                            400: '#E3BC5C',
+                            500: '#DBA92E',
+                            600: '#AF8725', // Primary Gold
+                            700: '#83651C',
+                            800: '#584312',
+                            900: '#2C2209',
+                        },
+                        slate: {
+                            850: '#1E293B', // Deep dark
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        /* Smooth parallax effect on hero */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-700 bg-slate-50 antialiased selection:bg-gold-600 selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 bg-transparent text-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl tracking-widest font-bold uppercase hover:text-gold-300 transition-colors">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-12 items-center text-sm tracking-widest uppercase font-light">
+                <a href="#about" class="hover:text-gold-300 transition-colors relative group">
+                    Philosophy
+                    <span class="absolute -bottom-2 left-0 w-0 h-px bg-gold-300 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#collection" class="hover:text-gold-300 transition-colors relative group">
+                    Collection
+                    <span class="absolute -bottom-2 left-0 w-0 h-px bg-gold-300 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#services" class="hover:text-gold-300 transition-colors relative group">
+                    Services
+                    <span class="absolute -bottom-2 left-0 w-0 h-px bg-gold-300 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="border border-white/30 px-6 py-2 hover:bg-white hover:text-slate-900 transition-all duration-300">
+                    Contact
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-slate-900 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-white md:hidden">
+            <button id="close-menu-btn" class="absolute top-6 right-6 focus:outline-none text-white/50 hover:text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="#about" class="text-2xl font-serif tracking-widest hover:text-gold-400 transition-colors mobile-link">Philosophy</a>
+            <a href="#collection" class="text-2xl font-serif tracking-widest hover:text-gold-400 transition-colors mobile-link">Collection</a>
+            <a href="#services" class="text-2xl font-serif tracking-widest hover:text-gold-400 transition-colors mobile-link">Services</a>
+            <a href="#contact" class="text-xl border border-white/20 px-8 py-3 mt-4 hover:bg-gold-600 hover:border-gold-600 transition-all mobile-link">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden parallax bg-hero-pattern">
+        <div class="absolute inset-0 bg-slate-900/40"></div>
+        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+            <p class="text-sm md:text-base tracking-[0.3em] uppercase mb-6 font-light fade-in-up">Refining Urban Living</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight fade-in-up delay-100">
+                Timeless <span class="italic text-gold-200">Luxury</span>
+            </h1>
+            <div class="w-24 h-px bg-white/50 mx-auto mb-10 fade-in-up delay-200"></div>
+            <a href="#collection" class="inline-block border border-white px-10 py-4 text-sm tracking-widest uppercase hover:bg-white hover:text-slate-900 transition-all duration-300 fade-in-up delay-300">
+                View Properties
+            </a>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/70">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Philosophy Section -->
+    <section id="about" class="py-24 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <h2 class="font-serif text-4xl md:text-5xl text-slate-900 leading-tight">
+                    We curate homes that <br>
+                    <span class="italic text-gold-600">inspire legacy.</span>
+                </h2>
+                <div class="w-16 h-px bg-slate-300"></div>
+                <p class="text-lg font-light leading-relaxed text-slate-600">
+                    {{COMPANY_NAME}} は、単なる住居を提供するのではありません。私たちは、あなたのライフスタイルそのものを再定義する、至高の空間をご提案します。
+                    洗練されたデザイン、妥協のない品質、そして心安らぐ静寂。都会の喧騒を離れ、真の豊かさを感じるためのサンクチュアリがここにあります。
+                </p>
+                <div class="grid grid-cols-2 gap-8 pt-4">
+                    <div>
+                        <p class="font-serif text-4xl text-slate-900 mb-2">15+</p>
+                        <p class="text-sm tracking-widest uppercase text-slate-500">Years Experience</p>
+                    </div>
+                    <div>
+                        <p class="font-serif text-4xl text-slate-900 mb-2">200+</p>
+                        <p class="text-sm tracking-widest uppercase text-slate-500">Premium Listings</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative group">
+                <div class="absolute -inset-4 border border-slate-200 translate-x-4 translate-y-4 z-0 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2"></div>
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Interior Design" class="relative z-10 w-full h-[500px] object-cover grayscale transition-all duration-700 hover:grayscale-0 shadow-xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section id="collection" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <span class="text-gold-600 text-sm tracking-[0.2em] uppercase font-bold mb-3 block">Exclusive Listings</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-slate-900">Featured Collection</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Card 1 -->
+                <article class="group bg-white shadow-sm hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative overflow-hidden h-80">
+                        <img src="https://images.unsplash.com/photo-1600596542815-bfad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1475&q=80" alt="House 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300"></div>
+                        <span class="absolute top-4 left-4 bg-slate-900 text-white text-xs px-3 py-1 tracking-widest uppercase">For Sale</span>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-serif text-2xl mb-2 text-slate-900 group-hover:text-gold-600 transition-colors">The Grand Estate</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-light">Minato-ku, Tokyo</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 text-xs tracking-widest text-slate-600 uppercase">
+                            <span>4 Beds</span>
+                            <span>350 m²</span>
+                            <span class="font-bold">¥450,000,000</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="group bg-white shadow-sm hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative overflow-hidden h-80">
+                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="House 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300"></div>
+                        <span class="absolute top-4 left-4 bg-slate-900 text-white text-xs px-3 py-1 tracking-widest uppercase">For Sale</span>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-serif text-2xl mb-2 text-slate-900 group-hover:text-gold-600 transition-colors">Skyline Penthouse</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-light">Shibuya-ku, Tokyo</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 text-xs tracking-widest text-slate-600 uppercase">
+                            <span>2 Beds</span>
+                            <span>180 m²</span>
+                            <span class="font-bold">¥280,000,000</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="group bg-white shadow-sm hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative overflow-hidden h-80">
+                        <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="House 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300"></div>
+                        <span class="absolute top-4 left-4 bg-gold-600 text-white text-xs px-3 py-1 tracking-widest uppercase">New</span>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-serif text-2xl mb-2 text-slate-900 group-hover:text-gold-600 transition-colors">Modern Villa</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-light">Kamakura, Kanagawa</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 text-xs tracking-widest text-slate-600 uppercase">
+                            <span>5 Beds</span>
+                            <span>420 m²</span>
+                            <span class="font-bold">¥320,000,000</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="#" class="inline-block border-b border-slate-900 pb-1 text-sm tracking-widest uppercase hover:text-gold-600 hover:border-gold-600 transition-colors">
+                    View All Properties
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <!-- Decorative bg -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-slate-800/30 skew-x-12 transform translate-x-20"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20">
+                <div class="lg:col-span-1">
+                    <span class="text-gold-400 text-sm tracking-[0.2em] uppercase font-bold mb-3 block">Our Expertise</span>
+                    <h2 class="font-serif text-4xl mb-6">Unparalleled Service</h2>
+                    <p class="text-slate-400 font-light leading-relaxed mb-8">
+                        不動産の購入から売却、そして管理まで。専任のコンシェルジュが、お客様一人ひとりのご要望に合わせたきめ細やかなサポートを提供いたします。
+                    </p>
+                    <a href="#" class="text-gold-400 hover:text-white transition-colors text-sm tracking-widest uppercase flex items-center gap-2 group">
+                        Learn More
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </a>
+                </div>
+
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-slate-800 p-8 border border-white/5 hover:border-gold-600/50 transition-colors duration-300">
+                        <div class="w-12 h-12 bg-slate-700 flex items-center justify-center mb-6 text-gold-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3">Property Sales</h3>
+                        <p class="text-sm text-slate-400 font-light leading-relaxed">
+                            市場の動向を正確に捉え、最適な条件での売買を実現します。独自のネットワークを活かした非公開物件もご案内可能です。
+                        </p>
+                    </div>
+                    <div class="bg-slate-800 p-8 border border-white/5 hover:border-gold-600/50 transition-colors duration-300">
+                        <div class="w-12 h-12 bg-slate-700 flex items-center justify-center mb-6 text-gold-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3">Legal Consultation</h3>
+                        <p class="text-sm text-slate-400 font-light leading-relaxed">
+                            契約に関する複雑な手続きや税務相談まで、専門家チームが全面的にバックアップいたします。
+                        </p>
+                    </div>
+                    <div class="bg-slate-800 p-8 border border-white/5 hover:border-gold-600/50 transition-colors duration-300">
+                        <div class="w-12 h-12 bg-slate-700 flex items-center justify-center mb-6 text-gold-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3">Investment</h3>
+                        <p class="text-sm text-slate-400 font-light leading-relaxed">
+                            長期的な資産価値向上を見据えた投資プランのご提案。リノベーションや運用管理もお任せください。
+                        </p>
+                    </div>
+                    <div class="bg-slate-800 p-8 border border-white/5 hover:border-gold-600/50 transition-colors duration-300">
+                        <div class="w-12 h-12 bg-slate-700 flex items-center justify-center mb-6 text-gold-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3">Concierge</h3>
+                        <p class="text-sm text-slate-400 font-light leading-relaxed">
+                            ご入居後のライフスタイルサポートまで、私たちがお客様のパートナーとして寄り添います。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12 text-center">
+            <h2 class="font-serif text-4xl md:text-5xl text-slate-900 mb-6">Begin Your Journey</h2>
+            <p class="text-slate-600 mb-12 font-light">
+                理想の住まいをお探しの方、物件の売却をご検討の方。<br class="hidden md:block">
+                まずは、お気軽にお問い合わせください。
+            </p>
+
+            <form class="space-y-6 text-left bg-slate-50 p-8 md:p-12 border border-slate-200 shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Name</label>
+                        <input type="text" class="w-full bg-white border border-slate-300 px-4 py-3 focus:outline-none focus:border-gold-600 transition-colors" placeholder="山田 太郎">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Phone</label>
+                        <input type="tel" class="w-full bg-white border border-slate-300 px-4 py-3 focus:outline-none focus:border-gold-600 transition-colors" placeholder="090-1234-5678">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Email</label>
+                    <input type="email" class="w-full bg-white border border-slate-300 px-4 py-3 focus:outline-none focus:border-gold-600 transition-colors" placeholder="example@email.com">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Message</label>
+                    <textarea rows="4" class="w-full bg-white border border-slate-300 px-4 py-3 focus:outline-none focus:border-gold-600 transition-colors" placeholder="ご用件をお書きください..."></textarea>
+                </div>
+                <div class="text-center pt-4">
+                    <button type="button" class="bg-slate-900 text-white px-12 py-4 text-sm tracking-widest uppercase hover:bg-gold-600 transition-colors duration-300">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12 md:py-20 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+            <div class="text-center md:text-left">
+                <a href="#" class="font-serif text-2xl tracking-widest font-bold uppercase mb-4 block hover:text-gold-400 transition-colors">
+                    {{COMPANY_NAME}}
+                </a>
+                <p class="text-sm text-slate-400 font-light">
+                    Excellence in every detail. <br>
+                    Luxury Real Estate Since 2008.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 md:gap-16 text-center md:text-left">
+                <div>
+                    <h4 class="text-gold-400 text-xs tracking-widest uppercase mb-4">Contact</h4>
+                    <p class="text-sm text-slate-400 font-light leading-loose">
+                        Tokyo, Japan <br>
+                        contact@{{COMPANY_NAME}}.com <br>
+                        +81 3-1234-5678
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-gold-400 text-xs tracking-widest uppercase mb-4">Follow</h4>
+                    <div class="flex gap-4 justify-center md:justify-start text-slate-400">
+                        <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                        <a href="#" class="hover:text-white transition-colors">Facebook</a>
+                        <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 mt-16 pt-8 border-t border-white/10 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 font-light">
+            <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const logo = navbar.querySelector('a');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white', 'shadow-md', 'text-slate-900');
+                navbar.classList.remove('bg-transparent', 'text-white');
+            } else {
+                navbar.classList.add('bg-transparent', 'text-white');
+                navbar.classList.remove('bg-white', 'shadow-md', 'text-slate-900');
+            }
+        });
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isClosed = menu.classList.contains('translate-x-full');
+            if (isClosed) {
+                menu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+    </script>
+</body>
+</html>
