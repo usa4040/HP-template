@@ -34,6 +34,13 @@
       "category": "Cafe",
       "style": "Retro",
       "path": "catalog/template_005_nostalgic_brew"
+    },
+    {
+      "id": "006",
+      "name": "Beauty Salon Elegant",
+      "category": "Beauty",
+      "style": "Elegant",
+      "path": "catalog/template_006_beauty_elegant"
     }
   ]
 }
