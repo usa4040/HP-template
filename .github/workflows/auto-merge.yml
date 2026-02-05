@@ -1,0 +1,33 @@
+name: Auto Merge Jules PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    # Jules (usa4040) によるPRのみを対象にする場合は条件を追加できます
+    if: github.event.pull_request.user.login == 'usa4040'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Auto Merge PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          echo "Attempting to auto-merge PR #$PR_NUMBER..."
+          
+          # コンフリクトがない場合に自動マージを実行
+          # --merge: マージコミットを作成
+          # --delete-branch: マージ後にブランチを削除
+          # --admin: 管理者権限（ブランチ保護ルール等がある場合）でマージを試行
+          gh pr merge $PR_NUMBER --merge --delete-branch --admin || {
+            echo "Auto-merge failed. This PR might have conflicts or failed checks."
+            exit 0
+          }
