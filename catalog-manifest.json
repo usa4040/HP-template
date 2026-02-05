@@ -27,6 +27,13 @@
       "category": "Medical",
       "style": "Clean",
       "path": "catalog/template_004_medical_clean"
+    },
+    {
+      "id": "005",
+      "name": "Nostalgic Brew",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_005_nostalgic_brew"
     }
   ]
 }
