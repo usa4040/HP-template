@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Modern Architecture</title>
+    <meta name="description" content="Award-winning architectural design firm specializing in modern, sustainable, and urban structures.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#121212',
+                            gray: '#1E1E1E',
+                            accent: '#D4D4D4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .image-hover-zoom {
+            transition: transform 0.7s ease;
+        }
+        .group:hover .image-hover-zoom {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-white font-sans antialiased selection:bg-white selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 mix-blend-difference text-white py-6 px-6 md:px-12 flex justify-between items-center bg-transparent backdrop-blur-sm">
+        <div class="text-xl md:text-2xl font-bold tracking-tighter uppercase z-50">
+            {{COMPANY_NAME}}
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-12 text-sm font-medium tracking-widest uppercase">
+            <a href="#projects" class="hover:text-brand-accent transition-colors">Projects</a>
+            <a href="#studio" class="hover:text-brand-accent transition-colors">Studio</a>
+            <a href="#services" class="hover:text-brand-accent transition-colors">Services</a>
+            <a href="#contact" class="hover:text-brand-accent transition-colors">Contact</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="menu-btn" class="md:hidden z-50 focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-black z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+        <a href="#projects" class="mobile-link text-3xl font-light mb-8 hover:text-gray-400">Projects</a>
+        <a href="#studio" class="mobile-link text-3xl font-light mb-8 hover:text-gray-400">Studio</a>
+        <a href="#services" class="mobile-link text-3xl font-light mb-8 hover:text-gray-400">Services</a>
+        <a href="#contact" class="mobile-link text-3xl font-light hover:text-gray-400">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative w-full h-screen overflow-hidden flex items-end pb-20 md:pb-32 px-6 md:px-12">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&q=80&w=2560" alt="Architecture Hero" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-7xl mx-auto">
+            <h1 class="text-5xl md:text-8xl lg:text-9xl font-bold leading-none tracking-tighter mb-6">
+                DEFINING<br><span class="text-gray-500">HORIZONS</span>
+            </h1>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-t border-white/20 pt-8">
+                <p class="text-sm md:text-base max-w-md text-gray-300 mb-8 md:mb-0">
+                    We create spaces that inspire, endure, and harmonize with the urban fabric.
+                    Sustainable design meets brutalist elegance.
+                </p>
+                <a href="#projects" class="group flex items-center space-x-4">
+                    <span class="uppercase tracking-widest text-sm">View Selected Works</span>
+                    <span class="w-12 h-px bg-white group-hover:w-20 transition-all duration-300"></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Studio / Philosophy Section -->
+    <section id="studio" class="py-24 md:py-32 px-6 md:px-12 bg-brand-black">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-xs font-bold tracking-widest uppercase text-gray-500 block mb-4">01 / The Studio</span>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-8">LESS IS<br>FUTURE.</h2>
+            </div>
+            <div class="md:col-span-8 md:pl-12 border-l border-white/10 flex flex-col justify-between">
+                <p class="text-xl md:text-2xl font-light leading-relaxed text-gray-300 mb-12">
+                    {{COMPANY_NAME}} is an avant-garde architectural collective based in the heart of the metropolis.
+                    We believe that architecture is not just about shelter, but about sculpting light, space, and human interaction.
+                </p>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-2">150+</h3>
+                        <p class="text-sm text-gray-500 uppercase tracking-wider">Projects Completed</p>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold mb-2">12</h3>
+                        <p class="text-sm text-gray-500 uppercase tracking-wider">International Awards</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-brand-gray px-6 md:px-12">
+        <div class="max-w-7xl mx-auto mb-16 flex justify-between items-end">
+            <span class="text-xs font-bold tracking-widest uppercase text-gray-500">02 / Selected Works</span>
+            <a href="#" class="hidden md:inline-block text-sm uppercase tracking-widest border-b border-transparent hover:border-white transition-colors">All Projects</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+            <!-- Project 1 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden aspect-[4/3] mb-4">
+                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&q=80&w=1200" alt="Project 1" class="image-hover-zoom w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
+                </div>
+                <div class="flex justify-between items-center border-b border-white/10 pb-4 group-hover:border-white transition-colors">
+                    <h3 class="text-2xl font-medium">Residence No. 4</h3>
+                    <span class="text-sm text-gray-500">2023</span>
+                </div>
+                <p class="text-sm text-gray-400 mt-2">Residential / Kyoto</p>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="group cursor-pointer md:mt-24">
+                <div class="relative overflow-hidden aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200" alt="Project 2" class="image-hover-zoom w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
+                </div>
+                <div class="flex justify-between items-center border-b border-white/10 pb-4 group-hover:border-white transition-colors">
+                    <h3 class="text-2xl font-medium">Vertex Tower</h3>
+                    <span class="text-sm text-gray-500">2022</span>
+                </div>
+                <p class="text-sm text-gray-400 mt-2">Commercial / Tokyo</p>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200" alt="Project 3" class="image-hover-zoom w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
+                </div>
+                <div class="flex justify-between items-center border-b border-white/10 pb-4 group-hover:border-white transition-colors">
+                    <h3 class="text-2xl font-medium">The Void Museum</h3>
+                    <span class="text-sm text-gray-500">2024</span>
+                </div>
+                <p class="text-sm text-gray-400 mt-2">Cultural / Berlin</p>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="group cursor-pointer md:mt-24">
+                <div class="relative overflow-hidden aspect-[4/3] mb-4">
+                    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&q=80&w=1200" alt="Project 4" class="image-hover-zoom w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
+                </div>
+                <div class="flex justify-between items-center border-b border-white/10 pb-4 group-hover:border-white transition-colors">
+                    <h3 class="text-2xl font-medium">Obsidian House</h3>
+                    <span class="text-sm text-gray-500">2023</span>
+                </div>
+                <p class="text-sm text-gray-400 mt-2">Residential / Oslo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6 md:px-12 bg-white text-brand-black">
+        <div class="max-w-7xl mx-auto">
+            <span class="text-xs font-bold tracking-widest uppercase text-gray-500 block mb-12">03 / Expertise</span>
+
+            <div class="space-y-0">
+                <!-- Service Item -->
+                <div class="group border-t border-brand-black/10 py-10 hover:bg-gray-50 transition-colors cursor-default">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <h3 class="text-3xl md:text-5xl font-light group-hover:pl-4 transition-all duration-300">Architectural Design</h3>
+                        <p class="mt-4 md:mt-0 text-gray-500 max-w-sm">From conceptual sketches to full execution, creating timeless structures.</p>
+                        <span class="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </div>
+                </div>
+
+                <!-- Service Item -->
+                <div class="group border-t border-brand-black/10 py-10 hover:bg-gray-50 transition-colors cursor-default">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <h3 class="text-3xl md:text-5xl font-light group-hover:pl-4 transition-all duration-300">Interior Planning</h3>
+                        <p class="mt-4 md:mt-0 text-gray-500 max-w-sm">Crafting internal environments that elevate the human experience.</p>
+                        <span class="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </div>
+                </div>
+
+                <!-- Service Item -->
+                <div class="group border-t border-b border-brand-black/10 py-10 hover:bg-gray-50 transition-colors cursor-default">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <h3 class="text-3xl md:text-5xl font-light group-hover:pl-4 transition-all duration-300">Urban Development</h3>
+                        <p class="mt-4 md:mt-0 text-gray-500 max-w-sm">Sustainable master planning for modern communities and cities.</p>
+                        <span class="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 md:px-12 bg-brand-black">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div>
+                <span class="text-xs font-bold tracking-widest uppercase text-gray-500 block mb-8">04 / Start a Project</span>
+                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8">LET'S BUILD<br>TOGETHER.</h2>
+                <p class="text-gray-400 mb-8 max-w-md">
+                    Ready to bring your vision to life? Contact us for a consultation regarding your next architectural endeavor.
+                </p>
+                <div class="space-y-4 text-lg">
+                    <p><a href="mailto:hello@company.com" class="hover:text-white text-gray-300 transition-colors">hello@{{COMPANY_NAME}}.com</a></p>
+                    <p class="text-gray-300">+1 (555) 000-0000</p>
+                    <p class="text-gray-500">123 Design District, Suite 400<br>Metropolis, NY 10012</p>
+                </div>
+            </div>
+
+            <form class="space-y-6 pt-12">
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Name</label>
+                    <input type="text" class="w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-white transition-colors" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Email</label>
+                    <input type="email" class="w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-white transition-colors" placeholder="john@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Project Details</label>
+                    <textarea rows="4" class="w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-white transition-colors" placeholder="Tell us about your vision..."></textarea>
+                </div>
+                <button type="button" class="mt-8 px-10 py-4 border border-white text-white uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all duration-300">
+                    Send Inquiry
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 md:px-12 border-t border-white/10 bg-brand-black">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 uppercase tracking-widest">
+            <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                <a href="#" class="hover:text-white transition-colors">Behance</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
+</body>
+</html>
