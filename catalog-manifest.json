@@ -9,10 +9,24 @@
     },
     {
       "id": "002",
+      "name": "Cozy Retro Cafe",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_002_cafe_retro"
+    },
+    {
+      "id": "003",
+      "name": "Retro Cafe",
+      "category": "Food & Beverage",
+      "style": "Retro",
+      "path": "catalog/template_003_retro_cafe"
+    },
+    {
+      "id": "004",
       "name": "Medical Trust",
       "category": "Medical",
       "style": "Clean",
-      "path": "catalog/template_002_medical_clean"
+      "path": "catalog/template_004_medical_clean"
     }
   ]
 }

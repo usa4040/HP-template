@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Retro Cafe - {{COMPANY_NAME}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'retro-cream': '#fdfbf7',
+                        'retro-brown': '#4a403a',
+                        'retro-accent': '#c17c74',
+                        'retro-secondary': '#8c8070',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+    </style>
+</head>
+<body class="bg-retro-cream text-retro-brown font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="py-6 px-8 max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center border-b-2 border-retro-brown/10">
+        <div class="mb-4 md:mb-0">
+            <a href="#" class="text-3xl font-serif font-bold tracking-wide">{{COMPANY_NAME}}</a>
+        </div>
+        <div class="flex space-x-8 text-sm uppercase tracking-widest font-bold text-retro-secondary">
+            <a href="#about" class="hover:text-retro-accent transition-colors duration-300">About</a>
+            <a href="#menu" class="hover:text-retro-accent transition-colors duration-300">Menu</a>
+            <a href="#access" class="hover:text-retro-accent transition-colors duration-300">Access</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative py-24 md:py-32 px-8 text-center max-w-6xl mx-auto">
+        <div class="absolute inset-0 opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper.png')]"></div>
+        <div class="relative z-10">
+            <p class="text-retro-accent font-serif italic text-xl mb-4">Since 1985</p>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
+                Taste the Nostalgia<br>
+                <span class="text-3xl md:text-5xl font-normal text-retro-secondary">in every cup.</span>
+            </h1>
+            <p class="text-retro-brown/80 max-w-2xl mx-auto leading-relaxed mb-10 font-serif text-lg">
+                Relax in a warm atmosphere where time slows down. Enjoy our hand-dripped coffee and homemade pastries made with love.
+            </p>
+            <a href="#menu" class="inline-block border-2 border-retro-brown text-retro-brown hover:bg-retro-brown hover:text-retro-cream px-8 py-3 uppercase tracking-widest text-sm font-bold transition-all duration-300">
+                View Menu
+            </a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white py-20 px-8">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/2">
+                <div class="aspect-[4/3] bg-retro-secondary/20 rounded-lg overflow-hidden relative">
+                     <!-- Placeholder for an image -->
+                     <div class="absolute inset-0 flex items-center justify-center text-retro-brown/40 font-serif italic">
+                        [Atmosphere Image]
+                     </div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="text-3xl font-serif font-bold mb-6 text-retro-brown">Our Story</h2>
+                <p class="text-retro-secondary leading-relaxed mb-6">
+                    {{COMPANY_NAME}} was founded with a simple mission: to bring back the charm of the old days. We believe in quality over quantity, silence over noise, and connection over distraction.
+                </p>
+                <p class="text-retro-secondary leading-relaxed">
+                    Every piece of furniture in our cafe has a story, just like every customer who walks through our doors. Come sit with us, read a book, and enjoy the finest coffee in town.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 px-8 max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-serif font-bold text-retro-brown relative inline-block">
+                Menu
+                <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-retro-accent"></span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Coffee Column -->
+            <div>
+                <h3 class="text-xl font-serif font-bold mb-8 text-center text-retro-secondary uppercase tracking-widest">Coffee</h3>
+                <div class="space-y-6">
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">House Blend</span>
+                        <span class="text-retro-accent font-serif italic">$4.50</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Espresso</span>
+                        <span class="text-retro-accent font-serif italic">$3.00</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Cappuccino</span>
+                        <span class="text-retro-accent font-serif italic">$4.80</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Caramel Macchiato</span>
+                        <span class="text-retro-accent font-serif italic">$5.20</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sweets Column -->
+            <div>
+                <h3 class="text-xl font-serif font-bold mb-8 text-center text-retro-secondary uppercase tracking-widest">Sweets</h3>
+                <div class="space-y-6">
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Classic Cheesecake</span>
+                        <span class="text-retro-accent font-serif italic">$6.00</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Chocolate Tart</span>
+                        <span class="text-retro-accent font-serif italic">$5.50</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Homemade Pudding</span>
+                        <span class="text-retro-accent font-serif italic">$4.50</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
+                        <span class="font-bold text-retro-brown">Scone & Jam</span>
+                        <span class="text-retro-accent font-serif italic">$3.80</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access Section -->
+    <section id="access" class="bg-retro-brown text-retro-cream py-20 px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-serif font-bold mb-10">Visit Us</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-12 text-left">
+                <div class="flex-1">
+                    <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Address</h4>
+                    <p class="leading-relaxed opacity-80">
+                        123 Nostalgia Lane,<br>
+                        Old Town District,<br>
+                        Cityville, ST 12345
+                    </p>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Hours</h4>
+                    <ul class="space-y-2 opacity-80">
+                        <li class="flex justify-between"><span>Mon - Fri:</span> <span>8:00 AM - 8:00 PM</span></li>
+                        <li class="flex justify-between"><span>Sat - Sun:</span> <span>9:00 AM - 9:00 PM</span></li>
+                    </ul>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Contact</h4>
+                    <p class="leading-relaxed opacity-80">
+                        Phone: (555) 123-4567<br>
+                        Email: hello@{{COMPANY_NAME}}.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-retro-cream py-8 text-center text-sm text-retro-secondary">
+        <p>&copy; 2026 {{COMPANY_NAME}}. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
