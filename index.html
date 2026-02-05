@@ -14,8 +14,8 @@
 
     <header class="bg-white border-b border-gray-200 py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl font-extrabold text-indigo-600 mb-2">HP Template Catalog</h1>
-            <p class="text-gray-500">Julesが生成した高品質なテンプレート一覧</p>
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-2">HP Template Catalog Gallery</h1>
+            <p class="text-gray-500">Julesが生成した高品質なテンプレートのコレクション</p>
         </div>
     </header>
 
@@ -34,18 +34,31 @@
 
                 data.templates.forEach(template => {
                     const card = document.createElement('div');
-                    card.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300";
+                    card.className = "bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md transition-shadow duration-300";
                     
                     const indexPath = `${template.path}/index.html`;
+                    const tagsHtml = (template.tags || []).map(tag => 
+                        `<span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">${tag}</span>`
+                    ).join(' ');
                     
                     card.innerHTML = `
-                        <div class="p-6">
+                        <div class="p-6 flex-grow">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-bold text-indigo-500 uppercase tracking-wider bg-indigo-50 px-2 py-1 rounded">ID: ${template.id}</span>
                                 <span class="text-xs font-medium text-gray-400 italic">${template.style}</span>
                             </div>
-                            <h2 class="text-xl font-bold text-gray-800 mb-2">${template.name}</h2>
-                            <p class="text-sm text-gray-600 mb-6 font-medium">Category: ${template.category}</p>
+                            <h2 class="text-xl font-bold text-gray-800 mb-1">${template.name}</h2>
+                            <p class="text-xs text-gray-400 mb-3 font-semibold uppercase tracking-tight">${template.category}</p>
+                            
+                            <p class="text-sm text-gray-600 mb-4 leading-relaxed line-clamp-2">
+                                ${template.description || 'No description available.'}
+                            </p>
+                            
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                ${tagsHtml}
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 mt-auto">
                             <a href="${indexPath}" target="_blank" class="block w-full text-center bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
                                 プレビューを開く
                             </a>
