@@ -168,6 +168,19 @@
         "Neon",
         "Bold"
       ]
+    },
+    {
+      "id": "014",
+      "name": "Justice Partners",
+      "category": "Legal",
+      "style": "Trustworthy",
+      "path": "catalog/template_014_legal_trust",
+      "description": "Reliable legal corporate theme",
+      "tags": [
+        "Professional",
+        "Navy",
+        "Serif"
+      ]
     }
   ]
 }
