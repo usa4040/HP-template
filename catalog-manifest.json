@@ -9,10 +9,52 @@
     },
     {
       "id": "002",
-      "name": "Cafe Retro",
+      "name": "Cozy Retro Cafe",
       "category": "Cafe",
       "style": "Retro",
       "path": "catalog/template_002_cafe_retro"
+    },
+    {
+      "id": "003",
+      "name": "Retro Cafe",
+      "category": "Food & Beverage",
+      "style": "Retro",
+      "path": "catalog/template_003_retro_cafe"
+    },
+    {
+      "id": "004",
+      "name": "Medical Trust",
+      "category": "Medical",
+      "style": "Clean",
+      "path": "catalog/template_004_medical_clean"
+    },
+    {
+      "id": "005",
+      "name": "Nostalgic Brew",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_005_nostalgic_brew"
+    },
+    {
+      "id": "006",
+      "name": "Beauty Salon Elegant",
+      "category": "Beauty",
+      "style": "Elegant",
+      "path": "catalog/template_006_beauty_elegant"
+    },
+    {
+      "id": "007",
+      "name": "Cafe Retro",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_007_cafe_retro"
+    },
+    {
+      "id": "008",
+      "name": "Cafe Retro",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_008_cafe_retro"
     }
   ]
 }

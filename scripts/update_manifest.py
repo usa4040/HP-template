@@ -2,8 +2,7 @@ import json
 import os
 import sys
 
-# Use relative path or absolute path based on current working directory
-MANIFEST_PATH = os.path.join(os.getcwd(), "catalog-manifest.json")
+MANIFEST_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "catalog-manifest.json")
 
 def update_manifest(template_id, name, category, style, path):
     if not os.path.exists(MANIFEST_PATH):
