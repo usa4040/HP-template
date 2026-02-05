@@ -9,10 +9,17 @@
     },
     {
       "id": "002",
+      "name": "Cozy Retro Cafe",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_002_cafe_retro"
+    },
+    {
+      "id": "003",
       "name": "Retro Cafe",
       "category": "Food & Beverage",
       "style": "Retro",
-      "path": "catalog/template_002_cafe_retro"
+      "path": "catalog/template_003_retro_cafe"
     }
   ]
 }
