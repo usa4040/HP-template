@@ -6,6 +6,13 @@
       "category": "Technology",
       "style": "Minimal",
       "path": "catalog/template_001_tech_minimal"
+    },
+    {
+      "id": "002",
+      "name": "Cafe Retro",
+      "category": "Cafe",
+      "style": "Retro",
+      "path": "catalog/template_002_cafe_retro/index.html"
     }
   ]
 }
