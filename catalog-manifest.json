@@ -6,6 +6,13 @@
       "category": "Technology",
       "style": "Minimal",
       "path": "catalog/template_001_tech_minimal"
+    },
+    {
+      "id": "002",
+      "name": "Beauty Salon Elegant",
+      "category": "Beauty",
+      "style": "Elegant",
+      "path": "catalog/template_002_beauty_elegant"
     }
   ]
 }
