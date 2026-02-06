@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Global Logistics Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a', // slate-900
+                        accent: '#f59e0b', // amber-500
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-700 antialiased bg-slate-50">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-primary/95 backdrop-blur shadow-lg border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <i class="fa-solid fa-cube text-accent text-2xl"></i>
+                    <span class="font-display font-bold text-2xl text-white tracking-wider">{{COMPANY_NAME}}</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-gray-300 hover:text-accent transition-colors font-medium">Services</a>
+                    <a href="#about" class="text-gray-300 hover:text-accent transition-colors font-medium">About</a>
+                    <a href="#tracking" class="text-gray-300 hover:text-accent transition-colors font-medium">Tracking</a>
+                    <a href="#contact" class="px-6 py-2 bg-accent text-primary font-bold rounded hover:bg-yellow-400 transition-colors uppercase tracking-wide text-sm">Get Quote</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#services" class="block px-3 py-2 text-gray-300 hover:text-accent font-medium">Services</a>
+                <a href="#about" class="block px-3 py-2 text-gray-300 hover:text-accent font-medium">About</a>
+                <a href="#tracking" class="block px-3 py-2 text-gray-300 hover:text-accent font-medium">Tracking</a>
+                <a href="#contact" class="block px-3 py-2 text-accent font-bold">Get Quote</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center hero-bg">
+        <div class="absolute inset-0 bg-primary/80"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
+            <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 uppercase tracking-tight">
+                Global Logistics <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-300">Redefined</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light">
+                Reliable, efficient, and secure transportation solutions for businesses moving the world forward.
+            </p>
+
+            <!-- Tracking Box -->
+            <div class="bg-white p-2 rounded-lg max-w-xl mx-auto shadow-2xl flex flex-col sm:flex-row gap-2">
+                <div class="flex-grow relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" placeholder="Enter Tracking ID" class="w-full pl-12 pr-4 py-3 rounded text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent">
+                </div>
+                <button class="bg-primary text-white font-bold py-3 px-8 rounded hover:bg-slate-800 transition-colors uppercase tracking-wide">
+                    Track
+                </button>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-white/50 text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-accent py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-primary/10">
+                <div>
+                    <div class="font-display text-4xl font-bold text-primary mb-1">1.2M+</div>
+                    <div class="text-primary/80 font-medium uppercase text-sm tracking-wide">Tons Shipped</div>
+                </div>
+                <div>
+                    <div class="font-display text-4xl font-bold text-primary mb-1">50+</div>
+                    <div class="text-primary/80 font-medium uppercase text-sm tracking-wide">Countries</div>
+                </div>
+                <div>
+                    <div class="font-display text-4xl font-bold text-primary mb-1">300+</div>
+                    <div class="text-primary/80 font-medium uppercase text-sm tracking-wide">Global Partners</div>
+                </div>
+                <div>
+                    <div class="font-display text-4xl font-bold text-primary mb-1">24/7</div>
+                    <div class="text-primary/80 font-medium uppercase text-sm tracking-wide">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-primary mb-4 uppercase">Our Services</h2>
+                <div class="h-1 w-20 bg-accent mx-auto"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Comprehensive logistics solutions tailored to your supply chain needs.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group bg-white p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-transparent hover:border-accent relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-ship text-9xl text-primary"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-primary transition-colors text-primary">
+                            <i class="fa-solid fa-ship text-2xl"></i>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-primary mb-3">Ocean Freight</h3>
+                        <p class="text-gray-600 mb-6">Reliable sea freight services for large scale international shipping. FCL and LCL options available.</p>
+                        <a href="#" class="text-accent font-bold uppercase text-sm tracking-wide hover:text-primary transition-colors flex items-center gap-2">
+                            Learn More <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-white p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-transparent hover:border-accent relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-plane text-9xl text-primary"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-primary transition-colors text-primary">
+                            <i class="fa-solid fa-plane text-2xl"></i>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-primary mb-3">Air Cargo</h3>
+                        <p class="text-gray-600 mb-6">Expedited air transport for time-sensitive deliveries. Global coverage with priority handling.</p>
+                        <a href="#" class="text-accent font-bold uppercase text-sm tracking-wide hover:text-primary transition-colors flex items-center gap-2">
+                            Learn More <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-white p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-transparent hover:border-accent relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-truck-fast text-9xl text-primary"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-primary transition-colors text-primary">
+                            <i class="fa-solid fa-truck-fast text-2xl"></i>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-primary mb-3">Overland</h3>
+                        <p class="text-gray-600 mb-6">Efficient road and rail transport networks connecting major hubs. Door-to-door delivery service.</p>
+                        <a href="#" class="text-accent font-bold uppercase text-sm tracking-wide hover:text-primary transition-colors flex items-center gap-2">
+                            Learn More <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="py-24 bg-primary text-white overflow-hidden relative">
+        <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1590247813693-5541d1c609fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Warehouse" class="rounded-lg shadow-2xl border-4 border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="font-display text-4xl font-bold mb-6 uppercase tracking-wide">Why Choose {{COMPANY_NAME}}?</h2>
+                    <p class="text-gray-400 mb-8 leading-relaxed">We leverage cutting-edge technology and a vast global network to ensure your cargo arrives on time, every time. Our commitment to transparency and reliability sets us apart.</p>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-6 h-6 rounded bg-accent flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-check text-primary text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">Real-Time Tracking</h4>
+                                <p class="text-sm text-gray-400">Monitor your shipment 24/7 with our advanced GPS systems.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-6 h-6 rounded bg-accent flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-check text-primary text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">Secure Warehousing</h4>
+                                <p class="text-sm text-gray-400">State-of-the-art storage facilities with climate control.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-6 h-6 rounded bg-accent flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-check text-primary text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">Customs Expertise</h4>
+                                <p class="text-sm text-gray-400">Seamless navigation of international regulations.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-gray-100">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                <div class="bg-primary p-8 text-center">
+                    <h2 class="font-display text-3xl font-bold text-white uppercase">Request a Quote</h2>
+                    <p class="text-gray-400 mt-2">Get a competitive shipping rate today.</p>
+                </div>
+                <div class="p-8 md:p-12">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Name</label>
+                                <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-accent focus:border-accent p-3" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Company</label>
+                                <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-accent focus:border-accent p-3" placeholder="Acme Inc.">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-accent focus:border-accent p-3" placeholder="john@example.com">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Origin</label>
+                                <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-accent focus:border-accent p-3" placeholder="City, Country">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Destination</label>
+                                <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-accent focus:border-accent p-3" placeholder="City, Country">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Cargo Details</label>
+                            <textarea rows="4" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-accent focus:border-accent p-3" placeholder="Describe your shipment..."></textarea>
+                        </div>
+                        <button type="button" class="w-full bg-accent text-primary font-bold py-4 rounded hover:bg-yellow-400 transition-colors uppercase tracking-widest text-lg">
+                            Send Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-cube text-accent text-xl"></i>
+                        <span class="font-display font-bold text-xl">{{COMPANY_NAME}}</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        Delivering excellence across borders. Your trusted partner in global logistics and supply chain management.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-accent mb-4 uppercase text-sm tracking-wider">Services</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Ocean Freight</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Air Cargo</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Road Transport</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Warehousing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-accent mb-4 uppercase text-sm tracking-wider">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">News</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-accent mb-4 uppercase text-sm tracking-wider">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-accent"></i> +1 (555) 123-4567</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-accent"></i> info@example.com</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-accent"></i> 123 Port Road, Logistics City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-accent transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-accent transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-accent transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

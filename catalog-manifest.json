@@ -285,6 +285,19 @@
         "Dark",
         "Glow"
       ]
+    },
+    {
+      "id": "023",
+      "name": "Atlas Logistics",
+      "category": "Logistics",
+      "style": "Industrial",
+      "path": "catalog/template_023_logistics_industrial",
+      "description": "Global supply chain experts.",
+      "tags": [
+        "Global",
+        "Robust",
+        "Transport"
+      ]
     }
   ]
 }
