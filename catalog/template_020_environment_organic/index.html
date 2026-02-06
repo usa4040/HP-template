@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Sustainable Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Nunito"', 'sans-serif'],
+                        serif: ['"Lora"', 'serif'],
+                    },
+                    colors: {
+                        forest: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        },
+                        sand: {
+                            50: '#faf9f6',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .blob-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+    </style>
+</head>
+<body class="font-sans text-stone-800 bg-sand-50 antialiased selection:bg-forest-200 selection:text-forest-900">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-forest-700 rounded-tr-xl rounded-bl-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    </div>
+                    <span class="font-serif font-bold text-2xl text-forest-900">{{COMPANY_NAME}}</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#mission" class="text-forest-800 hover:text-forest-600 font-semibold transition">Our Mission</a>
+                    <a href="#services" class="text-forest-800 hover:text-forest-600 font-semibold transition">Services</a>
+                    <a href="#impact" class="text-forest-800 hover:text-forest-600 font-semibold transition">Impact</a>
+                    <a href="#contact" class="px-5 py-2.5 bg-forest-700 text-white rounded-full font-semibold hover:bg-forest-800 transition shadow-lg shadow-forest-700/20 transform hover:-translate-y-0.5">Get Involved</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMenu()" class="text-forest-900 focus:outline-none p-2">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#mission" class="block px-3 py-3 rounded-md text-base font-medium text-forest-900 hover:bg-forest-50" onclick="toggleMenu()">Our Mission</a>
+                <a href="#services" class="block px-3 py-3 rounded-md text-base font-medium text-forest-900 hover:bg-forest-50" onclick="toggleMenu()">Services</a>
+                <a href="#impact" class="block px-3 py-3 rounded-md text-base font-medium text-forest-900 hover:bg-forest-50" onclick="toggleMenu()">Impact</a>
+                <a href="#contact" class="block px-3 py-3 rounded-md text-base font-medium text-forest-700 font-bold hover:bg-forest-50" onclick="toggleMenu()">Get Involved</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-fixed"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-forest-900/60 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-forest-900/10"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block py-1 px-4 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold text-sm mb-6 tracking-wide uppercase">Sustainability First</span>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight text-shadow">
+                Nature is Our <br> <span class="text-forest-200">Greatest Asset</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-100 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                {{COMPANY_NAME}} is dedicated to preserving our planet through sustainable practices, eco-friendly innovation, and community action.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#mission" class="px-8 py-4 bg-forest-600 hover:bg-forest-500 text-white rounded-full font-bold text-lg transition shadow-lg shadow-forest-900/40 transform hover:-translate-y-1">
+                    Explore Our Mission
+                </a>
+                <a href="#contact" class="px-8 py-4 bg-white hover:bg-gray-100 text-forest-900 rounded-full font-bold text-lg transition shadow-lg transform hover:-translate-y-1">
+                    Join the Movement
+                </a>
+            </div>
+        </div>
+
+        <!-- Wave Separator -->
+        <div class="absolute bottom-0 w-full leading-none">
+            <svg class="w-full h-12 md:h-24 text-sand-50" viewBox="0 0 1440 320" preserveAspectRatio="none" fill="currentColor">
+                <path fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Mission / About Section -->
+    <section id="mission" class="py-20 md:py-32 bg-sand-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-forest-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb771343?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Nature Close Up" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="font-serif text-forest-700 text-lg font-bold uppercase tracking-wider mb-2">Who We Are</h2>
+                    <h3 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">Cultivating a <span class="text-forest-600 underline decoration-wavy decoration-forest-300">Greener</span> Tomorrow</h3>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe that small actions lead to massive change. Founded on the principles of ecological stewardship and social responsibility, we work tirelessly to implement sustainable solutions for businesses and communities alike.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        Our team of ecologists, engineers, and visionaries is united by a single goal: to leave the world better than we found it. From urban gardening projects to large-scale renewable energy consulting, we are your partners in sustainability.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-forest-100 p-3 rounded-full text-forest-700">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Carbon Neutral</h4>
+                                <p class="text-sm text-gray-500">100% offset operations</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-forest-100 p-3 rounded-full text-forest-700">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Ethical Sourcing</h4>
+                                <p class="text-sm text-gray-500">Fair trade certified</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="font-serif text-forest-700 text-lg font-bold uppercase tracking-wider mb-2">What We Do</h2>
+                <h3 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-4">Holistic Eco-Solutions</h3>
+                <p class="text-gray-600 text-xl">Comprehensive services designed to reduce footprint and maximize impact.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group p-8 rounded-[2rem] bg-sand-50 hover:bg-forest-50 border border-transparent hover:border-forest-100 transition-all duration-300">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-8 text-forest-600 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h4 class="font-serif text-2xl font-bold text-gray-900 mb-4">Renewable Energy</h4>
+                    <p class="text-gray-600 mb-6">Consulting and implementation of solar, wind, and geothermal systems for residential and commercial properties.</p>
+                    <a href="#" class="inline-flex items-center font-bold text-forest-700 hover:text-forest-900 transition">
+                        Learn more <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group p-8 rounded-[2rem] bg-sand-50 hover:bg-forest-50 border border-transparent hover:border-forest-100 transition-all duration-300">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-8 text-forest-600 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h4 class="font-serif text-2xl font-bold text-gray-900 mb-4">Landscape Design</h4>
+                    <p class="text-gray-600 mb-6">Native plant landscaping that supports local biodiversity, requires less water, and creates beautiful natural habitats.</p>
+                    <a href="#" class="inline-flex items-center font-bold text-forest-700 hover:text-forest-900 transition">
+                        Learn more <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group p-8 rounded-[2rem] bg-sand-50 hover:bg-forest-50 border border-transparent hover:border-forest-100 transition-all duration-300">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-8 text-forest-600 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h4 class="font-serif text-2xl font-bold text-gray-900 mb-4">Waste Reduction</h4>
+                    <p class="text-gray-600 mb-6">Strategic planning to minimize waste output, implement circular economy models, and achieve zero-waste certifications.</p>
+                    <a href="#" class="inline-flex items-center font-bold text-forest-700 hover:text-forest-900 transition">
+                        Learn more <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact/Stats Section -->
+    <section id="impact" class="py-20 bg-forest-900 text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-5xl font-serif font-bold text-forest-300 mb-2">10k+</div>
+                    <div class="text-forest-100 font-medium">Trees Planted</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-5xl font-serif font-bold text-forest-300 mb-2">500+</div>
+                    <div class="text-forest-100 font-medium">Projects Completed</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-5xl font-serif font-bold text-forest-300 mb-2">1M</div>
+                    <div class="text-forest-100 font-medium">Tons CO₂ Saved</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-5xl font-serif font-bold text-forest-300 mb-2">50+</div>
+                    <div class="text-forest-100 font-medium">Partner Cities</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="py-20 md:py-32 bg-sand-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-[2.5rem] p-10 md:p-16 shadow-xl border border-sand-100 relative">
+                <div class="absolute top-0 left-0 transform -translate-x-4 -translate-y-4 md:-translate-x-8 md:-translate-y-8">
+                    <div class="text-9xl font-serif text-forest-100 leading-none">"</div>
+                </div>
+
+                <div class="relative z-10 text-center max-w-4xl mx-auto">
+                    <p class="text-2xl md:text-3xl font-serif italic text-gray-700 leading-normal mb-10">
+                        {{COMPANY_NAME}} transformed our corporate campus into a thriving ecosystem. Not only did we reduce our energy costs by 40%, but employee well-being has noticeably improved. They are true visionaries in the field of sustainability.
+                    </p>
+                    <div class="flex items-center justify-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Client" class="w-16 h-16 rounded-full object-cover ring-4 ring-forest-50">
+                        <div class="text-left">
+                            <div class="font-bold text-gray-900 text-lg">Sarah Jenkins</div>
+                            <div class="text-forest-600 font-medium">CEO, TechGreen Solutions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="relative py-24 bg-forest-800 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Forest Background" class="w-full h-full object-cover opacity-20">
+        </div>
+        <div class="relative z-10 max-w-3xl mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Ready to Make an Impact?</h2>
+            <p class="text-xl text-forest-100 mb-10">
+                Join hundreds of other organizations committing to a sustainable future. Let's discuss how we can help you achieve your green goals.
+            </p>
+            <form class="max-w-md mx-auto bg-white p-2 rounded-full shadow-2xl flex flex-col sm:flex-row">
+                <input type="email" placeholder="Enter your email address" class="flex-grow px-6 py-3 rounded-full text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-forest-500 border-none bg-transparent">
+                <button type="submit" class="mt-2 sm:mt-0 px-8 py-3 bg-forest-600 text-white font-bold rounded-full hover:bg-forest-700 transition duration-300">
+                    Get Started
+                </button>
+            </form>
+            <p class="mt-4 text-sm text-forest-200 opacity-80">No spam, just green news. Unsubscribe anytime.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-forest-950 text-forest-100 pt-20 pb-10 border-t border-forest-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-forest-700 rounded-tr-xl rounded-bl-xl flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        </div>
+                        <span class="font-serif font-bold text-2xl text-white">{{COMPANY_NAME}}</span>
+                    </div>
+                    <p class="text-forest-300 leading-relaxed mb-6">
+                        Pioneering sustainable solutions for a planet in need. We combine nature's wisdom with modern innovation.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-forest-400 hover:text-white transition"><span class="sr-only">Facebook</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg></a>
+                        <a href="#" class="text-forest-400 hover:text-white transition"><span class="sr-only">Twitter</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path></svg></a>
+                        <a href="#" class="text-forest-400 hover:text-white transition"><span class="sr-only">Instagram</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect></svg></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Services</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="hover:text-white transition">Eco-Consulting</a></li>
+                        <li><a href="#" class="hover:text-white transition">Landscape Design</a></li>
+                        <li><a href="#" class="hover:text-white transition">Renewable Energy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Waste Management</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Company</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#mission" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Contact</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-forest-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span>123 Green Way, Eco City,<br>Earth 90210</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-6 h-6 text-forest-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span>hello@{{COMPANY_NAME}}.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-forest-900 pt-8 text-center text-forest-400 text-sm">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved. Designed for a better future.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('bg-white/90', 'bg-white/95');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('bg-white/95', 'bg-white/90');
+            }
+        });
+    </script>
+</body>
+</html>
