@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Early Learning Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:wght@300..800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        display: ['Fredoka', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            yellow: '#FEF9C3', // yellow-100
+                            orange: '#FB923C', // orange-400
+                            blue: '#3B82F6',   // blue-500
+                            green: '#4ADE80',  // green-400
+                            pink: '#F472B6',   // pink-400
+                        }
+                    },
+                    animation: {
+                        blob: "blob 7s infinite",
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": {
+                                transform: "translate(0px, 0px) scale(1)",
+                            },
+                            "33%": {
+                                transform: "translate(30px, -50px) scale(1.1)",
+                            },
+                            "66%": {
+                                transform: "translate(-20px, 20px) scale(0.9)",
+                            },
+                            "100%": {
+                                transform: "translate(0px, 0px) scale(1)",
+                            },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .blob-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-700 bg-brand-yellow/30 antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b-4 border-brand-orange">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white font-display font-bold text-xl">B</div>
+                    <span class="font-display font-bold text-2xl text-gray-800 tracking-wide">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="font-display font-medium text-lg text-gray-600 hover:text-brand-blue transition">Home</a>
+                    <a href="#about" class="font-display font-medium text-lg text-gray-600 hover:text-brand-blue transition">About Us</a>
+                    <a href="#programs" class="font-display font-medium text-lg text-gray-600 hover:text-brand-blue transition">Programs</a>
+                    <a href="#contact" class="px-6 py-2 bg-brand-orange text-white font-display font-bold rounded-full shadow-md hover:bg-orange-500 hover:scale-105 transition transform">Enroll Now</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-blue focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" class="block px-3 py-3 rounded-xl text-lg font-display font-medium text-gray-700 hover:bg-brand-yellow hover:text-brand-orange">Home</a>
+                <a href="#about" class="block px-3 py-3 rounded-xl text-lg font-display font-medium text-gray-700 hover:bg-brand-yellow hover:text-brand-orange">About Us</a>
+                <a href="#programs" class="block px-3 py-3 rounded-xl text-lg font-display font-medium text-gray-700 hover:bg-brand-yellow hover:text-brand-orange">Programs</a>
+                <a href="#contact" class="block px-3 py-3 rounded-xl text-lg font-display font-bold text-brand-blue hover:bg-blue-50">Enroll Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-12 pb-20 lg:pt-24 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left mb-12 lg:mb-0">
+                    <span class="inline-block py-1 px-4 rounded-full bg-brand-green/20 text-green-700 font-display font-bold text-sm mb-6 tracking-wide uppercase">Admissions Open 2024</span>
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold text-gray-900 leading-tight mb-6">
+                        Where <span class="text-brand-blue">Learning</span> Meets <span class="text-brand-orange">Fun!</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 font-medium">
+                        At {{COMPANY_NAME}}, we nurture curiosity and creativity in a safe, colorful environment designed for your little one's growth.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <a href="#contact" class="px-8 py-4 bg-brand-blue text-white font-display font-bold text-xl rounded-full shadow-lg hover:bg-blue-600 hover:-translate-y-1 transition transform">
+                            Book a Tour
+                        </a>
+                        <a href="#about" class="px-8 py-4 bg-white text-brand-blue border-2 border-brand-blue font-display font-bold text-xl rounded-full hover:bg-blue-50 transition">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <!-- Decorative blobs -->
+                    <div class="absolute top-0 right-0 w-72 h-72 bg-brand-yellow rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                    <div class="absolute bottom-0 left-0 w-72 h-72 bg-brand-pink rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+
+                    <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Happy children playing" class="relative rounded-[3rem] shadow-2xl border-8 border-white transform rotate-2 hover:rotate-0 transition duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="about" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4">Why Parents Love Us</h2>
+                <p class="text-xl text-gray-500 max-w-2xl mx-auto">We provide more than just care; we provide a foundation for a lifetime of learning.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-brand-yellow/20 p-8 rounded-3xl border-2 border-brand-yellow hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-brand-yellow rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm">
+                        🛡️
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-3">Safe Environment</h3>
+                    <p class="text-gray-600 leading-relaxed">Top-tier security and child-proof facilities ensure your peace of mind while your child explores freely.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-brand-blue/10 p-8 rounded-3xl border-2 border-brand-blue hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-brand-blue rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm text-white">
+                        🎓
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-3">Expert Teachers</h3>
+                    <p class="text-gray-600 leading-relaxed">Our certified educators are passionate about early childhood development and personalized care.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-brand-green/20 p-8 rounded-3xl border-2 border-brand-green hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-brand-green rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm text-white">
+                        🎨
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-3">Creative Play</h3>
+                    <p class="text-gray-600 leading-relaxed">A curriculum balanced with art, music, and outdoor activities to spark imagination and social skills.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="py-20 bg-brand-yellow/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4">Our Programs</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Tailored learning experiences for every stage of growth.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Program 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 transition duration-300">
+                    <div class="h-48 bg-gray-200 overflow-hidden">
+                         <img src="https://images.unsplash.com/photo-1555447405-058428d1deef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Toddlers" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-sm font-bold bg-brand-pink text-white px-3 py-1 rounded-full">1.5 - 3 Years</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold text-gray-900 mb-2">Toddlers</h3>
+                        <p class="text-gray-600 mb-6">Sensory play, basic motor skills, and social interaction in a nurturing setting.</p>
+                        <a href="#" class="text-brand-blue font-bold hover:underline">Read details &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Program 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 transition duration-300">
+                    <div class="h-48 bg-gray-200 overflow-hidden">
+                         <img src="https://images.unsplash.com/photo-1506093483035-15a021d52726?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Preschool" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-sm font-bold bg-brand-orange text-white px-3 py-1 rounded-full">3 - 4 Years</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold text-gray-900 mb-2">Preschool</h3>
+                        <p class="text-gray-600 mb-6">Introduction to letters, numbers, and collaborative projects to build confidence.</p>
+                        <a href="#" class="text-brand-blue font-bold hover:underline">Read details &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Program 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 transition duration-300">
+                    <div class="h-48 bg-gray-200 overflow-hidden">
+                         <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Kindergarten" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-sm font-bold bg-brand-green text-white px-3 py-1 rounded-full">4 - 6 Years</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold text-gray-900 mb-2">Kindergarten</h3>
+                        <p class="text-gray-600 mb-6">School readiness program focusing on reading, logic, and creative problem solving.</p>
+                        <a href="#" class="text-brand-blue font-bold hover:underline">Read details &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-display font-bold text-center text-gray-900 mb-16">Happy Families</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-gray-50 p-8 rounded-3xl relative">
+                    <div class="text-brand-orange text-6xl font-serif absolute -top-6 left-8">"</div>
+                    <p class="text-lg text-gray-700 italic mb-6 relative z-10 pt-4">
+                        {{COMPANY_NAME}} has been a blessing for our family. Our daughter comes home singing new songs and excited to go back every single day. The teachers are simply wonderful.
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Parent" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900">Sarah Jenkins</p>
+                            <p class="text-sm text-gray-500">Mother of Emma (4)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-3xl relative">
+                    <div class="text-brand-orange text-6xl font-serif absolute -top-6 left-8">"</div>
+                    <p class="text-lg text-gray-700 italic mb-6 relative z-10 pt-4">
+                        The facility is so bright and clean. I felt comfortable leaving my son here from day one. The communication from the staff is excellent. Highly recommended!
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Parent" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900">Michael Ross</p>
+                            <p class="text-sm text-gray-500">Father of Leo (2)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="contact" class="py-20 bg-brand-blue relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-brand-green rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <h2 class="text-4xl lg:text-5xl font-display font-bold text-white mb-6">Start Your Child's Journey Today</h2>
+            <p class="text-xl text-blue-100 mb-10">Limited spots available for the upcoming term. Schedule a visit to see our campus.</p>
+
+            <form class="bg-white rounded-3xl p-8 shadow-2xl max-w-lg mx-auto text-left">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" for="parent-name">Parent's Name</label>
+                    <input class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent" id="parent-name" type="text" placeholder="John Doe">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" for="email">Email Address</label>
+                    <input class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent" id="email" type="email" placeholder="john@example.com">
+                </div>
+                <button class="w-full py-4 bg-brand-orange text-white font-display font-bold text-xl rounded-xl shadow-lg hover:bg-orange-500 transition transform hover:-translate-y-1">
+                    Request Info
+                </button>
+                <p class="text-center text-xs text-gray-400 mt-4">We respect your privacy.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 border-t-8 border-brand-yellow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center text-white font-display font-bold">B</div>
+                        <span class="font-display font-bold text-2xl">{{COMPANY_NAME}}</span>
+                    </div>
+                    <p class="text-gray-400 max-w-sm">Providing a joyful and safe learning environment where every child can bloom. Join our community today.</p>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-xl mb-4 text-brand-yellow">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#programs" class="hover:text-white transition">Programs</a></li>
+                        <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-xl mb-4 text-brand-green">Contact Us</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>123 Education Lane</li>
+                        <li>Cityville, ST 12345</li>
+                        <li>(555) 123-4567</li>
+                        <li>hello@example.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
