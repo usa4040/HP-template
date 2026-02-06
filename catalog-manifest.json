@@ -194,6 +194,19 @@
         "Monochrome",
         "Bold"
       ]
+    },
+    {
+      "id": "016",
+      "name": "Bold Agency",
+      "category": "Agency",
+      "style": "Brutalist",
+      "path": "catalog/template_016_agency_brutalist",
+      "description": "Bold neo-brutalist style.",
+      "tags": [
+        "Bold",
+        "Trendy",
+        "High-Contrast"
+      ]
     }
   ]
 }
