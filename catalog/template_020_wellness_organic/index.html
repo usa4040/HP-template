@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Wellness & Spa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#F7F9F8',
+                            100: '#E8EFEC',
+                            200: '#D1DDD6',
+                            300: '#B4C6BC',
+                            400: '#96AEA0',
+                            500: '#7C9082', // Primary
+                            600: '#627368',
+                            700: '#4A584F',
+                            800: '#353F39',
+                            900: '#222925',
+                        },
+                        sand: {
+                            50: '#FDFBF7',
+                            100: '#F9F6F0',
+                            200: '#EBE5D9',
+                            800: '#5C5446',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .blob-shape {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            animation: blob-bounce 10s infinite ease-in-out;
+        }
+        @keyframes blob-bounce {
+            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="bg-sand-50 text-sage-900 font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-sand-50/90 backdrop-blur-md shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-serif text-3xl text-sage-800 tracking-wide font-semibold">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-sage-700 hover:text-sage-500 transition-colors uppercase tracking-widest text-xs font-semibold">Home</a>
+                    <a href="#about" class="text-sage-700 hover:text-sage-500 transition-colors uppercase tracking-widest text-xs font-semibold">About</a>
+                    <a href="#services" class="text-sage-700 hover:text-sage-500 transition-colors uppercase tracking-widest text-xs font-semibold">Services</a>
+                    <a href="#contact" class="px-6 py-2 bg-sage-500 text-white rounded-full hover:bg-sage-600 transition-colors uppercase tracking-widest text-xs font-semibold shadow-md">Book Now</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-sage-800 hover:text-sage-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-sand-50 border-t border-sage-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#home" class="block px-3 py-2 text-sage-700 hover:text-sage-500 font-serif text-lg">Home</a>
+                <a href="#about" class="block px-3 py-2 text-sage-700 hover:text-sage-500 font-serif text-lg">About</a>
+                <a href="#services" class="block px-3 py-2 text-sage-700 hover:text-sage-500 font-serif text-lg">Services</a>
+                <a href="#contact" class="block px-3 py-2 text-sage-500 font-semibold font-serif text-lg">Book Appointment</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-fixed"></div>
+        <div class="absolute inset-0 bg-sage-900/30"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" data-aos="fade-up">
+            <span class="block text-white uppercase tracking-[0.3em] text-sm mb-4 font-semibold text-shadow">Natural Wellness</span>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white mb-8 leading-tight text-shadow">
+                Restore Your <br/> <span class="italic">Natural Balance</span>
+            </h1>
+            <p class="text-white/90 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto">
+                Escape the ordinary and immerse yourself in a sanctuary of tranquility.
+                Experience treatments designed to harmonize body, mind, and spirit.
+            </p>
+            <a href="#services" class="inline-block px-10 py-4 bg-white/90 text-sage-900 font-serif text-lg hover:bg-white transition-all duration-300 rounded-sm shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                Explore Treatments
+            </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-sand-50 relative overflow-hidden">
+        <!-- Decorative organic background blob -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-sage-100 rounded-full opacity-50 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-sand-200 rounded-full opacity-50 blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="relative z-10 rounded-[2rem] overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Relaxing Spa Atmosphere" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <!-- Overlapping decorative image -->
+                    <div class="absolute -bottom-10 -right-10 w-48 h-48 z-20 hidden lg:block rounded-[2rem] overflow-hidden border-4 border-sand-50 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Massage Details" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <div class="text-center md:text-left">
+                    <span class="text-sage-500 font-bold tracking-widest uppercase text-xs mb-2 block">Our Philosophy</span>
+                    <h2 class="font-serif text-4xl md:text-5xl text-sage-800 mb-6 leading-tight">
+                        Harmony Through <br/> <span class="text-sage-500 italic">Nature</span>
+                    </h2>
+                    <p class="text-sage-700 mb-6 leading-relaxed font-light">
+                        At {{COMPANY_NAME}}, we believe in the healing power of nature. Our treatments utilize only the finest organic ingredients, ethically sourced and carefully blended to provide profound relaxation and rejuvenation.
+                    </p>
+                    <p class="text-sage-700 mb-8 leading-relaxed font-light">
+                        Every detail of our space is curated to silence the noise of the outside world, allowing you to reconnect with your inner self in a space of pure serenity.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-8 justify-center md:justify-start mt-8">
+                        <div class="text-center md:text-left">
+                            <span class="block font-serif text-4xl text-sage-600 mb-1">10+</span>
+                            <span class="text-xs uppercase tracking-widest text-sage-800">Years Experience</span>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <span class="block font-serif text-4xl text-sage-600 mb-1">100%</span>
+                            <span class="text-xs uppercase tracking-widest text-sage-800">Organic Products</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-sage-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sage-500 font-bold tracking-widest uppercase text-xs mb-2 block">Our Menu</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-sage-800 mb-6">Curated Treatments</h2>
+                <div class="w-24 h-1 bg-sage-300 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Therapeutic Massage" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="font-serif text-2xl text-sage-800 mb-3">Holistic Massage</h3>
+                        <p class="text-sage-600 font-light text-sm mb-6 leading-relaxed">
+                            A customized blend of Swedish and Deep Tissue techniques using warm organic oils to melt away tension.
+                        </p>
+                        <a href="#contact" class="inline-block text-sage-500 hover:text-sage-700 uppercase text-xs font-bold tracking-widest border-b border-sage-300 hover:border-sage-500 pb-1 transition-colors">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Organic Facial" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="font-serif text-2xl text-sage-800 mb-3">Radiance Facial</h3>
+                        <p class="text-sage-600 font-light text-sm mb-6 leading-relaxed">
+                            Revitalize your skin with nutrient-rich botanicals. Includes deep cleansing, exfoliation, and a hydrating mask.
+                        </p>
+                        <a href="#contact" class="inline-block text-sage-500 hover:text-sage-700 uppercase text-xs font-bold tracking-widest border-b border-sage-300 hover:border-sage-500 pb-1 transition-colors">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1591343395082-e120087004b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Hydrotherapy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="font-serif text-2xl text-sage-800 mb-3">Hydrotherapy</h3>
+                        <p class="text-sage-600 font-light text-sm mb-6 leading-relaxed">
+                            Immerse yourself in mineral-rich waters. A therapeutic soak designed to detoxify and soothe aching muscles.
+                        </p>
+                        <a href="#contact" class="inline-block text-sage-500 hover:text-sage-700 uppercase text-xs font-bold tracking-widest border-b border-sage-300 hover:border-sage-500 pb-1 transition-colors">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials (Parallax Background) -->
+    <section class="relative py-32 bg-fixed bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+        <div class="absolute inset-0 bg-sage-900/60 backdrop-blur-sm"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <svg class="w-12 h-12 text-white/50 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19C19.5523 16 20 15.5523 20 15V9C20 8.44772 19.5523 8 19 8H15C14.4477 8 14 8.44772 14 9V11C14 11.5523 13.5523 12 13 12H12V8H14.017C14.017 6.89543 14.9124 6 16.017 6H19C20.6569 6 22 7.34315 22 9V15C22 16.6569 20.6569 18 19 18H16.017C14.9124 18 14.017 18.8954 14.017 20V21H14.017ZM8 21L8 18C8 16.8954 8.89543 16 10 16H13C13.5523 16 14 15.5523 14 15V9C14 8.44772 13.5523 8 13 8H9C8.44772 8 8 8.44772 8 9V11C8 11.5523 7.55228 12 7 12H6V8H8C8 6.89543 8.89543 6 10 6H13C14.6569 6 16 7.34315 16 9V15C16 16.6569 14.6569 18 13 18H10C8.89543 18 8 18.8954 8 20V21H8Z" />
+            </svg>
+            <blockquote class="font-serif text-3xl md:text-4xl text-white italic leading-relaxed mb-8">
+                "An absolute oasis of calm. From the moment I stepped in, I felt the weight of the world lift off my shoulders. Truly a magical experience."
+            </blockquote>
+            <cite class="text-white/80 uppercase tracking-widest font-semibold not-italic block">- Sarah Jenkins, Verified Client</cite>
+        </div>
+    </section>
+
+    <!-- Contact / Booking -->
+    <section id="contact" class="py-24 bg-sand-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+                <div class="md:w-1/2 bg-sage-500 p-12 text-white flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#FFFFFF" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-5.1C93.5,9,82.3,22.4,70.9,33.5C59.5,44.6,48,53.5,36,60.6C24,67.7,11.5,73.1,-1.8,76.2C-15.1,79.4,-27.2,80.3,-38.3,75.1C-49.4,69.9,-59.5,58.6,-68.2,46.3C-76.9,34,-84.2,20.7,-85.4,6.7C-86.7,-7.3,-81.9,-22,-73.2,-34.2C-64.5,-46.4,-51.9,-56.1,-38.8,-63.8C-25.7,-71.5,-12.1,-77.2,0.8,-78.6C13.7,-80,27.4,-77.1,44.7,-76.4Z" transform="translate(100 100)" />
+                        </svg>
+                    </div>
+                    <div class="relative z-10">
+                        <h3 class="font-serif text-3xl mb-4">Visit Us</h3>
+                        <p class="font-light mb-8 opacity-90">Ready to begin your journey to wellness? Book your appointment today.</p>
+
+                        <div class="space-y-4 font-light text-sm">
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <span>123 Serenity Lane, Wellness Valley, CA 90210</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                <span>+1 (555) 123-4567</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                <span>contact@{{COMPANY_NAME_SLUG}}.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 p-12">
+                    <form onsubmit="event.preventDefault(); alert('Thank you for your request. We will contact you shortly.');">
+                        <div class="mb-6">
+                            <label class="block text-sage-600 text-xs font-bold uppercase tracking-widest mb-2" for="name">Name</label>
+                            <input class="appearance-none block w-full bg-sand-50 text-sage-700 border border-sage-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-sage-500 transition-colors" id="name" type="text" placeholder="Jane Doe">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sage-600 text-xs font-bold uppercase tracking-widest mb-2" for="email">Email</label>
+                            <input class="appearance-none block w-full bg-sand-50 text-sage-700 border border-sage-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-sage-500 transition-colors" id="email" type="email" placeholder="jane@example.com">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sage-600 text-xs font-bold uppercase tracking-widest mb-2" for="message">Message</label>
+                            <textarea class="appearance-none block w-full bg-sand-50 text-sage-700 border border-sage-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-sage-500 transition-colors h-32" id="message" placeholder="I would like to book a..."></textarea>
+                        </div>
+                        <button class="w-full bg-sage-800 hover:bg-sage-900 text-white font-serif font-bold py-3 px-4 rounded shadow hover:shadow-lg transition-all transform hover:-translate-y-0.5" type="submit">
+                            Send Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-sage-900 text-white py-12 border-t border-sage-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <h2 class="font-serif text-2xl mb-4">{{COMPANY_NAME}}</h2>
+                    <p class="text-sage-300 font-light text-sm max-w-sm">
+                        A sanctuary for the senses. Dedicated to holistic wellness and organic treatments that restore your natural balance.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest font-bold text-sage-400 mb-4">Navigation</h4>
+                    <ul class="space-y-2 text-sm text-sage-300">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest font-bold text-sage-400 mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm text-sage-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Facebook</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-sage-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-sage-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a href="#" class="hover:text-sage-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-sage-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Sticky Navbar Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md', 'bg-sand-50/95');
+                navbar.classList.remove('bg-sand-50/0'); // Remove transparent
+            } else {
+                navbar.classList.remove('shadow-md', 'bg-sand-50/95');
+                navbar.classList.add('bg-sand-50/90'); // Back to slightly transparent
+            }
+        });
+    </script>
+</body>
+</html>
