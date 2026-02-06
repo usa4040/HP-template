@@ -233,6 +233,19 @@
         "Rounded",
         "Friendly"
       ]
+    },
+    {
+      "id": "019",
+      "name": "Nebula SaaS",
+      "category": "SaaS",
+      "style": "Glassmorphism",
+      "path": "catalog/template_019_saas_glassmorphism",
+      "description": "Vibrant glassmorphism style.",
+      "tags": [
+        "Glass",
+        "Gradient",
+        "Modern"
+      ]
     }
   ]
 }
