@@ -207,6 +207,19 @@
         "Trendy",
         "High-Contrast"
       ]
+    },
+    {
+      "id": "017",
+      "name": "Takumi Essence",
+      "category": "Traditional",
+      "style": "Wa-Modern",
+      "path": "catalog/template_017_traditional_wamodern",
+      "description": "Modern Japanese aesthetics.",
+      "tags": [
+        "Zen",
+        "Modern",
+        "Serif"
+      ]
     }
   ]
 }

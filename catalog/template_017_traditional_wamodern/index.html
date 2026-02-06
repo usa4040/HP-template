@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | 伝統と革新</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+JP:wght@300;400;600;700&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'jp-indigo': '#1B2432',
+                        'jp-indigo-light': '#2C3A50',
+                        'jp-paper': '#F7F6F2',
+                        'jp-paper-dark': '#EBE9E4',
+                        'jp-gold': '#C5A059',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Zen Old Mincho"', '"Noto Serif JP"', 'serif'],
+                        'jp': ['"Noto Serif JP"', 'serif'],
+                    },
+                    letterSpacing: {
+                        'widest-xl': '0.2em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-feature-settings: "palt";
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F7F6F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1B2432;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-jp-paper text-jp-indigo font-serif antialiased smooth-scroll selection:bg-jp-gold selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-jp-paper/90 backdrop-blur-sm border-b border-gray-200/50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold tracking-widest">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-12">
+                    <a href="#philosophy" class="text-sm tracking-widest hover:text-jp-gold transition-colors duration-300">理念</a>
+                    <a href="#works" class="text-sm tracking-widest hover:text-jp-gold transition-colors duration-300">作品</a>
+                    <a href="#about" class="text-sm tracking-widest hover:text-jp-gold transition-colors duration-300">工房</a>
+                    <a href="#contact" class="text-sm tracking-widest hover:text-jp-gold transition-colors duration-300">お問い合わせ</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-jp-indigo hover:text-jp-gold focus:outline-none p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-jp-paper absolute w-full border-b border-gray-200">
+            <div class="px-4 pt-2 pb-6 space-y-4 flex flex-col items-center">
+                <a href="#philosophy" class="block py-2 text-base font-medium hover:text-jp-gold tracking-widest">理念</a>
+                <a href="#works" class="block py-2 text-base font-medium hover:text-jp-gold tracking-widest">作品</a>
+                <a href="#about" class="block py-2 text-base font-medium hover:text-jp-gold tracking-widest">工房</a>
+                <a href="#contact" class="block py-2 text-base font-medium hover:text-jp-gold tracking-widest">お問い合わせ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1599619351208-3e6c629d7e6c?q=80&w=2070&auto=format&fit=crop" alt="Traditional Craft" class="w-full h-full object-cover opacity-80 filter brightness-90">
+            <div class="absolute inset-0 bg-gradient-to-r from-jp-paper/30 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-row-reverse items-center justify-between">
+            <div class="hidden md:block h-3/4 w-px bg-jp-indigo/20 mx-10"></div>
+
+            <div class="text-right md:text-left writing-mode-vertical md:writing-mode-horizontal">
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6 vertical-text md:vertical-text h-[400px] float-right md:float-none tracking-widest text-jp-indigo drop-shadow-sm">
+                    伝統と<br/>革新の<br/>融合
+                </h1>
+            </div>
+
+            <div class="absolute bottom-10 left-6 md:left-10 text-jp-indigo">
+                <p class="text-sm font-sans tracking-[0.3em] uppercase mb-2">Since 1923</p>
+                <p class="text-xl md:text-3xl font-jp font-medium">{{COMPANY_NAME}}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-24 bg-jp-paper relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gray-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
+        <div class="absolute top-0 left-0 w-64 h-64 bg-gray-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2 relative fade-up">
+                    <div class="relative h-[600px] w-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1584661445749-346519d08e98?q=80&w=1000&auto=format&fit=crop" alt="Pottery Craft" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                        <div class="absolute inset-0 border-[20px] border-jp-paper pointer-events-none"></div>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-jp-indigo z-[-1]"></div>
+                </div>
+
+                <div class="w-full md:w-1/2 space-y-8 fade-up" style="transition-delay: 200ms;">
+                    <span class="text-jp-gold font-sans tracking-[0.2em] text-sm uppercase">Our Philosophy</span>
+                    <h2 class="text-4xl font-bold mb-6 font-jp leading-relaxed">
+                        時を超えて、<br>
+                        想いを紡ぐ。
+                    </h2>
+                    <p class="text-gray-600 leading-loose text-justify font-jp text-lg">
+                        古き良き伝統を受け継ぎながら、現代の暮らしに調和する美を追求する。
+                        私たち{{COMPANY_NAME}}は、素材一つひとつと対話し、
+                        職人の手仕事による温もりと、洗練されたデザインを融合させます。
+                        単なる道具ではなく、人生に寄り添う「作品」をお届けしたい。
+                        それが私たちの変わらぬ願いです。
+                    </p>
+                    <div class="pt-4">
+                        <a href="#about" class="inline-block border-b border-jp-indigo pb-1 hover:text-jp-gold hover:border-jp-gold transition-colors duration-300 tracking-widest">工房について知る &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Gallery -->
+    <section id="works" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-jp-gold font-sans tracking-[0.2em] text-sm uppercase block mb-4">Collection</span>
+                <h2 class="text-3xl md:text-4xl font-bold font-jp">作品紹介</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="group cursor-pointer fade-up">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-gray-100 mb-4">
+                        <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=1000&auto=format&fit=crop" alt="Ceramic Vase" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white tracking-widest border border-white px-6 py-2">VIEW</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold mb-1 group-hover:text-jp-gold transition-colors">青藍の器</h3>
+                    <p class="text-sm text-gray-500 font-sans">Ceramic Collection</p>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group cursor-pointer fade-up" style="transition-delay: 100ms;">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-gray-100 mb-4">
+                        <img src="https://images.unsplash.com/photo-1578330598858-69a6eb600f72?q=80&w=1000&auto=format&fit=crop" alt="Wood Craft" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                         <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white tracking-widest border border-white px-6 py-2">VIEW</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold mb-1 group-hover:text-jp-gold transition-colors">檜の香箱</h3>
+                    <p class="text-sm text-gray-500 font-sans">Woodwork</p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group cursor-pointer fade-up" style="transition-delay: 200ms;">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-gray-100 mb-4">
+                        <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=1000&auto=format&fit=crop" alt="Textile" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                         <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white tracking-widest border border-white px-6 py-2">VIEW</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold mb-1 group-hover:text-jp-gold transition-colors">織部の布</h3>
+                    <p class="text-sm text-gray-500 font-sans">Textile</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                 <a href="#works" class="inline-block px-8 py-3 border border-jp-indigo hover:bg-jp-indigo hover:text-white transition-all duration-300 tracking-widest text-sm">VIEW ALL ITEMS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Craftsmanship -->
+    <section id="about" class="py-24 bg-jp-indigo text-jp-paper relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1 space-y-8 fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold font-jp leading-relaxed">
+                        一期一会の<br>
+                        手仕事
+                    </h2>
+                    <p class="text-gray-400 leading-loose text-justify font-jp">
+                        機械生産では表現できない、微細なゆらぎ。
+                        それは職人の息遣いであり、素材の生命力です。
+                        {{COMPANY_NAME}}では、すべての工程を熟練の職人が一貫して行い、
+                        二つとして同じものがない、唯一無二の価値を創造します。
+                    </p>
+                    <ul class="space-y-4 pt-4 border-t border-gray-700">
+                        <li class="flex items-center space-x-4">
+                            <span class="w-2 h-2 bg-jp-gold rounded-full"></span>
+                            <span class="tracking-widest">厳選された国産素材の使用</span>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <span class="w-2 h-2 bg-jp-gold rounded-full"></span>
+                            <span class="tracking-widest">伝統技法「継ぎ」の継承</span>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <span class="w-2 h-2 bg-jp-gold rounded-full"></span>
+                            <span class="tracking-widest">永久修理保証による安心</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="order-1 lg:order-2 relative fade-up">
+                     <div class="relative h-[500px] w-full">
+                        <img src="https://images.unsplash.com/photo-1590483256050-24558e658931?q=80&w=1000&auto=format&fit=crop" alt="Craftsman Hands" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700">
+                        <div class="absolute -top-4 -left-4 w-full h-full border border-gray-600 z-[-1]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-jp-paper-dark">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div class="text-center mb-16 fade-up">
+                <span class="text-jp-gold font-sans tracking-[0.2em] text-sm uppercase block mb-4">Contact Us</span>
+                <h2 class="text-3xl md:text-4xl font-bold font-jp">お問い合わせ</h2>
+                <p class="mt-4 text-gray-600 text-sm">オーダーメイドのご相談も承っております。</p>
+            </div>
+
+            <form class="space-y-6 fade-up">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2 tracking-widest">お名前</label>
+                        <input type="text" id="name" class="block w-full bg-white border-0 py-3 px-4 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-jp-indigo sm:text-sm sm:leading-6" placeholder="山田 太郎">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2 tracking-widest">メールアドレス</label>
+                        <input type="email" id="email" class="block w-full bg-white border-0 py-3 px-4 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-jp-indigo sm:text-sm sm:leading-6" placeholder="email@example.com">
+                    </div>
+                </div>
+                <div>
+                    <label for="subject" class="block text-sm font-medium text-gray-700 mb-2 tracking-widest">件名</label>
+                    <select id="subject" class="block w-full bg-white border-0 py-3 px-4 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-jp-indigo sm:text-sm sm:leading-6">
+                        <option>商品についてのお問い合わせ</option>
+                        <option>オーダーメイドのご相談</option>
+                        <option>その他</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700 mb-2 tracking-widest">お問い合わせ内容</label>
+                    <textarea id="message" rows="5" class="block w-full bg-white border-0 py-3 px-4 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-jp-indigo sm:text-sm sm:leading-6"></textarea>
+                </div>
+                <div class="text-center pt-4">
+                    <button type="submit" class="bg-jp-indigo text-white px-10 py-3 hover:bg-jp-gold transition-colors duration-300 tracking-[0.2em] shadow-lg">送信する</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-jp-indigo text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-1">
+                    <span class="text-2xl font-bold tracking-widest block mb-6">{{COMPANY_NAME}}</span>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        伝統工芸の美しさを<br>
+                        現代のライフスタイルへ。
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold tracking-widest mb-4 text-jp-gold">MENU</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#philosophy" class="hover:text-white transition-colors">理念</a></li>
+                        <li><a href="#works" class="hover:text-white transition-colors">作品</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">工房</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold tracking-widest mb-4 text-jp-gold">SOCIAL</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Facebook</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold tracking-widest mb-4 text-jp-gold">ADDRESS</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        〒107-0062<br>
+                        東京都港区南青山3-1-1<br>
+                        TEL: 03-1234-5678
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-xs text-gray-500 tracking-wider">
+                &copy; 2023 {{COMPANY_NAME}}. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer for Fade Up animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
