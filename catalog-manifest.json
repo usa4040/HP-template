@@ -272,6 +272,19 @@
         "Elegant",
         "Adventure"
       ]
+    },
+    {
+      "id": "022",
+      "name": "Neural Nexus",
+      "category": "AI",
+      "style": "Futuristic",
+      "path": "catalog/template_022_ai_futuristic",
+      "description": "Dark glowing AI interface",
+      "tags": [
+        "AI",
+        "Dark",
+        "Glow"
+      ]
     }
   ]
 }
