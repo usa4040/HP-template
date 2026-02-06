@@ -220,6 +220,19 @@
         "Modern",
         "Serif"
       ]
+    },
+    {
+      "id": "018",
+      "name": "Bright Future",
+      "category": "Education",
+      "style": "Playful",
+      "path": "catalog/template_018_education_playful",
+      "description": "Colorful, safe, and fun theme.",
+      "tags": [
+        "Colorful",
+        "Rounded",
+        "Friendly"
+      ]
     }
   ]
 }
