@@ -259,6 +259,19 @@
         "Green",
         "Organic"
       ]
+    },
+    {
+      "id": "021",
+      "name": "Vista Voyages",
+      "category": "Travel",
+      "style": "Immersive",
+      "path": "catalog/template_021_travel_immersive",
+      "description": "Immersive photo-rich travel UI",
+      "tags": [
+        "Photo-rich",
+        "Elegant",
+        "Adventure"
+      ]
     }
   ]
 }
