@@ -246,6 +246,19 @@
         "Gradient",
         "Modern"
       ]
+    },
+    {
+      "id": "020",
+      "name": "Eco Vanguard",
+      "category": "Environment",
+      "style": "Organic",
+      "path": "catalog/template_020_environment_organic",
+      "description": "Earth tones and organic shapes",
+      "tags": [
+        "Eco",
+        "Green",
+        "Organic"
+      ]
     }
   ]
 }
