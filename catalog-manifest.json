@@ -311,6 +311,19 @@
         "Bold",
         "Minimal"
       ]
+    },
+    {
+      "id": "025",
+      "name": "Nova Finance",
+      "category": "Fintech",
+      "style": "Neo-Modern",
+      "path": "catalog/template_025_fintech_neomodern",
+      "description": "Vibrant fintech dark gradients",
+      "tags": [
+        "Fintech",
+        "Gradient",
+        "Dark"
+      ]
     }
   ]
 }
