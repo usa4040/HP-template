@@ -298,6 +298,19 @@
         "Robust",
         "Transport"
       ]
+    },
+    {
+      "id": "024",
+      "name": "Velvet & Vogue",
+      "category": "Fashion",
+      "style": "Editorial",
+      "path": "catalog/template_024_fashion_editorial",
+      "description": "Bold editorial fashion style.",
+      "tags": [
+        "Chic",
+        "Bold",
+        "Minimal"
+      ]
     }
   ]
 }

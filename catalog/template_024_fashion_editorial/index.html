@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Fashion & Editorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    colors: {
+                        fashion: {
+                            base: '#fbfaf8',
+                            dark: '#1a1a1a',
+                            accent: '#8c3a3a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-out;
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-fashion-base text-fashion-dark font-sans antialiased selection:bg-fashion-dark selection:text-white" x-data="{ mobileMenuOpen: false }">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 bg-fashion-base/90 backdrop-blur-sm border-b border-fashion-dark/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="#" class="font-serif text-3xl italic font-semibold tracking-tighter z-50 relative">{{COMPANY_NAME}}</a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-12 text-xs tracking-[0.2em] uppercase font-medium">
+                <a href="#collections" class="hover:text-fashion-accent transition-colors">Collections</a>
+                <a href="#about" class="hover:text-fashion-accent transition-colors">Philosophy</a>
+                <a href="#journal" class="hover:text-fashion-accent transition-colors">Journal</a>
+                <a href="#contact" class="hover:text-fashion-accent transition-colors">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden z-50 focus:outline-none">
+                <div class="w-6 h-0.5 bg-fashion-dark mb-1.5 transition-all duration-300" :class="mobileMenuOpen ? 'rotate-45 translate-y-2' : ''"></div>
+                <div class="w-6 h-0.5 bg-fashion-dark transition-all duration-300" :class="mobileMenuOpen ? 'opacity-0' : ''"></div>
+                <div class="w-6 h-0.5 bg-fashion-dark mt-1.5 transition-all duration-300" :class="mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''"></div>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="fixed inset-0 bg-fashion-base z-40 flex flex-col items-center justify-center space-y-8 transition-transform duration-500 md:hidden"
+             :class="mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'">
+            <a href="#collections" @click="mobileMenuOpen = false" class="font-serif text-4xl italic hover:text-fashion-accent transition-colors">Collections</a>
+            <a href="#about" @click="mobileMenuOpen = false" class="font-serif text-4xl italic hover:text-fashion-accent transition-colors">Philosophy</a>
+            <a href="#journal" @click="mobileMenuOpen = false" class="font-serif text-4xl italic hover:text-fashion-accent transition-colors">Journal</a>
+            <a href="#contact" @click="mobileMenuOpen = false" class="font-serif text-4xl italic hover:text-fashion-accent transition-colors">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+             <div class="absolute inset-0 bg-gradient-to-r from-fashion-base via-transparent to-transparent z-10 w-full md:w-1/2"></div>
+             <!-- High fashion model image -->
+             <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=2576&auto=format&fit=crop" alt="Fashion Editorial" class="w-full h-full object-cover object-top ml-auto md:w-3/4 opacity-90">
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 lg:px-12 flex flex-col justify-center h-full">
+            <div class="md:w-1/2 space-y-6">
+                <p class="text-xs tracking-[0.3em] uppercase opacity-70">Spring / Summer 2024</p>
+                <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl leading-[0.9] italic">
+                    The <br>
+                    <span class="not-italic font-light ml-8 md:ml-16">Bold</span> <br>
+                    Look
+                </h1>
+                <div class="pt-8">
+                    <a href="#collections" class="group inline-flex items-center space-x-4 border-b border-fashion-dark pb-1 hover:border-fashion-accent hover:text-fashion-accent transition-all duration-300">
+                        <span class="text-xs tracking-[0.2em] uppercase">View Collection</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-12 right-12 hidden md:block">
+            <p class="text-vertical text-xs tracking-[0.3em] uppercase opacity-40 h-32">Scroll Down</p>
+        </div>
+    </header>
+
+    <!-- Featured Collection (Asymmetrical Grid) -->
+    <section id="collections" class="py-24 md:py-32 px-6 lg:px-12 max-w-[1920px] mx-auto">
+        <div class="flex justify-between items-end mb-16">
+            <h2 class="font-serif text-5xl md:text-6xl">The Edit</h2>
+            <a href="#" class="hidden md:block text-xs tracking-[0.2em] uppercase border-b border-fashion-dark pb-1 hover:opacity-60">See All</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
+            <!-- Large Item -->
+            <div class="md:col-span-8 group cursor-pointer relative overflow-hidden">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1287&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Coat">
+                </div>
+                <div class="mt-4 flex justify-between items-start">
+                    <div>
+                        <h3 class="font-serif text-2xl italic">Structured Wool Coat</h3>
+                        <p class="text-xs tracking-widest uppercase opacity-60 mt-1">Outerwear</p>
+                    </div>
+                    <span class="font-serif italic">$850</span>
+                </div>
+            </div>
+
+            <!-- Tall Item -->
+            <div class="md:col-span-4 flex flex-col justify-end mt-12 md:mt-0 group cursor-pointer">
+                <div class="aspect-[3/4] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Silk Dress">
+                </div>
+                <div class="mt-4 flex justify-between items-start">
+                    <div>
+                        <h3 class="font-serif text-2xl italic">Silk Evening Gown</h3>
+                        <p class="text-xs tracking-widest uppercase opacity-60 mt-1">Dresses</p>
+                    </div>
+                    <span class="font-serif italic">$1,200</span>
+                </div>
+            </div>
+
+            <!-- Wide Item -->
+            <div class="md:col-span-5 md:col-start-2 mt-12 group cursor-pointer">
+                 <div class="aspect-[1/1] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Accessories">
+                </div>
+                <div class="mt-4 flex justify-between items-start">
+                    <div>
+                        <h3 class="font-serif text-2xl italic">Gold Accent Earrings</h3>
+                        <p class="text-xs tracking-widest uppercase opacity-60 mt-1">Accessories</p>
+                    </div>
+                    <span class="font-serif italic">$250</span>
+                </div>
+            </div>
+
+            <!-- Another Item -->
+            <div class="md:col-span-5 md:col-start-8 mt-12 md:mt-24 group cursor-pointer">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1470&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Handbag">
+                </div>
+                 <div class="mt-4 flex justify-between items-start">
+                    <div>
+                        <h3 class="font-serif text-2xl italic">Leather Tote</h3>
+                        <p class="text-xs tracking-widest uppercase opacity-60 mt-1">Bags</p>
+                    </div>
+                    <span class="font-serif italic">$640</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section (Typography Heavy) -->
+    <section id="about" class="py-24 bg-fashion-dark text-fashion-base">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row md:items-center gap-16">
+                <div class="md:w-1/2">
+                     <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1470&auto=format&fit=crop" alt="Philosophy" class="w-full grayscale opacity-80">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="font-serif text-5xl md:text-7xl mb-8 leading-tight">
+                        Elegance is <br> <span class="italic text-fashion-accent">Refusal.</span>
+                    </h2>
+                    <p class="font-light text-lg leading-relaxed opacity-80 mb-8 max-w-md">
+                        At {{COMPANY_NAME}}, we believe that true style is timeless. Our pieces are curated not for the fleeting trends of today, but for the enduring grace of tomorrow. We craft silhouettes that empower, using materials that last.
+                    </p>
+                    <a href="#" class="inline-block text-xs tracking-[0.2em] uppercase border-b border-fashion-base pb-1 hover:text-fashion-accent hover:border-fashion-accent transition-colors">Read Our Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="overflow-hidden py-12 border-b border-fashion-dark/10">
+        <div class="whitespace-nowrap flex space-x-12 opacity-30 font-serif italic text-4xl">
+            <span>Sustainable Luxury</span> • <span>Handcrafted Details</span> • <span>Timeless Silhouettes</span> • <span>Global Inspiration</span> • <span>Sustainable Luxury</span> • <span>Handcrafted Details</span> • <span>Timeless Silhouettes</span> •
+        </div>
+    </div>
+
+    <!-- Journal/News -->
+    <section id="journal" class="py-24 container mx-auto px-6 lg:px-12">
+        <h2 class="font-serif text-4xl mb-12 text-center italic">From the Journal</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <article class="group cursor-pointer">
+                <div class="aspect-[3/2] overflow-hidden mb-4 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1485230946086-1d99d4e73caf?q=80&w=1470&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Article 1">
+                </div>
+                <div class="text-xs tracking-widest uppercase opacity-50 mb-2">October 12, 2023</div>
+                <h3 class="font-serif text-xl group-hover:underline decoration-fashion-accent underline-offset-4">The Art of Layering: A Winter Guide</h3>
+            </article>
+            <article class="group cursor-pointer">
+                <div class="aspect-[3/2] overflow-hidden mb-4 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1460056518804-d29a58e7472d?q=80&w=1470&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Article 2">
+                </div>
+                <div class="text-xs tracking-widest uppercase opacity-50 mb-2">September 28, 2023</div>
+                <h3 class="font-serif text-xl group-hover:underline decoration-fashion-accent underline-offset-4">Behind the Scenes: Paris Fashion Week</h3>
+            </article>
+            <article class="group cursor-pointer">
+                <div class="aspect-[3/2] overflow-hidden mb-4 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1374&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Article 3">
+                </div>
+                <div class="text-xs tracking-widest uppercase opacity-50 mb-2">September 10, 2023</div>
+                <h3 class="font-serif text-xl group-hover:underline decoration-fashion-accent underline-offset-4">Sustainable Fabrics 101</h3>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-fashion-dark text-white pt-20 pb-10">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+                <div class="md:col-span-2">
+                    <h2 class="font-serif text-3xl italic mb-6">Stay in Vogue</h2>
+                    <p class="font-light opacity-60 mb-8 max-w-sm">Subscribe to our newsletter for exclusive access to new drops, events, and editorial content.</p>
+                    <form class="flex border-b border-white/20 pb-2 max-w-md">
+                        <input type="email" placeholder="Your email address" class="bg-transparent w-full focus:outline-none placeholder-white/30 font-light">
+                        <button type="button" class="uppercase text-xs tracking-widest hover:text-fashion-accent transition-colors">Subscribe</button>
+                    </form>
+                </div>
+                <div>
+                    <h3 class="text-xs tracking-widest uppercase mb-6 opacity-50">Shop</h3>
+                    <ul class="space-y-4 font-serif italic text-lg opacity-80">
+                        <li><a href="#" class="hover:text-fashion-accent transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-fashion-accent transition-colors">Clothing</a></li>
+                        <li><a href="#" class="hover:text-fashion-accent transition-colors">Accessories</a></li>
+                        <li><a href="#" class="hover:text-fashion-accent transition-colors">Shoes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs tracking-widest uppercase mb-6 opacity-50">Company</h3>
+                    <ul class="space-y-4 font-serif italic text-lg opacity-80">
+                        <li><a href="#" class="hover:text-fashion-accent transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-fashion-accent transition-colors">Stores</a></li>
+                        <li><a href="#" class="hover:text-fashion-accent transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-fashion-accent transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-10 opacity-40 text-xs">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-white transition-colors">Pinterest</a>
+                    <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                    }
+                });
+            });
+
+            document.querySelectorAll('section, footer').forEach(section => {
+                section.classList.add('reveal-on-scroll');
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
