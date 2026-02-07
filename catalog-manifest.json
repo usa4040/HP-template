@@ -324,6 +324,19 @@
         "Gradient",
         "Dark"
       ]
+    },
+    {
+      "id": "026",
+      "name": "Ethereal Vows",
+      "category": "Wedding",
+      "style": "Romantic",
+      "path": "catalog/template_026_wedding_romantic",
+      "description": "Elegant romantic wedding theme",
+      "tags": [
+        "Elegant",
+        "Soft",
+        "Serif"
+      ]
     }
   ]
 }
