@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Wedding Planning Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rose: {
+                            50: '#fdfbfb',
+                            100: '#faf7f7',
+                            200: '#fcf0f2',
+                            300: '#f8dbe0',
+                            400: '#f0b3bf',
+                            500: '#e48296',
+                            600: '#ce546e',
+                            700: '#ac3b53',
+                            800: '#903448',
+                            900: '#7a2f40',
+                            950: '#421520',
+                        },
+                        stone: {
+                            50: '#fafaf9',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                        script: ['"Great Vibes"', 'cursive'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'fade-in': 'fadeIn 1.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .hero-pattern {
+            background-color: #ffffff;
+            opacity: 0.4;
+            background-image:  radial-gradient(#e48296 0.5px, transparent 0.5px), radial-gradient(#e48296 0.5px, #ffffff 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0,10px 10px;
+        }
+    </style>
+</head>
+<body class="font-sans text-stone-800 bg-rose-50 antialiased selection:bg-rose-200 selection:text-rose-900">
+
+    <!-- Navigation -->
+    <header
+        x-data="{ mobileMenuOpen: false, scrolled: false }"
+        @scroll.window="scrolled = (window.pageYOffset > 50) ? true : false"
+        :class="{ 'bg-white/90 backdrop-blur-md shadow-sm': scrolled, 'bg-transparent': !scrolled }"
+        class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-transparent"
+    >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-serif text-3xl text-rose-900 tracking-wider">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-sm uppercase tracking-widest hover:text-rose-600 transition-colors">Home</a>
+                    <a href="#story" class="text-sm uppercase tracking-widest hover:text-rose-600 transition-colors">Our Story</a>
+                    <a href="#details" class="text-sm uppercase tracking-widest hover:text-rose-600 transition-colors">Details</a>
+                    <a href="#gallery" class="text-sm uppercase tracking-widest hover:text-rose-600 transition-colors">Gallery</a>
+                    <a href="#rsvp" class="px-6 py-2 bg-rose-900 text-white text-sm uppercase tracking-widest hover:bg-rose-800 transition-colors shadow-lg">RSVP</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-rose-900 hover:text-rose-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-white border-t border-rose-100 absolute w-full"
+        >
+            <div class="px-4 pt-2 pb-6 space-y-2 text-center">
+                <a href="#home" @click="mobileMenuOpen = false" class="block py-3 text-sm uppercase tracking-widest text-stone-600 hover:text-rose-600">Home</a>
+                <a href="#story" @click="mobileMenuOpen = false" class="block py-3 text-sm uppercase tracking-widest text-stone-600 hover:text-rose-600">Our Story</a>
+                <a href="#details" @click="mobileMenuOpen = false" class="block py-3 text-sm uppercase tracking-widest text-stone-600 hover:text-rose-600">Details</a>
+                <a href="#gallery" @click="mobileMenuOpen = false" class="block py-3 text-sm uppercase tracking-widest text-stone-600 hover:text-rose-600">Gallery</a>
+                <a href="#rsvp" @click="mobileMenuOpen = false" class="block py-3 text-rose-900 font-bold uppercase tracking-widest">RSVP</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80" alt="Wedding Background" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-stone-900/30"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center text-white px-4 animate-fade-in-up">
+            <p class="font-script text-4xl md:text-6xl mb-4 text-rose-100">Celebrating the union of</p>
+            <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl mb-6 tracking-tight">Jane & John</h1>
+            <div class="flex items-center justify-center space-x-4 mb-8">
+                <div class="h-px w-12 bg-rose-200"></div>
+                <p class="text-lg md:text-xl uppercase tracking-[0.3em] font-light">September 24, 2024</p>
+                <div class="h-px w-12 bg-rose-200"></div>
+            </div>
+            <a href="#rsvp" class="inline-block px-8 py-3 border border-white/50 text-white uppercase tracking-widest text-sm hover:bg-white hover:text-stone-900 transition-all duration-300 backdrop-blur-sm">
+                Save the Date
+            </a>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-32 h-32 bg-rose-100 rounded-br-full opacity-50"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-rose-200 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1511285560982-1356c11d4606?auto=format&fit=crop&q=80" alt="Couple" class="relative z-10 w-full h-auto shadow-xl grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+                <div class="text-center md:text-left">
+                    <h2 class="font-script text-5xl text-rose-400 mb-2">Our Story</h2>
+                    <h3 class="font-serif text-4xl text-stone-800 mb-6">How We Met</h3>
+                    <p class="text-stone-600 leading-relaxed mb-6 font-light text-lg">
+                        It started with a chance encounter at a local coffee shop. Neither of us was looking for anything serious, but a spilled latte and a shared laugh turned into a conversation that lasted hours.
+                    </p>
+                    <p class="text-stone-600 leading-relaxed mb-8 font-light text-lg">
+                        Five years, three apartments, and one golden retriever later, we're ready to start our next chapter. We can't wait to celebrate our love with our favorite people in the world.
+                    </p>
+                    <div class="font-script text-3xl text-stone-400">Jane & John</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section id="details" class="py-24 bg-rose-50 relative">
+        <div class="absolute inset-0 hero-pattern z-0"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-stone-800 mb-4">Wedding Details</h2>
+                <div class="w-24 h-px bg-rose-300 mx-auto"></div>
+                <p class="mt-4 text-stone-500 font-light italic">We hope you can join us</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Ceremony -->
+                <div class="bg-white p-10 shadow-sm hover:shadow-md transition-shadow duration-300 border-t-4 border-rose-300 text-center">
+                    <div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-2 text-stone-800">The Ceremony</h3>
+                    <p class="text-rose-500 font-bold mb-4 uppercase text-sm tracking-widest">3:00 PM</p>
+                    <p class="text-stone-600 mb-2">St. Mary's Garden</p>
+                    <p class="text-stone-500 text-sm">123 Garden Lane<br>Cityville, ST 12345</p>
+                </div>
+
+                <!-- Reception -->
+                <div class="bg-white p-10 shadow-sm hover:shadow-md transition-shadow duration-300 border-t-4 border-rose-400 text-center transform md:-translate-y-4">
+                    <div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-2 text-stone-800">The Reception</h3>
+                    <p class="text-rose-500 font-bold mb-4 uppercase text-sm tracking-widest">5:30 PM</p>
+                    <p class="text-stone-600 mb-2">Grand Ballroom</p>
+                    <p class="text-stone-500 text-sm">Cocktails, Dinner & Dancing<br>to follow immediately</p>
+                </div>
+
+                <!-- Accommodation -->
+                <div class="bg-white p-10 shadow-sm hover:shadow-md transition-shadow duration-300 border-t-4 border-rose-300 text-center">
+                    <div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-2 text-stone-800">Where to Stay</h3>
+                    <p class="text-rose-500 font-bold mb-4 uppercase text-sm tracking-widest">Hotel</p>
+                    <p class="text-stone-600 mb-2">The City Hotel</p>
+                    <p class="text-stone-500 text-sm">Mention "Jane & John Wedding"<br>for a group rate.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-stone-800 mb-4">Captured Moments</h2>
+                <div class="w-24 h-px bg-rose-300 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="aspect-[3/4] overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0202128?auto=format&fit=crop&q=80" alt="Gallery 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <div class="aspect-[3/4] overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80" alt="Gallery 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <div class="aspect-[3/4] overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&q=80" alt="Gallery 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <div class="aspect-[3/4] overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80" alt="Gallery 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <div class="aspect-[3/4] overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?auto=format&fit=crop&q=80" alt="Gallery 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <div class="aspect-[3/4] overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc330e7?auto=format&fit=crop&q=80" alt="Gallery 6" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-24 bg-stone-900 text-white relative">
+        <div class="absolute inset-0 opacity-10">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80" alt="Background" class="w-full h-full object-cover grayscale">
+        </div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-5xl text-rose-300 mb-2">R.S.V.P.</h2>
+                <h3 class="font-serif text-3xl mb-4">Will you accompany us?</h3>
+                <p class="text-stone-400 font-light">Kindly respond by August 1st, 2024</p>
+            </div>
+
+            <form class="space-y-6 bg-white/5 backdrop-blur-sm p-8 md:p-12 border border-white/10 shadow-2xl">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-xs uppercase tracking-widest text-rose-200 mb-2">Full Name</label>
+                        <input type="text" id="name" class="w-full bg-transparent border-b border-stone-600 focus:border-rose-400 text-white px-0 py-2 focus:ring-0 focus:outline-none transition-colors placeholder-stone-600" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-xs uppercase tracking-widest text-rose-200 mb-2">Email Address</label>
+                        <input type="email" id="email" class="w-full bg-transparent border-b border-stone-600 focus:border-rose-400 text-white px-0 py-2 focus:ring-0 focus:outline-none transition-colors placeholder-stone-600" placeholder="john@example.com">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-rose-200 mb-4">Will you be attending?</label>
+                    <div class="flex items-center space-x-6">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="attending" class="text-rose-500 focus:ring-rose-500 bg-transparent border-stone-500">
+                            <span class="text-sm font-light">Joyfully Accepts</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="attending" class="text-rose-500 focus:ring-rose-500 bg-transparent border-stone-500">
+                            <span class="text-sm font-light">Regretfully Declines</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="message" class="block text-xs uppercase tracking-widest text-rose-200 mb-2">Message (Optional)</label>
+                    <textarea id="message" rows="3" class="w-full bg-transparent border-b border-stone-600 focus:border-rose-400 text-white px-0 py-2 focus:ring-0 focus:outline-none transition-colors placeholder-stone-600" placeholder="Any dietary restrictions?"></textarea>
+                </div>
+
+                <div class="pt-6 text-center">
+                    <button type="button" class="px-10 py-4 bg-rose-700 text-white uppercase tracking-widest text-sm hover:bg-rose-600 transition-colors shadow-lg">
+                        Send RSVP
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <a href="#" class="font-serif text-2xl text-rose-800 tracking-wider mb-6 inline-block hover:text-rose-700 transition-colors">
+                {{COMPANY_NAME}}
+            </a>
+            <div class="flex justify-center space-x-8 mb-8 text-xs uppercase tracking-widest">
+                <a href="#home" class="hover:text-white transition-colors">Home</a>
+                <a href="#story" class="hover:text-white transition-colors">Story</a>
+                <a href="#gallery" class="hover:text-white transition-colors">Gallery</a>
+            </div>
+            <p class="text-xs font-light text-stone-600">&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
