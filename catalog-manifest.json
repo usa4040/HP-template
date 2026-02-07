@@ -324,6 +324,19 @@
         "Gradient",
         "Dark"
       ]
+    },
+    {
+      "id": "026",
+      "name": "Paws & Play",
+      "category": "Pet Service",
+      "style": "Pop & Friendly",
+      "path": "catalog/template_026_pet_service_pop",
+      "description": "Vibrant pop theme for pets.",
+      "tags": [
+        "Vibrant",
+        "Rounded",
+        "Friendly"
+      ]
     }
   ]
 }
