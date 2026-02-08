@@ -350,6 +350,19 @@
         "Warm",
         "Hygge"
       ]
+    },
+    {
+      "id": "028",
+      "name": "Apex Auto",
+      "category": "Automotive",
+      "style": "Performance",
+      "path": "catalog/template_028_automotive_performance",
+      "description": "High-octane automotive theme.",
+      "tags": [
+        "Sport",
+        "Dark",
+        "Modern"
+      ]
     }
   ]
 }
