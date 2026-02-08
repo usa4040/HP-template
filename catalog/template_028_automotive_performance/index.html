@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | High Performance Automotive</title>
+    <meta name="description" content="Premium high-performance vehicles for the discerning driver. Experience speed, luxury, and precision engineering.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['"Exo 2"', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#DC2626', // High impact red
+                            dark: '#0F172A', // Slate 900
+                            black: '#020617', // Slate 950
+                            accent: '#F87171', // Lighter red for hover
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .clip-slant { clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
+        .text-stroke { -webkit-text-stroke: 1px rgba(255,255,255,0.2); color: transparent; }
+    </style>
+</head>
+<body class="bg-brand-black text-slate-300 font-body antialiased selection:bg-brand-red selection:text-white" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 border-b border-white/5"
+         :class="{ 'bg-brand-black/90 backdrop-blur-md py-4': scrolled, 'bg-transparent py-6': !scrolled }">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-display font-black text-2xl md:text-3xl italic tracking-tighter text-white group">
+                <span class="text-brand-red group-hover:text-white transition-colors">APEX</span><span class="group-hover:text-brand-red transition-colors">AUTO</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#inventory" class="text-sm font-semibold hover:text-white transition-colors uppercase tracking-wider">Inventory</a>
+                <a href="#specs" class="text-sm font-semibold hover:text-white transition-colors uppercase tracking-wider">Specs</a>
+                <a href="#about" class="text-sm font-semibold hover:text-white transition-colors uppercase tracking-wider">About</a>
+                <a href="#contact" class="px-6 py-2 bg-brand-red text-white font-display font-bold italic uppercase skew-x-[-10deg] hover:bg-red-700 transition-colors shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+                    <span class="block skew-x-[10deg]">Test Drive</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen" x-transition.opacity
+             class="absolute top-full left-0 w-full bg-brand-black/95 backdrop-blur-xl border-b border-white/10 p-6 md:hidden flex flex-col space-y-4">
+            <a href="#inventory" class="text-lg font-semibold text-white hover:text-brand-red uppercase tracking-wider">Inventory</a>
+            <a href="#specs" class="text-lg font-semibold text-white hover:text-brand-red uppercase tracking-wider">Specs</a>
+            <a href="#about" class="text-lg font-semibold text-white hover:text-brand-red uppercase tracking-wider">About</a>
+            <a href="#contact" class="px-6 py-3 bg-brand-red text-center text-white font-display font-bold italic uppercase skew-x-[-10deg]">
+                <span class="block skew-x-[10deg]">Book Test Drive</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
+                 alt="High Performance Car"
+                 class="w-full h-full object-cover opacity-60 transform scale-105 transition-transform duration-[20s] hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/60 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 container mx-auto px-6 pt-20">
+            <div class="max-w-4xl space-y-6">
+                <h2 class="text-brand-red font-display font-bold italic tracking-widest uppercase text-sm md:text-base animate-pulse-slow">
+                    Wait for nothing
+                </h2>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-black italic uppercase text-white leading-[0.9] tracking-tighter drop-shadow-2xl">
+                    Unleash <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">Pure Velocity</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-400 max-w-xl border-l-4 border-brand-red pl-6 py-2">
+                    Experience the pinnacle of automotive engineering at {{COMPANY_NAME}}.
+                    Where precision meets power.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-8">
+                    <a href="#inventory" class="px-8 py-4 bg-white text-brand-black font-display font-black italic uppercase text-lg hover:bg-slate-200 transition-all skew-x-[-10deg] text-center group">
+                        <span class="block skew-x-[10deg] group-hover:translate-x-1 transition-transform">View Inventory</span>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 border border-white/30 text-white font-display font-bold italic uppercase text-lg hover:bg-white/10 hover:border-white transition-all skew-x-[-10deg] text-center backdrop-blur-sm">
+                        <span class="block skew-x-[10deg]">Contact Us</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute bottom-0 right-0 w-1/3 h-1 bg-gradient-to-l from-brand-red to-transparent"></div>
+        <div class="absolute bottom-10 right-10 hidden md:block">
+            <div class="flex items-end space-x-2">
+                <span class="text-6xl font-display font-black italic text-white/20">01</span>
+                <span class="text-sm font-bold text-brand-red uppercase tracking-widest mb-2">/ Start Engine</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Specs / Features Section -->
+    <section id="specs" class="py-24 bg-brand-black relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-brand-red font-bold uppercase tracking-widest mb-2">Performance</h2>
+                    <h3 class="text-4xl md:text-5xl font-display font-black italic text-white uppercase tracking-tighter">Engineered to <span class="text-stroke">Win</span></h3>
+                </div>
+                <div class="hidden md:block w-32 h-1 bg-brand-red mt-4 md:mt-0 skew-x-[-20deg]"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="group p-8 border border-white/5 hover:border-brand-red/50 bg-white/5 hover:bg-white/10 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <svg class="w-24 h-24 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    </div>
+                    <div class="w-12 h-12 bg-brand-red/20 text-brand-red flex items-center justify-center rounded-sm mb-6 group-hover:bg-brand-red group-hover:text-white transition-colors skew-x-[-10deg]">
+                        <svg class="w-6 h-6 skew-x-[10deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-display font-bold text-white uppercase italic mb-3 group-hover:translate-x-2 transition-transform">Raw Power</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">High-revving engines tuned for maximum output and exhilarating sound profiles.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="group p-8 border border-white/5 hover:border-brand-red/50 bg-white/5 hover:bg-white/10 transition-all duration-300 relative overflow-hidden">
+                    <div class="w-12 h-12 bg-brand-red/20 text-brand-red flex items-center justify-center rounded-sm mb-6 group-hover:bg-brand-red group-hover:text-white transition-colors skew-x-[-10deg]">
+                        <svg class="w-6 h-6 skew-x-[10deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-display font-bold text-white uppercase italic mb-3 group-hover:translate-x-2 transition-transform">Precision Handling</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Advanced suspension geometry and active aerodynamics for razor-sharp cornering.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="group p-8 border border-white/5 hover:border-brand-red/50 bg-white/5 hover:bg-white/10 transition-all duration-300 relative overflow-hidden">
+                    <div class="w-12 h-12 bg-brand-red/20 text-brand-red flex items-center justify-center rounded-sm mb-6 group-hover:bg-brand-red group-hover:text-white transition-colors skew-x-[-10deg]">
+                        <svg class="w-6 h-6 skew-x-[10deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-display font-bold text-white uppercase italic mb-3 group-hover:translate-x-2 transition-transform">0-60 in < 3s</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Experience acceleration that pushes you back into your seat. Every time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showroom / Inventory -->
+    <section id="inventory" class="py-24 bg-gradient-to-b from-brand-black to-[#050911]">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-red font-bold uppercase tracking-widest mb-2">Showroom</h2>
+                <h3 class="text-4xl md:text-6xl font-display font-black italic text-white uppercase tracking-tighter">Current <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-orange-600">Inventory</span></h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Car Card 1 -->
+                <div class="group relative overflow-hidden bg-white/5 border border-white/5 hover:border-brand-red/50 transition-all duration-500">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=1000&auto=format&fit=crop" alt="Car 1" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h4 class="text-2xl font-display font-black italic text-white uppercase">Phantom GT</h4>
+                            <p class="text-brand-red font-bold">$145,000</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between text-sm text-slate-400 mb-6 border-b border-white/10 pb-4">
+                            <span>3.2s 0-60</span>
+                            <span>520 HP</span>
+                            <span>AWD</span>
+                        </div>
+                        <button class="w-full py-3 bg-white/10 hover:bg-brand-red text-white font-display font-bold italic uppercase transition-colors skew-x-[-10deg]">
+                            <span class="block skew-x-[10deg]">Details</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Car Card 2 -->
+                <div class="group relative overflow-hidden bg-white/5 border border-white/5 hover:border-brand-red/50 transition-all duration-500 transform lg:-translate-y-8">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute top-4 right-4 z-20 bg-brand-red px-3 py-1 skew-x-[-10deg]">
+                            <span class="text-white text-xs font-bold uppercase block skew-x-[10deg]">Featured</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1544614471-68f02f9a6566?q=80&w=1000&auto=format&fit=crop" alt="Car 2" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h4 class="text-2xl font-display font-black italic text-white uppercase">Velocita X</h4>
+                            <p class="text-brand-red font-bold">$210,000</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between text-sm text-slate-400 mb-6 border-b border-white/10 pb-4">
+                            <span>2.6s 0-60</span>
+                            <span>780 HP</span>
+                            <span>RWD</span>
+                        </div>
+                        <button class="w-full py-3 bg-white hover:bg-brand-red text-brand-black hover:text-white font-display font-bold italic uppercase transition-colors skew-x-[-10deg]">
+                            <span class="block skew-x-[10deg]">Details</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Car Card 3 -->
+                <div class="group relative overflow-hidden bg-white/5 border border-white/5 hover:border-brand-red/50 transition-all duration-500">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1552519507-da8b1227facf?q=80&w=1000&auto=format&fit=crop" alt="Car 3" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h4 class="text-2xl font-display font-black italic text-white uppercase">Strada S</h4>
+                            <p class="text-brand-red font-bold">$98,000</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between text-sm text-slate-400 mb-6 border-b border-white/10 pb-4">
+                            <span>3.8s 0-60</span>
+                            <span>450 HP</span>
+                            <span>AWD</span>
+                        </div>
+                        <button class="w-full py-3 bg-white/10 hover:bg-brand-red text-white font-display font-bold italic uppercase transition-colors skew-x-[-10deg]">
+                            <span class="block skew-x-[10deg]">Details</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="#" class="inline-block px-8 py-3 border border-white/20 hover:border-white text-slate-300 hover:text-white font-display font-bold uppercase tracking-widest transition-colors hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">View Full Inventory</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engineering/About -->
+    <section id="about" class="py-24 bg-brand-black relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="w-full lg:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-brand-red"></div>
+                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1000&auto=format&fit=crop" alt="Engine Detail" class="w-full grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl">
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-white/20"></div>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 space-y-8">
+                    <h2 class="text-5xl font-display font-black italic text-white uppercase leading-tight">
+                        Built for <br>
+                        <span class="text-brand-red">Extremes</span>
+                    </h2>
+                    <p class="text-slate-400 text-lg leading-relaxed">
+                        At {{COMPANY_NAME}}, we don't just sell cars. We curate machines that defy physics. Every vehicle in our collection is rigorously tested for performance, handling, and soul.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="p-4 bg-white/5 border-l-2 border-brand-red">
+                            <span class="block text-3xl font-display font-black italic text-white">50+</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-500">Premium Models</span>
+                        </div>
+                        <div class="p-4 bg-white/5 border-l-2 border-brand-red">
+                            <span class="block text-3xl font-display font-black italic text-white">24/7</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-500">Support Crew</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section id="contact" class="py-32 relative bg-brand-red overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl md:text-7xl font-display font-black italic text-white uppercase mb-8 drop-shadow-lg">
+                Ready to take control?
+            </h2>
+            <p class="text-xl text-white/90 max-w-2xl mx-auto mb-12 font-light">
+                Schedule your private viewing or test drive today. Our team is standing by to hand you the keys.
+            </p>
+
+            <form class="max-w-md mx-auto space-y-4" onsubmit="event.preventDefault(); alert('Request sent! We will contact you shortly.');">
+                <div class="flex gap-4">
+                    <input type="text" placeholder="NAME" class="w-full bg-black/20 border border-white/30 p-4 text-white placeholder-white/50 focus:outline-none focus:bg-black/40 focus:border-white transition-all font-display italic uppercase">
+                </div>
+                <input type="email" placeholder="EMAIL ADDRESS" class="w-full bg-black/20 border border-white/30 p-4 text-white placeholder-white/50 focus:outline-none focus:bg-black/40 focus:border-white transition-all font-display italic uppercase">
+                <button type="submit" class="w-full py-4 bg-white text-brand-red font-display font-black italic uppercase text-xl hover:bg-slate-100 transition-colors skew-x-[-10deg] shadow-lg">
+                    <span class="block skew-x-[10deg]">Schedule Now</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-2xl font-display font-black italic text-white tracking-tighter">
+                <span class="text-brand-red">APEX</span>AUTO
+            </div>
+
+            <div class="flex space-x-8 text-sm text-slate-500 uppercase tracking-widest">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+            </div>
+
+            <div class="text-slate-600 text-sm">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
