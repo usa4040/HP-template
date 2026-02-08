@@ -376,6 +376,19 @@
         "Rounded",
         "Playful"
       ]
+    },
+    {
+      "id": "030",
+      "name": "Botanical Blooms",
+      "category": "Florist",
+      "style": "Botanical",
+      "path": "catalog/template_030_florist_botanical",
+      "description": "Soft, elegant botanical theme.",
+      "tags": [
+        "Elegant",
+        "Soft",
+        "Floral"
+      ]
     }
   ]
 }
