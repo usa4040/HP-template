@@ -337,6 +337,19 @@
         "Soft",
         "Serif"
       ]
+    },
+    {
+      "id": "027",
+      "name": "Nordic Haven",
+      "category": "Interior Design",
+      "style": "Scandinavian",
+      "path": "catalog/template_027_interior_scandinavian",
+      "description": "Warm Nordic minimalist design",
+      "tags": [
+        "Minimalist",
+        "Warm",
+        "Hygge"
+      ]
     }
   ]
 }
