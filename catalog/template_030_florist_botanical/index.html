@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Botanical Florist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            100: '#E8F3E8',
+                            300: '#B8C9B8',
+                            500: '#84A98C',
+                            700: '#52796F',
+                            900: '#2F3E46',
+                        },
+                        cream: '#FDFBF7',
+                        blush: '#F4ACB7',
+                        charcoal: '#2F3E46',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1507290439931-a861b5a38200?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .smooth-scroll { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="font-sans text-charcoal bg-cream antialiased selection:bg-sage-300 selection:text-white smooth-scroll">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)"
+         :class="{ 'bg-cream/95 shadow-sm backdrop-blur-sm': scrolled, 'bg-transparent': !scrolled }"
+         class="fixed w-full z-50 transition-all duration-300 top-0 left-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-serif text-2xl font-semibold tracking-wide text-sage-900">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-sage-900 hover:text-sage-500 transition-colors text-sm uppercase tracking-widest font-light">About</a>
+                    <a href="#services" class="text-sage-900 hover:text-sage-500 transition-colors text-sm uppercase tracking-widest font-light">Services</a>
+                    <a href="#gallery" class="text-sage-900 hover:text-sage-500 transition-colors text-sm uppercase tracking-widest font-light">Gallery</a>
+                    <a href="#contact" class="px-6 py-2 bg-sage-500 text-white rounded-full hover:bg-sage-700 transition-colors text-sm uppercase tracking-widest font-light shadow-md hover:shadow-lg">Contact</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="open = !open" class="text-sage-900 hover:text-sage-500 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-cream shadow-lg absolute w-full left-0 top-20 border-t border-sage-100">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#about" @click="open = false" class="block px-3 py-2 text-base font-medium text-sage-900 hover:bg-sage-100 rounded-md">About</a>
+                <a href="#services" @click="open = false" class="block px-3 py-2 text-base font-medium text-sage-900 hover:bg-sage-100 rounded-md">Services</a>
+                <a href="#gallery" @click="open = false" class="block px-3 py-2 text-base font-medium text-sage-900 hover:bg-sage-100 rounded-md">Gallery</a>
+                <a href="#contact" @click="open = false" class="block px-3 py-2 text-base font-medium text-sage-500 hover:bg-sage-100 rounded-md">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1490750967868-58cb75069ed6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+                 alt="Floral Background"
+                 class="w-full h-full object-cover opacity-90">
+            <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-cream"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p class="text-sage-900 uppercase tracking-[0.3em] text-sm md:text-base font-bold mb-4 opacity-0 transition-all duration-1000 delay-300 translate-y-4"
+               :class="{ 'opacity-100 translate-y-0': show }">
+                Nature's Elegance
+            </p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-sage-900 leading-tight mb-8 opacity-0 transition-all duration-1000 delay-500 translate-y-8"
+                :class="{ 'opacity-100 translate-y-0': show }">
+                Bloom with <br class="hidden md:block"> <span class="italic text-sage-700">Grace & Beauty</span>
+            </h1>
+            <p class="text-charcoal/80 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed opacity-0 transition-all duration-1000 delay-700 translate-y-4"
+               :class="{ 'opacity-100 translate-y-0': show }">
+                {{COMPANY_NAME}}がお届けするのは、季節の息吹を感じる特別なアレンジメント。
+                日常に彩りを、大切な瞬間に感動を添える花々をご提案します。
+            </p>
+            <div class="opacity-0 transition-all duration-1000 delay-1000"
+                 :class="{ 'opacity-100': show }">
+                <a href="#gallery" class="inline-block px-10 py-4 border border-sage-900 text-sage-900 hover:bg-sage-900 hover:text-white transition-all duration-300 text-sm uppercase tracking-widest">
+                    View Collection
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 bg-cream overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <!-- Image Grid -->
+                <div class="w-full md:w-1/2 relative group">
+                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-sage-300 z-0 hidden md:block transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2"></div>
+                    <img src="https://images.unsplash.com/photo-1563241527-30058e38118b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                         alt="Florist at work"
+                         class="relative z-10 w-full h-[500px] object-cover shadow-xl grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+
+                <!-- Content -->
+                <div class="w-full md:w-1/2">
+                    <h2 class="font-serif text-4xl md:text-5xl text-sage-900 mb-6 leading-tight">
+                        Our Philosophy <br><span class="text-2xl md:text-3xl italic text-sage-500">Nature into Art</span>
+                    </h2>
+                    <p class="text-charcoal/70 mb-6 leading-loose font-light">
+                        花には言葉以上の力があります。私たち{{COMPANY_NAME}}は、単に花を売るのではなく、
+                        花が持つ「物語」をお客様にお届けすることを大切にしています。
+                    </p>
+                    <p class="text-charcoal/70 mb-8 leading-loose font-light">
+                        市場から厳選した新鮮な花材を使用し、フローリストが一つ一つ丁寧にデザイン。
+                        シンプルでありながら、空間に溶け込むようなボタニカルスタイルを追求しています。
+                    </p>
+                    <div class="flex items-center space-x-4 text-sage-700 font-serif italic">
+                        <span class="h-px w-12 bg-sage-500"></span>
+                        <span>Since 2015</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-sage-100/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sage-500 uppercase tracking-widest text-sm font-bold">What We Offer</span>
+                <h2 class="font-serif text-4xl text-sage-900 mt-2">Services</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group bg-white p-8 hover:shadow-xl transition-shadow duration-300 border border-sage-100">
+                    <div class="h-64 overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             alt="Wedding Flowers"
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h3 class="font-serif text-2xl text-sage-900 mb-3">Weddings</h3>
+                    <p class="text-charcoal/60 font-light leading-relaxed mb-4">
+                        人生で最も特別な一日を、世界に一つだけのブーケと装花で彩ります。お二人のイメージを丁寧に形にします。
+                    </p>
+                    <a href="#" class="text-sage-700 uppercase text-xs tracking-widest border-b border-sage-300 pb-1 hover:text-sage-900 transition-colors">Learn More</a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group bg-white p-8 hover:shadow-xl transition-shadow duration-300 border border-sage-100">
+                    <div class="h-64 overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1592248553258-0051d92f7672?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             alt="Gifts"
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h3 class="font-serif text-2xl text-sage-900 mb-3">Gifts & Bouquets</h3>
+                    <p class="text-charcoal/60 font-light leading-relaxed mb-4">
+                        誕生日、記念日、お祝いに。季節の花々を束ねた、心温まるギフトブーケをご用意しております。
+                    </p>
+                    <a href="#" class="text-sage-700 uppercase text-xs tracking-widest border-b border-sage-300 pb-1 hover:text-sage-900 transition-colors">Order Now</a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group bg-white p-8 hover:shadow-xl transition-shadow duration-300 border border-sage-100">
+                    <div class="h-64 overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             alt="Workshops"
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h3 class="font-serif text-2xl text-sage-900 mb-3">Flower Subscription</h3>
+                    <p class="text-charcoal/60 font-light leading-relaxed mb-4">
+                        毎日の暮らしに花を。厳選された旬の花が定期的に届く、花の定期便サービスです。
+                    </p>
+                    <a href="#" class="text-sage-700 uppercase text-xs tracking-widest border-b border-sage-300 pb-1 hover:text-sage-900 transition-colors">Subscribe</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="text-sage-500 uppercase tracking-widest text-sm font-bold">Portfolio</span>
+                    <h2 class="font-serif text-4xl text-sage-900 mt-2">Latest Works</h2>
+                </div>
+                <a href="#" class="hidden md:block text-sage-900 hover:text-sage-500 transition-colors italic font-serif">View Instagram -></a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="relative group overflow-hidden aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Flower 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-lg">Spring Collection</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden aspect-[3/4] mt-8 md:mt-12">
+                    <img src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Flower 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-lg">Rose Bouquet</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1562690868-60bbe7624e0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Flower 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-lg">Dried Flowers</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden aspect-[3/4] mt-8 md:mt-12">
+                    <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Flower 4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-lg">Table Setting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-sage-500 text-cream">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <svg class="w-12 h-12 mx-auto mb-8 text-sage-300 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H11.983L7.983 16L7.983 8L14.017 8L14.017 3H2.017L2.017 16L6.017 16L6.017 21L14.017 21ZM22.017 21L22.017 18C22.017 16.8954 21.1216 16 20.017 16H19.983L15.983 16L15.983 8L22.017 8L22.017 3H10.017L10.017 16L14.017 16L14.017 21L22.017 21Z"></path></svg>
+            <blockquote class="font-serif text-2xl md:text-3xl leading-relaxed italic mb-8">
+                "想像していた以上の素晴らしいアレンジメントでした。<br>
+                花の香りと美しさが、私たちの特別な日をより一層引き立ててくれました。"
+            </blockquote>
+            <cite class="not-italic text-sm tracking-widest uppercase opacity-80">- Y. Tanaka, Wedding Client</cite>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <!-- Info -->
+                <div class="flex flex-col justify-center">
+                    <span class="text-sage-500 uppercase tracking-widest text-sm font-bold mb-2">Get in Touch</span>
+                    <h2 class="font-serif text-4xl text-sage-900 mb-8">Visit Our Studio</h2>
+
+                    <div class="space-y-6 text-charcoal/80 font-light">
+                        <p class="flex items-start">
+                            <span class="w-24 uppercase text-xs tracking-widest text-sage-500 mt-1">Address</span>
+                            <span>〒150-0001<br>東京都渋谷区神宮前 1-2-3<br>Botanical Building 1F</span>
+                        </p>
+                        <p class="flex items-start">
+                            <span class="w-24 uppercase text-xs tracking-widest text-sage-500 mt-1">Phone</span>
+                            <span>03-1234-5678</span>
+                        </p>
+                        <p class="flex items-start">
+                            <span class="w-24 uppercase text-xs tracking-widest text-sage-500 mt-1">Email</span>
+                            <span>hello@{{COMPANY_NAME}}.com</span>
+                        </p>
+                        <p class="flex items-start">
+                            <span class="w-24 uppercase text-xs tracking-widest text-sage-500 mt-1">Hours</span>
+                            <span>Mon - Sat: 10:00 - 19:00<br>Sun: Closed</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-cream p-10 shadow-lg border border-sage-100">
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-sage-500 mb-2">Name</label>
+                            <input type="text" class="w-full bg-white border border-sage-200 p-3 focus:outline-none focus:border-sage-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-sage-500 mb-2">Email</label>
+                            <input type="email" class="w-full bg-white border border-sage-200 p-3 focus:outline-none focus:border-sage-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-sage-500 mb-2">Message</label>
+                            <textarea rows="4" class="w-full bg-white border border-sage-200 p-3 focus:outline-none focus:border-sage-500 transition-colors"></textarea>
+                        </div>
+                        <button type="button" class="w-full bg-sage-900 text-white py-4 uppercase tracking-widest text-sm hover:bg-sage-700 transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-sage-900 text-sage-100 py-12 border-t border-sage-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-serif text-2xl text-white">{{COMPANY_NAME}}</span>
+            </div>
+            <div class="flex space-x-8 text-sm font-light tracking-wide opacity-80">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+            </div>
+            <div class="mt-4 md:mt-0 text-xs font-light opacity-50">
+                &copy; 2023 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
