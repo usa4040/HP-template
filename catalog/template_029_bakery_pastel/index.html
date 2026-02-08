@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Sweet Cravings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Quicksand', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Pacifico', cursive; }
+        [x-cloak] { display: none !important; }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'Pacifico': ['Pacifico', 'cursive'],
+                        'Quicksand': ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#ffe4e6', // rose-100
+                            DEFAULT: '#f43f5e', // rose-500
+                            dark: '#be123c', // rose-700
+                            cream: '#fffbeb', // amber-50
+                            choco: '#78350f', // amber-900
+                        },
+                    },
+                    animation: {
+                        blob: "blob 7s infinite",
+                        "fade-in-up": "fadeInUp 1s ease-out forwards",
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": { transform: "translate(0px, 0px) scale(1)" },
+                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                            "100%": { transform: "translate(0px, 0px) scale(1)" },
+                        },
+                        fadeInUp: {
+                            "0%": { opacity: "0", transform: "translateY(20px)" },
+                            "100%": { opacity: "1", transform: "translateY(0)" },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-cream text-brand-choco antialiased" x-data="{ mobileMenuOpen: false }">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-sm shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-3xl text-brand-DEFAULT">{{COMPANY_NAME}}</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-brand-choco hover:text-brand-DEFAULT transition font-semibold">Home</a>
+                    <a href="#about" class="text-brand-choco hover:text-brand-DEFAULT transition font-semibold">Our Story</a>
+                    <a href="#menu" class="text-brand-choco hover:text-brand-DEFAULT transition font-semibold">Menu</a>
+                    <a href="#gallery" class="text-brand-choco hover:text-brand-DEFAULT transition font-semibold">Gallery</a>
+                    <a href="#contact" class="px-6 py-2 bg-brand-DEFAULT text-white rounded-full hover:bg-brand-dark transition shadow-lg transform hover:-translate-y-0.5">Order Now</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-brand-choco hover:text-brand-DEFAULT focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="md:hidden absolute top-20 left-0 w-full bg-white shadow-lg border-t border-brand-light">
+            <div class="px-4 pt-2 pb-4 space-y-2 text-center">
+                <a href="#home" @click="mobileMenuOpen = false" class="block py-3 text-brand-choco hover:bg-brand-light rounded-lg">Home</a>
+                <a href="#about" @click="mobileMenuOpen = false" class="block py-3 text-brand-choco hover:bg-brand-light rounded-lg">Our Story</a>
+                <a href="#menu" @click="mobileMenuOpen = false" class="block py-3 text-brand-choco hover:bg-brand-light rounded-lg">Menu</a>
+                <a href="#gallery" @click="mobileMenuOpen = false" class="block py-3 text-brand-choco hover:bg-brand-light rounded-lg">Gallery</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block py-3 text-brand-DEFAULT font-bold bg-brand-light rounded-lg">Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+             <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Bakery Background" class="w-full h-full object-cover opacity-20">
+             <div class="absolute inset-0 bg-gradient-to-b from-brand-cream/80 via-brand-cream/40 to-brand-cream"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-7xl text-brand-choco mb-6 animate-fade-in-up">Sweeten Your Day</h1>
+            <p class="text-xl md:text-2xl text-brand-choco/80 mb-10 max-w-2xl mx-auto font-light">
+                Handcrafted pastries, artisanal cakes, and the warmth of home in every bite.
+                Welcome to {{COMPANY_NAME}}, where every crumb is made with love.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#menu" class="px-8 py-4 bg-brand-DEFAULT text-white rounded-full text-lg font-bold shadow-xl hover:bg-brand-dark transition transform hover:-translate-y-1">View Our Menu</a>
+                <a href="#contact" class="px-8 py-4 bg-white text-brand-DEFAULT border-2 border-brand-DEFAULT rounded-full text-lg font-bold shadow-md hover:bg-brand-light transition transform hover:-translate-y-1">Visit Us Today</a>
+            </div>
+        </div>
+        <!-- Decorative Elements -->
+        <div class="absolute top-1/4 left-10 w-24 h-24 bg-brand-light rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div class="absolute top-1/3 right-10 w-32 h-32 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-10 left-1/3 w-40 h-40 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+    </section>
+
+    <!-- Features / About Teaser -->
+    <section id="about" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-brand-light rounded-3xl transform rotate-3 group-hover:rotate-6 transition duration-300"></div>
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Baker working" class="relative rounded-3xl shadow-lg transform group-hover:-translate-y-2 transition duration-300 w-full object-cover h-[500px]">
+                </div>
+                <div>
+                    <span class="text-brand-DEFAULT font-bold tracking-wider uppercase text-sm">Our Philosophy</span>
+                    <h2 class="text-4xl md:text-5xl mt-2 mb-6 text-brand-choco">Baked Fresh, Every Single Morning</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe in the simple magic of flour, butter, and sugar.
+                        Our recipes have been passed down through generations, ensuring that classic taste you crave,
+                        with a modern twist of creativity. No preservatives, just pure, wholesome ingredients.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-12 h-12 bg-brand-light rounded-full flex items-center justify-center text-brand-DEFAULT">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="font-semibold text-brand-choco">Organic Ingredients</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-12 h-12 bg-brand-light rounded-full flex items-center justify-center text-brand-DEFAULT">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                            <span class="font-semibold text-brand-choco">Made with Love</span>
+                        </div>
+                    </div>
+                    <div class="mt-10">
+                        <a href="#about-full" class="text-brand-DEFAULT font-bold hover:text-brand-dark transition inline-flex items-center group">
+                            Read Our Full Story
+                            <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Highlights -->
+    <section id="menu" class="py-20 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-DEFAULT font-bold tracking-wider uppercase text-sm">Delicious Selection</span>
+                <h2 class="text-4xl md:text-5xl mt-2 text-brand-choco">From Our Oven to You</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Discover our daily selection of sweet and savory treats. Warning: may cause extreme happiness.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Croissants" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 right-4 bg-brand-DEFAULT text-white font-bold px-3 py-1 rounded-full text-sm">$4.50</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl text-brand-choco mb-2">Butter Croissants</h3>
+                        <p class="text-gray-500 mb-4 text-sm">Golden, flaky, and buttery layers that melt in your mouth perfectly.</p>
+                        <button class="w-full py-3 border-2 border-brand-light text-brand-choco font-bold rounded-xl hover:bg-brand-light hover:text-brand-DEFAULT transition">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cheesecake" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 right-4 bg-brand-DEFAULT text-white font-bold px-3 py-1 rounded-full text-sm">$6.00</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl text-brand-choco mb-2">Berry Cheesecake</h3>
+                        <p class="text-gray-500 mb-4 text-sm">Creamy New York style cheesecake topped with fresh seasonal berries.</p>
+                        <button class="w-full py-3 border-2 border-brand-light text-brand-choco font-bold rounded-xl hover:bg-brand-light hover:text-brand-DEFAULT transition">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1614707267537-b85aaf80fd44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cupcakes" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 right-4 bg-brand-DEFAULT text-white font-bold px-3 py-1 rounded-full text-sm">$3.50</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl text-brand-choco mb-2">Velvet Cupcakes</h3>
+                        <p class="text-gray-500 mb-4 text-sm">Classic red velvet cupcakes with a rich cream cheese frosting swirl.</p>
+                        <button class="w-full py-3 border-2 border-brand-light text-brand-choco font-bold rounded-xl hover:bg-brand-light hover:text-brand-DEFAULT transition">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#full-menu" class="inline-block px-8 py-3 bg-brand-choco text-white rounded-full hover:bg-gray-800 transition font-bold shadow-lg">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / Aesthetic Grid -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl text-brand-choco">Sweet Moments</h2>
+                <p class="mt-4 text-gray-600">Follow our journey on Instagram @{{COMPANY_NAME}}</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="relative aspect-square overflow-hidden rounded-2xl group">
+                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-500 transform group-hover:scale-110" alt="Pastry 1">
+                    <div class="absolute inset-0 bg-brand-DEFAULT/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <i class="text-white text-3xl font-bold">♥</i>
+                    </div>
+                </div>
+                <div class="relative aspect-square overflow-hidden rounded-2xl group md:translate-y-8">
+                    <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-500 transform group-hover:scale-110" alt="Pastry 2">
+                     <div class="absolute inset-0 bg-brand-DEFAULT/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <i class="text-white text-3xl font-bold">♥</i>
+                    </div>
+                </div>
+                <div class="relative aspect-square overflow-hidden rounded-2xl group">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-500 transform group-hover:scale-110" alt="Pastry 3">
+                     <div class="absolute inset-0 bg-brand-DEFAULT/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <i class="text-white text-3xl font-bold">♥</i>
+                    </div>
+                </div>
+                <div class="relative aspect-square overflow-hidden rounded-2xl group md:translate-y-8">
+                    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-500 transform group-hover:scale-110" alt="Pastry 4">
+                     <div class="absolute inset-0 bg-brand-DEFAULT/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <i class="text-white text-3xl font-bold">♥</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-brand-light relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-white rounded-full opacity-50 mix-blend-overlay"></div>
+        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-white rounded-full opacity-50 mix-blend-overlay"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <svg class="w-12 h-12 text-brand-DEFAULT mx-auto mb-6 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9.017C7.91243 16 7.017 16.8954 7.017 18V21H2.017V8.99999C2.017 5.13401 5.15101 2 9.017 2C12.883 2 16.017 5.13401 16.017 8.99999V11H19.017C20.6739 11 22.017 12.3431 22.017 14V17C22.017 17.5523 21.5693 18 21.017 18C20.4647 18 20.017 17.5523 20.017 17V14C20.017 13.4477 19.5693 13 19.017 13H16.017V21H14.017Z"></path></svg>
+            <h2 class="text-3xl md:text-4xl text-brand-choco mb-8">"The best cinnamon rolls I've ever had! {{COMPANY_NAME}} is my happy place."</h2>
+            <div class="flex items-center justify-center space-x-4">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-12 h-12 rounded-full border-2 border-brand-DEFAULT">
+                <div class="text-left">
+                    <p class="font-bold text-brand-choco">Sarah Jenkins</p>
+                    <p class="text-sm text-brand-DEFAULT">Loyal Customer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-brand-choco text-brand-cream pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <span class="text-3xl font-Pacifico text-brand-light mb-4 block">{{COMPANY_NAME}}</span>
+                    <p class="text-brand-cream/70 text-sm leading-relaxed">
+                        Baking the world a better place, one cupcake at a time. Visit us for a daily dose of sweetness.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-white">Visit Us</h4>
+                    <p class="text-brand-cream/70 text-sm mb-2">123 Baker Street</p>
+                    <p class="text-brand-cream/70 text-sm mb-2">Sweet City, SC 90210</p>
+                    <p class="text-brand-cream/70 text-sm">hello@{{COMPANY_NAME}}.com</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-white">Opening Hours</h4>
+                    <p class="text-brand-cream/70 text-sm mb-2">Mon - Fri: 7am - 7pm</p>
+                    <p class="text-brand-cream/70 text-sm mb-2">Saturday: 8am - 6pm</p>
+                    <p class="text-brand-cream/70 text-sm">Sunday: 9am - 3pm</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-white">Newsletter</h4>
+                    <form class="flex flex-col space-y-2">
+                        <input type="email" placeholder="Your email..." class="px-4 py-2 rounded-lg bg-white/10 text-white placeholder-brand-cream/50 border border-white/20 focus:outline-none focus:border-brand-DEFAULT">
+                        <button type="button" class="px-4 py-2 bg-brand-DEFAULT text-white rounded-lg font-bold hover:bg-brand-dark transition">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-sm text-brand-cream/50">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved. Designed with <span class="text-brand-DEFAULT">♥</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -363,6 +363,19 @@
         "Dark",
         "Modern"
       ]
+    },
+    {
+      "id": "029",
+      "name": "Sweet Cravings",
+      "category": "Bakery",
+      "style": "Pastel",
+      "path": "catalog/template_029_bakery_pastel",
+      "description": "Pastel colors and soft shapes",
+      "tags": [
+        "Sweet",
+        "Rounded",
+        "Playful"
+      ]
     }
   ]
 }
