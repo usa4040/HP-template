@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Burger Burst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Bangers', cursive; letter-spacing: 0.05em; }
+        [x-cloak] { display: none !important; }
+
+        .pop-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+        .pop-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .pop-shadow-hover:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .pop-border {
+            border: 4px solid black;
+        }
+
+        /* Halftone pattern background */
+        .bg-halftone {
+            background-image: radial-gradient(circle, black 2px, transparent 2.5px);
+            background-size: 20px 20px;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pop: {
+                            red: '#ff0000',
+                            yellow: '#ffeb3b',
+                            blue: '#00ccff',
+                            black: '#000000',
+                            white: '#ffffff',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Bangers', 'cursive'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-pop-yellow text-pop-black selection:bg-pop-black selection:text-pop-yellow overflow-x-hidden" x-data="{ mobileMenuOpen: false }">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-pop-yellow pop-border border-l-0 border-r-0 border-t-0 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center transform -rotate-2 hover:rotate-0 transition duration-300">
+                    <span class="text-4xl font-display text-pop-red drop-shadow-[2px_2px_0_rgba(0,0,0,1)] stroke-black" style="-webkit-text-stroke: 1px black;">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-xl font-bold hover:text-pop-red hover:underline decoration-4 decoration-black underline-offset-4 transition">HOME</a>
+                    <a href="#menu" class="text-xl font-bold hover:text-pop-red hover:underline decoration-4 decoration-black underline-offset-4 transition">MENU</a>
+                    <a href="#about" class="text-xl font-bold hover:text-pop-red hover:underline decoration-4 decoration-black underline-offset-4 transition">ABOUT</a>
+                    <a href="#contact" class="bg-pop-red text-white px-6 py-2 font-display text-xl pop-border pop-shadow hover:bg-white hover:text-pop-black pop-shadow-hover transition duration-200">ORDER NOW!</a>
+                </div>
+
+                <!-- Mobile Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-pop-black focus:outline-none bg-white p-2 pop-border pop-shadow-sm">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden absolute top-20 left-0 w-full bg-white pop-border border-t-0 z-40 p-4">
+            <div class="flex flex-col space-y-4 text-center">
+                <a href="#home" @click="mobileMenuOpen = false" class="text-2xl font-bold hover:bg-pop-yellow py-2 pop-border border-2 border-dashed">HOME</a>
+                <a href="#menu" @click="mobileMenuOpen = false" class="text-2xl font-bold hover:bg-pop-yellow py-2 pop-border border-2 border-dashed">MENU</a>
+                <a href="#about" @click="mobileMenuOpen = false" class="text-2xl font-bold hover:bg-pop-yellow py-2 pop-border border-2 border-dashed">ABOUT</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="bg-pop-red text-white py-3 text-2xl font-display pop-border pop-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition">ORDER NOW!</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Marquee -->
+    <div class="pt-20 bg-black text-white overflow-hidden py-2 border-b-4 border-black">
+        <div class="whitespace-nowrap animate-[marquee_20s_linear_infinite] inline-block">
+            <span class="text-xl font-bold mx-4">🍔 HOT BURGERS!</span>
+            <span class="text-xl font-bold mx-4">🍟 CRISPY FRIES!</span>
+            <span class="text-xl font-bold mx-4">🥤 COLD SHAKES!</span>
+            <span class="text-xl font-bold mx-4">🔥 GRILLED TO PERFECTION!</span>
+            <span class="text-xl font-bold mx-4">🍔 HOT BURGERS!</span>
+            <span class="text-xl font-bold mx-4">🍟 CRISPY FRIES!</span>
+            <span class="text-xl font-bold mx-4">🥤 COLD SHAKES!</span>
+            <span class="text-xl font-bold mx-4">🔥 GRILLED TO PERFECTION!</span>
+             <span class="text-xl font-bold mx-4">🍔 HOT BURGERS!</span>
+            <span class="text-xl font-bold mx-4">🍟 CRISPY FRIES!</span>
+            <span class="text-xl font-bold mx-4">🥤 COLD SHAKES!</span>
+            <span class="text-xl font-bold mx-4">🔥 GRILLED TO PERFECTION!</span>
+        </div>
+    </div>
+    <style>
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-pop-blue border-b-4 border-black overflow-hidden">
+        <!-- Halftone Overlay -->
+        <div class="absolute inset-0 bg-halftone opacity-10 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <!-- Text Content -->
+            <div class="text-center md:text-left space-y-6">
+                <div class="inline-block bg-white px-4 py-2 pop-border transform -rotate-3 mb-4">
+                    <span class="text-2xl font-bold">EST. 2024</span>
+                </div>
+                <h1 class="text-7xl md:text-9xl font-display leading-none text-white drop-shadow-[4px_4px_0_#000] stroke-black" style="-webkit-text-stroke: 2px black;">
+                    BITE<br><span class="text-pop-red">ME!</span>
+                </h1>
+                <p class="text-2xl md:text-3xl font-bold bg-white inline-block px-4 py-2 pop-border transform rotate-1">
+                    The Juiciest Burgers in Town. Period.
+                </p>
+                <div class="pt-8">
+                    <a href="#menu" class="inline-block bg-pop-yellow text-black text-3xl font-display px-8 py-4 pop-border pop-shadow hover:bg-white hover:scale-105 transition duration-300 transform">
+                        SEE THE MENU
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image -->
+            <div class="relative group">
+                <!-- Comic "POW" Background -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] z-0">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full fill-white stroke-black stroke-[3px] animate-[spin_20s_linear_infinite]">
+                        <path d="M42.7,-62.9C54.3,-52.7,61.8,-39.8,68.9,-26.3C76,-12.8,82.8,1.4,80.7,14.6C78.6,27.8,67.6,40.1,55.4,49.8C43.2,59.5,29.8,66.6,15.6,69.9C1.4,73.2,-13.7,72.7,-28.1,67.4C-42.5,62.1,-56.3,52,-65.7,38.9C-75.1,25.8,-80.1,9.7,-77.8,-5.3C-75.5,-20.3,-65.9,-34.2,-54.1,-44.6C-42.3,-55,-28.3,-61.9,-14.3,-63.9C-0.3,-66,13.7,-63.2,27.7,-60.4" transform="translate(100 100)" />
+                    </svg>
+                </div>
+
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Giant Burger" class="relative z-10 w-full h-auto object-cover pop-border rounded-full aspect-square pop-shadow transform group-hover:rotate-6 transition duration-500">
+
+                <!-- Floating Badge -->
+                <div class="absolute -bottom-6 -right-6 z-20 bg-pop-red text-white w-32 h-32 rounded-full flex items-center justify-center pop-border animate-bounce">
+                    <span class="text-3xl font-display text-center leading-none transform -rotate-12">ONLY<br>$9.99</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-white border-b-4 border-black relative">
+        <div class="absolute top-10 left-10 w-24 h-24 bg-pop-yellow pop-border rounded-full opacity-50"></div>
+        <div class="absolute bottom-10 right-10 w-32 h-32 bg-pop-blue pop-border transform rotate-12 opacity-50"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-6xl md:text-8xl font-display text-pop-black stroke-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)]" style="-webkit-text-stroke: 2px white;">OUR MENU</h2>
+                <div class="inline-block bg-pop-red text-white px-6 py-2 text-2xl font-bold pop-border transform -rotate-2 mt-4">
+                    WARNING: HIGHLY ADDICTIVE
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Item 1 -->
+                <div class="bg-pop-yellow p-4 pop-border pop-shadow hover:bg-white transition duration-300 group">
+                    <div class="bg-white border-2 border-black h-64 overflow-hidden mb-4 relative">
+                        <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Burger" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-2 right-2 bg-black text-white px-3 py-1 font-bold border-2 border-white">NEW!</div>
+                    </div>
+                    <h3 class="text-4xl font-display mb-2">THE BEAST</h3>
+                    <p class="font-bold mb-4">Double beef patty, crispy bacon, cheddar cheese, and our secret "kaboom" sauce.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-3xl font-black">$12.99</span>
+                        <button class="bg-pop-red text-white px-6 py-2 font-display text-xl border-2 border-black shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition">ADD +</button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-pop-blue p-4 pop-border pop-shadow hover:bg-white transition duration-300 group">
+                    <div class="bg-white border-2 border-black h-64 overflow-hidden mb-4 relative">
+                        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chicken Burger" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                    </div>
+                    <h3 class="text-4xl font-display mb-2">CHICKEN ZILLA</h3>
+                    <p class="font-bold mb-4">Crispy fried chicken breast, spicy coleslaw, pickles, and mayo on a brioche bun.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-3xl font-black">$10.99</span>
+                        <button class="bg-pop-red text-white px-6 py-2 font-display text-xl border-2 border-black shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition">ADD +</button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-pop-red p-4 pop-border pop-shadow hover:bg-white transition duration-300 group">
+                    <div class="bg-white border-2 border-black h-64 overflow-hidden mb-4 relative">
+                        <img src="https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Veggie Burger" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                    </div>
+                    <h3 class="text-4xl font-display mb-2">GREEN GIANT</h3>
+                    <p class="font-bold mb-4">Plant-based patty that tastes like the real deal. Lettuce, tomato, avocado.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-3xl font-black">$11.99</span>
+                        <button class="bg-black text-white px-6 py-2 font-display text-xl border-2 border-white shadow-[4px_4px_0_0_#fff] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition">ADD +</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Why Us -->
+    <section id="about" class="py-20 bg-pop-red border-b-4 border-black text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-black translate-x-4 translate-y-4 border-2 border-white"></div>
+                    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Diner Interior" class="relative z-10 w-full h-full object-cover border-4 border-black grayscale hover:grayscale-0 transition duration-500">
+                </div>
+                <div class="space-y-6">
+                    <h2 class="text-6xl md:text-8xl font-display leading-none drop-shadow-[4px_4px_0_#000]">NOT YOUR<br>AVERAGE<br>JOINT</h2>
+                    <p class="text-xl font-bold bg-black inline-block p-4 border-2 border-white transform rotate-1">
+                        We don't do frozen. We don't do boring. We smash fresh beef daily and serve it with attitude.
+                    </p>
+                    <ul class="space-y-4 text-xl font-black">
+                        <li class="flex items-center space-x-4">
+                            <span class="bg-pop-yellow text-black w-8 h-8 flex items-center justify-center border-2 border-black rounded-full">✓</span>
+                            <span>100% FRESH ANGUS BEEF</span>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <span class="bg-pop-yellow text-black w-8 h-8 flex items-center justify-center border-2 border-black rounded-full">✓</span>
+                            <span>HAND-CUT FRIES</span>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <span class="bg-pop-yellow text-black w-8 h-8 flex items-center justify-center border-2 border-black rounded-full">✓</span>
+                            <span>CRAZY SHAKES</span>
+                        </li>
+                    </ul>
+                </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-pop-yellow border-b-4 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-6xl text-center font-display mb-16 text-black drop-shadow-[2px_2px_0_#fff]">WORD ON THE STREET</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="relative">
+                    <div class="bg-white p-8 border-4 border-black relative bubble z-10">
+                        <p class="text-xl font-bold uppercase italic">"I literally dreamt about this burger last night. It's insane."</p>
+                    </div>
+                    <!-- Bubble Tail -->
+                    <div class="w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-black border-r-[20px] border-r-transparent absolute left-8 -bottom-4 z-0"></div>
+                     <div class="w-0 h-0 border-l-[16px] border-l-transparent border-t-[16px] border-t-white border-r-[16px] border-r-transparent absolute left-9 -bottom-3 z-10"></div>
+
+                    <div class="flex items-center mt-6 ml-4">
+                        <div class="w-12 h-12 bg-black rounded-full overflow-hidden border-2 border-white">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <span class="ml-4 font-black text-xl">MIKE T.</span>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="relative mt-8 md:mt-0">
+                    <div class="bg-white p-8 border-4 border-black relative bubble z-10 shadow-[8px_8px_0_0_#000]">
+                        <p class="text-xl font-bold uppercase italic">"The fries are crispy, the shakes are thick, and the vibes are unmatched."</p>
+                    </div>
+                     <div class="w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-black border-r-[20px] border-r-transparent absolute left-8 -bottom-4 z-0"></div>
+                     <div class="w-0 h-0 border-l-[16px] border-l-transparent border-t-[16px] border-t-white border-r-[16px] border-r-transparent absolute left-9 -bottom-3 z-10"></div>
+
+                    <div class="flex items-center mt-6 ml-4">
+                        <div class="w-12 h-12 bg-black rounded-full overflow-hidden border-2 border-white">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <span class="ml-4 font-black text-xl">SARAH J.</span>
+                    </div>
+                </div>
+
+                 <!-- Review 3 -->
+                <div class="relative mt-8 md:mt-0">
+                    <div class="bg-white p-8 border-4 border-black relative bubble z-10">
+                        <p class="text-xl font-bold uppercase italic">"Best hangover cure in the city. 10/10 would smash again."</p>
+                    </div>
+                     <div class="w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-black border-r-[20px] border-r-transparent absolute left-8 -bottom-4 z-0"></div>
+                     <div class="w-0 h-0 border-l-[16px] border-l-transparent border-t-[16px] border-t-white border-r-[16px] border-r-transparent absolute left-9 -bottom-3 z-10"></div>
+
+                    <div class="flex items-center mt-6 ml-4">
+                        <div class="w-12 h-12 bg-black rounded-full overflow-hidden border-2 border-white">
+                            <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <span class="ml-4 font-black text-xl">DAVE R.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-black text-white pt-20 pb-10 border-t-4 border-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-halftone opacity-20 invert"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-3 gap-12 text-center md:text-left">
+                <div>
+                    <span class="text-5xl font-display text-pop-yellow mb-6 block">{{COMPANY_NAME}}</span>
+                    <p class="text-xl font-bold mb-4">CRUSHING HUNGER SINCE 2024.</p>
+                </div>
+                <div>
+                    <h4 class="text-3xl font-display text-pop-red mb-4">FIND US</h4>
+                    <p class="text-lg font-bold">123 BURGER BLVD</p>
+                    <p class="text-lg font-bold">FLAVOR TOWN, USA 90210</p>
+                    <p class="text-lg font-bold mt-4">HELLO@{{COMPANY_NAME}}.COM</p>
+                </div>
+                <div>
+                    <h4 class="text-3xl font-display text-pop-blue mb-4">OPEN LATE</h4>
+                    <p class="text-lg font-bold">MON-SUN: 11AM - 2AM</p>
+                    <div class="mt-6 flex justify-center md:justify-start space-x-4">
+                        <a href="#" class="w-12 h-12 bg-white text-black flex items-center justify-center rounded-full border-2 border-black hover:bg-pop-yellow transition">IG</a>
+                        <a href="#" class="w-12 h-12 bg-white text-black flex items-center justify-center rounded-full border-2 border-black hover:bg-pop-yellow transition">FB</a>
+                        <a href="#" class="w-12 h-12 bg-white text-black flex items-center justify-center rounded-full border-2 border-black hover:bg-pop-yellow transition">TT</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t-2 border-white/20 mt-16 pt-8 text-center">
+                <p class="font-bold text-sm text-gray-400">&copy; 2024 {{COMPANY_NAME}}. ALL RIGHTS RESERVED. STAY HUNGRY.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

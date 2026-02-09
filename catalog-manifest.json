@@ -339,7 +339,6 @@
       ]
     },
     {
-<<<<<<< HEAD
       "id": "027",
       "name": "Nordic Haven",
       "category": "Interior Design",
@@ -532,6 +531,19 @@
         "Vibrant",
         "Rounded",
         "Friendly"
+      ]
+    },
+    {
+      "id": "042",
+      "name": "Burger Burst",
+      "category": "Restaurant",
+      "style": "Pop Art",
+      "path": "catalog/template_042_restaurant_pop",
+      "description": "Bold pop-art burger theme.",
+      "tags": [
+        "Pop",
+        "Bold",
+        "Vibrant"
       ]
     }
   ]
