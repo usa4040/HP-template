@@ -454,6 +454,19 @@
         "Booking",
         "Elegant"
       ]
+    },
+    {
+      "id": "036",
+      "name": "Shield Protocol",
+      "category": "Cybersecurity",
+      "style": "Dark-Tech",
+      "path": "catalog/template_036_cybersecurity_dark",
+      "description": "Robust cybersecurity theme with dark mode and neon green accents.",
+      "tags": [
+        "Dark",
+        "Security",
+        "Tech"
+      ]
     }
   ]
 }
