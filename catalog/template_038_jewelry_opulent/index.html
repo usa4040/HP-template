@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Timeless Luxury Jewelry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            950: '#022c22', // Deepest Emerald
+                            900: '#064e3b',
+                        },
+                        amber: {
+                            400: '#fbbf24', // Gold
+                            500: '#f59e0b',
+                        },
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            900: '#1c1917',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .gold-gradient-text {
+            background: linear-gradient(to right, #fbfbfa, #fbbf24, #fbfbfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 4s linear infinite;
+        }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+    </style>
+</head>
+<body class="bg-emerald-950 text-stone-100 font-sans antialiased selection:bg-amber-400 selection:text-emerald-950">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)"
+         :class="{'bg-emerald-950/95 backdrop-blur-md shadow-lg': scrolled, 'bg-transparent': !scrolled}"
+         class="fixed w-full z-50 transition-all duration-300 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button @click="open = !open" class="text-stone-100 hover:text-amber-400 transition-colors focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center justify-center w-full md:w-auto md:justify-start absolute md:relative left-0 right-0 pointer-events-none md:pointer-events-auto">
+                    <a href="#" class="font-serif text-2xl md:text-3xl tracking-widest text-stone-50 font-bold uppercase hover:text-amber-400 transition-colors pointer-events-auto">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 lg:space-x-12 items-center">
+                    <a href="#collections" class="text-sm tracking-widest uppercase hover:text-amber-400 transition-colors duration-300 border-b-2 border-transparent hover:border-amber-400 pb-1">Collections</a>
+                    <a href="#bespoke" class="text-sm tracking-widest uppercase hover:text-amber-400 transition-colors duration-300 border-b-2 border-transparent hover:border-amber-400 pb-1">Bespoke</a>
+                    <a href="#journal" class="text-sm tracking-widest uppercase hover:text-amber-400 transition-colors duration-300 border-b-2 border-transparent hover:border-amber-400 pb-1">Journal</a>
+                    <a href="#contact" class="px-6 py-2 border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-emerald-950 transition-all duration-300 text-sm tracking-widest uppercase">Book Appointment</a>
+                </div>
+
+                <!-- Icons -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <button class="text-stone-100 hover:text-amber-400 transition-colors">
+                        <span class="sr-only">Search</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                    <button class="text-stone-100 hover:text-amber-400 transition-colors relative">
+                        <span class="sr-only">Cart</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span class="absolute -top-2 -right-2 w-4 h-4 bg-amber-400 text-emerald-950 text-[10px] flex items-center justify-center rounded-full font-bold">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-emerald-950 border-b border-white/10 shadow-2xl absolute w-full" x-cloak>
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#collections" class="block px-3 py-3 text-base font-medium text-stone-100 hover:text-amber-400 border-b border-white/5">Collections</a>
+                <a href="#bespoke" class="block px-3 py-3 text-base font-medium text-stone-100 hover:text-amber-400 border-b border-white/5">Bespoke Service</a>
+                <a href="#journal" class="block px-3 py-3 text-base font-medium text-stone-100 hover:text-amber-400 border-b border-white/5">Journal</a>
+                <a href="#contact" class="block px-3 py-3 text-base font-medium text-amber-400 mt-4">Book Appointment &rarr;</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1920&q=80"
+                 alt="Luxury Jewelry Background"
+                 class="w-full h-full object-cover opacity-60 scale-105 animate-[pulse_10s_ease-in-out_infinite_alternate]">
+            <div class="absolute inset-0 bg-gradient-to-b from-emerald-950/40 via-emerald-950/20 to-emerald-950"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+            <p class="text-amber-400 tracking-[0.3em] uppercase text-sm mb-6 animate-slide-up font-semibold">Est. 1924</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-stone-50 mb-8 leading-tight animate-slide-up" style="animation-delay: 0.2s;">
+                Elegance <br/><span class="italic text-amber-100/90 font-light">Eternal</span>
+            </h1>
+            <p class="text-stone-300 text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto animate-slide-up" style="animation-delay: 0.4s;">
+                Discover jewelry that transcends time. Handcrafted with precision, designed for generations.
+            </p>
+            <div class="animate-slide-up" style="animation-delay: 0.6s;">
+                <a href="#collections" class="group inline-flex items-center px-8 py-4 border border-stone-50 text-stone-50 uppercase tracking-widest text-sm hover:bg-stone-50 hover:text-emerald-950 transition-all duration-500 ease-out">
+                    <span>Explore Collection</span>
+                    <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <!-- Categories Section -->
+    <section id="collections" class="py-24 px-4 sm:px-6 lg:px-8 relative bg-emerald-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <span class="text-amber-400 uppercase tracking-[0.2em] text-xs font-bold">Curated Selection</span>
+                <h2 class="font-serif text-3xl md:text-5xl text-stone-50 mt-4">Our Collections</h2>
+                <div class="w-24 h-px bg-amber-400 mx-auto mt-8"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <a href="#" class="group relative block h-[500px] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1605100804763-eb0dddf43c27?auto=format&fit=crop&w=800&q=80" alt="Rings" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 class="font-serif text-3xl text-stone-50 mb-2 italic">Rings</h3>
+                        <p class="text-amber-400 text-sm tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</p>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="#" class="group relative block h-[500px] overflow-hidden mt-0 md:-mt-12">
+                    <img src="https://images.unsplash.com/photo-1599643478518-17488fbbcd75?auto=format&fit=crop&w=800&q=80" alt="Necklaces" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 class="font-serif text-3xl text-stone-50 mb-2 italic">Necklaces</h3>
+                        <p class="text-amber-400 text-sm tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</p>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="#" class="group relative block h-[500px] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80" alt="Earrings" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 class="font-serif text-3xl text-stone-50 mb-2 italic">Earrings</h3>
+                        <p class="text-amber-400 text-sm tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Product (Split) -->
+    <section class="py-24 bg-stone-100 text-emerald-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2 relative group">
+                    <div class="absolute top-4 left-4 w-full h-full border border-emerald-950/20 translate-x-4 translate-y-4 transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-6"></div>
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=1000&q=80" alt="Featured Piece" class="w-full h-auto relative z-10 shadow-xl grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+                <div class="w-full md:w-1/2 text-center md:text-left">
+                    <span class="text-amber-600 uppercase tracking-[0.2em] text-xs font-bold mb-4 block">Spotlight</span>
+                    <h2 class="font-serif text-4xl md:text-6xl mb-8 leading-tight">The Midnight <br/> <span class="italic text-emerald-900">Collection</span></h2>
+                    <p class="text-stone-600 mb-8 leading-relaxed font-light text-lg">
+                        Inspired by the depths of the ocean and the silence of the night sky. Each piece in the Midnight Collection features rare sapphires and ethically sourced diamonds, set in recycled 18k gold.
+                    </p>
+                    <ul class="mb-10 space-y-3 text-stone-700 text-sm tracking-wide">
+                        <li class="flex items-center justify-center md:justify-start">
+                            <span class="w-1.5 h-1.5 bg-amber-500 rounded-full mr-3"></span> Ethically Sourced Gemstones
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <span class="w-1.5 h-1.5 bg-amber-500 rounded-full mr-3"></span> Handcrafted in Italy
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <span class="w-1.5 h-1.5 bg-amber-500 rounded-full mr-3"></span> Lifetime Warranty
+                        </li>
+                    </ul>
+                    <a href="#" class="inline-block border-b border-emerald-950 pb-1 text-emerald-950 uppercase tracking-widest text-sm hover:text-amber-600 hover:border-amber-600 transition-colors">
+                        View The Piece
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy / About -->
+    <section id="bespoke" class="relative py-32 bg-emerald-900 overflow-hidden">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 left-0 w-64 h-64 border border-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 border border-white/5 rounded-full translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-serif text-3xl md:text-5xl text-amber-400 mb-8 italic">"Jewelry is a biography. A story that is not written, but worn."</h2>
+            <p class="text-stone-300 leading-loose text-lg font-light mb-12">
+                At {{COMPANY_NAME}}, we believe that true luxury lies in the details. From the initial sketch to the final polish, our artisans pour their soul into every creation. We don't just sell jewelry; we craft future heirlooms.
+            </p>
+            <div class="flex justify-center gap-8">
+                <div class="text-center">
+                    <span class="block font-serif text-4xl text-stone-50 mb-2">25+</span>
+                    <span class="text-xs uppercase tracking-widest text-stone-400">Years Experience</span>
+                </div>
+                <div class="text-center">
+                    <span class="block font-serif text-4xl text-stone-50 mb-2">100%</span>
+                    <span class="text-xs uppercase tracking-widest text-stone-400">Conflict Free</span>
+                </div>
+                <div class="text-center">
+                    <span class="block font-serif text-4xl text-stone-50 mb-2">5k+</span>
+                    <span class="text-xs uppercase tracking-widest text-stone-400">Happy Clients</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-24 bg-emerald-950 border-t border-white/5">
+        <div class="max-w-xl mx-auto px-4 text-center">
+            <h3 class="font-serif text-2xl text-stone-50 mb-4">Join the Inner Circle</h3>
+            <p class="text-stone-400 mb-8 font-light text-sm">Be the first to see our new collections and receive exclusive invitations.</p>
+
+            <form class="relative">
+                <input type="email" placeholder="Your Email Address" class="w-full bg-transparent border border-stone-700 text-stone-100 py-4 px-6 focus:outline-none focus:border-amber-400 transition-colors font-light">
+                <button type="submit" class="absolute right-2 top-2 bottom-2 px-6 bg-amber-400 text-emerald-950 hover:bg-stone-50 transition-colors uppercase tracking-widest text-xs font-bold">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 text-stone-500 text-sm font-light border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div>
+                <a href="#" class="font-serif text-2xl text-stone-100 tracking-widest uppercase mb-6 block hover:text-amber-400 transition-colors">{{COMPANY_NAME}}</a>
+                <p class="mb-6">Timeless elegance for the modern soul.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-stone-400 hover:text-amber-400 transition-colors"><span class="sr-only">Instagram</span>IG</a>
+                    <a href="#" class="text-stone-400 hover:text-amber-400 transition-colors"><span class="sr-only">Facebook</span>FB</a>
+                    <a href="#" class="text-stone-400 hover:text-amber-400 transition-colors"><span class="sr-only">Pinterest</span>PT</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-stone-100 uppercase tracking-widest mb-6 text-xs font-bold">Shop</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-amber-400 transition-colors">All Jewelry</a></li>
+                    <li><a href="#" class="hover:text-amber-400 transition-colors">New Arrivals</a></li>
+                    <li><a href="#" class="hover:text-amber-400 transition-colors">Best Sellers</a></li>
+                    <li><a href="#" class="hover:text-amber-400 transition-colors">Gift Guide</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-stone-100 uppercase tracking-widest mb-6 text-xs font-bold">Support</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-amber-400 transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-amber-400 transition-colors">Size Guide</a></li>
+                    <li><a href="#" class="hover:text-amber-400 transition-colors">Jewelry Care</a></li>
+                    <li><a href="#" class="hover:text-amber-400 transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-stone-100 uppercase tracking-widest mb-6 text-xs font-bold">Visit Us</h4>
+                <address class="not-italic">
+                    123 Luxury Avenue<br>
+                    Suite 500<br>
+                    New York, NY 10012<br>
+                    <a href="tel:+1234567890" class="hover:text-amber-400 transition-colors block mt-4">+1 (555) 123-4567</a>
+                    <a href="mailto:concierge@example.com" class="hover:text-amber-400 transition-colors block mt-1">concierge@example.com</a>
+                </address>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-white/5 text-center md:text-left flex flex-col md:flex-row justify-between items-center">
+            <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-stone-300">Privacy Policy</a>
+                <a href="#" class="hover:text-stone-300">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

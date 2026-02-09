@@ -480,6 +480,19 @@
         "Bold",
         "Construction"
       ]
+    },
+    {
+      "id": "038",
+      "name": "Ethereal Gems",
+      "category": "Jewelry",
+      "style": "Opulent",
+      "path": "catalog/template_038_jewelry_opulent",
+      "description": "Luxury jewelry in deep emerald",
+      "tags": [
+        "Luxury",
+        "Gold",
+        "Serif"
+      ]
     }
   ]
 }
