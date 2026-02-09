@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Artisan Leather Craft</title>
+    <meta name="description" content="Handmade leather goods crafted with passion and tradition.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    colors: {
+                        leather: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            200: '#eaddd7',
+                            300: '#e0cec7',
+                            400: '#d2bab0',
+                            500: '#a1887f',
+                            600: '#8d6e63',
+                            700: '#795548',
+                            800: '#5d4037',
+                            900: '#3e2723',
+                        }
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1590845947698-8924d7409b56?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .animation-delay-200 { animation-delay: 200ms; }
+        .animation-delay-400 { animation-delay: 400ms; }
+    </style>
+</head>
+<body class="font-sans text-leather-900 bg-leather-50 antialiased" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300" :class="scrolled ? 'bg-leather-50 shadow-md py-2' : 'bg-transparent py-6'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl font-bold tracking-widest uppercase" :class="scrolled ? 'text-leather-900' : 'text-white'">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="text-sm font-bold uppercase tracking-wider hover:text-leather-600 transition" :class="scrolled ? 'text-leather-800' : 'text-leather-100'">Philosophy</a>
+                <a href="#collection" class="text-sm font-bold uppercase tracking-wider hover:text-leather-600 transition" :class="scrolled ? 'text-leather-800' : 'text-leather-100'">Collection</a>
+                <a href="#process" class="text-sm font-bold uppercase tracking-wider hover:text-leather-600 transition" :class="scrolled ? 'text-leather-800' : 'text-leather-100'">Process</a>
+                <a href="#contact" class="px-5 py-2 border border-current text-sm font-bold uppercase tracking-wider hover:bg-leather-600 hover:border-leather-600 hover:text-white transition" :class="scrolled ? 'text-leather-900 border-leather-900' : 'text-white border-white'">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden focus:outline-none" :class="scrolled ? 'text-leather-900' : 'text-white'">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="fixed inset-0 z-40 bg-leather-900 bg-opacity-95 flex flex-col justify-center items-center space-y-8" @click.away="mobileMenuOpen = false" x-cloak>
+            <button @click="mobileMenuOpen = false" class="absolute top-6 right-6 text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="#about" @click="mobileMenuOpen = false" class="text-2xl font-serif text-leather-100 hover:text-white">Philosophy</a>
+            <a href="#collection" @click="mobileMenuOpen = false" class="text-2xl font-serif text-leather-100 hover:text-white">Collection</a>
+            <a href="#process" @click="mobileMenuOpen = false" class="text-2xl font-serif text-leather-100 hover:text-white">Process</a>
+            <a href="#contact" @click="mobileMenuOpen = false" class="text-2xl font-serif text-leather-100 hover:text-white">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center hero-bg">
+        <div class="absolute inset-0 bg-leather-900 bg-opacity-40"></div>
+        <div class="relative z-10 text-center px-6">
+            <h2 class="text-leather-200 text-sm md:text-base uppercase tracking-[0.3em] mb-4 animate-fade-in-up">Handcrafted Since 1985</h2>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-bold mb-8 leading-tight animate-fade-in-up animation-delay-200">
+                Legacy in <br><span class="italic font-light">Every Stitch</span>
+            </h1>
+            <a href="#collection" class="inline-block px-8 py-4 bg-leather-100 text-leather-900 font-bold uppercase tracking-widest hover:bg-white transition transform hover:-translate-y-1 shadow-lg animate-fade-in-up animation-delay-400">
+                Explore Collection
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-leather-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -top-4 -left-4 w-full h-full border-2 border-leather-300 z-0"></div>
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Craftsman working" class="relative z-10 w-full shadow-xl grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                </div>
+                <div class="md:w-1/2 space-y-6">
+                    <span class="text-leather-600 font-bold uppercase tracking-widest text-sm">Our Philosophy</span>
+                    <h2 class="font-serif text-4xl md:text-5xl text-leather-900 font-bold leading-tight">Authentic Craftsmanship. <br>Timeless Design.</h2>
+                    <p class="text-leather-700 leading-relaxed text-lg">
+                        {{COMPANY_NAME}} は、単なる製品を作るのではなく、世代を超えて受け継がれる物語を紡いでいます。厳選された最高級のレザーを使用し、熟練の職人が一つ一つ手作業で仕上げる私たちの製品は、使い込むほどに深みを増し、あなたの人生の一部となります。
+                    </p>
+                    <p class="text-leather-700 leading-relaxed text-lg">
+                        機械生産では決して真似できない温もりと、細部への妥協なきこだわり。それが私たちの誇りであり、お客様への約束です。
+                    </p>
+                    <div class="pt-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Signature_sample.svg" alt="Signature" class="h-12 opacity-60">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-20 bg-leather-100 border-y border-leather-200">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="space-y-4 px-4 group hover:-translate-y-2 transition duration-300">
+                    <div class="w-16 h-16 mx-auto bg-leather-800 text-leather-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-leather-600 transition">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-leather-900">Premium Materials</h3>
+                    <p class="text-leather-700">世界中から厳選した、植物タンニンなめしの最高級レザーのみを使用しています。</p>
+                </div>
+                <div class="space-y-4 px-4 group hover:-translate-y-2 transition duration-300">
+                    <div class="w-16 h-16 mx-auto bg-leather-800 text-leather-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-leather-600 transition">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-leather-900">Handmade with Heart</h3>
+                    <p class="text-leather-700">全ての工程を熟練の職人が手作業で行い、温かみのある製品を生み出します。</p>
+                </div>
+                <div class="space-y-4 px-4 group hover:-translate-y-2 transition duration-300">
+                    <div class="w-16 h-16 mx-auto bg-leather-800 text-leather-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-leather-600 transition">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-leather-900">Lifetime Warranty</h3>
+                    <p class="text-leather-700">末永くご愛用いただけるよう、修理やメンテナンスを永久にサポートします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection -->
+    <section id="collection" class="py-24 bg-leather-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-leather-600 font-bold uppercase tracking-widest text-sm">Masterpieces</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-leather-900 font-bold mt-2">The Collection</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-4 bg-leather-200 aspect-[4/5]">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Leather Bag" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 flex items-center justify-center">
+                            <span class="text-white border border-white px-6 py-2 uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300 font-bold text-sm">View Details</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-bold text-leather-900 group-hover:text-leather-600 transition">Heritage Satchel</h3>
+                        <p class="text-leather-600 text-sm mt-1">¥48,000</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-4 bg-leather-200 aspect-[4/5]">
+                        <img src="https://images.unsplash.com/photo-1627123424574-181ce5171c98?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Leather Wallet" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 flex items-center justify-center">
+                            <span class="text-white border border-white px-6 py-2 uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300 font-bold text-sm">View Details</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-bold text-leather-900 group-hover:text-leather-600 transition">Classic Bifold</h3>
+                        <p class="text-leather-600 text-sm mt-1">¥18,000</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-4 bg-leather-200 aspect-[4/5]">
+                        <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Leather Boots" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 flex items-center justify-center">
+                            <span class="text-white border border-white px-6 py-2 uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300 font-bold text-sm">View Details</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-bold text-leather-900 group-hover:text-leather-600 transition">Artisan Boots</h3>
+                        <p class="text-leather-600 text-sm mt-1">¥62,000</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border-b-2 border-leather-900 text-leather-900 font-bold uppercase tracking-widest pb-1 hover:text-leather-600 hover:border-leather-600 transition">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="py-24 bg-leather-900 text-leather-100 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/leather.png')]"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 space-y-8">
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold leading-tight">Art of the Stitch</h2>
+                    <p class="text-leather-300 text-lg leading-relaxed">
+                        私たちの製作プロセスは、素材選びから始まります。イタリア・トスカーナ地方の最高級レザーを選定し、そこから数週間にわたる丹念な作業が始まります。
+                    </p>
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <span class="text-4xl font-serif font-bold text-leather-500 mr-6">01</span>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Cutting (裁断)</h4>
+                                <p class="text-leather-400 text-sm">革の繊維方向を見極め、最も美しく強度の高い部分を職人の目で見極め裁断します。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-4xl font-serif font-bold text-leather-500 mr-6">02</span>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Stitching (縫製)</h4>
+                                <p class="text-leather-400 text-sm">伝統的なサドルステッチ技法を用い、一針一針、手縫いで強固に縫い合わせます。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-4xl font-serif font-bold text-leather-500 mr-6">03</span>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Finishing (仕上げ)</h4>
+                                <p class="text-leather-400 text-sm">コバ（革の断面）を磨き上げ、蜜蝋を塗り込み、滑らかで美しい輝きを与えます。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2 grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded shadow-lg w-full h-64 object-cover transform translate-y-8">
+                    <img src="https://images.unsplash.com/photo-1606503825008-909a63966526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded shadow-lg w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-20 bg-leather-100">
+        <div class="container mx-auto px-6 text-center max-w-2xl">
+            <h2 class="font-serif text-3xl font-bold text-leather-900 mb-4">Join Our Inner Circle</h2>
+            <p class="text-leather-700 mb-8">新作コレクションの先行予約や、会員限定のイベント情報をお届けします。</p>
+            <form class="flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Enter your email address" class="flex-1 px-6 py-3 bg-white border border-leather-300 focus:outline-none focus:border-leather-600 transition">
+                <button type="button" class="px-8 py-3 bg-leather-900 text-white font-bold uppercase tracking-widest hover:bg-leather-700 transition">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-leather-900 text-leather-300 py-16 border-t border-leather-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="font-serif text-2xl font-bold text-white tracking-widest uppercase mb-6 inline-block">
+                        {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-sm leading-relaxed text-leather-400">
+                        Handcrafted with passion.<br>Built to last a lifetime.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-6">Shop</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-white transition">Bags</a></li>
+                        <li><a href="#" class="hover:text-white transition">Wallets</a></li>
+                        <li><a href="#" class="hover:text-white transition">Accessories</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-6">About</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Our Story</a></li>
+                        <li><a href="#" class="hover:text-white transition">Craftsmanship</a></li>
+                        <li><a href="#" class="hover:text-white transition">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-6">Contact</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center"><span class="block w-6">📍</span> Tokyo, Minato-ku, Aoyama 1-1-1</li>
+                        <li class="flex items-center"><span class="block w-6">📞</span> 03-1234-5678</li>
+                        <li class="flex items-center"><span class="block w-6">✉️</span> info@{{COMPANY_NAME_LOWER}}.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-leather-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-leather-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition">Instagram</a>
+                    <a href="#" class="hover:text-white transition">Twitter</a>
+                    <a href="#" class="hover:text-white transition">Facebook</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
