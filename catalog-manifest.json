@@ -415,6 +415,19 @@
         "Earthy",
         "Elegant"
       ]
+    },
+    {
+      "id": "033",
+      "name": "Paws & Play",
+      "category": "Pet",
+      "style": "Friendly",
+      "path": "catalog/template_033_pet_friendly",
+      "description": "Warm & playful pet theme.",
+      "tags": [
+        "Playful",
+        "Soft",
+        "Rounded"
+      ]
     }
   ]
 }
