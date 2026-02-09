@@ -467,6 +467,19 @@
         "Security",
         "Tech"
       ]
+    },
+    {
+      "id": "037",
+      "name": "Titan Build",
+      "category": "Construction",
+      "style": "Robust",
+      "path": "catalog/template_037_construction_robust",
+      "description": "Robust industrial theme.",
+      "tags": [
+        "Industrial",
+        "Bold",
+        "Construction"
+      ]
     }
   ]
 }
