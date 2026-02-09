@@ -441,6 +441,19 @@
         "camping",
         "durable"
       ]
+    },
+    {
+      "id": "035",
+      "name": "Grand Horizon",
+      "category": "Hotel",
+      "style": "Luxury",
+      "path": "catalog/template_035_hotel_luxury",
+      "description": "Elegant booking experience with serif typography.",
+      "tags": [
+        "Hospitality",
+        "Booking",
+        "Elegant"
+      ]
     }
   ]
 }
