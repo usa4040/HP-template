@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Premier Consulting</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#D4AF37',
+                            500: '#C5A028',
+                            600: '#B08D1A',
+                        },
+                        charcoal: {
+                            800: '#2C3E50',
+                            900: '#1A252F',
+                        },
+                        cream: '#F9F7F2',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to right, rgba(26, 37, 47, 0.9), rgba(26, 37, 47, 0.7)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-600 antialiased bg-cream selection:bg-gold-500 selection:text-white">
+
+    <!-- Header -->
+    <header
+        x-data="{ scrolled: false, mobileMenu: false }"
+        @scroll.window="scrolled = (window.pageYOffset > 20)"
+        :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-4' : 'bg-transparent py-6'"
+        class="fixed w-full top-0 z-50 transition-all duration-300"
+    >
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-serif font-bold tracking-tight transition-colors duration-300"
+                   :class="scrolled ? 'text-charcoal-900' : 'text-white'">
+                    {{COMPANY_NAME}}
+                    <span class="text-gold-500">.</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <template x-for="item in ['Services', 'About', 'Expertise', 'Insights']">
+                        <a href="#" class="text-sm font-medium uppercase tracking-wider hover:text-gold-500 transition-colors duration-300"
+                           :class="scrolled ? 'text-gray-600' : 'text-gray-200'">
+                            <span x-text="item"></span>
+                        </a>
+                    </template>
+                    <a href="#contact" class="px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-white bg-gold-500 hover:bg-gold-600 transition-colors duration-300 rounded-sm shadow-lg">
+                        Consult With Us
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenu = !mobileMenu" class="md:hidden focus:outline-none" :class="scrolled ? 'text-gray-800' : 'text-white'">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-5"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-5"
+             @click.away="mobileMenu = false"
+             class="absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 md:hidden" x-cloak>
+            <div class="flex flex-col py-4 px-6 space-y-4">
+                <a href="#" class="text-gray-800 font-medium hover:text-gold-500">Services</a>
+                <a href="#" class="text-gray-800 font-medium hover:text-gold-500">About</a>
+                <a href="#" class="text-gray-800 font-medium hover:text-gold-500">Expertise</a>
+                <a href="#" class="text-gray-800 font-medium hover:text-gold-500">Insights</a>
+                <a href="#contact" class="text-gold-600 font-bold">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat text-white overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-charcoal-900/40 to-charcoal-900/80"></div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative z-10 text-center">
+            <span class="inline-block py-1 px-3 border border-white/30 rounded-full text-xs font-bold uppercase tracking-[0.2em] mb-6 fade-in-up">
+                Global Strategy Consultants
+            </span>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold leading-tight mb-8 fade-in-up delay-100">
+                Defining the Future <br> of <span class="text-gold-500 italic">Business</span>.
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 font-light fade-in-up delay-200">
+                We partner with leaders to tackle their most important challenges and capture their greatest opportunities.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in-up delay-300">
+                <a href="#contact" class="px-8 py-4 bg-gold-500 hover:bg-gold-600 text-white font-bold uppercase tracking-widest text-sm transition-all duration-300 shadow-lg hover:shadow-gold-500/30">
+                    Get Started
+                </a>
+                <a href="#about" class="px-8 py-4 border border-white hover:bg-white hover:text-charcoal-900 text-white font-bold uppercase tracking-widest text-sm transition-all duration-300">
+                    Explore Vision
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-white/60 hover:text-white transition-colors">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white -mt-20 relative z-20 container mx-auto px-6 lg:px-12 shadow-xl rounded-sm max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-gray-100 text-center">
+            <div class="p-4">
+                <div class="text-4xl font-serif font-bold text-charcoal-900 mb-2">25+</div>
+                <div class="text-xs uppercase tracking-widest text-gray-500">Years Experience</div>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl font-serif font-bold text-charcoal-900 mb-2">500+</div>
+                <div class="text-xs uppercase tracking-widest text-gray-500">Clients Served</div>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl font-serif font-bold text-charcoal-900 mb-2">$2B+</div>
+                <div class="text-xs uppercase tracking-widest text-gray-500">Value Created</div>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl font-serif font-bold text-charcoal-900 mb-2">35</div>
+                <div class="text-xs uppercase tracking-widest text-gray-500">Global Offices</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-cream">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-gold-100 z-0"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-charcoal-900 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" alt="Consulting Meeting" class="relative z-10 shadow-2xl w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <h4 class="text-gold-600 font-bold uppercase tracking-widest text-xs mb-4">About {{COMPANY_NAME}}</h4>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-charcoal-900 mb-8 leading-tight">
+                        We transform <br> <span class="text-gold-600 decoration-4 decoration-gold-200 underline underline-offset-4">ambition</span> into action.
+                    </h2>
+                    <p class="text-gray-600 mb-6 text-lg font-light leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe that bold steps define the future. For over two decades, we have been the trusted advisor to the world's leading businesses, governments, and institutions.
+                    </p>
+                    <p class="text-gray-600 mb-8 text-lg font-light leading-relaxed">
+                        Our distinct approach combines deep industry expertise with rigorous analysis to help you make the decisions that matter most.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" alt="CEO" class="w-16 h-16 rounded-full object-cover border-2 border-gold-500">
+                        <div>
+                            <div class="font-serif font-bold text-charcoal-900 text-lg">James Sterling</div>
+                            <div class="text-xs uppercase tracking-wide text-gray-500">Managing Director</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h4 class="text-gold-600 font-bold uppercase tracking-widest text-xs mb-4">Our Expertise</h4>
+                <h2 class="text-4xl font-serif font-bold text-charcoal-900 mb-6">Comprehensive Solutions</h2>
+                <p class="text-gray-500 font-light">
+                    We bring a fresh perspective and infectious energy to every client relationship. Our emphasis on teamwork, trust, and tolerance for diverging opinions helps clients focus on their opportunities.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Service 1 -->
+                <div class="group p-8 border border-gray-100 hover:border-gold-500/50 hover:shadow-2xl hover:shadow-gold-500/10 transition-all duration-500 bg-white">
+                    <div class="w-14 h-14 bg-charcoal-900 text-gold-500 flex items-center justify-center text-2xl mb-8 group-hover:bg-gold-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-charcoal-900 mb-4 group-hover:text-gold-600 transition-colors">Corporate Strategy</h3>
+                    <p class="text-gray-500 font-light leading-relaxed mb-6">
+                        Navigating uncertainty to build a resilient and adaptable business model for long-term growth.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-charcoal-900 group-hover:text-gold-600 transition-colors">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group p-8 border border-gray-100 hover:border-gold-500/50 hover:shadow-2xl hover:shadow-gold-500/10 transition-all duration-500 bg-white">
+                    <div class="w-14 h-14 bg-charcoal-900 text-gold-500 flex items-center justify-center text-2xl mb-8 group-hover:bg-gold-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-charcoal-900 mb-4 group-hover:text-gold-600 transition-colors">Financial Advisory</h3>
+                    <p class="text-gray-500 font-light leading-relaxed mb-6">
+                        Optimizing capital allocation and financial structures to maximize shareholder value.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-charcoal-900 group-hover:text-gold-600 transition-colors">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group p-8 border border-gray-100 hover:border-gold-500/50 hover:shadow-2xl hover:shadow-gold-500/10 transition-all duration-500 bg-white">
+                    <div class="w-14 h-14 bg-charcoal-900 text-gold-500 flex items-center justify-center text-2xl mb-8 group-hover:bg-gold-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-charcoal-900 mb-4 group-hover:text-gold-600 transition-colors">Operations & People</h3>
+                    <p class="text-gray-500 font-light leading-relaxed mb-6">
+                        Transforming operational efficiency and building high-performance organizational cultures.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-charcoal-900 group-hover:text-gold-600 transition-colors">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="py-24 bg-charcoal-900 text-white relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+
+        <div class="container mx-auto px-6 lg:px-12 text-center relative z-10">
+            <i class="fas fa-quote-right text-6xl text-gold-500/20 mb-8 block"></i>
+            <blockquote class="text-2xl md:text-4xl font-serif leading-relaxed italic max-w-4xl mx-auto mb-10">
+                "{{COMPANY_NAME}} didn't just give us advice; they gave us a roadmap to industry leadership. Their insights were transformative."
+            </blockquote>
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-1 bg-gold-500 mb-4"></div>
+                <div class="font-bold uppercase tracking-widest">Sarah Jenkins</div>
+                <div class="text-sm text-gray-400 font-light mt-1">CEO, Horizon Technologies</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <!-- Contact Info -->
+                <div class="lg:w-1/3">
+                    <h4 class="text-gold-600 font-bold uppercase tracking-widest text-xs mb-4">Get in Touch</h4>
+                    <h2 class="text-4xl font-serif font-bold text-charcoal-900 mb-8">Start the Conversation</h2>
+                    <p class="text-gray-600 font-light mb-10 leading-relaxed">
+                        Whether you need strategic direction, financial restructuring, or operational improvement, our partners are ready to assist.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-charcoal-900 text-gold-500 flex items-center justify-center text-xl shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ml-6">
+                                <h5 class="text-charcoal-900 font-bold uppercase tracking-wide text-sm mb-1">Headquarters</h5>
+                                <p class="text-gray-500 font-light text-sm">10 Hudson Yards, Suite 4500<br>New York, NY 10001</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-charcoal-900 text-gold-500 flex items-center justify-center text-xl shrink-0">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="ml-6">
+                                <h5 class="text-charcoal-900 font-bold uppercase tracking-wide text-sm mb-1">Phone</h5>
+                                <p class="text-gray-500 font-light text-sm">+1 (212) 555-0198</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-charcoal-900 text-gold-500 flex items-center justify-center text-xl shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="ml-6">
+                                <h5 class="text-charcoal-900 font-bold uppercase tracking-wide text-sm mb-1">Email</h5>
+                                <p class="text-gray-500 font-light text-sm">inquiry@{{COMPANY_NAME}}.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:w-2/3 bg-cream p-10 lg:p-16 border-t-4 border-gold-500 shadow-2xl">
+                    <form class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="col-span-1">
+                            <label class="block text-xs font-bold uppercase tracking-widest text-charcoal-900 mb-2">Name</label>
+                            <input type="text" class="w-full bg-white border-b border-gray-300 p-3 focus:outline-none focus:border-gold-500 transition-colors placeholder-gray-400" placeholder="John Doe">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-xs font-bold uppercase tracking-widest text-charcoal-900 mb-2">Company</label>
+                            <input type="text" class="w-full bg-white border-b border-gray-300 p-3 focus:outline-none focus:border-gold-500 transition-colors placeholder-gray-400" placeholder="Acme Corp">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-xs font-bold uppercase tracking-widest text-charcoal-900 mb-2">Email</label>
+                            <input type="email" class="w-full bg-white border-b border-gray-300 p-3 focus:outline-none focus:border-gold-500 transition-colors placeholder-gray-400" placeholder="john@example.com">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-xs font-bold uppercase tracking-widest text-charcoal-900 mb-2">Phone</label>
+                            <input type="tel" class="w-full bg-white border-b border-gray-300 p-3 focus:outline-none focus:border-gold-500 transition-colors placeholder-gray-400" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="col-span-1 md:col-span-2">
+                            <label class="block text-xs font-bold uppercase tracking-widest text-charcoal-900 mb-2">Message</label>
+                            <textarea rows="4" class="w-full bg-white border-b border-gray-300 p-3 focus:outline-none focus:border-gold-500 transition-colors placeholder-gray-400" placeholder="How can we help you?"></textarea>
+                        </div>
+                        <div class="col-span-1 md:col-span-2 mt-4">
+                            <button type="button" class="px-10 py-4 bg-charcoal-900 text-white font-bold uppercase tracking-widest text-sm hover:bg-gold-500 transition-colors duration-300 shadow-lg w-full md:w-auto">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal-900 text-white pt-20 pb-10 border-t border-white/10">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="text-2xl font-serif font-bold tracking-tight mb-6 block">
+                        {{COMPANY_NAME}}<span class="text-gold-500">.</span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Global headquarters in New York with offices in London, Tokyo, and Singapore.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 border border-gray-700 flex items-center justify-center rounded-full hover:bg-gold-500 hover:border-gold-500 transition-all text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 border border-gray-700 flex items-center justify-center rounded-full hover:bg-gold-500 hover:border-gold-500 transition-all text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links 1 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-gold-500">Company</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Our Team</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links 2 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-gold-500">Services</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Strategy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">M&A</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Digital</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Transformation</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-gold-500">Insights</h4>
+                    <p class="text-xs text-gray-400 mb-4">Subscribe to our quarterly report.</p>
+                    <form class="flex border-b border-gray-700 pb-2">
+                        <input type="email" placeholder="Email Address" class="bg-transparent w-full outline-none text-white text-sm placeholder-gray-600">
+                        <button type="submit" class="text-gold-500 font-bold text-xs uppercase hover:text-white transition-colors">Join</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
