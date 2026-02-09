@@ -506,6 +506,19 @@
         "Masculine",
         "Classic"
       ]
+    },
+    {
+      "id": "040",
+      "name": "Apex Strategy",
+      "category": "Consulting",
+      "style": "Executive",
+      "path": "catalog/template_040_consulting_executive",
+      "description": "Luxury corporate consulting.",
+      "tags": [
+        "Professional",
+        "Luxury",
+        "Corporate"
+      ]
     }
   ]
 }
