@@ -493,6 +493,19 @@
         "Gold",
         "Serif"
       ]
+    },
+    {
+      "id": "039",
+      "name": "The Gentleman's Chair",
+      "category": "Barber",
+      "style": "Vintage",
+      "path": "catalog/template_039_barber_vintage",
+      "description": "Classic vintage barber style.",
+      "tags": [
+        "Vintage",
+        "Masculine",
+        "Classic"
+      ]
     }
   ]
 }
