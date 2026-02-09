@@ -402,6 +402,19 @@
         "Warm",
         "Handmade"
       ]
+    },
+    {
+      "id": "032",
+      "name": "Serenity Flow",
+      "category": "Wellness",
+      "style": "Serene",
+      "path": "catalog/template_032_wellness_serene",
+      "description": "Calming yoga studio theme.",
+      "tags": [
+        "Zen",
+        "Earthy",
+        "Elegant"
+      ]
     }
   ]
 }
