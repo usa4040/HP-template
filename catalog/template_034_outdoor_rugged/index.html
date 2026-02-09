@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Outdoor Gear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#1a472a',
+                        ember: '#f97316',
+                        stone: '#57534e',
+                        sand: '#f5f5f4',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        slab: ['Roboto Slab', 'serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="font-sans text-stone-800 bg-sand antialiased">
+    <!-- Navbar -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)"
+         :class="{'bg-forest/95 backdrop-blur-sm shadow-lg': scrolled, 'bg-transparent': !scrolled}"
+         class="fixed w-full z-50 transition-all duration-300 top-0 left-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-slab font-bold text-white tracking-wide">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#features" class="text-gray-300 hover:text-ember px-3 py-2 rounded-md text-sm font-medium transition-colors">Features</a>
+                        <a href="#products" class="text-gray-300 hover:text-ember px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</a>
+                        <a href="#gallery" class="text-gray-300 hover:text-ember px-3 py-2 rounded-md text-sm font-medium transition-colors">Gallery</a>
+                        <a href="#testimonials" class="text-gray-300 hover:text-ember px-3 py-2 rounded-md text-sm font-medium transition-colors">Stories</a>
+                        <a href="#" class="bg-ember hover:bg-orange-600 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-md">
+                            Shop Now
+                        </a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{'hidden': open, 'inline-flex': !open }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{'hidden': !open, 'inline-flex': open }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div x-show="open" x-cloak class="md:hidden bg-forest border-t border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#features" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
+                <a href="#products" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Shop</a>
+                <a href="#gallery" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Gallery</a>
+                <a href="#testimonials" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Stories</a>
+                <a href="#" class="bg-ember text-white block px-3 py-2 rounded-md text-base font-medium mt-4 text-center">Shop Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-forest h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover opacity-60" src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Camping in the mountains">
+            <div class="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-transparent"></div>
+        </div>
+        <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-slab font-bold text-white mb-6 drop-shadow-lg tracking-tight leading-tight">
+                Conquer the <span class="text-ember">Wild</span>
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto mb-10 font-light">
+                Premium outdoor gear engineered for the modern explorer. Durability meets design in every stitch.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#products" class="px-8 py-4 bg-ember hover:bg-orange-600 text-white font-bold rounded-full transition-all transform hover:-translate-y-1 shadow-lg text-lg">
+                    Explore Collection
+                </a>
+                <a href="#features" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold rounded-full transition-all text-lg">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="py-24 bg-sand">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-slab font-bold text-stone-800 mb-4">Engineered for Extremes</h2>
+                <p class="text-lg text-stone-600 max-w-2xl mx-auto">We don't compromise on quality. Our gear is tested in the harshest conditions to ensure your safety and comfort.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-stone-100 group">
+                    <div class="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest/20 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-forest" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-3">Lifetime Durability</h3>
+                    <p class="text-stone-600 leading-relaxed">Crafted with reinforced stitching and military-grade materials to withstand years of abuse on the trail.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-stone-100 group">
+                    <div class="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest/20 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-forest" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-3">Eco-Conscious</h3>
+                    <p class="text-stone-600 leading-relaxed">Made with 100% recycled polymers and sustainable sourcing practices. Leave no trace behind.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-stone-100 group">
+                    <div class="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest/20 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-forest" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-3">Ultralight Design</h3>
+                    <p class="text-stone-600 leading-relaxed">Shed weight without sacrificing performance. Our gear is designed for the long-haul hiker.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Products -->
+    <div id="products" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-slab font-bold text-stone-800">Featured Gear</h2>
+                    <p class="mt-2 text-stone-500">Top picks for this season.</p>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center text-forest hover:text-ember font-bold transition-colors">
+                    View All Products
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="group">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-100 aspect-w-1 aspect-h-1 h-80">
+                        <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Tent" class="w-full h-full object-center object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-ember text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-stone-800">Alpine Dome 3</h3>
+                            <p class="mt-1 text-sm text-stone-500">3-Season Tent</p>
+                        </div>
+                        <p class="text-lg font-medium text-forest">$299</p>
+                    </div>
+                    <button class="w-full mt-4 bg-stone-800 text-white py-2 rounded-lg font-bold hover:bg-forest transition-colors">Add to Cart</button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-100 aspect-w-1 aspect-h-1 h-80">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Backpack" class="w-full h-full object-center object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-stone-800">Terra 65L</h3>
+                            <p class="mt-1 text-sm text-stone-500">Expedition Pack</p>
+                        </div>
+                        <p class="text-lg font-medium text-forest">$189</p>
+                    </div>
+                    <button class="w-full mt-4 bg-stone-800 text-white py-2 rounded-lg font-bold hover:bg-forest transition-colors">Add to Cart</button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-100 aspect-w-1 aspect-h-1 h-80">
+                        <img src="https://images.unsplash.com/photo-1520639888713-7851133b1ed0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Boots" class="w-full h-full object-center object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-stone-800">Ridge Walker</h3>
+                            <p class="mt-1 text-sm text-stone-500">Waterproof Boots</p>
+                        </div>
+                        <p class="text-lg font-medium text-forest">$145</p>
+                    </div>
+                    <button class="w-full mt-4 bg-stone-800 text-white py-2 rounded-lg font-bold hover:bg-forest transition-colors">Add to Cart</button>
+                </div>
+
+                 <!-- Product 4 -->
+                <div class="group">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-100 aspect-w-1 aspect-h-1 h-80">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Jacket" class="w-full h-full object-center object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-stone-800">Storm Shell</h3>
+                            <p class="mt-1 text-sm text-stone-500">Gore-Tex Jacket</p>
+                        </div>
+                        <p class="text-lg font-medium text-forest">$220</p>
+                    </div>
+                    <button class="w-full mt-4 bg-stone-800 text-white py-2 rounded-lg font-bold hover:bg-forest transition-colors">Add to Cart</button>
+                </div>
+            </div>
+
+             <div class="mt-12 text-center md:hidden">
+                <a href="#" class="inline-flex items-center text-forest hover:text-ember font-bold transition-colors">
+                    View All Products
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery" class="bg-stone-900 py-24">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-slab font-bold text-white mb-4">In The Wild</h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">See how our community uses {{COMPANY_NAME}} gear around the globe.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                 <div class="col-span-2 row-span-2 overflow-hidden rounded-2xl relative group">
+                    <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Gallery 1">
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors"></div>
+                 </div>
+                 <div class="overflow-hidden rounded-2xl relative group h-64">
+                    <img src="https://images.unsplash.com/photo-1533240332313-0db49b459ad6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Gallery 2">
+                 </div>
+                 <div class="overflow-hidden rounded-2xl relative group h-64">
+                    <img src="https://images.unsplash.com/photo-1504851149312-7a075b496cc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Gallery 3">
+                 </div>
+                 <div class="col-span-2 overflow-hidden rounded-2xl relative group h-64">
+                    <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Gallery 4">
+                 </div>
+            </div>
+         </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div id="testimonials" class="py-24 bg-sand">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-slab font-bold text-center text-stone-800 mb-16">Explorer Stories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 relative">
+                    <svg class="absolute top-6 left-6 w-8 h-8 text-forest/20" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0547 15.372 14.551 17.0732 14.551H17.4764C17.7818 14.551 17.9624 14.2255 17.803 13.9712C17.4124 13.3486 16.4893 11.961 16.4893 9.42398C16.4893 6.94275 18.0678 4.79257 20.3014 4.14884C20.6559 4.04652 21 4.31671 21 4.69345V7.4782C21 7.72895 20.8523 7.95475 20.6272 8.05581C19.8242 8.41624 19.3496 9.20624 19.3496 10.1065C19.3496 10.9764 19.9804 11.7226 20.8407 11.8595C21.4936 11.9632 21.9833 12.5273 21.9833 13.2036V19C21.9833 20.1046 21.0879 21 19.9833 21H14.017ZM7.01733 21L7.01733 18C7.01733 16.0547 8.37227 14.551 10.0735 14.551H10.4767C10.7821 14.551 10.9627 14.2255 10.8033 13.9712C10.4127 13.3486 9.48956 11.961 9.48956 9.42398C9.48956 6.94275 11.0681 4.79257 13.3017 4.14884C13.6562 4.04652 14 4.31671 14 4.69345V7.4782C14 7.72895 13.8523 7.95475 13.6272 8.05581C12.8242 8.41624 12.3496 9.20624 12.3496 10.1065C12.3496 10.9764 12.9804 11.7226 13.8407 11.8595C14.4936 11.9632 14.9833 12.5273 14.9833 13.2036V19C14.9833 20.1046 14.0879 21 12.9833 21H7.01733Z"/></svg>
+                    <p class="text-stone-600 mb-6 relative z-10 italic">"I took the Alpine Dome 3 on a 2-week trek through Patagonia. It stood up to 60mph winds without a flinch. Absolutely essential gear."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-10 h-10 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-stone-800">Alex M.</h4>
+                            <p class="text-xs text-stone-500">Professional Climber</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 relative">
+                    <svg class="absolute top-6 left-6 w-8 h-8 text-forest/20" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0547 15.372 14.551 17.0732 14.551H17.4764C17.7818 14.551 17.9624 14.2255 17.803 13.9712C17.4124 13.3486 16.4893 11.961 16.4893 9.42398C16.4893 6.94275 18.0678 4.79257 20.3014 4.14884C20.6559 4.04652 21 4.31671 21 4.69345V7.4782C21 7.72895 20.8523 7.95475 20.6272 8.05581C19.8242 8.41624 19.3496 9.20624 19.3496 10.1065C19.3496 10.9764 19.9804 11.7226 20.8407 11.8595C21.4936 11.9632 21.9833 12.5273 21.9833 13.2036V19C21.9833 20.1046 21.0879 21 19.9833 21H14.017ZM7.01733 21L7.01733 18C7.01733 16.0547 8.37227 14.551 10.0735 14.551H10.4767C10.7821 14.551 10.9627 14.2255 10.8033 13.9712C10.4127 13.3486 9.48956 11.961 9.48956 9.42398C9.48956 6.94275 11.0681 4.79257 13.3017 4.14884C13.6562 4.04652 14 4.31671 14 4.69345V7.4782C14 7.72895 13.8523 7.95475 13.6272 8.05581C12.8242 8.41624 12.3496 9.20624 12.3496 10.1065C12.3496 10.9764 12.9804 11.7226 13.8407 11.8595C14.4936 11.9632 14.9833 12.5273 14.9833 13.2036V19C14.9833 20.1046 14.0879 21 12.9833 21H7.01733Z"/></svg>
+                    <p class="text-stone-600 mb-6 relative z-10 italic">"The boots are incredibly light but tough as nails. I walked 500 miles in them and my feet have never been happier."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-10 h-10 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-stone-800">Sarah J.</h4>
+                            <p class="text-xs text-stone-500">Nature Photographer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 relative">
+                    <svg class="absolute top-6 left-6 w-8 h-8 text-forest/20" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0547 15.372 14.551 17.0732 14.551H17.4764C17.7818 14.551 17.9624 14.2255 17.803 13.9712C17.4124 13.3486 16.4893 11.961 16.4893 9.42398C16.4893 6.94275 18.0678 4.79257 20.3014 4.14884C20.6559 4.04652 21 4.31671 21 4.69345V7.4782C21 7.72895 20.8523 7.95475 20.6272 8.05581C19.8242 8.41624 19.3496 9.20624 19.3496 10.1065C19.3496 10.9764 19.9804 11.7226 20.8407 11.8595C21.4936 11.9632 21.9833 12.5273 21.9833 13.2036V19C21.9833 20.1046 21.0879 21 19.9833 21H14.017ZM7.01733 21L7.01733 18C7.01733 16.0547 8.37227 14.551 10.0735 14.551H10.4767C10.7821 14.551 10.9627 14.2255 10.8033 13.9712C10.4127 13.3486 9.48956 11.961 9.48956 9.42398C9.48956 6.94275 11.0681 4.79257 13.3017 4.14884C13.6562 4.04652 14 4.31671 14 4.69345V7.4782C14 7.72895 13.8523 7.95475 13.6272 8.05581C12.8242 8.41624 12.3496 9.20624 12.3496 10.1065C12.3496 10.9764 12.9804 11.7226 13.8407 11.8595C14.4936 11.9632 14.9833 12.5273 14.9833 13.2036V19C14.9833 20.1046 14.0879 21 12.9833 21H7.01733Z"/></svg>
+                    <p class="text-stone-600 mb-6 relative z-10 italic">"Finally, gear that looks as good as it performs. The sustainable mission is a huge plus for me."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="User" class="w-10 h-10 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-stone-800">David K.</h4>
+                            <p class="text-xs text-stone-500">Weekend Warrior</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA / Newsletter -->
+    <div class="relative bg-forest py-24 overflow-hidden">
+        <div class="absolute inset-0">
+            <img class="w-full h-full object-cover opacity-20" src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Campfire">
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-slab font-bold text-white mb-6">Join the Adventure</h2>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">Subscribe to our newsletter for exclusive gear drops, pro tips, and outdoor inspiration.</p>
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-ember text-stone-800">
+                <button type="button" class="px-8 py-4 bg-ember hover:bg-orange-600 text-white font-bold rounded-full transition-all shadow-lg">Subscribe</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="text-2xl font-slab font-bold text-white tracking-wide block mb-4">
+                        {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-sm">Premium outdoor gear for the modern explorer. Built for the wild.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Shop</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-ember transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-ember transition-colors">Men's Gear</a></li>
+                        <li><a href="#" class="hover:text-ember transition-colors">Women's Gear</a></li>
+                        <li><a href="#" class="hover:text-ember transition-colors">Equipment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-ember transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-ember transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-ember transition-colors">Warranty</a></li>
+                        <li><a href="#" class="hover:text-ember transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-white transition-colors">
+                            <span class="sr-only">Facebook</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
+                        </a>
+                        <a href="#" class="hover:text-white transition-colors">
+                            <span class="sr-only">Instagram</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.468 2.37c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"/></svg>
+                        </a>
+                        <a href="#" class="hover:text-white transition-colors">
+                            <span class="sr-only">Twitter</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-ember transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-ember transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

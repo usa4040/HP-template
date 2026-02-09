@@ -428,6 +428,19 @@
         "Soft",
         "Rounded"
       ]
+    },
+    {
+      "id": "034",
+      "name": "Summit Gear",
+      "category": "Outdoor",
+      "style": "Rugged",
+      "path": "catalog/template_034_outdoor_rugged",
+      "description": "Rugged aesthetic for outdoors.",
+      "tags": [
+        "adventure",
+        "camping",
+        "durable"
+      ]
     }
   ]
 }
