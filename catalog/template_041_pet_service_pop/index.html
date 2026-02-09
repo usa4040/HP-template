@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Happy Pets, Happy Life</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fredoka', 'sans-serif'],
+                        body: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            400: '#fb923c', // Orange-400
+                            500: '#f97316', // Orange-500
+                            600: '#ea580c', // Orange-600
+                        },
+                        secondary: {
+                            400: '#2dd4bf', // Teal-400
+                            500: '#14b8a6', // Teal-500
+                            600: '#0d9488', // Teal-600
+                        },
+                        accent: {
+                            300: '#fde047', // Yellow-300
+                            400: '#facc15', // Yellow-400
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .blob-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        .text-outline {
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="font-body text-gray-700 bg-yellow-50 overflow-x-hidden antialiased">
+
+    <!-- Header -->
+    <header x-data="{ open: false }" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b-4 border-primary-400 rounded-b-3xl mx-2 mt-2">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white text-xl shadow-lg">
+                        <i class="fas fa-paw"></i>🐾
+                    </div>
+                    <span class="font-display font-bold text-2xl text-gray-800 tracking-wide">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#services" class="font-bold text-gray-600 hover:text-primary-500 transition-colors duration-300">Services</a>
+                    <a href="#about" class="font-bold text-gray-600 hover:text-primary-500 transition-colors duration-300">About Us</a>
+                    <a href="#gallery" class="font-bold text-gray-600 hover:text-primary-500 transition-colors duration-300">Gallery</a>
+                    <a href="#contact" class="px-6 py-2.5 bg-secondary-500 text-white font-bold rounded-full shadow-lg hover:bg-secondary-600 transform hover:-translate-y-1 transition-all duration-300">Book Now!</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="open = !open" type="button" class="text-gray-500 hover:text-primary-500 focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-white border-t border-gray-100 rounded-b-3xl shadow-xl absolute w-full left-0">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#services" @click="open = false" class="block px-3 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-primary-50 hover:text-primary-600">Services</a>
+                <a href="#about" @click="open = false" class="block px-3 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-primary-50 hover:text-primary-600">About Us</a>
+                <a href="#gallery" @click="open = false" class="block px-3 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-primary-50 hover:text-primary-600">Gallery</a>
+                <a href="#contact" @click="open = false" class="block mt-4 px-3 py-3 bg-secondary-500 text-center text-white rounded-xl font-bold shadow-md">Book Now!</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-10 pb-32 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left space-y-6">
+                    <div class="inline-block px-4 py-1.5 bg-accent-300 text-yellow-900 font-bold rounded-full text-sm shadow-sm mb-2 rotate-2 transform">
+                        🐶 We Treat Your Pets Like Family!
+                    </div>
+                    <h1 class="font-display text-5xl lg:text-7xl font-extrabold text-gray-900 leading-tight">
+                        Pawsitive Vibes <br>
+                        <span class="text-primary-500 text-outline">Only.</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 font-semibold max-w-lg mx-auto lg:mx-0">
+                        Professional care, grooming, and playtime for your furry friends.
+                        Let us bring joy to their tails!
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#services" class="px-8 py-4 bg-primary-500 text-white font-bold rounded-full shadow-xl hover:bg-primary-600 hover:scale-105 transition-all duration-300 text-lg">
+                            Get Started
+                        </a>
+                        <a href="#about" class="px-8 py-4 bg-white text-primary-600 border-2 border-primary-200 font-bold rounded-full shadow-md hover:border-primary-500 hover:text-primary-700 transition-all duration-300 text-lg">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <!-- Background blobs -->
+                    <div class="absolute top-0 right-0 w-72 h-72 bg-secondary-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float -z-10"></div>
+                    <div class="absolute bottom-0 left-10 w-72 h-72 bg-primary-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float -z-10" style="animation-delay: 2s;"></div>
+
+                    <!-- Main Image -->
+                    <div class="relative z-10 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Happy Dogs" class="rounded-[3rem] shadow-2xl border-8 border-white object-cover h-[500px] w-full">
+
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-3xl shadow-xl flex items-center gap-3 animate-bounce-slow">
+                            <div class="bg-accent-300 p-3 rounded-full text-2xl">🏆</div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold uppercase">Trusted by</p>
+                                <p class="font-display font-bold text-gray-800 text-lg">500+ Owners</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wave Separator -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none rotate-180">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-white"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="font-display text-4xl font-bold text-gray-800 mb-4">Our <span class="text-secondary-500">Services</span></h2>
+                <p class="text-gray-600 text-lg">Everything your pet needs to stay happy, healthy, and stylish.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group bg-yellow-50 rounded-3xl p-8 hover:bg-primary-50 transition-colors duration-300 relative overflow-hidden border-b-8 border-primary-400 hover:shadow-xl transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl shadow-md mb-6 group-hover:scale-110 transition-transform">✂️</div>
+                    <h3 class="font-display text-2xl font-bold text-gray-800 mb-3">Grooming & Spa</h3>
+                    <p class="text-gray-600 mb-4">Full service grooming, bathing, and styling to make your pet look their absolute best.</p>
+                    <a href="#" class="font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1">Read More <span>&rarr;</span></a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group bg-blue-50 rounded-3xl p-8 hover:bg-secondary-50 transition-colors duration-300 relative overflow-hidden border-b-8 border-secondary-400 hover:shadow-xl transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl shadow-md mb-6 group-hover:scale-110 transition-transform">🎾</div>
+                    <h3 class="font-display text-2xl font-bold text-gray-800 mb-3">Daycare & Play</h3>
+                    <p class="text-gray-600 mb-4">Safe and fun environments for socialization and exercise under expert supervision.</p>
+                    <a href="#" class="font-bold text-secondary-600 hover:text-secondary-700 flex items-center gap-1">Read More <span>&rarr;</span></a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group bg-pink-50 rounded-3xl p-8 hover:bg-red-50 transition-colors duration-300 relative overflow-hidden border-b-8 border-red-400 hover:shadow-xl transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl shadow-md mb-6 group-hover:scale-110 transition-transform">🏥</div>
+                    <h3 class="font-display text-2xl font-bold text-gray-800 mb-3">Health Checkups</h3>
+                    <p class="text-gray-600 mb-4">Routine wellness exams and vaccinations to keep your furry friend in top shape.</p>
+                    <a href="#" class="font-bold text-red-500 hover:text-red-600 flex items-center gap-1">Read More <span>&rarr;</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-secondary-50 relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute -top-10 -right-10 w-64 h-64 bg-secondary-200 rounded-full opacity-50 blur-3xl"></div>
+        <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary-200 rounded-full opacity-50 blur-3xl"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2 relative">
+                    <img src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Happy Cat and Dog" class="rounded-[2rem] shadow-2xl rotate-3 border-4 border-white">
+                    <div class="absolute top-10 -left-6 bg-white p-4 rounded-xl shadow-lg rotate-[-6deg]">
+                        <p class="font-display font-bold text-primary-500 text-xl">10+ Years</p>
+                        <p class="text-sm text-gray-500 font-bold">Experience</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <span class="text-secondary-600 font-bold tracking-wider uppercase text-sm mb-2 block">About {{COMPANY_NAME}}</span>
+                    <h2 class="font-display text-4xl font-bold text-gray-900 mb-6">We Speak <span class="text-primary-500 underline decoration-wavy decoration-accent-400">Dog & Cat</span> Fluently.</h2>
+                    <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe that every pet deserves to be treated with love, respect, and patience. Our certified team is passionate about animal welfare and dedicated to providing a stress-free environment.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
+                            <span class="font-bold text-gray-700">Certified Professional Groomers</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
+                            <span class="font-bold text-gray-700">Cage-Free Play Environments</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
+                            <span class="font-bold text-gray-700">24/7 Monitoring & Care</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-4xl font-bold text-gray-800">Happy <span class="text-primary-500">Faces</span></h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+                <div class="col-span-2 row-span-2 rounded-3xl overflow-hidden shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Happy Dog" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="rounded-3xl overflow-hidden shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Cat" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="rounded-3xl overflow-hidden shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Puppy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="col-span-2 rounded-3xl overflow-hidden shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Playing" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-primary-400 text-white relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold">Client Reviews</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white text-gray-800 p-8 rounded-3xl relative shadow-xl">
+                    <div class="absolute -top-6 left-8 text-6xl text-accent-400 font-serif">"</div>
+                    <p class="mb-6 font-semibold italic relative z-10">"Absolutely the best service! My golden retriever loves going here and always comes back smelling amazing."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-12 h-12 rounded-full border-2 border-primary-200">
+                        <div>
+                            <p class="font-bold text-sm">Sarah Johnson</p>
+                            <p class="text-xs text-gray-500">Dog Mom</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white text-gray-800 p-8 rounded-3xl relative shadow-xl transform md:-translate-y-4">
+                    <div class="absolute -top-6 left-8 text-6xl text-accent-400 font-serif">"</div>
+                    <p class="mb-6 font-semibold italic relative z-10">"The staff is so friendly and professional. I trust them completely with my two cats. Highly recommended!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-12 h-12 rounded-full border-2 border-primary-200">
+                        <div>
+                            <p class="font-bold text-sm">Mike Thompson</p>
+                            <p class="text-xs text-gray-500">Cat Lover</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white text-gray-800 p-8 rounded-3xl relative shadow-xl">
+                    <div class="absolute -top-6 left-8 text-6xl text-accent-400 font-serif">"</div>
+                    <p class="mb-6 font-semibold italic relative z-10">"Clean facilities and caring staff. The daycare service has been a lifesaver for my busy schedule."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="w-12 h-12 rounded-full border-2 border-primary-200">
+                        <div>
+                            <p class="font-bold text-sm">Emily Chen</p>
+                            <p class="text-xs text-gray-500">Pet Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Wave Bottom -->
+        <div class="absolute -bottom-1 left-0 w-full overflow-hidden leading-none">
+             <svg class="relative block w-[calc(100%+1.3px)] h-[50px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="fill-yellow-50"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-yellow-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-4xl font-bold text-gray-800">FAQ</h2>
+                <p class="text-gray-600">Common questions from pet parents.</p>
+            </div>
+
+            <div class="space-y-4" x-data="{ active: 1 }">
+                <!-- Item 1 -->
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <button @click="active = active === 1 ? null : 1" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-bold text-lg text-gray-800">Do you require vaccinations?</span>
+                        <span class="text-primary-500 text-2xl" x-text="active === 1 ? '-' : '+'"></span>
+                    </button>
+                    <div x-show="active === 1" x-collapse class="px-6 pb-4 text-gray-600">
+                        Yes, for the safety of all pets, we require up-to-date vaccinations for Rabies, DHPP, and Bordetella.
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <button @click="active = active === 2 ? null : 2" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-bold text-lg text-gray-800">Can I bring my pet's food?</span>
+                        <span class="text-primary-500 text-2xl" x-text="active === 2 ? '-' : '+'"></span>
+                    </button>
+                    <div x-show="active === 2" x-collapse class="px-6 pb-4 text-gray-600">
+                        Absolutely! We encourage bringing your pet's regular food to avoid any digestive issues, but we also provide premium house food.
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <button @click="active = active === 3 ? null : 3" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-bold text-lg text-gray-800">How do I book an appointment?</span>
+                        <span class="text-primary-500 text-2xl" x-text="active === 3 ? '-' : '+'"></span>
+                    </button>
+                    <div x-show="active === 3" x-collapse class="px-6 pb-4 text-gray-600">
+                        You can book online through our website, call us directly, or visit our facility in person.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contact -->
+    <section id="contact" class="py-20 bg-white relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-secondary-500 rounded-[3rem] p-10 md:p-20 text-center shadow-2xl relative overflow-hidden">
+                <!-- Circles -->
+                <div class="absolute top-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full transform translate-x-1/2 translate-y-1/2"></div>
+
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Ready to pamper your pet?</h2>
+                <p class="text-white text-xl mb-10 opacity-90 max-w-2xl mx-auto">Join our family today and get 20% off your first grooming session!</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#" class="px-8 py-4 bg-white text-secondary-600 font-bold rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1">Book Online</a>
+                    <a href="tel:+1234567890" class="px-8 py-4 bg-secondary-700 text-white font-bold rounded-full shadow-lg hover:bg-secondary-800 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <i class="fas fa-phone"></i> (555) 123-4567
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-20 pb-10 rounded-t-[3rem] mt-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white text-xl">
+                            🐾
+                        </div>
+                        <span class="font-display font-bold text-2xl">{{COMPANY_NAME}}</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-sm">
+                        Providing top-quality care for your beloved pets since 2010. We treat every animal like our own family.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-500 transition-colors">FB</a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-500 transition-colors">IG</a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-500 transition-colors">TW</a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-primary-400">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#gallery" class="hover:text-white transition-colors">Gallery</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-primary-400">Visit Us</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>123 Puppy Lane</li>
+                        <li>Pet City, PC 12345</li>
+                        <li class="pt-4">Mon - Fri: 8am - 7pm</li>
+                        <li>Sat - Sun: 9am - 5pm</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                &copy; 2023 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

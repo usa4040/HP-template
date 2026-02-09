@@ -339,6 +339,7 @@
       ]
     },
     {
+<<<<<<< HEAD
       "id": "027",
       "name": "Nordic Haven",
       "category": "Interior Design",
@@ -518,6 +519,19 @@
         "Professional",
         "Luxury",
         "Corporate"
+      ]
+    },
+    {
+      "id": "041",
+      "name": "Paws & Play (Pop & Friendly)",
+      "category": "Pet Service",
+      "style": "Pop & Friendly",
+      "path": "catalog/template_041_pet_service_pop",
+      "description": "Vibrant pop theme for pets.",
+      "tags": [
+        "Vibrant",
+        "Rounded",
+        "Friendly"
       ]
     }
   ]
