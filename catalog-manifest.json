@@ -389,6 +389,19 @@
         "Soft",
         "Floral"
       ]
+    },
+    {
+      "id": "031",
+      "name": "Heritage Leather",
+      "category": "Artisan",
+      "style": "Craft",
+      "path": "catalog/template_031_artisan_craft",
+      "description": "Warm textures focusing on handmade craftsmanship.",
+      "tags": [
+        "Leather",
+        "Warm",
+        "Handmade"
+      ]
     }
   ]
 }
