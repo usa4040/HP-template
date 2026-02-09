@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Paws & Play</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            yellow: '#F4D35E',
+                            orange: '#EE964B',
+                            teal: '#2EC4B6',
+                            cream: '#FAF9F6',
+                            dark: '#333333',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Fredoka"', 'sans-serif'],
+                        body: ['"Nunito"', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .blob-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+    </style>
+</head>
+<body class="font-body text-brand-dark bg-brand-cream antialiased selection:bg-brand-yellow selection:text-brand-dark" x-data="{ mobileMenuOpen: false }">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b-4 border-brand-yellow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="bg-brand-orange text-white p-2 rounded-full transform group-hover:rotate-12 transition-transform duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <span class="font-display font-bold text-2xl text-brand-dark tracking-wide">{{COMPANY_NAME}}</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-brand-dark font-bold hover:text-brand-orange transition-colors">About Us</a>
+                    <a href="#services" class="text-brand-dark font-bold hover:text-brand-orange transition-colors">Services</a>
+                    <a href="#gallery" class="text-brand-dark font-bold hover:text-brand-orange transition-colors">Gallery</a>
+                    <a href="#contact" class="px-6 py-2.5 bg-brand-teal text-white font-bold rounded-full shadow-lg hover:bg-teal-500 hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">Book Now</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-brand-dark p-2 rounded-md hover:bg-brand-cream focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="fixed inset-0 z-40 bg-brand-dark/50 md:hidden" @click="mobileMenuOpen = false"></div>
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" class="fixed top-0 right-0 z-50 w-64 h-full bg-white shadow-2xl md:hidden overflow-y-auto">
+            <div class="p-6 flex flex-col space-y-6">
+                <div class="flex justify-end">
+                    <button @click="mobileMenuOpen = false" class="text-gray-400 hover:text-brand-dark">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <a href="#about" @click="mobileMenuOpen = false" class="text-xl font-display font-bold text-brand-dark hover:text-brand-orange">About Us</a>
+                <a href="#services" @click="mobileMenuOpen = false" class="text-xl font-display font-bold text-brand-dark hover:text-brand-orange">Services</a>
+                <a href="#gallery" @click="mobileMenuOpen = false" class="text-xl font-display font-bold text-brand-dark hover:text-brand-orange">Gallery</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="w-full py-3 bg-brand-teal text-white font-bold rounded-xl text-center shadow-md">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-32 overflow-hidden lg:pt-32">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-yellow/20 rounded-full blur-3xl opacity-50 animate-blob"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-brand-teal/20 rounded-full blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="text-center lg:text-left space-y-8">
+                    <div class="inline-block px-4 py-2 bg-brand-orange/10 rounded-full">
+                        <span class="text-brand-orange font-bold text-sm tracking-wider uppercase">Trusted by 500+ Pet Parents</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold text-brand-dark leading-tight">
+                        We Treat Them Like <br/>
+                        <span class="text-brand-orange relative inline-block">
+                            Family
+                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-brand-yellow z-[-1]" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" />
+                            </svg>
+                        </span>
+                    </h1>
+                    <p class="text-xl text-gray-600 font-medium leading-relaxed max-w-lg mx-auto lg:mx-0">
+                        Professional walking, grooming, and boarding services tailored to your pet's happiness. Because they deserve the best.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contact" class="px-8 py-4 bg-brand-teal text-white font-bold rounded-full shadow-lg hover:bg-teal-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-lg">Get Started</a>
+                        <a href="#services" class="px-8 py-4 bg-white text-brand-dark border-2 border-gray-100 font-bold rounded-full hover:border-brand-yellow hover:text-brand-yellow transition-colors duration-300 text-lg flex items-center justify-center gap-2">
+                            View Services
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="relative lg:h-[600px] flex items-center justify-center">
+                    <div class="absolute inset-0 bg-brand-yellow rounded-full transform rotate-6 scale-90 opacity-20 blob-shape animate-blob"></div>
+                    <div class="absolute inset-0 bg-brand-orange rounded-full transform -rotate-3 scale-95 opacity-20 blob-shape animate-blob animation-delay-2000"></div>
+                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80" alt="Happy Dog" class="relative z-10 w-full max-w-md lg:max-w-full rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500 border-4 border-white">
+
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -left-6 lg:bottom-10 lg:-left-10 bg-white p-4 rounded-2xl shadow-xl z-20 animate-bounce-slow">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-brand-yellow/20 p-2 rounded-full text-brand-orange">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-display font-bold text-brand-dark text-lg">5.0 Rating</p>
+                                <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Top Rated</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wave Divider -->
+        <div class="absolute bottom-0 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="text-white fill-current">
+                <path fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative order-2 md:order-1">
+                    <img src="https://images.unsplash.com/photo-1517423568366-eb980dd2d396?auto=format&fit=crop&w=800&q=80" alt="About Us" class="rounded-3xl shadow-2xl w-full h-auto object-cover transform rotate-2 hover:rotate-0 transition-transform duration-500 border-8 border-brand-cream">
+                    <!-- Decor -->
+                    <div class="absolute -top-10 -left-10 text-brand-teal opacity-20 transform -rotate-12">
+                        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2">
+                    <span class="text-brand-teal font-display font-bold text-lg uppercase tracking-wider mb-2 block">Who We Are</span>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-brand-dark mb-6">Passionate Animal Lovers</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        At {{COMPANY_NAME}}, we understand that your pet is more than just an animal—they're family. That's why we've created a safe, fun, and nurturing environment where they can thrive.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3">
+                            <div class="bg-brand-yellow/20 p-1.5 rounded-full text-brand-orange">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-700">Certified Professional Staff</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="bg-brand-yellow/20 p-1.5 rounded-full text-brand-orange">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-700">24/7 Monitoring & Safety</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="bg-brand-yellow/20 p-1.5 rounded-full text-brand-orange">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-700">Large Outdoor Play Areas</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-orange font-display font-bold text-lg uppercase tracking-wider mb-2 block">Our Services</span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-brand-dark mb-4">Everything Your Pet Needs</h2>
+                <p class="text-gray-500 text-lg font-medium">Top-quality care customized to your pet's personality and needs.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-b-8 border-brand-teal group">
+                    <div class="w-16 h-16 bg-brand-teal/10 rounded-2xl flex items-center justify-center mb-6 text-brand-teal group-hover:bg-brand-teal group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-brand-dark mb-4">Active Walking</h3>
+                    <p class="text-gray-600 mb-6">Energetic walks in safe environments to keep your dog healthy and happy.</p>
+                    <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                        <li>• GPS Tracking</li>
+                        <li>• Group or Solo</li>
+                        <li>• Photo Updates</li>
+                    </ul>
+                    <a href="#contact" class="text-brand-teal font-bold hover:text-teal-600 flex items-center gap-1">Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-b-8 border-brand-yellow group">
+                    <div class="w-16 h-16 bg-brand-yellow/10 rounded-2xl flex items-center justify-center mb-6 text-brand-yellow group-hover:bg-brand-yellow group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-brand-dark mb-4">Luxury Grooming</h3>
+                    <p class="text-gray-600 mb-6">Full spa treatments using organic products for the softest fur in town.</p>
+                    <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                        <li>• Bath & Brush</li>
+                        <li>• Nail Trimming</li>
+                        <li>• Breed Styling</li>
+                    </ul>
+                    <a href="#contact" class="text-brand-yellow font-bold hover:text-yellow-600 flex items-center gap-1">Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-b-8 border-brand-orange group">
+                    <div class="w-16 h-16 bg-brand-orange/10 rounded-2xl flex items-center justify-center mb-6 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-brand-dark mb-4">Cozy Boarding</h3>
+                    <p class="text-gray-600 mb-6">A home away from home. Comfortable suites and plenty of cuddle time.</p>
+                    <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                        <li>• 24h Supervision</li>
+                        <li>• Daily Updates</li>
+                        <li>• Comfy Bedding</li>
+                    </ul>
+                    <a href="#contact" class="text-brand-orange font-bold hover:text-orange-600 flex items-center gap-1">Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <span class="text-brand-teal font-display font-bold text-lg uppercase tracking-wider mb-2 block">Gallery</span>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-brand-dark">Happy Faces</h2>
+                </div>
+                <a href="#" class="hidden md:block text-brand-teal font-bold hover:text-teal-600 text-lg">Follow us on Instagram &rarr;</a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="aspect-square rounded-3xl overflow-hidden shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80" alt="Puppy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-3xl overflow-hidden shadow-lg group md:col-span-2 md:row-span-2">
+                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80" alt="Smiling Dog" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-3xl overflow-hidden shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80" alt="Cat" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-3xl overflow-hidden shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80" alt="Cat Eyes" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-3xl overflow-hidden shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=600&q=80" alt="Dog" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+
+            <div class="mt-8 text-center md:hidden">
+                <a href="#" class="text-brand-teal font-bold hover:text-teal-600 text-lg">Follow us on Instagram &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-brand-yellow/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-center text-4xl md:text-5xl font-display font-bold text-brand-dark mb-16">Paw-rents Love Us</h2>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-md relative">
+                    <div class="text-brand-yellow absolute -top-4 -left-2 text-6xl font-serif leading-none">“</div>
+                    <p class="text-gray-600 text-lg italic mb-6 relative z-10">
+                        I never worry when I leave Rex at {{COMPANY_NAME}}. He comes home exhausted and happy every single time. The team is simply amazing!
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" alt="Reviewer" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-brand-dark">Sarah Johnson</p>
+                            <p class="text-xs text-gray-500 uppercase tracking-wide">Owner of Rex (Labrador)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-md relative">
+                    <div class="text-brand-yellow absolute -top-4 -left-2 text-6xl font-serif leading-none">“</div>
+                    <p class="text-gray-600 text-lg italic mb-6 relative z-10">
+                        The grooming service is top-notch. My Persian cat, Luna, usually hates baths but she was so calm with their groomers. Highly recommended!
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Reviewer" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-brand-dark">Mike Peters</p>
+                            <p class="text-xs text-gray-500 uppercase tracking-wide">Owner of Luna (Persian)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-brand-teal relative overflow-hidden">
+        <!-- Background Decor -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 2px, transparent 2px); background-size: 30px 30px;"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-5xl font-display font-bold text-brand-dark mb-4">Ready to Play?</h2>
+                    <p class="text-gray-500 text-lg">Book a service or just say hello!</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-brand-dark uppercase tracking-wide">Your Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand-teal focus:ring-brand-teal transition-colors" placeholder="John Doe">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-brand-dark uppercase tracking-wide">Pet's Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand-teal focus:ring-brand-teal transition-colors" placeholder="Buddy">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-brand-dark uppercase tracking-wide">Email Address</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand-teal focus:ring-brand-teal transition-colors" placeholder="john@example.com">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-brand-dark uppercase tracking-wide">Service Interested In</label>
+                        <select class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand-teal focus:ring-brand-teal transition-colors">
+                            <option>Walking</option>
+                            <option>Grooming</option>
+                            <option>Boarding</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-brand-dark uppercase tracking-wide">Message</label>
+                        <textarea rows="4" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand-teal focus:ring-brand-teal transition-colors" placeholder="Tell us about your pet..."></textarea>
+                    </div>
+                    <button type="button" class="w-full py-4 bg-brand-orange text-white font-bold rounded-xl shadow-lg hover:bg-orange-600 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <span class="font-display font-bold text-3xl text-white">{{COMPANY_NAME}}</span>
+                    </a>
+                    <p class="text-gray-400 max-w-sm leading-relaxed">
+                        Making tails wag and purrs rumble since 2024. Your pet's happiness is our #1 priority.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-xl mb-6 text-brand-yellow">Explore</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#gallery" class="hover:text-white transition-colors">Gallery</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-xl mb-6 text-brand-yellow">Contact</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li>123 Puppy Lane</li>
+                        <li>Pet City, PC 54321</li>
+                        <li>hello@{{COMPANY_NAME}}.com</li>
+                        <li>(555) 123-4567</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
