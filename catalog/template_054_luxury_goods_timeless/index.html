@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Timeless Luxury</title>
+    <meta name="description" content="Precision engineering meets timeless elegance. Discover the Chronos Heritage collection.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f172a', // Slate 900
+                            card: '#1e293b', // Slate 800
+                            gold: '#d4af37', // Metallic Gold
+                            goldlight: '#f3e5ab',
+                            golddark: '#aa8c2c',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .gold-gradient {
+            background: linear-gradient(135deg, #aa8c2c 0%, #d4af37 50%, #f3e5ab 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-gradient {
+            border-image: linear-gradient(135deg, #aa8c2c, #d4af37, #f3e5ab) 1;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-300 font-sans antialiased overflow-x-hidden" x-data="{ scrolled: false, mobileMenu: false }" @scroll.window="scrolled = (window.scrollY > 50)">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" :class="scrolled ? 'bg-brand-dark/95 backdrop-blur-md shadow-lg py-4' : 'bg-transparent py-6'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-bold text-white tracking-widest">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#collection" class="hover:text-brand-gold transition-colors text-sm uppercase tracking-wider">Collection</a>
+                <a href="#heritage" class="hover:text-brand-gold transition-colors text-sm uppercase tracking-wider">Heritage</a>
+                <a href="#features" class="hover:text-brand-gold transition-colors text-sm uppercase tracking-wider">Features</a>
+                <a href="#contact" class="px-6 py-2 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark transition-all duration-300 text-sm uppercase tracking-widest font-semibold">
+                    Pre-Order
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="mobileMenu" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenu" x-transition.opacity class="absolute top-full left-0 w-full bg-brand-dark border-t border-slate-800 md:hidden flex flex-col items-center py-8 space-y-6 shadow-xl">
+            <a href="#collection" @click="mobileMenu = false" class="text-lg hover:text-brand-gold uppercase tracking-widest">Collection</a>
+            <a href="#heritage" @click="mobileMenu = false" class="text-lg hover:text-brand-gold uppercase tracking-widest">Heritage</a>
+            <a href="#features" @click="mobileMenu = false" class="text-lg hover:text-brand-gold uppercase tracking-widest">Features</a>
+            <a href="#contact" @click="mobileMenu = false" class="px-8 py-3 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark uppercase tracking-widest">Pre-Order</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2000&auto=format&fit=crop" alt="Luxury Watch" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/40 to-brand-dark"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" x-data x-intersect="$el.classList.add('animate-fade-in-up')">
+            <p class="text-brand-gold uppercase tracking-[0.3em] mb-4 font-semibold text-sm md:text-base">Est. 1924</p>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+                Time is the Ultimate <span class="gold-gradient">Luxury</span>
+            </h1>
+            <p class="text-slate-300 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed">
+                Precision engineering meets timeless elegance. Discover the new Era Collection from {{COMPANY_NAME}}.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#collection" class="px-10 py-4 bg-brand-gold text-brand-dark font-bold uppercase tracking-widest hover:bg-white transition-colors duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    Explore Collection
+                </a>
+                <a href="#heritage" class="px-10 py-4 border border-slate-500 text-white font-bold uppercase tracking-widest hover:border-white hover:bg-white/10 transition-all duration-300">
+                    Our Story
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Collection Section -->
+    <section id="collection" class="py-24 bg-brand-dark relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">The Masterpiece Collection</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+                <p class="mt-4 text-slate-400 max-w-xl mx-auto">Each timepiece is a testament to our dedication to perfection, crafted for those who value every second.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product Card 1 -->
+                <div class="group relative bg-brand-card p-6 border border-slate-800 hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2">
+                    <div class="relative overflow-hidden aspect-[3/4] mb-6">
+                        <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=800&auto=format&fit=crop" alt="The Sovereign" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <h3 class="text-2xl font-serif text-white mb-2">The Sovereign</h3>
+                    <p class="text-slate-400 mb-4 text-sm uppercase tracking-wider">Automatic &middot; 42mm &middot; Gold</p>
+                    <div class="flex justify-between items-center border-t border-slate-700 pt-4">
+                        <span class="text-brand-gold font-bold text-xl">$12,500</span>
+                        <button class="text-white hover:text-brand-gold uppercase text-sm font-semibold tracking-widest transition-colors">Details &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="group relative bg-brand-card p-6 border border-slate-800 hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2">
+                    <div class="relative overflow-hidden aspect-[3/4] mb-6">
+                        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=800&auto=format&fit=crop" alt="The Abyss" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <h3 class="text-2xl font-serif text-white mb-2">The Abyss</h3>
+                    <p class="text-slate-400 mb-4 text-sm uppercase tracking-wider">Diver &middot; 44mm &middot; Steel</p>
+                    <div class="flex justify-between items-center border-t border-slate-700 pt-4">
+                        <span class="text-brand-gold font-bold text-xl">$8,900</span>
+                        <button class="text-white hover:text-brand-gold uppercase text-sm font-semibold tracking-widest transition-colors">Details &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="group relative bg-brand-card p-6 border border-slate-800 hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2">
+                    <div class="relative overflow-hidden aspect-[3/4] mb-6">
+                        <img src="https://images.unsplash.com/photo-1526045431048-f857369baa09?q=80&w=800&auto=format&fit=crop" alt="The Aviator" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <h3 class="text-2xl font-serif text-white mb-2">The Aviator</h3>
+                    <p class="text-slate-400 mb-4 text-sm uppercase tracking-wider">Chronograph &middot; 40mm &middot; Leather</p>
+                    <div class="flex justify-between items-center border-t border-slate-700 pt-4">
+                        <span class="text-brand-gold font-bold text-xl">$10,200</span>
+                        <button class="text-white hover:text-brand-gold uppercase text-sm font-semibold tracking-widest transition-colors">Details &rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heritage Section -->
+    <section id="heritage" class="py-24 bg-brand-card">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-brand-gold opacity-50"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-brand-gold opacity-50"></div>
+                    <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=1000&auto=format&fit=crop" alt="Watch Mechanism" class="w-full h-auto grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h4 class="text-brand-gold uppercase tracking-widest mb-2 font-semibold">Our Heritage</h4>
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">A Century of <br>Unrivaled Precision.</h2>
+                    <p class="text-slate-300 leading-relaxed mb-6 font-light text-lg">
+                        At {{COMPANY_NAME}}, we don't just measure time; we define it. For over 100 years, our master watchmakers have dedicated their lives to the pursuit of mechanical perfection. Every gear, spring, and jewel is assembled by hand in our Swiss atelier.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed mb-8 font-light text-lg">
+                        We believe that a watch is more than an instrument—it is an heirloom, a story passed down through generations, a silent witness to your greatest achievements.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-white border-b border-brand-gold pb-1 hover:text-brand-gold transition-colors uppercase tracking-widest text-sm font-bold">
+                        Read Our History
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-brand-dark text-center">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="p-6 border border-slate-800 hover:border-brand-gold transition-colors duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 text-brand-gold">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif text-white mb-2">Swiss Movement</h3>
+                    <p class="text-slate-400 text-sm">COSC-certified chronometer accuracy.</p>
+                </div>
+                <div class="p-6 border border-slate-800 hover:border-brand-gold transition-colors duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 text-brand-gold">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif text-white mb-2">Sapphire Crystal</h3>
+                    <p class="text-slate-400 text-sm">Scratch-resistant anti-reflective coating.</p>
+                </div>
+                <div class="p-6 border border-slate-800 hover:border-brand-gold transition-colors duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 text-brand-gold">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif text-white mb-2">Water Resistant</h3>
+                    <p class="text-slate-400 text-sm">Engineered to withstand depths up to 300m.</p>
+                </div>
+                <div class="p-6 border border-slate-800 hover:border-brand-gold transition-colors duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 text-brand-gold">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif text-white mb-2">Lifetime Warranty</h3>
+                    <p class="text-slate-400 text-sm">Guaranteed excellence for generations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax / Quote Section -->
+    <section class="relative py-32 bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1548690312-e3b507d8c110?q=80&w=2000&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black/70"></div>
+        <div class="relative container mx-auto px-6 text-center">
+            <svg class="w-12 h-12 text-brand-gold mx-auto mb-6 opacity-80" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0547 15.1924 14.6338 16.7793 13.68C18.3812 12.7262 19.3403 11.638 19.3403 10.0494C19.3403 8.35856 18.0084 7.34703 16.2971 7.34703C14.6062 7.34703 13.5765 8.38879 13.4357 9.88876H9.76296C9.91375 7.07474 12.3392 4.65381 16.3273 4.65381C20.4705 4.65381 23.3403 7.20603 23.3403 10.3013C23.3403 13.1153 21.3694 14.7345 19.2699 15.9333C17.9619 16.6788 17.2777 17.3739 17.2777 18.5273V21H14.017ZM5.53034 21L5.53034 18C5.53034 16.0547 6.70574 14.6338 8.29259 13.68C9.89456 12.7262 10.8537 11.638 10.8537 10.0494C10.8537 8.35856 9.5218 7.34703 7.81052 7.34703C6.11964 7.34703 5.08988 8.38879 4.9491 9.88876H1.27636C1.42715 7.07474 3.85258 4.65381 7.84073 4.65381C11.9839 4.65381 14.8537 7.20603 14.8537 10.3013C14.8537 13.1153 12.8828 14.7345 10.7833 15.9333C9.47528 16.6788 8.79113 17.3739 8.79113 18.5273V21H5.53034Z"></path></svg>
+            <blockquote class="text-3xl md:text-5xl font-serif italic text-white leading-relaxed mb-8">
+                "It’s not just a watch. It’s a statement of who you are and where you are going."
+            </blockquote>
+            <cite class="text-brand-gold uppercase tracking-widest not-italic font-bold">- James Sterling, CEO</cite>
+        </div>
+    </section>
+
+    <!-- Contact / Newsletter -->
+    <section id="contact" class="py-24 bg-brand-dark">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">Join the Inner Circle</h2>
+            <p class="text-slate-400 mb-10 text-lg">Be the first to know about limited edition releases and exclusive events.</p>
+
+            <form class="flex flex-col md:flex-row gap-4 justify-center">
+                <input type="email" placeholder="Your Email Address" class="bg-brand-card border border-slate-700 text-white px-6 py-4 w-full md:w-96 focus:outline-none focus:border-brand-gold transition-colors">
+                <button type="submit" class="bg-brand-gold text-brand-dark font-bold px-10 py-4 uppercase tracking-widest hover:bg-white transition-colors">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-slate-500 py-16 border-t border-slate-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <a href="#" class="text-2xl font-serif font-bold text-white tracking-widest block mb-6">
+                        {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-sm leading-relaxed">
+                        Crafting timeless luxury since 1924. Swiss made precision for the modern era.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white uppercase tracking-widest font-bold mb-6 text-sm">Collections</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">The Sovereign</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">The Abyss</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">The Aviator</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Limited Editions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white uppercase tracking-widest font-bold mb-6 text-sm">Support</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Service Center</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Warranty</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white uppercase tracking-widest font-bold mb-6 text-sm">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-brand-gold transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-brand-gold transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.072 3.269.156 5.023 1.938 5.179 5.179.06 1.266.072 1.646.072 4.85 0 3.204-.012 3.584-.072 4.85-.156 3.269-1.938 5.023-5.179 5.179-1.266.06-1.646.072-4.85.072-3.204 0-3.584-.012-4.85-.072-3.269-.156-5.023-1.938-5.179-5.179-.06-1.266-.072-1.646-.072-4.85 0-3.204.012-3.584.072-4.85.156-3.269 1.938-5.023 5.179-5.179 1.266-.06 1.646-.072 4.85-.072zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-900 pt-8 text-center text-xs text-slate-600">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
