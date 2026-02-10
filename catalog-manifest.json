@@ -636,6 +636,19 @@
         "grid",
         "portfolio"
       ]
+    },
+    {
+      "id": "050",
+      "name": "Beyond Horizon",
+      "category": "Space Tourism",
+      "style": "Cinematic",
+      "path": "catalog/template_050_space_cinematic",
+      "description": "Immersive deep space journey",
+      "tags": [
+        "Parallax",
+        "Glassmorphism",
+        "Dark"
+      ]
     }
   ]
 }
