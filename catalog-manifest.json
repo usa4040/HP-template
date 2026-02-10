@@ -571,6 +571,19 @@
         "Tech",
         "Clean"
       ]
+    },
+    {
+      "id": "045",
+      "name": "Evergreen Haven",
+      "category": "Senior Care",
+      "style": "Compassionate",
+      "path": "catalog/template_045_senior_care_compassionate",
+      "description": "Warm accessible senior living.",
+      "tags": [
+        "Warm",
+        "Accessible",
+        "Trust"
+      ]
     }
   ]
 }
