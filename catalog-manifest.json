@@ -610,6 +610,19 @@
         "Friendly",
         "Teal"
       ]
+    },
+    {
+      "id": "048",
+      "name": "Velvet Vines",
+      "category": "Winery",
+      "style": "Rustic Luxury",
+      "path": "catalog/template_048_winery_rustic_luxury",
+      "description": "Elegant vineyard estate design",
+      "tags": [
+        "premium",
+        "classic",
+        "nature"
+      ]
     }
   ]
 }
