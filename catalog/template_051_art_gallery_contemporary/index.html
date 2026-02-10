@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Contemporary Art Gallery</title>
+    <meta name="description" content="A minimalist contemporary art gallery showcasing avant-garde works.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        'void-black': '#0a0a0a',
+                        'void-white': '#ffffff',
+                        'void-gray': '#f4f4f4',
+                        'void-dark-gray': '#333333',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'fade-in': 'fadeIn 1.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+
+        /* Custom Scrollbar for Webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffffff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a3a3a3;
+        }
+
+        .image-hover-zoom {
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .group:hover .image-hover-zoom {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-void-white text-void-black font-sans antialiased selection:bg-void-black selection:text-void-white" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 50)">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" :class="scrolled ? 'bg-void-white/90 backdrop-blur-md py-4' : 'bg-transparent py-8'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-display font-bold text-2xl tracking-tighter uppercase z-50 relative" :class="mobileMenuOpen ? 'text-void-black' : 'text-void-black'">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-12 text-sm font-medium tracking-wide uppercase">
+                <a href="#exhibitions" class="hover:text-void-dark-gray transition-colors relative after:content-[''] after:absolute after:w-0 after:h-px after:bg-black after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Exhibitions</a>
+                <a href="#collection" class="hover:text-void-dark-gray transition-colors relative after:content-[''] after:absolute after:w-0 after:h-px after:bg-black after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Collection</a>
+                <a href="#artists" class="hover:text-void-dark-gray transition-colors relative after:content-[''] after:absolute after:w-0 after:h-px after:bg-black after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Artists</a>
+                <a href="#visit" class="hover:text-void-dark-gray transition-colors relative after:content-[''] after:absolute after:w-0 after:h-px after:bg-black after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Visit</a>
+                <a href="#contact" class="hover:text-void-dark-gray transition-colors relative after:content-[''] after:absolute after:w-0 after:h-px after:bg-black after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden z-50 focus:outline-none">
+                <div class="w-6 h-5 relative flex flex-col justify-between">
+                    <span class="w-full h-px bg-black transition-all duration-300 transform" :class="mobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''"></span>
+                    <span class="w-full h-px bg-black transition-all duration-300 opacity-100" :class="mobileMenuOpen ? 'opacity-0' : ''"></span>
+                    <span class="w-full h-px bg-black transition-all duration-300 transform" :class="mobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''"></span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-cloak x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-full"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 translate-y-full"
+             class="fixed inset-0 bg-void-white z-40 flex flex-col justify-center items-center">
+            <div class="flex flex-col space-y-8 text-center font-display text-3xl font-bold uppercase tracking-tight">
+                <a href="#exhibitions" @click="mobileMenuOpen = false" class="hover:text-gray-500 transition-colors">Exhibitions</a>
+                <a href="#collection" @click="mobileMenuOpen = false" class="hover:text-gray-500 transition-colors">Collection</a>
+                <a href="#artists" @click="mobileMenuOpen = false" class="hover:text-gray-500 transition-colors">Artists</a>
+                <a href="#visit" @click="mobileMenuOpen = false" class="hover:text-gray-500 transition-colors">Visit</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="hover:text-gray-500 transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden px-6 pt-20">
+        <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
+             <!-- Abstract background element if needed, keeping it purely minimal for now -->
+             <div class="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-gray-200 blur-3xl opacity-50"></div>
+        </div>
+
+        <div class="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            <div class="lg:col-span-7 order-2 lg:order-1 animate-fade-in-up">
+                <h1 class="font-display font-extrabold text-6xl md:text-8xl lg:text-9xl leading-[0.85] tracking-tighter mb-8">
+                    SPACE<br>
+                    <span class="text-gray-400">FOR</span><br>
+                    SILENCE
+                </h1>
+                <p class="text-lg md:text-xl font-light max-w-md text-gray-600 mb-12 ml-1 border-l-2 border-black pl-6">
+                    Exploring the void between perception and reality.
+                    A sanctuary for contemporary minimalist art.
+                </p>
+                <div class="ml-1">
+                    <a href="#exhibitions" class="inline-block border border-black px-8 py-4 text-sm font-bold tracking-widest uppercase hover:bg-black hover:text-white transition-all duration-300">
+                        View Exhibitions
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 order-1 lg:order-2 animate-fade-in h-[50vh] lg:h-[70vh] relative overflow-hidden group">
+                 <img src="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                      alt="Abstract Art"
+                      class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out">
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Current Exhibition -->
+    <section id="exhibitions" class="py-24 md:py-32 bg-void-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-gray-200 pb-6">
+                <h2 class="font-display font-bold text-4xl md:text-6xl tracking-tight">Current Exhibition</h2>
+                <span class="font-mono text-sm tracking-widest text-gray-500 mt-4 md:mt-0">OCT 14 — DEC 22, 2023</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')">
+                <div class="relative aspect-[4/5] overflow-hidden group transition-all duration-1000 opacity-0 translate-y-10" x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')">
+                    <img src="https://images.unsplash.com/photo-1518998053901-5348d3969105?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                         alt="Gallery Interior"
+                         class="w-full h-full object-cover image-hover-zoom">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                </div>
+
+                <div class="transition-all duration-1000 delay-300 opacity-0 translate-y-10" x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')">
+                    <span class="block text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">Solo Show</span>
+                    <h3 class="font-display font-bold text-5xl md:text-7xl mb-8 leading-none">ECHOES<br>OF SILENCE</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-10 max-w-md">
+                        Renowned sculptor Elena Vlasov explores the concept of negative space through monumental concrete forms. A meditative journey into the absence of matter.
+                    </p>
+                    <a href="#" class="group inline-flex items-center text-sm font-bold tracking-widest uppercase border-b border-black pb-1 hover:text-gray-600 transition-colors">
+                        Explore Works
+                        <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Works / Collection -->
+    <section id="collection" class="py-24 bg-void-gray/30">
+        <div class="container mx-auto px-6">
+            <div class="mb-20">
+                <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight mb-4">Selected Works</h2>
+                <div class="h-px w-24 bg-black"></div>
+            </div>
+
+            <!-- Masonry-ish Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="group relative aspect-square overflow-hidden bg-gray-100" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-8 transition-all duration-700">
+                    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Art Piece" class="w-full h-full object-cover image-hover-zoom">
+                    <div class="absolute inset-0 bg-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center p-6">
+                        <span class="font-display font-bold text-xl mb-2">Structure No. 4</span>
+                        <span class="font-mono text-xs uppercase tracking-widest text-gray-500">James Aris</span>
+                    </div>
+                </div>
+
+                <!-- Item 2 (Tall) -->
+                <div class="group relative md:row-span-2 aspect-[3/4] md:aspect-auto overflow-hidden bg-gray-100" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-8 transition-all duration-700 delay-100">
+                    <img src="https://images.unsplash.com/photo-1507643179173-617d6b13689f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Art Piece" class="w-full h-full object-cover image-hover-zoom">
+                    <div class="absolute inset-0 bg-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center p-6">
+                        <span class="font-display font-bold text-xl mb-2">Monolith I</span>
+                        <span class="font-mono text-xs uppercase tracking-widest text-gray-500">Sarah Chen</span>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group relative aspect-square overflow-hidden bg-gray-100" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-8 transition-all duration-700 delay-200">
+                    <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Art Piece" class="w-full h-full object-cover image-hover-zoom">
+                    <div class="absolute inset-0 bg-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center p-6">
+                        <span class="font-display font-bold text-xl mb-2">Light Study</span>
+                        <span class="font-mono text-xs uppercase tracking-widest text-gray-500">David Ross</span>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="group relative aspect-[4/3] lg:col-span-2 overflow-hidden bg-gray-100" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-8 transition-all duration-700 delay-300">
+                    <img src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Art Piece" class="w-full h-full object-cover image-hover-zoom">
+                    <div class="absolute inset-0 bg-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center p-6">
+                        <span class="font-display font-bold text-xl mb-2">Composition in Grey</span>
+                        <span class="font-mono text-xs uppercase tracking-widest text-gray-500">Unknown</span>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="group relative aspect-square overflow-hidden bg-gray-100" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-8 transition-all duration-700 delay-400">
+                    <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Art Piece" class="w-full h-full object-cover image-hover-zoom">
+                    <div class="absolute inset-0 bg-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center p-6">
+                        <span class="font-display font-bold text-xl mb-2">Abstract Texture</span>
+                        <span class="font-mono text-xs uppercase tracking-widest text-gray-500">Maria Vo</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="#" class="inline-block border border-black px-12 py-4 text-sm font-bold tracking-widest uppercase hover:bg-black hover:text-white transition-all duration-300">
+                    View Full Collection
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artists List (Minimal Text) -->
+    <section id="artists" class="py-24 bg-black text-white">
+        <div class="container mx-auto px-6">
+             <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight mb-16">Represented Artists</h2>
+
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
+                 <div class="border-t border-gray-800 pt-6 group cursor-pointer hover:border-white transition-colors">
+                     <h3 class="font-display text-2xl font-medium mb-2 group-hover:ml-2 transition-all">Elena Vlasov</h3>
+                     <p class="text-gray-500 text-sm">Sculpture / Installation</p>
+                 </div>
+                 <div class="border-t border-gray-800 pt-6 group cursor-pointer hover:border-white transition-colors">
+                     <h3 class="font-display text-2xl font-medium mb-2 group-hover:ml-2 transition-all">James Aris</h3>
+                     <p class="text-gray-500 text-sm">Photography / Digital</p>
+                 </div>
+                 <div class="border-t border-gray-800 pt-6 group cursor-pointer hover:border-white transition-colors">
+                     <h3 class="font-display text-2xl font-medium mb-2 group-hover:ml-2 transition-all">Sarah Chen</h3>
+                     <p class="text-gray-500 text-sm">Architectural Design</p>
+                 </div>
+                 <div class="border-t border-gray-800 pt-6 group cursor-pointer hover:border-white transition-colors">
+                     <h3 class="font-display text-2xl font-medium mb-2 group-hover:ml-2 transition-all">Marcus Thorne</h3>
+                     <p class="text-gray-500 text-sm">Oil on Canvas</p>
+                 </div>
+                 <div class="border-t border-gray-800 pt-6 group cursor-pointer hover:border-white transition-colors">
+                     <h3 class="font-display text-2xl font-medium mb-2 group-hover:ml-2 transition-all">Yuki Tanaka</h3>
+                     <p class="text-gray-500 text-sm">Ceramics</p>
+                 </div>
+                 <div class="border-t border-gray-800 pt-6 group cursor-pointer hover:border-white transition-colors">
+                     <h3 class="font-display text-2xl font-medium mb-2 group-hover:ml-2 transition-all">Olofsdotter</h3>
+                     <p class="text-gray-500 text-sm">Mixed Media</p>
+                 </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- Visit / Contact -->
+    <section id="visit" class="py-24 bg-void-white">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div>
+                <h2 class="font-display font-bold text-4xl mb-8 tracking-tight">Visit Us</h2>
+                <p class="text-gray-600 mb-8 max-w-sm leading-relaxed">
+                    Located in the heart of the Arts District, our gallery offers a contemplative space for viewing contemporary works.
+                </p>
+
+                <div class="space-y-6 font-medium">
+                    <div>
+                        <span class="block text-xs font-bold tracking-widest uppercase text-gray-400 mb-1">Address</span>
+                        <p>1240 Void Avenue<br>Arts District, NY 10013</p>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold tracking-widest uppercase text-gray-400 mb-1">Hours</span>
+                        <p>Tue — Sat: 11am — 7pm<br>Sun: 12pm — 5pm<br>Mon: Closed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contact" class="bg-gray-50 p-8 md:p-12">
+                <h3 class="font-display font-bold text-2xl mb-6">Inquiries</h3>
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold tracking-widest uppercase text-gray-400 mb-2">Email</label>
+                        <input type="email" class="w-full bg-white border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold tracking-widest uppercase text-gray-400 mb-2">Message</label>
+                        <textarea class="w-full bg-white border border-gray-200 p-3 h-32 focus:outline-none focus:border-black transition-colors" placeholder="How can we help you?"></textarea>
+                    </div>
+                    <button class="w-full bg-black text-white py-4 text-sm font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-12">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-display font-bold text-xl tracking-tighter uppercase">{{COMPANY_NAME}}</span>
+            </div>
+
+            <div class="flex space-x-6 text-sm text-gray-500">
+                <a href="#" class="hover:text-black transition-colors">Instagram</a>
+                <a href="#" class="hover:text-black transition-colors">Twitter</a>
+                <a href="#" class="hover:text-black transition-colors">Artsy</a>
+            </div>
+
+            <div class="mt-4 md:mt-0 text-xs text-gray-400">
+                &copy; 2023 {{COMPANY_NAME}}. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

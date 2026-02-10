@@ -649,6 +649,19 @@
         "Glassmorphism",
         "Dark"
       ]
+    },
+    {
+      "id": "051",
+      "name": "Canvas & Void",
+      "category": "Art Gallery",
+      "style": "Contemporary",
+      "path": "catalog/template_051_art_gallery_contemporary",
+      "description": "Minimalist white gallery theme",
+      "tags": [
+        "Minimalist",
+        "Gallery",
+        "Art"
+      ]
     }
   ]
 }
