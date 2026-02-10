@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Compassionate Senior Living</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                        },
+                        orange: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c', // Warm accent
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Libre Baskerville"', 'serif'],
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'gentle-pulse': 'gentlePulse 3s infinite ease-in-out',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        gentlePulse: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.02)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animation-delay-2000 { animation-delay: 2s; }
+        .text-shadow-sm { text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d1fae5' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="font-sans text-stone-800 bg-stone-50 antialiased selection:bg-emerald-200 selection:text-emerald-900">
+
+    <!-- Header -->
+    <header x-data="{ mobileMenuOpen: false, scrolled: false }"
+            @scroll.window="scrolled = (window.pageYOffset > 20)"
+            :class="{ 'bg-white shadow-md py-4': scrolled, 'bg-white/90 backdrop-blur-sm py-6': !scrolled }"
+            class="fixed w-full z-50 transition-all duration-300 top-0 left-0">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 group-hover:bg-emerald-700 group-hover:text-white transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                </div>
+                <span class="font-serif text-xl md:text-2xl font-bold text-stone-800 tracking-tight">{{COMPANY_NAME}}</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-stone-600 font-medium text-sm tracking-wide">
+                <a href="#philosophy" class="hover:text-emerald-700 transition-colors">想いについて</a>
+                <a href="#services" class="hover:text-emerald-700 transition-colors">サービス</a>
+                <a href="#gallery" class="hover:text-emerald-700 transition-colors">施設の様子</a>
+                <a href="#testimonials" class="hover:text-emerald-700 transition-colors">お客様の声</a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-full text-white bg-emerald-700 hover:bg-emerald-800 shadow-sm hover:shadow-md transition-all duration-300">
+                    見学予約・お問い合わせ
+                </a>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-stone-600 hover:text-emerald-700 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-stone-100 py-4 px-6 flex flex-col space-y-4">
+            <a href="#philosophy" @click="mobileMenuOpen = false" class="text-stone-700 hover:text-emerald-700 font-medium">想いについて</a>
+            <a href="#services" @click="mobileMenuOpen = false" class="text-stone-700 hover:text-emerald-700 font-medium">サービス</a>
+            <a href="#gallery" @click="mobileMenuOpen = false" class="text-stone-700 hover:text-emerald-700 font-medium">施設の様子</a>
+            <a href="#testimonials" @click="mobileMenuOpen = false" class="text-stone-700 hover:text-emerald-700 font-medium">お客様の声</a>
+            <a href="#contact" @click="mobileMenuOpen = false" class="text-center w-full px-6 py-3 bg-emerald-700 text-white rounded-lg font-medium">お問い合わせ</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Happy elderly couple" class="w-full h-full object-cover object-center opacity-90">
+            <div class="absolute inset-0 bg-gradient-to-r from-stone-50 via-stone-50/80 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl animate-fade-in-up">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold tracking-wider uppercase mb-6 shadow-sm">
+                    Premium Senior Living
+                </span>
+                <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 leading-tight mb-6">
+                    心安らぐ、<br>
+                    <span class="text-emerald-700">第二の我が家</span>へようこそ。
+                </h1>
+                <p class="text-lg md:text-xl text-stone-600 mb-10 leading-relaxed">
+                    {{COMPANY_NAME}}は、お一人おひとりの人生に寄り添い、<br class="hidden md:inline">
+                    安心と喜びに満ちた毎日をお届けするシニアレジデンスです。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold rounded-full text-white bg-emerald-700 hover:bg-emerald-800 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+                        施設を見学する
+                    </a>
+                    <a href="#services" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold rounded-full text-emerald-800 bg-white border border-emerald-200 hover:bg-emerald-50 shadow-sm hover:shadow-md transition-all duration-300">
+                        サービス詳細
+                    </a>
+                </div>
+
+                <div class="mt-12 flex items-center gap-8 text-stone-500 text-sm font-medium">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span>24時間看護体制</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span>完全個室</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span>手作りのお食事</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-24 bg-white bg-pattern">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-emerald-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                    <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80" alt="Caregiver holding hands" class="relative rounded-2xl shadow-2xl z-10 w-full h-[500px] object-cover">
+
+                    <!-- Floating Badge -->
+                    <div class="absolute bottom-8 right-8 z-20 bg-white p-6 rounded-xl shadow-lg max-w-xs animate-gentle-pulse hidden md:block">
+                        <p class="font-serif text-lg text-emerald-800 italic mb-2">"Compassion is our core"</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-stone-200 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-stone-900">鈴木 花子</p>
+                                <p class="text-[10px] text-stone-500 uppercase tracking-wider">Head Nurse</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="text-orange-400 font-bold tracking-widest text-sm uppercase mb-3 block">Our Philosophy</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-stone-800 mb-8 leading-tight">
+                        「その人らしさ」を大切にする<br>
+                        温もりのあるケア
+                    </h2>
+                    <p class="text-stone-600 leading-relaxed mb-6">
+                        私たちは、ご入居者様お一人おひとりの人生の物語を尊重します。
+                        これまでの習慣、大切にしてきた趣味、そしてご家族との絆。
+                        それら全てが、その人らしさを形作る大切な要素です。
+                    </p>
+                    <p class="text-stone-600 leading-relaxed mb-10">
+                        医療・介護のプロフェッショナルが24時間体制で見守りながらも、
+                        管理するのではなく、寄り添うケアを。
+                        心からの安心と、笑顔あふれる毎日をお約束します。
+                    </p>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-stone-800 text-sm">個別ケアプランの作成</h4>
+                                <p class="text-sm text-stone-500 mt-1">身体状況だけでなく、生活歴や嗜好に合わせたプランをご提案。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-stone-800 text-sm">24時間365日の見守り</h4>
+                                <p class="text-sm text-stone-500 mt-1">夜間も看護師が常駐し、急な体調変化にも迅速に対応します。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-orange-400 font-bold tracking-widest text-sm uppercase mb-3 block">Our Services</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-stone-800 mb-6">充実したサポート体制</h2>
+                <p class="text-stone-500">ご入居者様の心身の状態に合わせて、<br class="md:hidden">最適なサービスをご提供いたします。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Medical Care" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-stone-800 mb-3">医療・看護ケア</h3>
+                        <p class="text-stone-500 text-sm leading-relaxed mb-4">
+                            提携医療機関との連携により、日常の健康管理から緊急時の対応まで万全の体制を整えています。
+                        </p>
+                        <a href="#" class="text-emerald-700 font-bold text-sm hover:text-emerald-800 flex items-center gap-1">詳細を見る <span>&rarr;</span></a>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Healthy Food" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-stone-800 mb-3">栄養バランスの取れた食事</h3>
+                        <p class="text-stone-500 text-sm leading-relaxed mb-4">
+                            管理栄養士監修のもと、旬の食材を使用した手作りの料理をご提供。治療食や介護食にも対応可能です。
+                        </p>
+                        <a href="#" class="text-emerald-700 font-bold text-sm hover:text-emerald-800 flex items-center gap-1">詳細を見る <span>&rarr;</span></a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" alt="Activities" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-stone-800 mb-3">レクリエーション</h3>
+                        <p class="text-stone-500 text-sm leading-relaxed mb-4">
+                            日々の生活に彩りを添える、季節の行事やクラブ活動。ご入居者様同士の交流の場も大切にしています。
+                        </p>
+                        <a href="#" class="text-emerald-700 font-bold text-sm hover:text-emerald-800 flex items-center gap-1">詳細を見る <span>&rarr;</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div>
+                    <span class="text-orange-400 font-bold tracking-widest text-sm uppercase mb-3 block">Life at {{COMPANY_NAME}}</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-stone-800">笑顔あふれる日常</h2>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center gap-2 text-stone-600 hover:text-emerald-700 font-medium transition-colors">
+                    もっと写真を見る <span>&rarr;</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 h-[500px] md:h-[600px]">
+                <div class="col-span-2 row-span-2 relative rounded-2xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Community" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <p class="text-white font-bold">談話室での交流</p>
+                    </div>
+                </div>
+                <div class="col-span-1 row-span-1 relative rounded-2xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80" alt="Garden" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <p class="text-white text-sm font-bold">中庭の散歩道</p>
+                    </div>
+                </div>
+                <div class="col-span-1 row-span-1 relative rounded-2xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Reading" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <p class="text-white text-sm font-bold">静かな図書室</p>
+                    </div>
+                </div>
+                <div class="col-span-2 row-span-1 relative rounded-2xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1576089172869-4f5f6f315620?ixlib=rb-4.0.3&auto=format&fit=crop&w=1452&q=80" alt="Doctor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <p class="text-white font-bold">定期健康診断</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 bg-stone-50 border-y border-stone-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-400 font-bold tracking-widest text-sm uppercase mb-3 block">Voices</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-stone-800">ご家族様の声</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <div class="bg-white p-8 md:p-10 rounded-2xl shadow-sm relative">
+                    <svg class="w-12 h-12 text-stone-200 absolute top-8 right-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0575 15.372 14.7405 17.151 14.1825V13.719C17.151 11.2395 15.4215 10.4355 14.106 10.518V7.5C18.6675 7.5 22.05 10.8225 22.05 15.318V21H14.017ZM8 21L8 18C8 16.0575 9.354 14.7405 11.1345 14.1825V13.719C11.1345 11.2395 9.405 10.4355 8.0895 10.518V7.5C12.651 7.5 16.0335 10.8225 16.0335 15.318V21H8Z"></path></svg>
+                    <p class="text-stone-600 leading-relaxed italic mb-6">
+                        「母の表情が以前よりずっと明るくなりました。スタッフの皆さんが本当の家族のように接してくださり、安心して任せられます。施設の雰囲気も温かく、清潔感があって素晴らしいです。」
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-stone-200 rounded-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-stone-900 text-sm">田中 様</p>
+                            <p class="text-xs text-stone-500">ご入居者様のご息女</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 md:p-10 rounded-2xl shadow-sm relative">
+                    <svg class="w-12 h-12 text-stone-200 absolute top-8 right-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0575 15.372 14.7405 17.151 14.1825V13.719C17.151 11.2395 15.4215 10.4355 14.106 10.518V7.5C18.6675 7.5 22.05 10.8225 22.05 15.318V21H14.017ZM8 21L8 18C8 16.0575 9.354 14.7405 11.1345 14.1825V13.719C11.1345 11.2395 9.405 10.4355 8.0895 10.518V7.5C12.651 7.5 16.0335 10.8225 16.0335 15.318V21H8Z"></path></svg>
+                    <p class="text-stone-600 leading-relaxed italic mb-6">
+                        「食事制限がある父のために、特別メニューを工夫してくださり感謝しています。イベントの写真などが送られてくるので、離れて暮らしていても様子が分かり安心です。」
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-stone-200 rounded-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-stone-900 text-sm">佐藤 様</p>
+                            <p class="text-xs text-stone-500">ご入居者様のご子息</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA Section -->
+    <section id="contact" class="py-24 bg-emerald-800 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="font-serif text-3xl md:text-5xl font-bold mb-6">まずはお気軽にご見学ください</h2>
+            <p class="text-emerald-100 text-lg mb-10 leading-relaxed">
+                施設の雰囲気やサービスの内容を、実際にご覧いただけます。<br>
+                ご入居に関するご相談も承っております。
+            </p>
+
+            <form class="bg-white rounded-2xl p-8 md:p-12 text-left shadow-2xl max-w-2xl mx-auto">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-stone-700 mb-2">お名前 <span class="text-red-500">*</span></label>
+                        <input type="text" class="w-full px-4 py-3 rounded-lg border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all text-stone-800" placeholder="例: 山田 太郎">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold text-stone-700 mb-2">電話番号 <span class="text-red-500">*</span></label>
+                            <input type="tel" class="w-full px-4 py-3 rounded-lg border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all text-stone-800" placeholder="090-1234-5678">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-stone-700 mb-2">メールアドレス</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-lg border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all text-stone-800" placeholder="example@email.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-stone-700 mb-2">お問い合わせ内容</label>
+                        <textarea rows="4" class="w-full px-4 py-3 rounded-lg border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all text-stone-800" placeholder="見学希望日やご質問などをご記入ください"></textarea>
+                    </div>
+                    <button type="button" class="w-full bg-emerald-600 text-white font-bold py-4 rounded-lg hover:bg-emerald-700 transition-colors shadow-lg transform hover:-translate-y-0.5 active:translate-y-0">
+                        送信する
+                    </button>
+                </div>
+            </form>
+
+            <p class="mt-8 text-emerald-200 text-sm">
+                お電話でのお問い合わせ: <span class="text-white font-bold text-lg mx-2">03-1234-5678</span> (9:00 - 18:00)
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <a href="#" class="flex items-center gap-2 mb-6 text-white group">
+                     <div class="w-8 h-8 bg-emerald-900 rounded-full flex items-center justify-center text-emerald-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </div>
+                    <span class="font-serif text-xl font-bold tracking-tight">{{COMPANY_NAME}}</span>
+                </a>
+                <p class="text-sm leading-relaxed mb-6 max-w-sm">
+                    温もりと安心をお届けするシニアレジデンス。<br>
+                    いつまでも自分らしく、笑顔あふれる毎日を。
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-emerald-700 hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-emerald-700 hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.072 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6">リンク</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="hover:text-emerald-500 transition-colors">トップページ</a></li>
+                    <li><a href="#philosophy" class="hover:text-emerald-500 transition-colors">想いについて</a></li>
+                    <li><a href="#services" class="hover:text-emerald-500 transition-colors">サービス一覧</a></li>
+                    <li><a href="#gallery" class="hover:text-emerald-500 transition-colors">フォトギャラリー</a></li>
+                    <li><a href="#testimonials" class="hover:text-emerald-500 transition-colors">ご家族様の声</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6">運営会社</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="hover:text-emerald-500 transition-colors">会社概要</a></li>
+                    <li><a href="#" class="hover:text-emerald-500 transition-colors">採用情報</a></li>
+                    <li><a href="#" class="hover:text-emerald-500 transition-colors">プライバシーポリシー</a></li>
+                    <li><a href="#" class="hover:text-emerald-500 transition-colors">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-stone-800 mt-12 pt-8 text-center text-xs text-stone-600">
+            &copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.
+        </div>
+    </footer>
+</body>
+</html>
