@@ -623,6 +623,19 @@
         "classic",
         "nature"
       ]
+    },
+    {
+      "id": "049",
+      "name": "Creative Bento",
+      "category": "Creative Studio",
+      "style": "Bento Grid",
+      "path": "catalog/template_049_creative_studio_bento",
+      "description": "Grid-based modular design",
+      "tags": [
+        "modern",
+        "grid",
+        "portfolio"
+      ]
     }
   ]
 }
