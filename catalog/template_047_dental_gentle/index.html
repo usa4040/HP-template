@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - 痛みのない優しい歯科治療</title>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        teal: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        slate: {
+                            850: '#1e293b', // Custom dark slate
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        heading: ['Quicksand', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+
+        /* Custom blobs */
+        .blob-shape {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.4;
+            filter: blur(40px);
+        }
+
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="font-sans text-slate-600 antialiased bg-white selection:bg-teal-200 selection:text-teal-900">
+
+    <!-- Navbar -->
+    <header x-data="{ mobileMenuOpen: false, scrolled: false }"
+            @scroll.window="scrolled = (window.pageYOffset > 20)"
+            :class="{ 'bg-white/90 backdrop-blur-md shadow-sm': scrolled, 'bg-transparent': !scrolled }"
+            class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="bg-teal-500 text-white p-2 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /> <!-- Heart icon placeholder for gentle dental -->
+                        </svg>
+                    </div>
+                    <span class="font-heading font-bold text-2xl text-slate-800 tracking-tight">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-slate-600 hover:text-teal-600 font-medium transition">ホーム</a>
+                    <a href="#about" class="text-slate-600 hover:text-teal-600 font-medium transition">当院について</a>
+                    <a href="#services" class="text-slate-600 hover:text-teal-600 font-medium transition">診療案内</a>
+                    <a href="#testimonials" class="text-slate-600 hover:text-teal-600 font-medium transition">患者様の声</a>
+                    <a href="#contact" class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-teal-200 transition transform hover:-translate-y-0.5">
+                        WEB予約
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="text-slate-600 hover:text-teal-600 focus:outline-none p-2 rounded-lg hover:bg-teal-50">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-white shadow-lg border-t border-slate-100 absolute w-full z-40" x-cloak>
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:text-teal-600 hover:bg-teal-50">ホーム</a>
+                <a href="#about" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:text-teal-600 hover:bg-teal-50">当院について</a>
+                <a href="#services" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:text-teal-600 hover:bg-teal-50">診療案内</a>
+                <a href="#testimonials" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:text-teal-600 hover:bg-teal-50">患者様の声</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block px-3 py-3 mt-4 text-center rounded-lg text-base font-bold text-white bg-teal-500 hover:bg-teal-600 shadow-md">
+                    WEB予約
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-gradient-to-br from-teal-50 to-white">
+        <!-- Blobs -->
+        <div class="blob-shape bg-teal-200 w-96 h-96 rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/4"></div>
+        <div class="blob-shape bg-blue-100 w-80 h-80 rounded-full bottom-0 right-0 translate-x-1/3 translate-y-1/4"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+                <!-- Text Content -->
+                <div class="lg:col-span-6 text-center lg:text-left mb-12 lg:mb-0">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-teal-100 text-teal-700 font-semibold text-sm mb-6 shadow-sm border border-teal-200">
+                        痛みの少ない・怖くない歯科治療
+                    </span>
+                    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-800 leading-tight mb-6">
+                        あなたの笑顔を<br>
+                        <span class="text-teal-500 relative inline-block">
+                            もっと素敵に
+                            <svg class="absolute -bottom-2 left-0 w-full h-3 text-teal-200 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" />
+                            </svg>
+                        </span>
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        {{COMPANY_NAME}}は、患者様の不安を取り除くことを第一に考えた歯科医院です。最新の設備と優しいスタッフが、リラックスできる空間で丁寧な治療を提供します。
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contact" class="px-8 py-4 bg-teal-500 hover:bg-teal-600 text-white font-bold rounded-full shadow-lg shadow-teal-200 transition transform hover:-translate-y-1 text-center">
+                            無料相談を予約する
+                        </a>
+                        <a href="#services" class="px-8 py-4 bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-full shadow-md border border-slate-100 transition text-center flex items-center justify-center gap-2 group">
+                            診療メニューを見る
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 group-hover:translate-x-1 transition">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="mt-10 flex items-center justify-center lg:justify-start gap-6 text-sm text-slate-500 font-medium">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            保険診療対応
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            キッズスペース有
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            土日診療
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Content -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative rounded-4xl overflow-hidden shadow-2xl border-8 border-white transform lg:rotate-2 hover:rotate-0 transition duration-500">
+                        <!-- Using Unsplash image: Friendly dental patient/smile -->
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Smiling patient" class="w-full h-auto object-cover">
+                    </div>
+                    <!-- Floating Card -->
+                    <div class="absolute -bottom-6 -left-6 lg:bottom-10 lg:-left-10 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce" style="animation-duration: 3s;">
+                        <div class="bg-yellow-100 p-3 rounded-full text-yellow-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">口コミ評価 4.9</p>
+                            <p class="text-xs text-slate-500">地域の皆様に選ばれています</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+                <!-- Feature 1 -->
+                <div class="group p-8 rounded-3xl bg-slate-50 hover:bg-teal-50 transition duration-300 border border-slate-100 hover:border-teal-100">
+                    <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-teal-500 mb-6 group-hover:scale-110 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-slate-800 mb-3">痛みの少ない治療</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        麻酔の工夫や最新機器の導入により、可能な限り痛みを感じさせない治療を行っています。歯科恐怖症の方も安心です。
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="group p-8 rounded-3xl bg-slate-50 hover:bg-teal-50 transition duration-300 border border-slate-100 hover:border-teal-100">
+                    <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-teal-500 mb-6 group-hover:scale-110 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-slate-800 mb-3">待ち時間ゼロへ</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        完全予約制と効率的な診療システムにより、待ち時間を最小限に抑えています。忙しい方も安心して通院いただけます。
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="group p-8 rounded-3xl bg-slate-50 hover:bg-teal-50 transition duration-300 border border-slate-100 hover:border-teal-100">
+                    <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-teal-500 mb-6 group-hover:scale-110 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-slate-800 mb-3">お子様も安心</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        キッズスペース完備。お子様が歯医者さんを嫌いにならないよう、優しく楽しい診療を心がけています。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-teal-500 font-bold tracking-wider uppercase text-sm">Services</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-800 mt-2">診療メニュー</h2>
+                <p class="text-slate-600 mt-4 text-lg">
+                    お一人お一人のお口の状態やご希望に合わせて、最適な治療プランをご提案いたします。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1598256989494-02630fb409b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="General Dentistry" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-heading font-bold text-xl text-slate-800 mb-3">一般歯科・予防歯科</h3>
+                        <p class="text-slate-600 mb-6">虫歯や歯周病の治療から、定期検診による予防ケアまで。長く健康な歯を保つためのサポートを行います。</p>
+                        <a href="#contact" class="text-teal-500 font-bold hover:text-teal-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                            詳しく見る <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cosmetic Dentistry" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-heading font-bold text-xl text-slate-800 mb-3">審美歯科・ホワイトニング</h3>
+                        <p class="text-slate-600 mb-6">歯の色や形を整え、自信を持てる美しい笑顔に。最新のホワイトニングシステムを導入しています。</p>
+                        <a href="#contact" class="text-teal-500 font-bold hover:text-teal-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                            詳しく見る <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pediatric Dentistry" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-heading font-bold text-xl text-slate-800 mb-3">小児歯科・矯正歯科</h3>
+                        <p class="text-slate-600 mb-6">お子様の歯の成長を見守り、必要に応じて歯並びの矯正も行います。透明なマウスピース矯正も対応。</p>
+                        <a href="#contact" class="text-teal-500 font-bold hover:text-teal-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                            詳しく見る <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <!-- Image -->
+                <div class="relative mb-12 lg:mb-0 order-last lg:order-first">
+                    <div class="absolute top-0 left-0 w-full h-full bg-teal-100 rounded-3xl transform -rotate-3 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Doctor" class="relative rounded-3xl shadow-lg z-10 w-full object-cover h-[500px]">
+                    <div class="absolute bottom-8 right-8 z-20 bg-white p-6 rounded-2xl shadow-xl max-w-xs">
+                        <p class="text-teal-600 font-bold text-lg">院長: 山田 健太</p>
+                        <p class="text-slate-500 text-sm mt-1">「生涯自分の歯で噛める喜びを」</p>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="lg:pl-8">
+                    <span class="text-teal-500 font-bold tracking-wider uppercase text-sm">About Us</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-800 mt-2 mb-6">地域の皆様に愛される<br>「かかりつけ医」を目指して</h2>
+                    <p class="text-slate-600 mb-6 text-lg leading-relaxed">
+                        はじめまして、院長の山田です。私は「歯科医院は怖い場所」というイメージを変えたいという思いで、{{COMPANY_NAME}}を開院しました。
+                    </p>
+                    <p class="text-slate-600 mb-8 text-lg leading-relaxed">
+                        患者様の言葉に耳を傾け、納得いただけるまで丁寧に説明を行うこと。そして、なるべく痛みのない優しい治療を行うこと。これらを大切にし、小さなお子様からご高齢の方まで、家族みんなで通える温かいクリニックづくりに励んでいます。
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="border-l-4 border-teal-500 pl-4">
+                            <p class="font-bold text-2xl text-slate-800">15+</p>
+                            <p class="text-slate-500">年の経験</p>
+                        </div>
+                        <div class="border-l-4 border-teal-500 pl-4">
+                            <p class="font-bold text-2xl text-slate-800">5,000+</p>
+                            <p class="text-slate-500">治療実績</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-20 bg-teal-500 relative">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <svg width="100%" height="100%">
+                <pattern id="pattern-circles" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="20" cy="20" r="2" fill="currentColor" class="text-white"></circle>
+                </pattern>
+                <rect width="100%" height="100%" fill="url(#pattern-circles)"></rect>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-white">患者様の声</h2>
+                <p class="text-teal-100 mt-4 text-lg">多くの嬉しいお言葉をいただいております</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-4">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="text-slate-600 mb-6 text-lg">
+                        「歯医者さんが大の苦手でしたが、ここは本当に痛くなくて驚きました。先生もスタッフさんも優しくて、もっと早く来ればよかったです。」
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 font-bold">A</div>
+                        <div>
+                            <p class="font-bold text-slate-800">A.S 様</p>
+                            <p class="text-xs text-slate-500">30代 女性</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-4">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="text-slate-600 mb-6 text-lg">
+                        「子供の検診で通っています。キッズスペースが充実していて、子供も『また行きたい』と言うほど。親子で安心して通えます。」
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 font-bold">K</div>
+                        <div>
+                            <p class="font-bold text-slate-800">K.M 様</p>
+                            <p class="text-xs text-slate-500">40代 主婦</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-4">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="text-slate-600 mb-6 text-lg">
+                        「ホワイトニングで伺いました。丁寧なカウンセリングで安心できましたし、仕上がりも自然で大満足です。自信を持って笑えるようになりました。」
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 font-bold">T</div>
+                        <div>
+                            <p class="font-bold text-slate-800">T.Y 様</p>
+                            <p class="text-xs text-slate-500">20代 学生</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-heading text-3xl font-bold text-slate-800 text-center mb-12">よくあるご質問</h2>
+
+            <div class="space-y-4" x-data="{ active: null }">
+                <!-- FAQ 1 -->
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <button @click="active = (active === 1 ? null : 1)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-bold text-slate-800">初診の費用はどれくらいかかりますか？</span>
+                        <span :class="active === 1 ? 'rotate-180' : ''" class="transition-transform duration-300 text-teal-500">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </span>
+                    </button>
+                    <div x-show="active === 1" x-collapse class="px-6 pb-4 text-slate-600">
+                        保険適用の場合、初診料・検査料あわせて3,000円〜4,000円程度が目安となります。治療内容により異なりますので、詳しくは受付までお問い合わせください。
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <button @click="active = (active === 2 ? null : 2)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-bold text-slate-800">予約なしでも受診できますか？</span>
+                        <span :class="active === 2 ? 'rotate-180' : ''" class="transition-transform duration-300 text-teal-500">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </span>
+                    </button>
+                    <div x-show="active === 2" x-collapse class="px-6 pb-4 text-slate-600">
+                        当院は原則予約制となっておりますが、急な痛みなどの場合は随時対応させていただきます。ご来院前にお電話いただけますとスムーズです。
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <button @click="active = (active === 3 ? null : 3)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-bold text-slate-800">駐車場はありますか？</span>
+                        <span :class="active === 3 ? 'rotate-180' : ''" class="transition-transform duration-300 text-teal-500">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </span>
+                    </button>
+                    <div x-show="active === 3" x-collapse class="px-6 pb-4 text-slate-600">
+                        はい、クリニック前に5台分の専用駐車場がございます。満車の場合は近隣のコインパーキングをご案内いたします（駐車券サービスあり）。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-850 rounded-4xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
+                <!-- Info -->
+                <div class="lg:w-5/12 p-10 lg:p-16 text-white flex flex-col justify-between">
+                    <div>
+                        <h2 class="font-heading text-3xl font-bold mb-6">お問い合わせ・ご予約</h2>
+                        <p class="text-slate-300 mb-10 text-lg">
+                            お口のお悩み、治療のご相談など、お気軽にお問い合わせください。WEB予約は24時間受付中です。
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-teal-500/20 p-3 rounded-lg text-teal-400">
+                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-400 font-bold uppercase tracking-wider">お電話でのご予約</p>
+                                    <p class="text-2xl font-heading font-bold mt-1">03-1234-5678</p>
+                                    <p class="text-sm text-slate-400 mt-1">平日 9:00〜19:00 / 土曜 9:00〜17:00</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="bg-teal-500/20 p-3 rounded-lg text-teal-400">
+                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-400 font-bold uppercase tracking-wider">アクセス</p>
+                                    <p class="text-lg mt-1 font-medium">〒150-0001<br>東京都渋谷区神宮前1-2-3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12">
+                         <div class="w-full h-48 bg-slate-700 rounded-2xl flex items-center justify-center text-slate-500">
+                            <!-- Map Placeholder -->
+                            <span>Google Map Area</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="lg:w-7/12 bg-white p-10 lg:p-16">
+                    <form action="#" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-700 mb-1">お名前</label>
+                                <input type="text" name="name" id="name" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 outline-none transition" placeholder="山田 太郎">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-slate-700 mb-1">電話番号</label>
+                                <input type="tel" name="phone" id="phone" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 outline-none transition" placeholder="090-1234-5678">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">メールアドレス</label>
+                            <input type="email" name="email" id="email" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 outline-none transition" placeholder="example@email.com">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-slate-700 mb-1">ご相談内容・希望日時</label>
+                            <textarea name="message" id="message" rows="4" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 outline-none transition" placeholder="初診希望です。平日の18時以降が希望です。"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-teal-200 transition transform hover:-translate-y-1">
+                            送信する
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="bg-teal-500 text-white p-1.5 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                </div>
+                <span class="font-heading font-bold text-xl text-slate-800">{{COMPANY_NAME}}</span>
+            </div>
+
+            <div class="flex gap-8 text-sm text-slate-500 font-medium">
+                <a href="#home" class="hover:text-teal-500 transition">ホーム</a>
+                <a href="#about" class="hover:text-teal-500 transition">当院について</a>
+                <a href="#services" class="hover:text-teal-500 transition">診療案内</a>
+                <a href="#contact" class="hover:text-teal-500 transition">お問い合わせ</a>
+            </div>
+
+            <p class="text-sm text-slate-400">
+                &copy; 2023 {{COMPANY_NAME}}. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
