@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Beyond the Horizon</title>
+    <meta name="description" content="Experience the ultimate luxury in space tourism.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        space: {
+                            900: '#0B0D17',
+                            800: '#15192B',
+                            700: '#232840',
+                        },
+                        nebula: {
+                            400: '#D0BCFF',
+                            500: '#9D7BFF',
+                        },
+                        starlight: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        display: ['Orbitron', 'sans-serif'],
+                        body: ['Barlow', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')",
+                        'stars': "url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?q=80&w=2013&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <!-- Alpine Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(157, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-space-900 text-starlight font-body antialiased overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 50)">
+
+    <!-- Navigation -->
+    <nav :class="scrolled ? 'bg-space-900/90 backdrop-blur-md border-b border-white/10' : 'bg-transparent'" class="fixed w-full z-50 transition-all duration-300 top-0 start-0">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse group">
+                <span class="self-center text-2xl font-display font-bold whitespace-nowrap group-hover:text-nebula-400 transition-colors tracking-widest">{{COMPANY_NAME}}</span>
+            </a>
+            <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+            <div :class="mobileMenuOpen ? 'block' : 'hidden'" class="w-full md:block md:w-auto" id="navbar-default">
+                <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-white/10 rounded-lg bg-space-800 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
+                    <li>
+                        <a href="#destinations" class="block py-2 px-3 text-white rounded hover:bg-white/10 md:hover:bg-transparent md:border-0 md:hover:text-nebula-400 md:p-0 transition-all font-display tracking-wide text-sm uppercase">Destinations</a>
+                    </li>
+                    <li>
+                        <a href="#experience" class="block py-2 px-3 text-white rounded hover:bg-white/10 md:hover:bg-transparent md:border-0 md:hover:text-nebula-400 md:p-0 transition-all font-display tracking-wide text-sm uppercase">Experience</a>
+                    </li>
+                    <li>
+                        <a href="#technology" class="block py-2 px-3 text-white rounded hover:bg-white/10 md:hover:bg-transparent md:border-0 md:hover:text-nebula-400 md:p-0 transition-all font-display tracking-wide text-sm uppercase">Technology</a>
+                    </li>
+                    <li>
+                        <a href="#contact" class="block py-2 px-3 text-nebula-400 rounded hover:bg-white/10 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 transition-all font-display tracking-wide text-sm uppercase">Book Flight</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-no-repeat opacity-60"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-space-900 via-space-900/50 to-transparent"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p class="font-display text-nebula-400 tracking-[0.3em] uppercase mb-4 opacity-0 transition-all duration-1000 transform translate-y-4" :class="show ? 'opacity-100 translate-y-0' : ''">The Final Frontier Awaits</p>
+            <h1 class="mb-6 text-5xl md:text-7xl lg:text-9xl font-display font-black text-white tracking-tighter opacity-0 transition-all duration-1000 delay-300 transform scale-95" :class="show ? 'opacity-100 scale-100' : ''">
+                BEYOND<br>HORIZON
+            </h1>
+            <p class="mb-10 text-lg md:text-xl text-gray-300 font-light max-w-2xl mx-auto opacity-0 transition-all duration-1000 delay-500 transform translate-y-4" :class="show ? 'opacity-100 translate-y-0' : ''">
+                Leave the Earth behind and experience the majesty of the cosmos. Luxury orbital flights are now boarding.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center opacity-0 transition-all duration-1000 delay-700" :class="show ? 'opacity-100' : ''">
+                <a href="#destinations" class="inline-flex justify-center items-center py-4 px-8 text-base font-medium text-center text-space-900 rounded-none bg-white hover:bg-gray-200 focus:ring-4 focus:ring-blue-300 font-display uppercase tracking-widest transition-all hover:scale-105">
+                    Start Journey
+                </a>
+                <a href="#experience" class="inline-flex justify-center items-center py-4 px-8 text-base font-medium text-center text-white rounded-none border border-white hover:bg-white/10 focus:ring-4 focus:ring-gray-100 font-display uppercase tracking-widest transition-all backdrop-blur-sm">
+                    View Ships
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-space-900 border-b border-white/5">
+        <div class="max-w-screen-xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
+                <div x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-4 transition-all duration-700">
+                    <dt class="mb-2 text-3xl md:text-4xl font-display font-bold text-white">142</dt>
+                    <dd class="text-gray-400 uppercase tracking-wider text-xs md:text-sm">Successful Launches</dd>
+                </div>
+                <div x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-4 transition-all duration-700 delay-100">
+                    <dt class="mb-2 text-3xl md:text-4xl font-display font-bold text-white">0G</dt>
+                    <dd class="text-gray-400 uppercase tracking-wider text-xs md:text-sm">Gravity Experience</dd>
+                </div>
+                <div x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-4 transition-all duration-700 delay-200">
+                    <dt class="mb-2 text-3xl md:text-4xl font-display font-bold text-white">400km</dt>
+                    <dd class="text-gray-400 uppercase tracking-wider text-xs md:text-sm">Orbital Altitude</dd>
+                </div>
+                <div x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-4 transition-all duration-700 delay-300">
+                    <dt class="mb-2 text-3xl md:text-4xl font-display font-bold text-white">100%</dt>
+                    <dd class="text-gray-400 uppercase tracking-wider text-xs md:text-sm">Safety Rating</dd>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="py-24 bg-space-900 relative">
+        <div class="max-w-screen-xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-nebula-400 font-display tracking-[0.2em] uppercase text-sm">Select Your Mission</span>
+                <h2 class="mt-2 text-4xl md:text-5xl font-display font-bold text-white">Destinations</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1: Orbit -->
+                <div class="group relative overflow-hidden rounded-none glass-panel transition-all duration-500 hover:-translate-y-2 hover:bg-white/10" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-8 transition-all duration-700">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Low Earth Orbit" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="p-8">
+                        <div class="text-nebula-400 text-xs font-display tracking-widest mb-2 uppercase">3 Days</div>
+                        <h3 class="text-2xl font-display font-bold text-white mb-4">Low Earth Orbit</h3>
+                        <p class="text-gray-400 font-light mb-6 text-sm leading-relaxed">Circle the globe every 90 minutes. Witness 16 sunrises and sunsets a day from the comfort of our panoramic observation deck.</p>
+                        <a href="#contact" class="inline-flex items-center text-white hover:text-nebula-400 transition-colors uppercase font-display text-sm tracking-widest">
+                            Book Mission <span class="ml-2">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Moon -->
+                <div class="group relative overflow-hidden rounded-none glass-panel transition-all duration-500 hover:-translate-y-2 hover:bg-white/10" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-8 transition-all duration-700 delay-100">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?q=80&w=1973&auto=format&fit=crop" alt="Lunar Gateway" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                    </div>
+                    <div class="p-8">
+                        <div class="text-nebula-400 text-xs font-display tracking-widest mb-2 uppercase">7 Days</div>
+                        <h3 class="text-2xl font-display font-bold text-white mb-4">Lunar Gateway</h3>
+                        <p class="text-gray-400 font-light mb-6 text-sm leading-relaxed">Experience the dark side of the moon. A week-long journey recreating the historic Apollo 8 trajectory.</p>
+                        <a href="#contact" class="inline-flex items-center text-white hover:text-nebula-400 transition-colors uppercase font-display text-sm tracking-widest">
+                            Book Mission <span class="ml-2">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Mars -->
+                <div class="group relative overflow-hidden rounded-none glass-panel transition-all duration-500 hover:-translate-y-2 hover:bg-white/10" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-8 transition-all duration-700 delay-200">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1541873676-a18131494184?q=80&w=2187&auto=format&fit=crop" alt="Mars Colony" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 sepia group-hover:sepia-0">
+                    </div>
+                    <div class="p-8">
+                        <div class="text-nebula-400 text-xs font-display tracking-widest mb-2 uppercase">6 Months</div>
+                        <h3 class="text-2xl font-display font-bold text-white mb-4">Red Planet One</h3>
+                        <p class="text-gray-400 font-light mb-6 text-sm leading-relaxed">The ultimate expedition. Join the first wave of civilian explorers to set foot on Martian soil.</p>
+                        <a href="#contact" class="inline-flex items-center text-white hover:text-nebula-400 transition-colors uppercase font-display text-sm tracking-widest">
+                            Waitlist Only <span class="ml-2">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-stars opacity-50 bg-fixed"></div>
+        <div class="max-w-screen-xl mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2" x-data x-intersect="$el.classList.add('opacity-100', 'translate-x-0')" class="opacity-0 -translate-x-12 transition-all duration-1000">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-nebula-500/20 blur-xl rounded-full"></div>
+                        <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2072&auto=format&fit=crop" alt="Interior View" class="relative rounded-sm shadow-2xl border border-white/20">
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-space-800 border border-white/20 p-4 flex items-center justify-center backdrop-blur-md">
+                            <span class="font-display font-bold text-4xl text-white">5★</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2" x-data x-intersect="$el.classList.add('opacity-100', 'translate-x-0')" class="opacity-0 translate-x-12 transition-all duration-1000 delay-200">
+                    <span class="text-nebula-400 font-display tracking-[0.2em] uppercase text-sm">The Experience</span>
+                    <h2 class="mt-2 text-4xl md:text-5xl font-display font-bold text-white mb-6">Luxury Beyond Gravity</h2>
+                    <p class="text-gray-300 font-light text-lg mb-6 leading-relaxed">
+                        Our ships are designed not just for travel, but for living. Enjoy private cabins, gourmet meals prepared for zero-g consumption, and common areas designed for social connection against the backdrop of the infinite.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <span class="w-2 h-2 bg-nebula-400 rounded-full mr-4"></span>
+                            <span>Panoramic Observation Domes</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <span class="w-2 h-2 bg-nebula-400 rounded-full mr-4"></span>
+                            <span>Personal Zero-G Training</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <span class="w-2 h-2 bg-nebula-400 rounded-full mr-4"></span>
+                            <span>Michelin-Star Space Cuisine</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-24 bg-space-800 border-y border-white/5">
+        <div class="max-w-screen-xl mx-auto px-4 text-center">
+            <span class="text-nebula-400 font-display tracking-[0.2em] uppercase text-sm">Engineering</span>
+            <h2 class="mt-2 text-3xl md:text-4xl font-display font-bold text-white mb-16">State of the Art</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 border border-white/10 hover:border-nebula-400/50 transition-colors duration-300 group">
+                    <div class="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">🚀</div>
+                    <h4 class="text-xl font-display font-bold text-white mb-2">Reusable Boosters</h4>
+                    <p class="text-gray-400 text-sm">Minimizing environmental impact with fully reusable launch stages.</p>
+                </div>
+                <div class="p-8 border border-white/10 hover:border-nebula-400/50 transition-colors duration-300 group">
+                    <div class="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">🛡️</div>
+                    <h4 class="text-xl font-display font-bold text-white mb-2">Radiation Shielding</h4>
+                    <p class="text-gray-400 text-sm">Advanced polymers protect you from cosmic rays during deep space transit.</p>
+                </div>
+                <div class="p-8 border border-white/10 hover:border-nebula-400/50 transition-colors duration-300 group">
+                    <div class="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">🤖</div>
+                    <h4 class="text-xl font-display font-bold text-white mb-2">AI Navigation</h4>
+                    <p class="text-gray-400 text-sm">Autonomous docking and trajectory correction systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-screen-md mx-auto px-4">
+            <div class="glass-panel p-8 md:p-12">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-display font-bold text-white mb-4">Begin Your Journey</h2>
+                    <p class="text-gray-400">Seats are limited for the upcoming launch window. Reserve your consultation today.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block mb-2 text-xs font-display uppercase tracking-widest text-gray-400">Name</label>
+                            <input type="text" id="name" class="bg-space-900/50 border border-white/20 text-white text-sm focus:ring-nebula-400 focus:border-nebula-400 block w-full p-4 placeholder-gray-600" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2 text-xs font-display uppercase tracking-widest text-gray-400">Email</label>
+                            <input type="email" id="email" class="bg-space-900/50 border border-white/20 text-white text-sm focus:ring-nebula-400 focus:border-nebula-400 block w-full p-4 placeholder-gray-600" placeholder="name@company.com" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="destination" class="block mb-2 text-xs font-display uppercase tracking-widest text-gray-400">Preferred Destination</label>
+                        <select id="destination" class="bg-space-900/50 border border-white/20 text-white text-sm focus:ring-nebula-400 focus:border-nebula-400 block w-full p-4">
+                            <option>Low Earth Orbit</option>
+                            <option>Lunar Gateway</option>
+                            <option>Mars Colony (Waitlist)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="message" class="block mb-2 text-xs font-display uppercase tracking-widest text-gray-400">Message</label>
+                        <textarea id="message" rows="4" class="bg-space-900/50 border border-white/20 text-white text-sm focus:ring-nebula-400 focus:border-nebula-400 block w-full p-4 placeholder-gray-600" placeholder="Tell us about your requirements..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full text-space-900 bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-4 text-center font-display uppercase tracking-widest transition-all hover:scale-[1.02]">
+                        Request Booking Info
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-space-900 border-t border-white/10 py-12">
+        <div class="max-w-screen-xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="self-center text-2xl font-display font-bold whitespace-nowrap text-white">{{COMPANY_NAME}}</span>
+                    <p class="text-gray-500 text-xs mt-2 font-display uppercase tracking-widest">Est. 2024 • Cape Canaveral</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Twitter</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">LinkedIn</a>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-600 text-sm">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
