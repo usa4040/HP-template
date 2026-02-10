@@ -675,6 +675,19 @@
         "Artisan",
         "Textured"
       ]
+    },
+    {
+      "id": "053",
+      "name": "Crystal Clear Services",
+      "category": "Cleaning",
+      "style": "Sparkle",
+      "path": "catalog/template_053_cleaning_sparkle",
+      "description": "Fresh cyan theme with bubbles.",
+      "tags": [
+        "Clean",
+        "Fresh",
+        "Vibrant"
+      ]
     }
   ]
 }
