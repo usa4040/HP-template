@@ -688,6 +688,19 @@
         "Fresh",
         "Vibrant"
       ]
+    },
+    {
+      "id": "054",
+      "name": "Chronos Heritage",
+      "category": "Luxury Goods",
+      "style": "Timeless",
+      "path": "catalog/template_054_luxury_goods_timeless",
+      "description": "Timeless dark & gold luxury",
+      "tags": [
+        "luxury",
+        "watches",
+        "serif"
+      ]
     }
   ]
 }
