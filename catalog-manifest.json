@@ -662,6 +662,19 @@
         "Gallery",
         "Art"
       ]
+    },
+    {
+      "id": "052",
+      "name": "Clay & Kiln",
+      "category": "Ceramics",
+      "style": "Earthy",
+      "path": "catalog/template_052_ceramics_earthy",
+      "description": "Handcrafted ceramics theme.",
+      "tags": [
+        "Earthy",
+        "Artisan",
+        "Textured"
+      ]
     }
   ]
 }

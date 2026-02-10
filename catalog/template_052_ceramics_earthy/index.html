@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Handcrafted Ceramics</title>
+    <meta name="description" content="Handcrafted ceramics studio offering workshops, custom pieces, and timeless designs.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-terra': '#E07A5F',
+                        'brand-sand': '#F4F1DE',
+                        'brand-slate': '#3D405B',
+                        'brand-warm': '#E29578',
+                        'brand-green': '#81B29A',
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+
+        /* Custom Scrollbar for that earthy feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F1DE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E07A5F;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3D405B;
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="bg-brand-sand text-brand-slate font-sans antialiased selection:bg-brand-terra selection:text-white">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.scrollY > 50)"
+         :class="{ 'bg-brand-sand/95 shadow-md py-4': scrolled, 'bg-transparent py-6': !scrolled }"
+         class="fixed w-full z-50 transition-all duration-300 top-0 left-0">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-serif text-3xl font-bold tracking-wider text-brand-slate group transition-colors duration-300 hover:text-brand-terra">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="text-brand-slate hover:text-brand-terra transition-colors font-medium">About</a>
+                <a href="#gallery" class="text-brand-slate hover:text-brand-terra transition-colors font-medium">Gallery</a>
+                <a href="#workshops" class="text-brand-slate hover:text-brand-terra transition-colors font-medium">Workshops</a>
+                <a href="#contact" class="px-6 py-2 bg-brand-slate text-brand-sand rounded-full hover:bg-brand-terra transition-colors duration-300 font-medium">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="open = !open" class="md:hidden text-brand-slate focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="open" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="open" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="md:hidden absolute top-full left-0 w-full bg-brand-sand shadow-lg border-t border-brand-warm/20">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#about" @click="open = false" class="text-brand-slate hover:text-brand-terra font-medium block py-2">About</a>
+                <a href="#gallery" @click="open = false" class="text-brand-slate hover:text-brand-terra font-medium block py-2">Gallery</a>
+                <a href="#workshops" @click="open = false" class="text-brand-slate hover:text-brand-terra font-medium block py-2">Workshops</a>
+                <a href="#contact" @click="open = false" class="text-brand-terra font-bold block py-2">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+                 alt="Pottery Wheel Hands"
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-brand-slate/40 backdrop-blur-[2px]"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')">
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-brand-sand mb-6 font-light italic leading-tight animate-fade-in-up">
+                Shape Your <br class="hidden md:block"> <span class="not-italic font-normal">Moments</span>
+            </h1>
+            <p class="text-brand-sand/90 text-lg md:text-2xl font-light mb-10 max-w-2xl mx-auto tracking-wide animate-fade-in-up" style="animation-delay: 0.3s;">
+                Handcrafted ceramics designed to bring warmth and intention to your everyday rituals.
+            </p>
+            <div class="animate-fade-in-up" style="animation-delay: 0.6s;">
+                <a href="#gallery" class="inline-block px-8 py-3 bg-brand-terra text-white rounded-full font-medium hover:bg-brand-warm transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    View Collection
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-brand-sand/70">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-brand-sand relative overflow-hidden">
+        <!-- Decorative Blob -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-warm/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand-terra/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <!-- Image Grid -->
+                <div class="w-full md:w-1/2 grid grid-cols-2 gap-4" x-data="{ shown: false }" x-intersect.once="shown = true">
+                    <div class="space-y-4 transform transition-all duration-1000 delay-100" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+                        <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vases" class="rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500 object-cover h-64 w-full">
+                        <img src="https://images.unsplash.com/photo-1578749556935-ef8881d5a555?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Detail" class="rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500 object-cover h-48 w-full">
+                    </div>
+                    <div class="space-y-4 pt-12 transform transition-all duration-1000 delay-300" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+                        <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Working Clay" class="rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500 object-cover h-48 w-full">
+                        <img src="https://images.unsplash.com/photo-1594314143432-8495a864775d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Shelves" class="rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500 object-cover h-64 w-full">
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="w-full md:w-1/2" x-data="{ shown: false }" x-intersect.once="shown = true">
+                    <span class="text-brand-terra font-bold tracking-widest uppercase text-sm mb-2 block transform transition-all duration-700" :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'">Our Philosophy</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-medium text-brand-slate mb-6 leading-tight transform transition-all duration-700 delay-100" :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'">
+                        Embracing the Beauty of <span class="italic text-brand-terra">Imperfection</span>.
+                    </h2>
+                    <p class="text-brand-slate/80 text-lg leading-relaxed mb-6 font-light transform transition-all duration-700 delay-200" :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'">
+                        At {{COMPANY_NAME}}, we believe that every piece of clay holds a story. Inspired by the Japanese concept of Wabi-Sabi, our work celebrates the authentic, the organic, and the perfectly imperfect.
+                    </p>
+                    <p class="text-brand-slate/80 text-lg leading-relaxed mb-8 font-light transform transition-all duration-700 delay-300" :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'">
+                        Each bowl, cup, and vase is thrown by hand, glazed with natural minerals, and fired in our local kiln. No two pieces are alike, just as no two moments in life are the same.
+                    </p>
+                    <div class="transform transition-all duration-700 delay-400" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+                        <a href="#workshops" class="text-brand-slate font-medium border-b-2 border-brand-terra pb-1 hover:text-brand-terra transition-colors">
+                            Join a Workshop &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 max-w-2xl mx-auto">
+                <span class="text-brand-terra font-bold tracking-widest uppercase text-sm mb-2 block">The Collection</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-medium text-brand-slate mb-4">Timeless Pieces</h2>
+                <div class="h-1 w-20 bg-brand-terra mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer" x-data>
+                    <img src="https://images.unsplash.com/photo-1610701596061-2ecf2022a463?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ceramic Vase" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-slate/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-brand-sand font-serif text-2xl mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Midnight Vase</h3>
+                        <p class="text-brand-sand/80 text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Stoneware • $120</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer" x-data>
+                    <img src="https://images.unsplash.com/photo-1596136149174-8b5e94b2382e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tea Set" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-slate/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-brand-sand font-serif text-2xl mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Morning Brew Set</h3>
+                        <p class="text-brand-sand/80 text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Porcelain • $85</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer" x-data>
+                    <img src="https://images.unsplash.com/photo-1576020799627-aeac74358708?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plates" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-slate/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-brand-sand font-serif text-2xl mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Dinner Service</h3>
+                        <p class="text-brand-sand/80 text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Stoneware • From $45</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer" x-data>
+                    <img src="https://images.unsplash.com/photo-1572295671409-5629dc88307d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Textured Bowl" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-slate/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-brand-sand font-serif text-2xl mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Textured Bowl</h3>
+                        <p class="text-brand-sand/80 text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Raku • $60</p>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer" x-data>
+                    <img src="https://images.unsplash.com/photo-1578905204481-c7c1340b0805?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Minimal Pitcher" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-slate/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-brand-sand font-serif text-2xl mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Water Pitcher</h3>
+                        <p class="text-brand-sand/80 text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Glazed • $95</p>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer" x-data>
+                    <img src="https://images.unsplash.com/photo-1624823183487-73c3cb777174?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Incense Holder" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-slate/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-brand-sand font-serif text-2xl mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Incense Holder</h3>
+                        <p class="text-brand-sand/80 text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Terracotta • $35</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Workshops -->
+    <section id="workshops" class="py-24 bg-brand-slate text-brand-sand">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div class="max-w-xl">
+                    <span class="text-brand-terra font-bold tracking-widest uppercase text-sm mb-2 block">Community</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-medium mb-4">Learn the Craft</h2>
+                    <p class="text-brand-sand/70 text-lg font-light">Join us in the studio to get your hands dirty and create something beautiful.</p>
+                </div>
+                <a href="#contact" class="hidden md:inline-block px-8 py-3 border border-brand-sand/30 rounded-full hover:bg-brand-terra hover:border-brand-terra transition-all duration-300">View Schedule</a>
+            </div>
+
+            <!-- Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-brand-sand/5 p-8 rounded-3xl hover:bg-brand-sand/10 transition-colors duration-300 border border-brand-sand/10 group">
+                    <div class="w-12 h-12 bg-brand-terra/20 rounded-full flex items-center justify-center mb-6 text-brand-terra group-hover:bg-brand-terra group-hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3">Wheel Throwing 101</h3>
+                    <p class="text-brand-sand/60 mb-6 font-light">A 4-week intro course covering the basics of centering, pulling, and shaping clay on the wheel.</p>
+                    <span class="text-sm font-medium tracking-wide border-b border-brand-terra/50 pb-1">Starting at $250</span>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-brand-sand/5 p-8 rounded-3xl hover:bg-brand-sand/10 transition-colors duration-300 border border-brand-sand/10 group">
+                    <div class="w-12 h-12 bg-brand-terra/20 rounded-full flex items-center justify-center mb-6 text-brand-terra group-hover:bg-brand-terra group-hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3">Hand Building</h3>
+                    <p class="text-brand-sand/60 mb-6 font-light">Learn ancient coil and slab techniques to build organic, sculptural forms without a wheel.</p>
+                    <span class="text-sm font-medium tracking-wide border-b border-brand-terra/50 pb-1">Starting at $180</span>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-brand-sand/5 p-8 rounded-3xl hover:bg-brand-sand/10 transition-colors duration-300 border border-brand-sand/10 group">
+                    <div class="w-12 h-12 bg-brand-terra/20 rounded-full flex items-center justify-center mb-6 text-brand-terra group-hover:bg-brand-terra group-hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3">Open Studio</h3>
+                    <p class="text-brand-sand/60 mb-6 font-light">Access to wheels, slabs, and glazes for experienced potters. Membership based.</p>
+                    <span class="text-sm font-medium tracking-wide border-b border-brand-terra/50 pb-1">$100 / Month</span>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center md:hidden">
+                 <a href="#contact" class="inline-block px-8 py-3 border border-brand-sand/30 rounded-full hover:bg-brand-terra hover:border-brand-terra transition-all duration-300">View Schedule</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-brand-sand relative">
+        <div class="container mx-auto px-6">
+            <div class="bg-white rounded-[3rem] shadow-xl overflow-hidden flex flex-col md:flex-row">
+                <!-- Info Side -->
+                <div class="w-full md:w-5/12 bg-brand-terra text-brand-sand p-12 flex flex-col justify-between relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="font-serif text-4xl font-medium mb-6">Let's Create</h2>
+                        <p class="text-brand-sand/90 mb-8 font-light leading-relaxed">Whether you're looking for a custom piece or want to join a class, we'd love to hear from you.</p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <svg class="w-6 h-6 mt-1 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <div>
+                                    <h4 class="font-bold">Visit Us</h4>
+                                    <p class="opacity-80 font-light">123 Artisan Lane,<br>Craft District, NY 10012</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <svg class="w-6 h-6 mt-1 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <div>
+                                    <h4 class="font-bold">Email</h4>
+                                    <p class="opacity-80 font-light">hello@clayandkiln.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decorative Circles -->
+                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-white/10 rounded-full blur-2xl"></div>
+                    <div class="absolute top-10 -left-10 w-32 h-32 bg-brand-slate/10 rounded-full blur-xl"></div>
+                </div>
+
+                <!-- Form Side -->
+                <div class="w-full md:w-7/12 p-12">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-brand-slate text-sm font-bold mb-2 ml-1">Name</label>
+                                <input type="text" class="w-full bg-brand-sand/30 border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-terra transition-shadow outline-none" placeholder="Jane Doe">
+                            </div>
+                            <div>
+                                <label class="block text-brand-slate text-sm font-bold mb-2 ml-1">Email</label>
+                                <input type="email" class="w-full bg-brand-sand/30 border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-terra transition-shadow outline-none" placeholder="jane@example.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-brand-slate text-sm font-bold mb-2 ml-1">Interest</label>
+                            <select class="w-full bg-brand-sand/30 border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-terra transition-shadow outline-none text-brand-slate/70">
+                                <option>General Inquiry</option>
+                                <option>Workshops</option>
+                                <option>Custom Orders</option>
+                                <option>Studio Membership</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-brand-slate text-sm font-bold mb-2 ml-1">Message</label>
+                            <textarea rows="4" class="w-full bg-brand-sand/30 border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-terra transition-shadow outline-none" placeholder="Tell us what you're looking for..."></textarea>
+                        </div>
+                        <button type="button" class="w-full bg-brand-slate text-white font-medium py-4 rounded-xl hover:bg-brand-terra transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-slate text-brand-sand/40 py-12 border-t border-brand-sand/10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-serif text-2xl text-brand-sand mb-6">{{COMPANY_NAME}}</h2>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="hover:text-brand-terra transition-colors">Instagram</a>
+                <a href="#" class="hover:text-brand-terra transition-colors">Pinterest</a>
+                <a href="#" class="hover:text-brand-terra transition-colors">Facebook</a>
+            </div>
+            <p class="text-sm font-light">&copy; 2023 {{COMPANY_NAME}}. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
