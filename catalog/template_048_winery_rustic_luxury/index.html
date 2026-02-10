@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Rustic Luxury Winery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4A0404', // Deep Red
+                        secondary: '#D4AF37', // Gold
+                        cream: '#FCFBF7', // Off-white
+                        charcoal: '#2c2c2c',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2940&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-cream text-charcoal font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false }" class="fixed w-full z-50 bg-primary/95 backdrop-blur-sm shadow-lg transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-serif text-2xl text-secondary tracking-widest font-bold">{{COMPANY_NAME}}</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-cream hover:text-secondary px-3 py-2 rounded-md text-sm font-medium tracking-wide uppercase transition-colors">Home</a>
+                        <a href="#story" class="text-cream hover:text-secondary px-3 py-2 rounded-md text-sm font-medium tracking-wide uppercase transition-colors">Our Story</a>
+                        <a href="#wines" class="text-cream hover:text-secondary px-3 py-2 rounded-md text-sm font-medium tracking-wide uppercase transition-colors">Wines</a>
+                        <a href="#tasting" class="text-cream hover:text-secondary px-3 py-2 rounded-md text-sm font-medium tracking-wide uppercase transition-colors">Visit Us</a>
+                        <a href="#contact" class="bg-secondary text-primary hover:bg-white hover:text-primary px-5 py-2 rounded-none text-sm font-bold uppercase tracking-wider transition-colors">Book Now</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="open = !open" type="button" class="bg-primary inline-flex items-center justify-center p-2 rounded-md text-secondary hover:text-white hover:bg-primary/80 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="md:hidden bg-primary shadow-xl" id="mobile-menu" x-cloak>
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center border-t border-secondary/20">
+                <a href="#home" @click="open = false" class="text-cream hover:text-secondary block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wider">Home</a>
+                <a href="#story" @click="open = false" class="text-cream hover:text-secondary block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wider">Our Story</a>
+                <a href="#wines" @click="open = false" class="text-cream hover:text-secondary block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wider">Wines</a>
+                <a href="#tasting" @click="open = false" class="text-cream hover:text-secondary block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wider">Visit Us</a>
+                <a href="#contact" @click="open = false" class="text-secondary hover:text-white block px-3 py-2 rounded-md text-base font-bold uppercase tracking-wider">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative h-screen min-h-[600px] flex items-center justify-center bg-hero-pattern parallax bg-fixed bg-cover bg-center">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p x-show="show" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" class="text-secondary font-serif text-lg md:text-xl tracking-[0.3em] uppercase mb-4">Est. 1924</p>
+            <h1 x-show="show" x-transition:enter="transition ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="text-5xl md:text-7xl lg:text-8xl font-serif text-white font-bold mb-6 drop-shadow-lg leading-tight">
+                {{COMPANY_NAME}}
+            </h1>
+            <p x-show="show" x-transition:enter="transition ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" class="text-gray-200 text-lg md:text-2xl font-light mb-10 max-w-2xl mx-auto italic">
+                Experience the art of winemaking in the heart of the valley.
+            </p>
+            <div x-show="show" x-transition:enter="transition ease-out duration-1000 delay-700" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0">
+                <a href="#wines" class="inline-block border-2 border-secondary text-secondary hover:bg-secondary hover:text-primary px-8 py-3 text-sm md:text-base font-bold uppercase tracking-widest transition-all duration-300 transform hover:scale-105">Explore Our Wines</a>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Our Story Section -->
+    <section id="story" class="py-24 bg-cream overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-secondary/20 transform rotate-2 rounded-sm transition-transform duration-500 group-hover:rotate-0"></div>
+                    <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Vineyard at sunset" class="relative rounded-sm shadow-2xl w-full object-cover h-[500px]">
+                    <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-primary p-6 flex items-center justify-center text-center hidden md:flex">
+                        <span class="text-secondary font-serif text-3xl font-bold italic">"Quality over Quantity"</span>
+                    </div>
+                </div>
+                <div class="mt-12 lg:mt-0">
+                    <span class="text-primary font-bold tracking-widest uppercase text-sm mb-2 block">Our Heritage</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-charcoal mb-6 leading-tight">Cultivating Excellence <span class="text-secondary italic">Since 1924</span></h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Nestled in the rolling hills of the finest wine country, {{COMPANY_NAME}} has been a family-owned legacy for four generations. We believe that great wine starts in the vineyard.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        Our philosophy combines traditional winemaking techniques with modern sustainability practices. Every bottle tells a story of the soil, the climate, and the hands that nurtured the vines.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1559563362-c667ba5f5480?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Signature" class="h-12 opacity-70 grayscale">
+                        <div>
+                            <p class="font-serif text-primary font-bold text-lg">Julian Vance</p>
+                            <p class="text-sm text-gray-500 uppercase tracking-wide">Master Winemaker</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Wines Section -->
+    <section id="wines" class="py-24 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-secondary font-bold tracking-widest uppercase text-sm mb-2 block">The Collection</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-primary mb-4">Our Signature Wines</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                <!-- Wine 1 -->
+                <div class="group bg-white p-8 shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center border-t-4 border-transparent hover:border-primary">
+                    <div class="relative h-80 mb-6 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Cabernet Sauvignon" class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-2xl font-serif text-primary mb-2">Reserve Cabernet</h3>
+                    <p class="text-gray-500 text-sm uppercase tracking-wide mb-4">2018 | Full Body | Oak Aged</p>
+                    <p class="text-gray-600 mb-6 font-light italic">"Bold notes of dark cherry, leather, and vanilla."</p>
+                    <span class="text-xl font-bold text-charcoal block mb-4">$85.00</span>
+                    <button class="w-full border border-primary text-primary hover:bg-primary hover:text-white py-2 uppercase text-xs font-bold tracking-widest transition-colors">Add to Cart</button>
+                </div>
+
+                <!-- Wine 2 -->
+                <div class="group bg-white p-8 shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center border-t-4 border-transparent hover:border-secondary">
+                    <div class="relative h-80 mb-6 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Chardonnay" class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-2xl font-serif text-primary mb-2">Golden Chardonnay</h3>
+                    <p class="text-gray-500 text-sm uppercase tracking-wide mb-4">2020 | Medium Body | Crisp</p>
+                    <p class="text-gray-600 mb-6 font-light italic">"Refreshing hints of apple, pear, and buttery finish."</p>
+                    <span class="text-xl font-bold text-charcoal block mb-4">$45.00</span>
+                    <button class="w-full border border-primary text-primary hover:bg-primary hover:text-white py-2 uppercase text-xs font-bold tracking-widest transition-colors">Add to Cart</button>
+                </div>
+
+                <!-- Wine 3 -->
+                <div class="group bg-white p-8 shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center border-t-4 border-transparent hover:border-primary">
+                    <div class="relative h-80 mb-6 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1559563362-c667ba5f5480?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Rose" class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-2xl font-serif text-primary mb-2">Summer Rosé</h3>
+                    <p class="text-gray-500 text-sm uppercase tracking-wide mb-4">2021 | Light Body | Floral</p>
+                    <p class="text-gray-600 mb-6 font-light italic">"Delicate strawberry aromas with a clean, dry finish."</p>
+                    <span class="text-xl font-bold text-charcoal block mb-4">$32.00</span>
+                    <button class="w-full border border-primary text-primary hover:bg-primary hover:text-white py-2 uppercase text-xs font-bold tracking-widest transition-colors">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block text-primary font-bold border-b-2 border-secondary pb-1 hover:text-secondary transition-colors uppercase tracking-widest text-sm">View Full Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Break Section -->
+    <section class="py-32 bg-fixed bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1528823872057-9c018a7a7553?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+        <div class="absolute inset-0 bg-primary/80"></div>
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-3xl md:text-5xl font-serif text-white mb-8 leading-tight">"Wine makes every meal an occasion, every table more elegant, every day more civilized."</h2>
+            <p class="text-secondary font-serif text-xl italic">— Andre Simon</p>
+        </div>
+    </section>
+
+    <!-- Tasting Room / Visit Us -->
+    <section id="tasting" class="py-24 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-0 bg-white shadow-2xl overflow-hidden rounded-sm">
+                <div class="p-12 md:p-16 flex flex-col justify-center">
+                    <span class="text-secondary font-bold tracking-widest uppercase text-sm mb-2 block">Visit Us</span>
+                    <h2 class="text-4xl font-serif text-primary mb-6">The Tasting Room</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Join us for an unforgettable experience overlooking the valley. Enjoy a guided flight of our award-winning wines paired with artisanal cheeses and locally sourced charcuterie.
+                    </p>
+                    <ul class="space-y-4 mb-8 text-gray-700">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-secondary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="font-bold mr-2">Open Daily:</span> 10:00 AM - 6:00 PM
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-secondary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                            <span class="font-bold mr-2">Location:</span> 1234 Vineyard Lane, Napa Valley, CA
+                        </li>
+                    </ul>
+                    <a href="#contact" class="inline-block bg-primary text-white hover:bg-charcoal px-8 py-3 text-center uppercase tracking-widest font-bold text-sm transition-colors w-max">Book a Tasting</a>
+                </div>
+                <div class="h-96 lg:h-auto bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1570560258879-af7f8e1447ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80');"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-stone-900 text-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-serif text-secondary mb-4">Reserve Your Experience</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Whether for a private tour or a special event, let us curate the perfect moment for you.</p>
+            </div>
+
+            <div class="max-w-xl mx-auto">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">Name</label>
+                            <input type="text" id="name" class="w-full bg-stone-800 border-none rounded-none p-4 text-white focus:ring-1 focus:ring-secondary placeholder-stone-500" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">Email</label>
+                            <input type="email" id="email" class="w-full bg-stone-800 border-none rounded-none p-4 text-white focus:ring-1 focus:ring-secondary placeholder-stone-500" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="guests" class="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">Guests</label>
+                        <select id="guests" class="w-full bg-stone-800 border-none rounded-none p-4 text-white focus:ring-1 focus:ring-secondary text-stone-300">
+                            <option>2 Guests</option>
+                            <option>4 Guests</option>
+                            <option>6+ Guests (Group)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">Message</label>
+                        <textarea id="message" rows="4" class="w-full bg-stone-800 border-none rounded-none p-4 text-white focus:ring-1 focus:ring-secondary placeholder-stone-500" placeholder="Tell us about your visit..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-secondary text-primary hover:bg-white px-8 py-4 text-sm font-bold uppercase tracking-widest transition-colors">Confirm Reservation</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-serif text-white font-bold mb-6 tracking-widest">{{COMPANY_NAME}}</h2>
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="#" class="text-gray-500 hover:text-secondary transition-colors"><span class="sr-only">Facebook</span>FB</a>
+                <a href="#" class="text-gray-500 hover:text-secondary transition-colors"><span class="sr-only">Instagram</span>IG</a>
+                <a href="#" class="text-gray-500 hover:text-secondary transition-colors"><span class="sr-only">Twitter</span>TW</a>
+            </div>
+            <p class="text-stone-600 text-xs uppercase tracking-widest">&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
