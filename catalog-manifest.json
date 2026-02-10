@@ -558,6 +558,19 @@
         "Luxury",
         "Retreat"
       ]
+    },
+    {
+      "id": "044",
+      "name": "Helios Solar",
+      "category": "Energy",
+      "style": "Clean Tech",
+      "path": "catalog/template_044_energy_cleantech",
+      "description": "Modern eco energy theme.",
+      "tags": [
+        "Eco",
+        "Tech",
+        "Clean"
+      ]
     }
   ]
 }
