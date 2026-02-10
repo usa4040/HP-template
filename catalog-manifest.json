@@ -545,6 +545,19 @@
         "Bold",
         "Vibrant"
       ]
+    },
+    {
+      "id": "043",
+      "name": "LuxeWild",
+      "category": "Glamping",
+      "style": "Nature Luxury",
+      "path": "catalog/template_043_glamping_luxury",
+      "description": "Premium Wilderness Retreat",
+      "tags": [
+        "Nature",
+        "Luxury",
+        "Retreat"
+      ]
     }
   ]
 }
