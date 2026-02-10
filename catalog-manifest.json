@@ -714,6 +714,19 @@
         "Serif",
         "Cozy"
       ]
+    },
+    {
+      "id": "056",
+      "name": "TalentBridge",
+      "category": "Recruitment",
+      "style": "Human-Centric",
+      "path": "catalog/template_056_recruitment_human",
+      "description": "People-first recruitment theme",
+      "tags": [
+        "Professional",
+        "Diverse",
+        "Clean"
+      ]
     }
   ]
 }
