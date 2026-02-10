@@ -597,6 +597,19 @@
         "Industrial",
         "Modern"
       ]
+    },
+    {
+      "id": "047",
+      "name": "SmileEase Dental",
+      "category": "Dental",
+      "style": "Gentle",
+      "path": "catalog/template_047_dental_gentle",
+      "description": "Friendly, pain-free dental care theme.",
+      "tags": [
+        "Clean",
+        "Friendly",
+        "Teal"
+      ]
     }
   ]
 }
