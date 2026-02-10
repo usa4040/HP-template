@@ -701,6 +701,19 @@
         "watches",
         "serif"
       ]
+    },
+    {
+      "id": "055",
+      "name": "Chapter & Verse",
+      "category": "Bookstore",
+      "style": "Classic Academic",
+      "path": "catalog/template_055_bookstore_academic",
+      "description": "Classic serif typography with paper textures.",
+      "tags": [
+        "Books",
+        "Serif",
+        "Cozy"
+      ]
     }
   ]
 }
