@@ -584,6 +584,19 @@
         "Accessible",
         "Trust"
       ]
+    },
+    {
+      "id": "046",
+      "name": "The Hive",
+      "category": "Workspace",
+      "style": "Modern Industrial",
+      "path": "catalog/template_046_workspace_modern",
+      "description": "Trendy co-working space theme.",
+      "tags": [
+        "Coworking",
+        "Industrial",
+        "Modern"
+      ]
     }
   ]
 }

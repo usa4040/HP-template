@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Modern Co-working Space</title>
+    <meta name="description" content="Premium co-working spaces for creators, startups, and innovators. Join the community at {{COMPANY_NAME}}.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            gold: '#fbbf24', // Amber-400
+                            dark: '#0f172a', // Slate-900
+                            gray: '#1e293b', // Slate-800
+                            light: '#f8fafc', // Slate-50
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .hero-pattern {
+            background-color: #0f172a;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-brand-light text-brand-dark font-sans antialiased">
+
+    <!-- Navbar -->
+    <header class="fixed w-full z-50 transition-all duration-300"
+            x-data="{ scrolled: false, mobileMenu: false }"
+            @scroll.window="scrolled = (window.pageYOffset > 20)"
+            :class="{ 'bg-brand-dark/90 backdrop-blur-md shadow-lg py-3': scrolled, 'bg-transparent py-5': !scrolled }">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-display font-bold text-white tracking-tighter">
+                {{COMPANY_NAME}}<span class="text-brand-gold">.</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#amenities" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition-colors">Amenities</a>
+                <a href="#spaces" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition-colors">Spaces</a>
+                <a href="#community" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition-colors">Community</a>
+                <a href="#contact" class="px-5 py-2.5 bg-brand-gold text-brand-dark font-display font-bold text-sm rounded hover:bg-white transition-colors">Book a Tour</a>
+            </nav>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-cloak
+             class="md:hidden absolute top-full left-0 w-full bg-brand-dark border-t border-gray-800 p-6 flex flex-col space-y-4 shadow-xl"
+             @click.away="mobileMenu = false">
+            <a href="#amenities" class="text-gray-300 hover:text-brand-gold" @click="mobileMenu = false">Amenities</a>
+            <a href="#spaces" class="text-gray-300 hover:text-brand-gold" @click="mobileMenu = false">Spaces</a>
+            <a href="#community" class="text-gray-300 hover:text-brand-gold" @click="mobileMenu = false">Community</a>
+            <a href="#contact" class="text-brand-gold font-bold" @click="mobileMenu = false">Book a Tour</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80" alt="Modern Office" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-brand-dark/80 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight tracking-tight">
+                Work Better, <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-200">Together.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light">
+                Experience a workspace designed for focus, collaboration, and growth.
+                Premium amenities, flexible plans, and a vibrant community await.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#pricing" class="px-8 py-4 bg-brand-gold text-brand-dark font-display font-bold rounded hover:bg-white transition-all transform hover:-translate-y-1 shadow-lg shadow-brand-gold/20">
+                    View Plans
+                </a>
+                <a href="#contact" class="px-8 py-4 bg-transparent border border-white text-white font-display font-bold rounded hover:bg-white hover:text-brand-dark transition-all">
+                    Schedule Visit
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-brand-gold font-display font-bold tracking-widest uppercase text-sm">Why Choose Us</span>
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-brand-dark mt-2">Built for Productivity</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl hover:border-brand-gold/30 transition-all group">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-gold transition-colors">
+                        <svg class="w-6 h-6 text-white group-hover:text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3">Lightning Fast WiFi</h3>
+                    <p class="text-gray-600 leading-relaxed">Enterprise-grade fiber internet with redundancy to ensure you never disconnect during a crucial call.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl hover:border-brand-gold/30 transition-all group">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-gold transition-colors">
+                        <svg class="w-6 h-6 text-white group-hover:text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3">24/7 Access</h3>
+                    <p class="text-gray-600 leading-relaxed">Work on your schedule. Secure keycard access allows you to come and go whenever inspiration strikes.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl hover:border-brand-gold/30 transition-all group">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-gold transition-colors">
+                        <svg class="w-6 h-6 text-white group-hover:text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3">Meeting Rooms</h3>
+                    <p class="text-gray-600 leading-relaxed">Fully equipped conference rooms with AV gear, whiteboards, and privacy for your team syncs.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl hover:border-brand-gold/30 transition-all group">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-gold transition-colors">
+                        <svg class="w-6 h-6 text-white group-hover:text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3">Focus Zones</h3>
+                    <p class="text-gray-600 leading-relaxed">Quiet areas designed for deep work, away from the hustle and bustle of the community areas.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl hover:border-brand-gold/30 transition-all group">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-gold transition-colors">
+                        <svg class="w-6 h-6 text-white group-hover:text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3">Unlimited Coffee</h3>
+                    <p class="text-gray-600 leading-relaxed">Artisanal roasted coffee and tea available all day to keep you fueled and focused.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl hover:border-brand-gold/30 transition-all group">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-gold transition-colors">
+                        <svg class="w-6 h-6 text-white group-hover:text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3">Community Events</h3>
+                    <p class="text-gray-600 leading-relaxed">Weekly happy hours, workshops, and networking events to help you grow your circle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Divider / Gallery -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-96">
+        <div class="relative group h-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Workspace" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-brand-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span class="text-white font-display font-bold text-xl">Lounge Areas</span>
+            </div>
+        </div>
+        <div class="relative group h-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Meeting Room" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-brand-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span class="text-white font-display font-bold text-xl">Meeting Suites</span>
+            </div>
+        </div>
+        <div class="relative group h-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Community" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-brand-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span class="text-white font-display font-bold text-xl">Collaborative</span>
+            </div>
+        </div>
+        <div class="relative group h-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Technology" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-brand-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span class="text-white font-display font-bold text-xl">Tech Enabled</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-brand-light hero-pattern">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-brand-gold font-display font-bold tracking-widest uppercase text-sm">Membership</span>
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white mt-2">Choose Your Space</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Plan 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg flex flex-col border-t-4 border-gray-200">
+                    <h3 class="text-2xl font-display font-bold text-brand-dark mb-2">Hot Desk</h3>
+                    <p class="text-gray-500 mb-6 text-sm">Grab any open seat in the common area.</p>
+                    <div class="text-4xl font-bold text-brand-dark mb-6">$29<span class="text-lg text-gray-400 font-normal">/day</span></div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-gray-600"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Access 8am - 8pm</li>
+                        <li class="flex items-center text-gray-600"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Fast WiFi</li>
+                        <li class="flex items-center text-gray-600"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited Coffee</li>
+                    </ul>
+                    <a href="#contact" class="block w-full py-3 text-center border-2 border-brand-dark text-brand-dark font-display font-bold rounded hover:bg-brand-dark hover:text-white transition-colors">Book Now</a>
+                </div>
+
+                <!-- Plan 2 (Featured) -->
+                <div class="bg-brand-dark rounded-2xl p-8 shadow-2xl flex flex-col border-t-4 border-brand-gold transform md:-translate-y-4 relative">
+                    <div class="absolute top-0 right-0 bg-brand-gold text-brand-dark text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Popular</div>
+                    <h3 class="text-2xl font-display font-bold text-white mb-2">Dedicated Desk</h3>
+                    <p class="text-gray-400 mb-6 text-sm">Your own permanent desk with storage.</p>
+                    <div class="text-4xl font-bold text-white mb-6">$350<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-gray-300"><svg class="w-5 h-5 text-brand-gold mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>24/7 Access</li>
+                        <li class="flex items-center text-gray-300"><svg class="w-5 h-5 text-brand-gold mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Lockable Storage</li>
+                        <li class="flex items-center text-gray-300"><svg class="w-5 h-5 text-brand-gold mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>5h Meeting Room Credits</li>
+                        <li class="flex items-center text-gray-300"><svg class="w-5 h-5 text-brand-gold mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Mail Handling</li>
+                    </ul>
+                    <a href="#contact" class="block w-full py-3 text-center bg-brand-gold text-brand-dark font-display font-bold rounded hover:bg-white transition-colors">Get Started</a>
+                </div>
+
+                <!-- Plan 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg flex flex-col border-t-4 border-gray-200">
+                    <h3 class="text-2xl font-display font-bold text-brand-dark mb-2">Private Office</h3>
+                    <p class="text-gray-500 mb-6 text-sm">Enclosed office for teams of 2-10.</p>
+                    <div class="text-4xl font-bold text-brand-dark mb-6">$900<span class="text-lg text-gray-400 font-normal">/mo</span></div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-gray-600"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Fully Furnished</li>
+                        <li class="flex items-center text-gray-600"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Logo on Door</li>
+                        <li class="flex items-center text-gray-600"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited Meeting Rooms</li>
+                    </ul>
+                    <a href="#contact" class="block w-full py-3 text-center border-2 border-brand-dark text-brand-dark font-display font-bold rounded hover:bg-brand-dark hover:text-white transition-colors">Inquire</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <svg class="w-16 h-16 text-brand-gold mx-auto mb-8 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0547 14.5133 14.507 15.5059 13.357C16.4984 12.207 17.618 11.4555 18.8645 11.1023L18.8645 8.99532C17.4332 9.09633 16.2082 9.45899 15.1895 10.0832C14.1707 10.7075 13.3664 11.4988 12.7766 12.457L12.6184 12.457L12.6184 9.17647L10.0195 9.17647L10.0195 21L14.017 21ZM4.98047 21L4.98047 18C4.98047 16.0547 5.47672 14.507 6.46938 13.357C7.46203 12.207 8.58164 11.4555 9.82812 11.1023L9.82812 8.99532C8.39687 9.09633 7.17188 9.45899 6.15312 10.0832C5.13437 10.7075 4.33008 11.4988 3.74023 12.457L3.58203 12.457L3.58203 9.17647L0.983047 9.17647L0.983047 21L4.98047 21Z"/></svg>
+            <h2 class="text-3xl md:text-4xl font-display font-medium leading-relaxed text-brand-dark mb-8">
+                "Since moving our startup to {{COMPANY_NAME}}, our productivity has doubled. The energy here is infectious, and the connections we've made are invaluable."
+            </h2>
+            <div class="flex items-center justify-center space-x-4">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="w-12 h-12 rounded-full object-cover">
+                <div class="text-left">
+                    <div class="font-bold text-brand-dark">Sarah Jenkins</div>
+                    <div class="text-sm text-gray-500">CEO, Nexus Tech</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-brand-gray text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-brand-dark hidden lg:block"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <div class="lg:w-1/2">
+                    <span class="text-brand-gold font-display font-bold tracking-widest uppercase text-sm">Contact Us</span>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold mt-2 mb-6">Come Say Hello.</h2>
+                    <p class="text-gray-400 mb-10 text-lg">Ready to see the space? Book a tour or drop by for a coffee. We'd love to show you around.</p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-brand-gold mt-1 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <div>
+                                <h4 class="font-bold text-white">Location</h4>
+                                <p class="text-gray-400">123 Innovation Drive, Tech District<br>New York, NY 10012</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-brand-gold mt-1 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <div>
+                                <h4 class="font-bold text-white">Email</h4>
+                                <p class="text-gray-400">hello@{{COMPANY_NAME}}.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 bg-white rounded-2xl p-8 lg:p-12 text-brand-dark shadow-2xl">
+                    <form class="space-y-6" onsubmit="event.preventDefault();">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold mb-2">First Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition-colors" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Last Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition-colors" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Email Address</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition-colors" placeholder="john@company.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Interest</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition-colors bg-white">
+                                <option>Hot Desk</option>
+                                <option>Dedicated Desk</option>
+                                <option>Private Office</option>
+                                <option>Event Space</option>
+                            </select>
+                        </div>
+                        <button class="w-full py-4 bg-brand-dark text-white font-display font-bold rounded hover:bg-brand-gold hover:text-brand-dark transition-colors">
+                            Book a Tour
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white border-t border-gray-800 pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-display font-bold text-white tracking-tighter">
+                        {{COMPANY_NAME}}<span class="text-brand-gold">.</span>
+                    </a>
+                    <p class="text-gray-500 text-sm mt-2">© 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Facebook</span><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Instagram</span><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465C9.673 2.013 10.026 2 12.315 2zm-1.008 2.924c-2.607.005-2.91.019-3.799.06-.913.041-1.41.196-1.737.323-.435.168-.746.369-1.06.684-.315.314-.516.625-.684 1.06-.127.327-.282.824-.323 1.737-.04.889-.054 1.192-.054 3.799 0 2.607.014 2.91.054 3.799.041.913.196 1.41.323 1.737.168.435.369.746.684 1.06.314.315.625.516 1.06.684.327.127.824.282 1.737.323.889.04 1.192.054 3.799.054 2.607 0 2.91-.014 3.799-.054.913-.041 1.41-.196 1.737-.323.435-.168.746-.369 1.06-.684.314-.315.516-.625.684-1.06.127-.327.282-.824.323-1.737.04-.889.054-1.192.054-3.799 0-2.607-.014-2.91-.054-3.799-.041-.913-.196-1.41-.323-1.737-.168-.435-.369-.746-.684-1.06a2.916 2.916 0 00-1.06-.684c-.327-.127-.824-.282-1.737-.323-.889-.04-1.192-.054-3.799-.054zM12 7.078a4.922 4.922 0 110 9.844 4.922 4.922 0 010-9.844zm0 1.947a2.975 2.975 0 100 5.95 2.975 2.975 0 000-5.95zm5.337-3.86a1.298 1.298 0 110 2.597 1.298 1.298 0 010-2.597z" clip-rule="evenodd" /></svg></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Twitter</span><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
