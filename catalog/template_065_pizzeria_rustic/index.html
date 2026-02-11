@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Authentic Rustic Pizzeria</title>
+    <meta name="description" content="Experience the authentic taste of Italy at {{COMPANY_NAME}}. Wood-fired pizzas made with passion and tradition.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-red': '#D32F2F',
+                        'brand-green': '#388E3C',
+                        'brand-cream': '#FFF8E1',
+                        'brand-charcoal': '#263238',
+                        'brand-gold': '#FFC107',
+                    },
+                    fontFamily: {
+                        serif: ['"DM Serif Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1579751626657-72bc17010498?q=80&w=2069&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body class="bg-brand-cream text-brand-charcoal font-sans antialiased">
+
+    <!-- Header -->
+    <header x-data="{ open: false, scrolled: false }"
+            @scroll.window="scrolled = (window.scrollY > 50)"
+            :class="{ 'bg-brand-cream/95 shadow-md py-2': scrolled, 'bg-transparent py-6': !scrolled }"
+            class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-3xl font-serif font-bold text-brand-red tracking-wide">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="text-brand-charcoal hover:text-brand-red font-bold transition-colors">Our Story</a>
+                <a href="#menu" class="text-brand-charcoal hover:text-brand-red font-bold transition-colors">Menu</a>
+                <a href="#gallery" class="text-brand-charcoal hover:text-brand-red font-bold transition-colors">Gallery</a>
+                <a href="#contact" class="px-6 py-2 bg-brand-red text-white rounded-full font-bold hover:bg-red-700 transition-colors shadow-lg">
+                    Book a Table
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="open = !open" class="md:hidden text-brand-charcoal focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="open" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-cloak
+             class="md:hidden absolute w-full bg-brand-cream shadow-xl border-t border-red-100">
+            <div class="flex flex-col p-6 space-y-4 text-center">
+                <a href="#about" @click="open = false" class="text-lg font-bold text-brand-charcoal hover:text-brand-red">Our Story</a>
+                <a href="#menu" @click="open = false" class="text-lg font-bold text-brand-charcoal hover:text-brand-red">Menu</a>
+                <a href="#gallery" @click="open = false" class="text-lg font-bold text-brand-charcoal hover:text-brand-red">Gallery</a>
+                <a href="#contact" @click="open = false" class="px-6 py-2 bg-brand-red text-white rounded-full font-bold inline-block">Book a Table</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <span class="block text-brand-gold font-serif text-xl md:text-2xl mb-4 tracking-wider uppercase">Authentic Italian Tradition</span>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 text-shadow leading-tight">
+                Slice & Hearth
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-100 mb-10 max-w-2xl mx-auto font-light">
+                Wood-fired artisan pizzas crafted with passion, served with love. Experience the true taste of Naples right here.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#menu" class="px-8 py-4 bg-brand-red text-white text-lg font-bold rounded-full hover:bg-red-700 transition-transform transform hover:scale-105 shadow-xl">
+                    View Menu
+                </a>
+                <a href="#contact" class="px-8 py-4 bg-white text-brand-charcoal text-lg font-bold rounded-full hover:bg-gray-100 transition-transform transform hover:scale-105 shadow-xl">
+                    Visit Us
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About / Tradition Section -->
+    <section id="about" class="py-20 md:py-32 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-green/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                <div class="w-full md:w-1/2 relative group">
+                    <div class="absolute inset-0 bg-brand-gold/20 transform translate-x-4 translate-y-4 rounded-lg transition-transform group-hover:translate-x-6 group-hover:translate-y-6"></div>
+                    <img src="https://images.unsplash.com/photo-1542834369-f10eb5c6c377?auto=format&fit=crop&q=80&w=800"
+                         alt="Chef making pizza"
+                         class="relative rounded-lg shadow-2xl w-full object-cover h-[500px]">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-sm mb-2 block">Our Heritage</span>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal mb-6">Baked with History,<br>Served with Soul</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe that great pizza starts with simple, high-quality ingredients. Our dough is fermented for 48 hours to achieve that perfect airy crust, and our tomatoes are sourced directly from the San Marzano valley.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        Every pizza is baked in our custom-built wood-fired oven at 900°F, creating the signature leopard-spotted char that defines authentic Neapolitan pizza.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="flex -space-x-4">
+                            <img class="w-12 h-12 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=100" alt="Chef">
+                            <img class="w-12 h-12 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1506863530036-1ef841ed2a79?auto=format&fit=crop&q=80&w=100" alt="Chef">
+                        </div>
+                        <span class="font-serif font-bold text-brand-charcoal text-lg">Master Pizzaiolos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Highlights -->
+    <section id="menu" class="py-20 bg-brand-cream">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-brand-green font-bold tracking-widest uppercase text-sm mb-2 block">Fresh from the Oven</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal">Our Signature Pies</h2>
+                <div class="w-24 h-1 bg-brand-red mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Pizza Item 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&q=80&w=800" alt="Margherita" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-baseline mb-4">
+                            <h3 class="text-2xl font-serif font-bold text-brand-charcoal">Classic Margherita</h3>
+                            <span class="text-xl font-bold text-brand-red">$18</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">San Marzano tomato sauce, fresh mozzarella di bufala, basil, extra virgin olive oil.</p>
+                        <button class="text-brand-green font-bold uppercase text-sm tracking-wide hover:underline">Add to Order</button>
+                    </div>
+                </div>
+
+                <!-- Pizza Item 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&q=80&w=800" alt="Pepperoni" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-baseline mb-4">
+                            <h3 class="text-2xl font-serif font-bold text-brand-charcoal">Double Pepperoni</h3>
+                            <span class="text-xl font-bold text-brand-red">$22</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Crispy pepperoni cups, mozzarella, oregano, hot honey drizzle.</p>
+                        <button class="text-brand-green font-bold uppercase text-sm tracking-wide hover:underline">Add to Order</button>
+                    </div>
+                </div>
+
+                <!-- Pizza Item 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=800" alt="Vegetarian" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-baseline mb-4">
+                            <h3 class="text-2xl font-serif font-bold text-brand-charcoal">Garden Rustica</h3>
+                            <span class="text-xl font-bold text-brand-red">$20</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Roasted red peppers, artichokes, mushrooms, olives, pesto swirl.</p>
+                        <button class="text-brand-green font-bold uppercase text-sm tracking-wide hover:underline">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block px-10 py-4 border-2 border-brand-charcoal text-brand-charcoal text-lg font-bold rounded-full hover:bg-brand-charcoal hover:text-white transition-colors">
+                    View Full Menu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ingredients/Process -->
+    <section class="py-20 bg-brand-charcoal text-white relative bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1544982503-9f984c14501a?auto=format&fit=crop&q=80&w=2000'); background-blend-mode: multiply;">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-brand-red rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-4">Wood Fired</h3>
+                    <p class="text-gray-300">Baked at 900°F for 90 seconds in our imported Italian oven.</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-brand-green rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-4">Local Ingredients</h3>
+                    <p class="text-gray-300">We partner with local farmers for the freshest basil, veggies, and meats.</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-brand-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-4">Made with Love</h3>
+                    <p class="text-gray-300">Family recipes handed down through generations, prepared daily.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-serif font-bold text-center text-brand-charcoal mb-16">Words from our Patrons</h2>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="bg-brand-cream p-8 rounded-xl shadow-md flex-1">
+                    <div class="flex text-brand-gold mb-4">★★★★★</div>
+                    <p class="text-gray-700 italic mb-6">"Best pizza I've had outside of Italy. The crust is absolute perfection."</p>
+                    <div class="font-bold text-brand-charcoal">- Sarah J.</div>
+                </div>
+                <div class="bg-brand-cream p-8 rounded-xl shadow-md flex-1 transform md:-translate-y-4 border-b-4 border-brand-red">
+                    <div class="flex text-brand-gold mb-4">★★★★★</div>
+                    <p class="text-gray-700 italic mb-6">"The atmosphere is so cozy and the staff makes you feel like family. Highly recommend the Pepperoni."</p>
+                    <div class="font-bold text-brand-charcoal">- Michael T.</div>
+                </div>
+                <div class="bg-brand-cream p-8 rounded-xl shadow-md flex-1">
+                    <div class="flex text-brand-gold mb-4">★★★★★</div>
+                    <p class="text-gray-700 italic mb-6">"A hidden gem in the city. Great wine selection to pair with the amazing food."</p>
+                    <div class="font-bold text-brand-charcoal">- Emily R.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact" class="bg-brand-charcoal text-white pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <a href="#" class="text-3xl font-serif font-bold text-white mb-6 block">{{COMPANY_NAME}}</a>
+                    <p class="text-gray-400 leading-relaxed">
+                        Authentic wood-fired pizza in a rustic, welcoming setting. Join us for a slice of tradition.
+                    </p>
+                </div>
+
+                <!-- Hours -->
+                <div>
+                    <h4 class="text-xl font-serif font-bold mb-6 text-brand-gold">Opening Hours</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li class="flex justify-between"><span>Mon - Thu:</span> <span>11am - 10pm</span></li>
+                        <li class="flex justify-between"><span>Fri - Sat:</span> <span>11am - 11pm</span></li>
+                        <li class="flex justify-between"><span>Sunday:</span> <span>12pm - 9:30pm</span></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-xl font-serif font-bold mb-6 text-brand-gold">Contact Us</h4>
+                    <p class="text-gray-400 mb-2">123 Culinary Avenue<br>Food District, FD 90210</p>
+                    <p class="text-gray-400 mb-2">{{PHONE}}</p>
+                    <p class="text-gray-400">ciao@{{COMPANY_NAME}}.com</p>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-xl font-serif font-bold mb-6 text-brand-gold">Join the Family</h4>
+                    <p class="text-gray-400 mb-4 text-sm">Get exclusive offers and event invites.</p>
+                    <form class="flex flex-col gap-3">
+                        <input type="email" placeholder="Your email address" class="px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white focus:outline-none focus:border-brand-red">
+                        <button type="submit" class="px-4 py-2 bg-brand-red text-white font-bold rounded hover:bg-red-700 transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
