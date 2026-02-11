@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Essence of Ethereal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ethereal-gold': '#C5A059',
+                        'ethereal-dark': '#1A1A1A',
+                        'ethereal-rose': '#FDF4F5',
+                        'ethereal-lavender': '#F3F4F6',
+                        'glass-white': 'rgba(255, 255, 255, 0.15)',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .text-shadow-sm {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="font-sans text-ethereal-dark bg-ethereal-rose antialiased">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)"
+         :class="{'bg-white/80 backdrop-blur-md shadow-sm': scrolled, 'bg-transparent': !scrolled}"
+         class="fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="font-serif text-2xl tracking-widest font-semibold uppercase hover:text-ethereal-gold transition-colors">
+                    {{COMPANY_NAME}}
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-sm uppercase tracking-widest hover:text-ethereal-gold transition-colors">Our Story</a>
+                    <a href="#notes" class="text-sm uppercase tracking-widest hover:text-ethereal-gold transition-colors">Notes</a>
+                    <a href="#collection" class="text-sm uppercase tracking-widest hover:text-ethereal-gold transition-colors">Collection</a>
+                    <a href="#contact" class="px-6 py-2 border border-ethereal-dark hover:bg-ethereal-dark hover:text-white transition-all duration-300 text-sm uppercase tracking-widest">Contact</a>
+                </div>
+
+                <!-- Mobile Button -->
+                <button @click="open = !open" class="md:hidden focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path x-show="open" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="md:hidden bg-white/95 backdrop-blur-xl absolute w-full border-b border-gray-100">
+            <div class="flex flex-col p-6 space-y-4 text-center">
+                <a href="#about" @click="open = false" class="text-sm uppercase tracking-widest py-2">Our Story</a>
+                <a href="#notes" @click="open = false" class="text-sm uppercase tracking-widest py-2">Notes</a>
+                <a href="#collection" @click="open = false" class="text-sm uppercase tracking-widest py-2">Collection</a>
+                <a href="#contact" @click="open = false" class="text-sm uppercase tracking-widest py-2 text-ethereal-gold">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-fixed transform scale-105"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-white/30 to-ethereal-rose/90"></div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p class="text-sm md:text-base uppercase tracking-[0.3em] mb-4 text-ethereal-dark/80 opacity-0 transition-all duration-1000 delay-300"
+               :class="{'opacity-100 translate-y-0': show, 'translate-y-4': !show}">
+                The Art of Olfactory
+            </p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight opacity-0 transition-all duration-1000 delay-500"
+                :class="{'opacity-100 translate-y-0': show, 'translate-y-8': !show}">
+                Scents of <br><span class="italic text-ethereal-gold">Serenity</span>
+            </h1>
+            <div class="opacity-0 transition-all duration-1000 delay-700"
+                 :class="{'opacity-100 translate-y-0': show, 'translate-y-4': !show}">
+                <a href="#collection" class="inline-block border-b border-ethereal-dark pb-1 text-sm uppercase tracking-widest hover:text-ethereal-gold hover:border-ethereal-gold transition-colors">
+                    Discover Collection
+                </a>
+            </div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="absolute top-1/4 left-10 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-1/3 right-10 w-64 h-64 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 relative overflow-hidden">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-pink-100 to-purple-100 rounded-full opacity-50 blur-2xl group-hover:opacity-75 transition duration-1000"></div>
+                    <img src="https://images.unsplash.com/photo-1490750967868-58cb75062ed0?auto=format&fit=crop&w=800&q=80"
+                         alt="Floral Ingredients"
+                         class="relative rounded-t-[10rem] rounded-b-lg shadow-xl w-full h-[600px] object-cover object-center grayscale hover:grayscale-0 transition duration-700 ease-in-out">
+                </div>
+                <div class="space-y-8">
+                    <span class="text-ethereal-gold uppercase tracking-widest text-xs font-bold">Our Philosophy</span>
+                    <h2 class="font-serif text-4xl md:text-5xl leading-tight">Capturing the <span class="italic">ephemeral</span> beauty of nature.</h2>
+                    <p class="text-gray-600 leading-relaxed font-light text-lg">
+                        At {{COMPANY_NAME}}, we believe that a fragrance is more than just a scent—it is a memory, an emotion, a journey. Our master perfumers blend rare ingredients from around the world to create olfactory masterpieces that linger on the skin and in the mind.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed font-light text-lg">
+                        Each bottle is a testament to the time-honored traditions of Grasse, infused with a modern, ethereal sensibility.
+                    </p>
+                    <a href="#notes" class="inline-flex items-center text-sm uppercase tracking-widest hover:text-ethereal-gold transition-colors mt-4">
+                        Explore Our Notes
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Olfactory Notes Section -->
+    <section id="notes" class="py-24 bg-gradient-to-b from-white to-ethereal-rose relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 max-w-2xl mx-auto">
+                <h2 class="font-serif text-4xl md:text-5xl mb-4">The Olfactory Pyramid</h2>
+                <p class="text-gray-500 font-light">Understanding the complexity of our compositions.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Top Notes -->
+                <div class="glass-panel p-8 rounded-2xl text-center transform hover:-translate-y-2 transition duration-500">
+                    <div class="w-16 h-16 bg-white/50 rounded-full mx-auto mb-6 flex items-center justify-center text-2xl shadow-sm">🍋</div>
+                    <h3 class="font-serif text-2xl mb-4 italic">Top Notes</h3>
+                    <p class="text-sm text-gray-500 mb-4 uppercase tracking-wider">The First Impression</p>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">
+                        Citrus, Bergamot, Neroli. The volatile scents that greet you immediately upon application, lasting only a few minutes but setting the tone.
+                    </p>
+                </div>
+
+                <!-- Heart Notes -->
+                <div class="glass-panel p-8 rounded-2xl text-center transform hover:-translate-y-2 transition duration-500 delay-100 border-ethereal-gold/30">
+                    <div class="w-16 h-16 bg-white/50 rounded-full mx-auto mb-6 flex items-center justify-center text-2xl shadow-sm">🌹</div>
+                    <h3 class="font-serif text-2xl mb-4 italic text-ethereal-gold">Heart Notes</h3>
+                    <p class="text-sm text-gray-500 mb-4 uppercase tracking-wider">The Soul</p>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">
+                        Jasmine, Rose, Lavender. Developing after the top notes fade, these form the core of the fragrance and last for several hours.
+                    </p>
+                </div>
+
+                <!-- Base Notes -->
+                <div class="glass-panel p-8 rounded-2xl text-center transform hover:-translate-y-2 transition duration-500 delay-200">
+                    <div class="w-16 h-16 bg-white/50 rounded-full mx-auto mb-6 flex items-center justify-center text-2xl shadow-sm">🪵</div>
+                    <h3 class="font-serif text-2xl mb-4 italic">Base Notes</h3>
+                    <p class="text-sm text-gray-500 mb-4 uppercase tracking-wider">The Memory</p>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">
+                        Sandalwood, Musk, Vanilla. The rich, deep scents that linger the longest, creating the lasting impression of the perfume.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section id="collection" class="py-24 px-6 bg-white">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-100 pb-8">
+                <h2 class="font-serif text-4xl md:text-6xl">Signature <br><span class="italic text-gray-400">Collection</span></h2>
+                <a href="#" class="hidden md:block text-sm uppercase tracking-widest hover:text-ethereal-gold transition-colors">View All Products</a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-lg bg-gray-50 aspect-[3/4] mb-6">
+                        <img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=800&q=80"
+                             alt="Ethereal Rose"
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition duration-500"></div>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-1 group-hover:text-ethereal-gold transition-colors">Ethereal Rose</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Eau de Parfum</p>
+                    <p class="font-medium">$125.00</p>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group cursor-pointer md:mt-16">
+                    <div class="relative overflow-hidden rounded-lg bg-gray-50 aspect-[3/4] mb-6">
+                        <img src="https://images.unsplash.com/photo-1523293188086-b15bc218f206?auto=format&fit=crop&w=800&q=80"
+                             alt="Golden Amber"
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                    </div>
+                    <h3 class="font-serif text-2xl mb-1 group-hover:text-ethereal-gold transition-colors">Golden Amber</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Eau de Parfum Intense</p>
+                    <p class="font-medium">$145.00</p>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group cursor-pointer md:mt-8">
+                    <div class="relative overflow-hidden rounded-lg bg-gray-50 aspect-[3/4] mb-6">
+                        <img src="https://images.unsplash.com/photo-1615160655225-b4618342750e?auto=format&fit=crop&w=800&q=80"
+                             alt="Midnight Jasmine"
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                    </div>
+                    <h3 class="font-serif text-2xl mb-1 group-hover:text-ethereal-gold transition-colors">Midnight Jasmine</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Parfum Oil</p>
+                    <p class="font-medium">$95.00</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center md:hidden">
+                <a href="#" class="text-sm uppercase tracking-widest hover:text-ethereal-gold transition-colors">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Divider -->
+    <section class="py-32 relative flex items-center justify-center bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1616400619175-5beda3a17896?auto=format&fit=crop&w=1920&q=80');">
+        <div class="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
+        <div class="relative z-10 text-center text-white px-6">
+            <h2 class="font-serif text-4xl md:text-6xl mb-6 italic">"Perfume is the key to our memories."</h2>
+            <p class="text-sm uppercase tracking-widest opacity-80">— The Nose of {{COMPANY_NAME}}</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-ethereal-rose">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="glass-panel p-8 md:p-16 rounded-3xl shadow-xl bg-white/40">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-4xl mb-4">Bespeaking of Scents</h2>
+                    <p class="text-gray-500">Visit our atelier or inquire about a private consultation.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Name</label>
+                            <input type="text" class="w-full bg-white/50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ethereal-gold transition-colors" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Email</label>
+                            <input type="email" class="w-full bg-white/50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ethereal-gold transition-colors" placeholder="your@email.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Message</label>
+                        <textarea rows="4" class="w-full bg-white/50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ethereal-gold transition-colors" placeholder="Tell us about your preferences..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="bg-ethereal-dark text-white px-10 py-4 rounded-full uppercase tracking-widest text-sm hover:bg-ethereal-gold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ethereal-dark text-white/60 py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="font-serif text-3xl text-white mb-6">{{COMPANY_NAME}}</h3>
+                    <p class="font-light text-sm leading-relaxed max-w-md">
+                        Crafting ethereal fragrances for the modern soul. Founded in Grasse, made for the world.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white uppercase tracking-widest text-xs mb-6">Explore</h4>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li><a href="#" class="hover:text-white transition-colors">Shop All</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Our Story</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Ingredients</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white uppercase tracking-widest text-xs mb-6">Legal</h4>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-white transition-colors">Facebook</a>
+                    <a href="#" class="hover:text-white transition-colors">Pinterest</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Animation Styles for blob -->
+    <style>
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+    </style>
+</body>
+</html>
