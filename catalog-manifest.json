@@ -805,6 +805,19 @@
         "energetic",
         "tropical"
       ]
+    },
+    {
+      "id": "063",
+      "name": "Concrete Pulse",
+      "category": "Streetwear",
+      "style": "Urban Grunge",
+      "path": "catalog/template_063_streetwear_urban_grunge",
+      "description": "Raw urban style, bold type.",
+      "tags": [
+        "Urban",
+        "Bold",
+        "Grayscale"
+      ]
     }
   ]
 }
