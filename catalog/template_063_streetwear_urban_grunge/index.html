@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Urban Streetwear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-lime': '#ccff00',
+                        'concrete': '#1a1a1a',
+                        'off-white': '#f0f0f0',
+                    },
+                    fontFamily: {
+                        sans: ['Roboto Mono', 'monospace'],
+                        display: ['Oswald', 'sans-serif'],
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'glitch': 'glitch 1s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        glitch: {
+                            '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                            '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                            '62%': { transform: 'translate(0,0) skew(5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 #ccff00;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(38px, 9999px, 81px, 0); }
+            20% { clip: rect(6px, 9999px, 19px, 0); }
+            40% { clip: rect(59px, 9999px, 8px, 0); }
+            60% { clip: rect(21px, 9999px, 66px, 0); }
+            80% { clip: rect(93px, 9999px, 14px, 0); }
+            100% { clip: rect(15px, 9999px, 73px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(10px, 9999px, 92px, 0); }
+            20% { clip: rect(25px, 9999px, 3px, 0); }
+            40% { clip: rect(78px, 9999px, 21px, 0); }
+            60% { clip: rect(12px, 9999px, 54px, 0); }
+            80% { clip: rect(99px, 9999px, 88px, 0); }
+            100% { clip: rect(44px, 9999px, 36px, 0); }
+        }
+    </style>
+</head>
+<body class="bg-black text-off-white font-sans antialiased overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 50)">
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-white/10" :class="{ 'bg-black/90 backdrop-blur-md py-4': scrolled, 'bg-transparent py-6': !scrolled }">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-3xl font-display font-bold tracking-tighter uppercase hover:text-neon-lime transition-colors">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#drops" class="text-sm tracking-widest hover:text-neon-lime transition-colors">DROPS</a>
+                <a href="#manifesto" class="text-sm tracking-widest hover:text-neon-lime transition-colors">MANIFESTO</a>
+                <a href="#contact" class="text-sm tracking-widest hover:text-neon-lime transition-colors">CONTACT</a>
+            </nav>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition x-cloak class="absolute top-full left-0 w-full bg-black border-b border-white/10 md:hidden">
+            <div class="flex flex-col p-6 space-y-4">
+                <a href="#drops" class="text-xl font-display uppercase hover:text-neon-lime" @click="mobileMenuOpen = false">Drops</a>
+                <a href="#manifesto" class="text-xl font-display uppercase hover:text-neon-lime" @click="mobileMenuOpen = false">Manifesto</a>
+                <a href="#contact" class="text-xl font-display uppercase hover:text-neon-lime" @click="mobileMenuOpen = false">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=2500&auto=format&fit=crop" alt="Urban Streetwear" class="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4">
+            <h2 class="text-neon-lime font-mono text-sm tracking-[0.5em] mb-4 animate-pulse">EST. 2024 // TOKYO</h2>
+            <h1 class="text-6xl md:text-9xl font-display font-bold uppercase leading-none tracking-tighter mb-8 glitch-text" data-text="CONCRETE PULSE">
+                CONCRETE PULSE
+            </h1>
+            <a href="#drops" class="inline-block border border-white px-8 py-4 text-sm font-mono tracking-widest hover:bg-neon-lime hover:text-black hover:border-neon-lime transition-all duration-300">
+                SHOP COLLECTION_01
+            </a>
+        </div>
+
+        <!-- Scrolling Marquee Bottom -->
+        <div class="absolute bottom-0 w-full bg-neon-lime text-black overflow-hidden py-2 border-t border-b border-black">
+            <div class="whitespace-nowrap animate-marquee flex font-display font-bold text-lg tracking-widest uppercase">
+                <span class="mx-8">NEW DROP AVAILABLE NOW</span>
+                <span class="mx-8">///</span>
+                <span class="mx-8">LIMITED STOCK</span>
+                <span class="mx-8">///</span>
+                <span class="mx-8">WORLDWIDE SHIPPING</span>
+                <span class="mx-8">///</span>
+                <span class="mx-8">NO RESTOCKS</span>
+                <span class="mx-8">///</span>
+                <span class="mx-8">NEW DROP AVAILABLE NOW</span>
+                <span class="mx-8">///</span>
+                <span class="mx-8">LIMITED STOCK</span>
+                <span class="mx-8">///</span>
+                <span class="mx-8">WORLDWIDE SHIPPING</span>
+                <span class="mx-8">///</span>
+                <span class="mx-8">NO RESTOCKS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Drops Grid -->
+    <section id="drops" class="py-24 bg-black px-6">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-end mb-16 border-b border-white/20 pb-4">
+                <h2 class="text-4xl md:text-6xl font-display font-bold uppercase">LATEST DROPS</h2>
+                <span class="font-mono text-neon-lime text-sm">SEASON_01 // 004 ITEMS</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="group relative">
+                    <div class="aspect-[3/4] overflow-hidden bg-gray-900 border border-white/10 relative">
+                        <img src="https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=800&auto=format&fit=crop" alt="Product 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                        <div class="absolute top-4 right-4 bg-neon-lime text-black font-mono text-xs px-2 py-1">NEW</div>
+                        <!-- Add to Cart Overlay -->
+                        <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="border border-neon-lime text-neon-lime px-6 py-3 font-mono text-sm hover:bg-neon-lime hover:text-black transition-colors uppercase">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-xl uppercase tracking-wide group-hover:text-neon-lime transition-colors">Oversized Hoodie</h3>
+                            <p class="text-gray-500 font-mono text-xs mt-1">HEAVYWEIGHT COTTON</p>
+                        </div>
+                        <span class="font-mono">$85.00</span>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group relative">
+                    <div class="aspect-[3/4] overflow-hidden bg-gray-900 border border-white/10 relative">
+                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop" alt="Product 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                        <!-- Add to Cart Overlay -->
+                        <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="border border-neon-lime text-neon-lime px-6 py-3 font-mono text-sm hover:bg-neon-lime hover:text-black transition-colors uppercase">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-xl uppercase tracking-wide group-hover:text-neon-lime transition-colors">Graphic Tee 04</h3>
+                            <p class="text-gray-500 font-mono text-xs mt-1">ACID WASH</p>
+                        </div>
+                        <span class="font-mono">$45.00</span>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group relative">
+                    <div class="aspect-[3/4] overflow-hidden bg-gray-900 border border-white/10 relative">
+                        <img src="https://images.unsplash.com/photo-1551488852-080175d27845?q=80&w=800&auto=format&fit=crop" alt="Product 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                        <div class="absolute top-4 right-4 bg-white text-black font-mono text-xs px-2 py-1">LOW STOCK</div>
+                        <!-- Add to Cart Overlay -->
+                        <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="border border-neon-lime text-neon-lime px-6 py-3 font-mono text-sm hover:bg-neon-lime hover:text-black transition-colors uppercase">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-xl uppercase tracking-wide group-hover:text-neon-lime transition-colors">Cargo Pants</h3>
+                            <p class="text-gray-500 font-mono text-xs mt-1">UTILITY BLACK</p>
+                        </div>
+                        <span class="font-mono">$110.00</span>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group relative">
+                    <div class="aspect-[3/4] overflow-hidden bg-gray-900 border border-white/10 relative">
+                        <img src="https://images.unsplash.com/photo-1605218427368-35b8206d2038?q=80&w=800&auto=format&fit=crop" alt="Product 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                        <!-- Add to Cart Overlay -->
+                        <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="border border-neon-lime text-neon-lime px-6 py-3 font-mono text-sm hover:bg-neon-lime hover:text-black transition-colors uppercase">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-xl uppercase tracking-wide group-hover:text-neon-lime transition-colors">Tactical Vest</h3>
+                            <p class="text-gray-500 font-mono text-xs mt-1">MODULAR SYSTEM</p>
+                        </div>
+                        <span class="font-mono">$95.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manifesto / About -->
+    <section id="manifesto" class="py-32 bg-zinc-900 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-[url('https://images.unsplash.com/photo-1550921008-013898f7e842?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-10 grayscale mix-blend-overlay"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl">
+                <span class="text-neon-lime font-mono text-sm tracking-widest block mb-6">/// THE PHILOSOPHY</span>
+                <h2 class="text-4xl md:text-7xl font-display font-bold uppercase leading-tight mb-8">
+                    WE DON'T FOLLOW TRENDS.<br>
+                    WE BUILD THE <span class="text-transparent stroke-text" style="-webkit-text-stroke: 1px #fff;">FUTURE</span>.
+                </h2>
+                <div class="w-24 h-1 bg-neon-lime mb-8"></div>
+                <p class="font-mono text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl">
+                    {{COMPANY_NAME}} exists in the spaces between. Born from the concrete jungle, inspired by the chaos of the city. We create functional armor for the modern urban explorer. No compromises. No apologies.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-24 border-t border-white/10 bg-black px-6">
+        <div class="container mx-auto max-w-2xl text-center">
+            <h3 class="font-display text-3xl uppercase mb-2">JOIN THE RESISTANCE</h3>
+            <p class="font-mono text-gray-500 text-sm mb-8">GET EARLY ACCESS TO DROPS AND EXCLUSIVE CONTENT.</p>
+            <form class="flex flex-col md:flex-row gap-4">
+                <input type="email" placeholder="ENTER YOUR EMAIL" class="flex-1 bg-transparent border border-white/30 px-6 py-4 font-mono text-white placeholder-gray-600 focus:outline-none focus:border-neon-lime transition-colors">
+                <button type="submit" class="bg-neon-lime text-black font-display font-bold uppercase px-8 py-4 hover:bg-white transition-colors tracking-widest">
+                    SUBSCRIBE
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-black py-12 border-t border-white/10 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div class="mb-8 md:mb-0">
+                <a href="#" class="text-2xl font-display font-bold uppercase text-white">{{COMPANY_NAME}}</a>
+                <p class="font-mono text-gray-600 text-xs mt-2">© 2024 ALL RIGHTS RESERVED.</p>
+            </div>
+            <div class="flex flex-wrap gap-8">
+                <a href="#" class="font-mono text-sm text-gray-400 hover:text-neon-lime uppercase">Instagram</a>
+                <a href="#" class="font-mono text-sm text-gray-400 hover:text-neon-lime uppercase">Twitter</a>
+                <a href="#" class="font-mono text-sm text-gray-400 hover:text-neon-lime uppercase">Discord</a>
+                <a href="#" class="font-mono text-sm text-gray-400 hover:text-neon-lime uppercase">Legal</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
