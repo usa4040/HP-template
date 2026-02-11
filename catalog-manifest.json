@@ -844,6 +844,19 @@
         "Warm",
         "Rustic"
       ]
+    },
+    {
+      "id": "066",
+      "name": "Velvet Cacao",
+      "category": "Chocolatier",
+      "style": "Indulgent",
+      "path": "catalog/template_066_chocolatier_indulgent",
+      "description": "Indulgent cocoa & gold theme",
+      "tags": [
+        "Premium",
+        "Dark",
+        "Sensory"
+      ]
     }
   ]
 }
