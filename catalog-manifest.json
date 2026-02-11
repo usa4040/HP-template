@@ -870,6 +870,19 @@
         "Ocean",
         "Premium"
       ]
+    },
+    {
+      "id": "068",
+      "name": "SkyHigh Drones",
+      "category": "Drone Services",
+      "style": "Aerial",
+      "path": "catalog/template_068_drone_services_aerial",
+      "description": "Panoramic views & tech style",
+      "tags": [
+        "Modern",
+        "Sky",
+        "Tech"
+      ]
     }
   ]
 }
