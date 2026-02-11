@@ -740,6 +740,19 @@
         "Elegant",
         "Dark"
       ]
+    },
+    {
+      "id": "058",
+      "name": "Cyber Arena",
+      "category": "Esports",
+      "style": "Cyber",
+      "path": "catalog/template_058_esports_cyber",
+      "description": "Neon glitch & dark mode",
+      "tags": [
+        "Esports",
+        "Gaming",
+        "Dark Mode"
+      ]
     }
   ]
 }
