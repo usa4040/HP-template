@@ -792,6 +792,19 @@
         "Glassmorphism",
         "Elegant"
       ]
+    },
+    {
+      "id": "062",
+      "name": "Surf School Coastal",
+      "category": "Surf School",
+      "style": "Coastal",
+      "path": "catalog/template_062_surf_school_coastal",
+      "description": "Sun-drenched coastal design",
+      "tags": [
+        "vibrant",
+        "energetic",
+        "tropical"
+      ]
     }
   ]
 }
