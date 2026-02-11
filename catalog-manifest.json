@@ -857,6 +857,19 @@
         "Dark",
         "Sensory"
       ]
+    },
+    {
+      "id": "067",
+      "name": "Velvet Seas",
+      "category": "Yachting",
+      "style": "Nautical Luxury",
+      "path": "catalog/template_067_yachting_nautical_luxury",
+      "description": "Premium yacht experiences.",
+      "tags": [
+        "Luxury",
+        "Ocean",
+        "Premium"
+      ]
     }
   ]
 }
