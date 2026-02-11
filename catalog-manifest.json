@@ -779,6 +779,19 @@
         "Community",
         "Donation"
       ]
+    },
+    {
+      "id": "061",
+      "name": "Aura Fragrances",
+      "category": "Perfumery",
+      "style": "Ethereal",
+      "path": "catalog/template_061_perfumery_ethereal",
+      "description": "Soft pastels, glass & serifs.",
+      "tags": [
+        "Pastels",
+        "Glassmorphism",
+        "Elegant"
+      ]
     }
   ]
 }
