@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Echo Waves Podcast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#020617', // slate-950
+                            purple: '#8b5cf6',
+                            pink: '#ec4899',
+                            cyan: '#06b6d4',
+                        }
+                    },
+                    animation: {
+                        'sound-wave': 'wave 1s infinite ease-in-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wave: {
+                            '0%, 100%': { height: '20%' },
+                            '50%': { height: '100%' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #ec4899, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bar {
+            width: 6px;
+            background: linear-gradient(to top, #8b5cf6, #ec4899);
+            border-radius: 9999px;
+            animation: wave 1s infinite ease-in-out;
+        }
+        .bar:nth-child(odd) { animation-duration: 0.8s; }
+        .bar:nth-child(2n) { animation-duration: 1.1s; }
+        .bar:nth-child(3n) { animation-duration: 1.3s; }
+        .bar:nth-child(4n) { animation-duration: 0.9s; }
+    </style>
+</head>
+<body class="bg-brand-dark text-white font-sans antialiased overflow-x-hidden selection:bg-brand-purple selection:text-white">
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 transition-all duration-300"
+            x-data="{ scrolled: false }"
+            @scroll.window="scrolled = (window.scrollY > 20)"
+            :class="{ 'bg-brand-dark/90 backdrop-blur-md border-b border-white/5': scrolled, 'bg-transparent': !scrolled }">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="flex items-end gap-[2px] h-8">
+                    <div class="bar h-4"></div>
+                    <div class="bar h-8"></div>
+                    <div class="bar h-6"></div>
+                    <div class="bar h-3"></div>
+                </div>
+                <span class="font-display font-bold text-xl tracking-tight">{{COMPANY_NAME}}</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#episodes" class="text-gray-300 hover:text-white transition-colors">Episodes</a>
+                <a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="#hosts" class="text-gray-300 hover:text-white transition-colors">Hosts</a>
+                <a href="#contact" class="px-6 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-full transition-all duration-300 hover:scale-105">
+                    Subscribe
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white" @click="$dispatch('toggle-menu')">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div x-data="{ open: false }"
+         @toggle-menu.window="open = !open"
+         x-show="open"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-40 bg-brand-dark/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden"
+         x-cloak>
+        <button class="absolute top-6 right-6 text-white/50 hover:text-white" @click="open = false">
+            <i class="fa-solid fa-xmark text-3xl"></i>
+        </button>
+        <a href="#episodes" @click="open = false" class="font-display text-2xl font-medium">Episodes</a>
+        <a href="#about" @click="open = false" class="font-display text-2xl font-medium">About</a>
+        <a href="#hosts" @click="open = false" class="font-display text-2xl font-medium">Hosts</a>
+        <a href="#contact" @click="open = false" class="font-display text-2xl font-medium text-brand-purple">Subscribe</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-1/4 -left-20 w-96 h-96 bg-brand-purple/20 rounded-full blur-[128px]"></div>
+        <div class="absolute bottom-0 -right-20 w-[500px] h-[500px] bg-brand-cyan/10 rounded-full blur-[128px]"></div>
+
+        <div class="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-brand-cyan">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-cyan"></span>
+                    </span>
+                    New Episode Live
+                </div>
+                <h1 class="font-display font-bold text-5xl md:text-7xl leading-tight">
+                    Listen to the <br />
+                    <span class="gradient-text">Future of Tech</span>
+                </h1>
+                <p class="text-lg text-gray-400 max-w-lg leading-relaxed">
+                    Join us as we explore the cutting edge of technology, design, and culture. Deep dives with industry leaders every week.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="px-8 py-4 bg-gradient-to-r from-brand-purple to-brand-pink rounded-full font-bold shadow-lg shadow-brand-purple/25 hover:shadow-brand-purple/40 hover:scale-105 transition-all duration-300 flex items-center gap-3">
+                        <i class="fa-solid fa-play"></i> Listen Now
+                    </button>
+                    <button class="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full font-medium transition-all duration-300 flex items-center gap-3">
+                        <i class="fa-brands fa-spotify text-xl"></i> Spotify
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 pt-4">
+                    <div class="flex -space-x-3">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100" alt="Listener" class="w-10 h-10 rounded-full border-2 border-brand-dark object-cover">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" alt="Listener" class="w-10 h-10 rounded-full border-2 border-brand-dark object-cover">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100" alt="Listener" class="w-10 h-10 rounded-full border-2 border-brand-dark object-cover">
+                        <div class="w-10 h-10 rounded-full border-2 border-brand-dark bg-white/10 flex items-center justify-center text-xs font-bold">+2k</div>
+                    </div>
+                    <span class="text-sm text-gray-400">Monthly Listeners</span>
+                </div>
+            </div>
+
+            <div class="relative hidden md:block">
+                <!-- Visualizer Image Composite -->
+                <div class="relative z-10 animate-float">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-50 z-20"></div>
+                    <img src="https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?auto=format&fit=crop&w=800&q=80" alt="Studio Mic" class="rounded-3xl shadow-2xl border border-white/10 w-full object-cover aspect-[4/5]">
+
+                    <!-- Player Card Overlay -->
+                    <div class="absolute bottom-8 left-8 right-8 glass-card p-6 rounded-2xl z-30 transform translate-y-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="font-display font-bold text-lg">The AI Revolution</h3>
+                                <p class="text-sm text-gray-400">Ep. 42 • 45 min</p>
+                            </div>
+                            <button class="w-12 h-12 rounded-full bg-white text-brand-dark flex items-center justify-center hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-pause"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-end gap-[3px] h-12 justify-center opacity-80">
+                            <!-- Dynamic Bars -->
+                            <script>
+                                for(let i=0; i<30; i++) {
+                                    document.write(`<div class="w-1 bg-white/80 rounded-full" style="height: ${Math.random()*100}%; animation: wave ${0.5 + Math.random()}s infinite ease-in-out"></div>`);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decorative Circle -->
+                <div class="absolute top-10 -right-10 w-32 h-32 border border-brand-pink/30 rounded-full flex items-center justify-center animate-spin-slow">
+                    <div class="w-2 h-2 bg-brand-pink rounded-full absolute -top-1"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Episodes -->
+    <section id="episodes" class="py-24 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <h2 class="font-display font-bold text-4xl mb-4">Latest Episodes</h2>
+                    <p class="text-gray-400">Catch up on our most recent conversations.</p>
+                </div>
+                <a href="#" class="group flex items-center gap-2 text-brand-purple hover:text-white transition-colors">
+                    View Archive <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Episode 1 -->
+                <article class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="Cybersecurity" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-white text-2xl">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 left-4 px-3 py-1 bg-brand-purple text-xs font-bold rounded-full uppercase tracking-wider">Tech</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                            <span><i class="fa-regular fa-calendar mr-2"></i>Oct 24</span>
+                            <span><i class="fa-regular fa-clock mr-2"></i>52 min</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-3 group-hover:text-brand-cyan transition-colors">Cybersecurity in 2024</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            How safe is your data really? We talk to top security experts about the threats looming on the horizon.
+                        </p>
+                        <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                            <button class="flex items-center gap-2 text-sm font-medium hover:text-white transition-colors">
+                                <i class="fa-solid fa-circle-play text-brand-pink"></i> Play Episode
+                            </button>
+                            <button class="text-gray-500 hover:text-white"><i class="fa-solid fa-share-nodes"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Episode 2 -->
+                <article class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Remote Work" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-white text-2xl">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 left-4 px-3 py-1 bg-brand-cyan text-black text-xs font-bold rounded-full uppercase tracking-wider">Work</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                            <span><i class="fa-regular fa-calendar mr-2"></i>Oct 17</span>
+                            <span><i class="fa-regular fa-clock mr-2"></i>48 min</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-3 group-hover:text-brand-cyan transition-colors">The Future of Remote Work</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Is the office dead? We explore the hybrid models that are reshaping corporate culture globally.
+                        </p>
+                        <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                            <button class="flex items-center gap-2 text-sm font-medium hover:text-white transition-colors">
+                                <i class="fa-solid fa-circle-play text-brand-pink"></i> Play Episode
+                            </button>
+                            <button class="text-gray-500 hover:text-white"><i class="fa-solid fa-share-nodes"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Episode 3 -->
+                <article class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" alt="Design Systems" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-white text-2xl">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 left-4 px-3 py-1 bg-brand-pink text-white text-xs font-bold rounded-full uppercase tracking-wider">Design</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                            <span><i class="fa-regular fa-calendar mr-2"></i>Oct 10</span>
+                            <span><i class="fa-regular fa-clock mr-2"></i>60 min</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-3 group-hover:text-brand-cyan transition-colors">Building Scalable Design Systems</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Design systems are more than just component libraries. Learn how to maintain consistency at scale.
+                        </p>
+                        <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                            <button class="flex items-center gap-2 text-sm font-medium hover:text-white transition-colors">
+                                <i class="fa-solid fa-circle-play text-brand-pink"></i> Play Episode
+                            </button>
+                            <button class="text-gray-500 hover:text-white"><i class="fa-solid fa-share-nodes"></i></button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hosts Section -->
+    <section id="hosts" class="py-24 bg-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-display font-bold text-4xl mb-16">Meet the Voices</h2>
+
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <div class="group">
+                    <div class="relative inline-block mb-6">
+                        <div class="absolute inset-0 bg-gradient-to-r from-brand-purple to-brand-cyan rounded-full blur opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" alt="Host 1" class="relative w-48 h-48 rounded-full object-cover border-4 border-brand-dark grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+                    <h3 class="font-display font-bold text-2xl mb-2">Alex Rivera</h3>
+                    <p class="text-brand-purple font-medium mb-4">Tech Journalist</p>
+                    <p class="text-gray-400 text-sm max-w-sm mx-auto mb-6">Former editor at Wired, Alex brings 15 years of insight into the tech world's biggest stories.</p>
+                    <div class="flex justify-center gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <div class="relative inline-block mb-6">
+                        <div class="absolute inset-0 bg-gradient-to-r from-brand-pink to-brand-purple rounded-full blur opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" alt="Host 2" class="relative w-48 h-48 rounded-full object-cover border-4 border-brand-dark grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+                    <h3 class="font-display font-bold text-2xl mb-2">Sarah Chen</h3>
+                    <p class="text-brand-pink font-medium mb-4">Product Designer</p>
+                    <p class="text-gray-400 text-sm max-w-sm mx-auto mb-6">A leading voice in UX design, Sarah explores how technology shapes human behavior.</p>
+                    <div class="flex justify-center gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors"><i class="fa-brands fa-dribbble"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe / Contact -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-purple to-transparent"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="font-display font-bold text-4xl md:text-5xl mb-6">Never Miss a Beat</h2>
+            <p class="text-gray-400 mb-10 text-lg">Join 10,000+ subscribers and get the latest episodes directly to your inbox.</p>
+
+            <form class="max-w-md mx-auto relative mb-16" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Enter your email" class="w-full bg-white/5 border border-white/10 rounded-full py-4 pl-6 pr-32 focus:outline-none focus:border-brand-purple transition-colors text-white placeholder-gray-500">
+                <button type="submit" class="absolute right-2 top-2 bottom-2 bg-brand-purple hover:bg-brand-purple/80 text-white font-medium px-6 rounded-full transition-colors">
+                    Subscribe
+                </button>
+            </form>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+                <a href="#" class="flex items-center justify-center gap-3 p-4 glass-card rounded-xl hover:bg-white/10 transition-colors">
+                    <i class="fa-brands fa-spotify text-2xl text-[#1DB954]"></i>
+                    <span class="font-medium">Spotify</span>
+                </a>
+                <a href="#" class="flex items-center justify-center gap-3 p-4 glass-card rounded-xl hover:bg-white/10 transition-colors">
+                    <i class="fa-solid fa-podcast text-2xl text-[#A855F7]"></i>
+                    <span class="font-medium">Apple</span>
+                </a>
+                <a href="#" class="flex items-center justify-center gap-3 p-4 glass-card rounded-xl hover:bg-white/10 transition-colors">
+                    <i class="fa-brands fa-google text-2xl text-[#EA4335]"></i>
+                    <span class="font-medium">Google</span>
+                </a>
+                <a href="#" class="flex items-center justify-center gap-3 p-4 glass-card rounded-xl hover:bg-white/10 transition-colors">
+                    <i class="fa-brands fa-soundcloud text-2xl text-[#FF5500]"></i>
+                    <span class="font-medium">SoundCloud</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-end gap-[2px] h-6 opacity-50">
+                <div class="bar h-3 bg-white"></div>
+                <div class="bar h-6 bg-white"></div>
+                <div class="bar h-4 bg-white"></div>
+                <div class="bar h-2 bg-white"></div>
+                <span class="ml-2 font-display font-bold text-lg text-white tracking-tight">{{COMPANY_NAME}}</span>
+            </div>
+
+            <div class="text-gray-500 text-sm">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+
+            <div class="flex gap-6">
+                <a href="#" class="text-gray-500 hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

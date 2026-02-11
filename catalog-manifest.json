@@ -753,6 +753,19 @@
         "Gaming",
         "Dark Mode"
       ]
+    },
+    {
+      "id": "059",
+      "name": "Echo Waves",
+      "category": "Podcast",
+      "style": "Sonic",
+      "path": "catalog/template_059_podcast_sonic",
+      "description": "Vibrant audio visual hub",
+      "tags": [
+        "Podcast",
+        "Audio",
+        "Vibrant"
+      ]
     }
   ]
 }
