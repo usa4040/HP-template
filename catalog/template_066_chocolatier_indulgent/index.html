@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Luxury Chocolatier</title>
+    <meta name="description" content="Handcrafted artisan chocolates made from the finest cocoa beans. Experience true indulgence.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chocolate: {
+                            900: '#2B1B17', // Deepest Brown/Black
+                            800: '#3E2723', // Dark Chocolate
+                            700: '#4E342E', // Milk Chocolate
+                            600: '#5D4037', // Lighter Brown
+                        },
+                        gold: {
+                            DEFAULT: '#D4AF37', // Classic Gold
+                            light: '#E5C158',
+                            dark: '#B8962E',
+                        },
+                        cream: {
+                            DEFAULT: '#F5F5DC', // Beige/Cream
+                            light: '#FAF9F6', // Off-white
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1623227771633-827829707248?q=80&w=2070&auto=format&fit=crop')",
+                        'texture': "url('https://www.transparenttextures.com/patterns/dark-leather.png')", // Subtle texture overlay
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .gold-shimmer {
+            background: linear-gradient(45deg, #D4AF37 0%, #FAFAD2 50%, #D4AF37 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-chocolate-900 text-cream font-sans antialiased overflow-x-hidden relative">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolldown: false }"
+         @scroll.window="scrolldown = (window.pageYOffset > 50) ? true : false"
+         :class="{ 'bg-chocolate-900/95 backdrop-blur-md shadow-lg border-b border-gold/20': scrolldown, 'bg-transparent': !scrolldown }"
+         class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-serif text-2xl md:text-3xl text-gold font-bold tracking-wider hover:text-gold-light transition-colors">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="text-cream hover:text-gold px-3 py-2 rounded-md text-sm font-medium tracking-wide uppercase transition-colors">Our Story</a>
+                        <a href="#collection" class="text-cream hover:text-gold px-3 py-2 rounded-md text-sm font-medium tracking-wide uppercase transition-colors">Collection</a>
+                        <a href="#experience" class="text-cream hover:text-gold px-3 py-2 rounded-md text-sm font-medium tracking-wide uppercase transition-colors">Experience</a>
+                        <a href="#visit" class="border border-gold text-gold hover:bg-gold hover:text-chocolate-900 px-6 py-2 rounded-none text-sm font-medium tracking-wide uppercase transition-all duration-300">Visit Us</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="open = !open" type="button" class="bg-chocolate-800 inline-flex items-center justify-center p-2 rounded-md text-gold hover:text-white hover:bg-chocolate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-chocolate-800 focus:ring-gold" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg x-show="!open" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="open" x-cloak class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="md:hidden bg-chocolate-900 border-b border-gold/20" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#about" class="text-cream hover:text-gold block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wide">Our Story</a>
+                <a href="#collection" class="text-cream hover:text-gold block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wide">Collection</a>
+                <a href="#experience" class="text-cream hover:text-gold block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wide">Experience</a>
+                <a href="#visit" class="text-gold border border-gold/50 mx-4 mt-4 block px-3 py-2 rounded-none text-base font-medium uppercase tracking-wide hover:bg-gold hover:text-chocolate-900">Visit Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-chocolate-900/70 via-chocolate-900/50 to-chocolate-900"></div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p x-show="show" x-transition:enter="transition ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" class="text-gold uppercase tracking-[0.3em] text-sm md:text-base mb-4 font-medium">Est. 1924</p>
+            <h1 x-show="show" x-transition:enter="transition ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="font-serif text-5xl md:text-7xl lg:text-8xl text-cream mb-6 leading-tight">
+                Pure <span class="italic text-gold font-light">Indulgence</span>
+            </h1>
+            <p x-show="show" x-transition:enter="transition ease-out duration-1000 delay-700" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" class="text-cream/90 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto">
+                Handcrafted artisan chocolates, created with passion and precision for the discerning palate.
+            </p>
+            <div x-show="show" x-transition:enter="transition ease-out duration-1000 delay-900" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0">
+                <a href="#collection" class="inline-block bg-gold text-chocolate-900 px-8 py-3 text-sm md:text-base font-semibold tracking-widest uppercase hover:bg-gold-light hover:scale-105 transform transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    Explore Collection
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-chocolate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <!-- Text -->
+                <div class="reveal-on-scroll order-2 md:order-1">
+                    <h3 class="text-gold uppercase tracking-widest text-sm font-semibold mb-2">Our Philosophy</h3>
+                    <h2 class="font-serif text-4xl md:text-5xl text-cream mb-6">From Bean to <span class="italic text-gold-light">Bar</span></h2>
+                    <p class="text-cream/80 mb-6 font-light leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe that chocolate is not merely a confection, but an experience. Sourcing the rarest cacao beans from sustainable farms in Ecuador and Madagascar, we meticulously roast, conche, and temper each batch in our atelier.
+                    </p>
+                    <p class="text-cream/80 mb-8 font-light leading-relaxed">
+                        Our master chocolatiers blend time-honored techniques with avant-garde flavors, creating edible masterpieces that awaken the senses and soothe the soul.
+                    </p>
+                    <a href="#experience" class="text-gold border-b border-gold pb-1 hover:text-white hover:border-white transition-all duration-300 uppercase text-sm tracking-wider">Discover Our Process</a>
+                </div>
+
+                <!-- Image -->
+                <div class="reveal-on-scroll order-1 md:order-2 relative group">
+                    <div class="absolute -inset-4 border border-gold/30 rotate-3 group-hover:rotate-0 transition-transform duration-500 z-0"></div>
+                    <div class="relative z-10 overflow-hidden h-96 w-full">
+                        <img src="https://images.unsplash.com/photo-1548691905-57c36cc8d935?q=80&w=2069&auto=format&fit=crop" alt="Chocolatier pouring chocolate" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Grid -->
+    <section id="collection" class="py-24 bg-chocolate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <span class="text-gold uppercase tracking-[0.2em] text-sm">Curated Selection</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-cream mt-3">The Signature <span class="italic text-gold">Collection</span></h2>
+                <div class="w-24 h-px bg-gold mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="group reveal-on-scroll">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-chocolate-900">
+                        <img src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?q=80&w=2070&auto=format&fit=crop" alt="Dark Truffles" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-chocolate-900 via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="font-serif text-2xl text-cream mb-1">Midnight Truffles</h3>
+                            <p class="text-sm text-gold-light mb-3">72% Dark Cocoa • Sea Salt</p>
+                            <span class="text-cream text-lg font-light">$45.00</span>
+                        </div>
+                        <!-- Add to Cart Overlay -->
+                        <div class="absolute inset-0 bg-chocolate-900/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="border border-gold text-gold px-8 py-3 uppercase tracking-widest text-sm hover:bg-gold hover:text-chocolate-900 transition-colors">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-chocolate-900">
+                        <img src="https://images.unsplash.com/photo-1549007953-2f2dc0b2799f?q=80&w=2070&auto=format&fit=crop" alt="Gold Leaf Praline" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-chocolate-900 via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="font-serif text-2xl text-cream mb-1">Golden Praline</h3>
+                            <p class="text-sm text-gold-light mb-3">Hazelnut • 24k Gold Leaf</p>
+                            <span class="text-cream text-lg font-light">$58.00</span>
+                        </div>
+                         <!-- Add to Cart Overlay -->
+                         <div class="absolute inset-0 bg-chocolate-900/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="border border-gold text-gold px-8 py-3 uppercase tracking-widest text-sm hover:bg-gold hover:text-chocolate-900 transition-colors">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-chocolate-900">
+                        <img src="https://images.unsplash.com/photo-1620980776848-85aac7163dc5?q=80&w=2070&auto=format&fit=crop" alt="Assorted Box" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-chocolate-900 via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="font-serif text-2xl text-cream mb-1">The Grand Box</h3>
+                            <p class="text-sm text-gold-light mb-3">Assorted Selection • 24 Pieces</p>
+                            <span class="text-cream text-lg font-light">$85.00</span>
+                        </div>
+                         <!-- Add to Cart Overlay -->
+                         <div class="absolute inset-0 bg-chocolate-900/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="border border-gold text-gold px-8 py-3 uppercase tracking-widest text-sm hover:bg-gold hover:text-chocolate-900 transition-colors">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="#" class="inline-block border-b border-cream text-cream pb-1 hover:text-gold hover:border-gold transition-colors uppercase tracking-widest text-sm">View Full Catalog</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience / Process Parallax -->
+    <section id="experience" class="py-32 relative bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1606312619070-d48b4c652a52?q=80&w=2070&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-chocolate-900/80"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center text-cream">
+            <span class="text-gold uppercase tracking-[0.2em] text-sm font-semibold mb-4 block">The Experience</span>
+            <h2 class="font-serif text-4xl md:text-6xl mb-8">Taste the <span class="italic font-light">Extraordinary</span></h2>
+            <p class="text-lg md:text-xl font-light leading-relaxed mb-10 opacity-90">
+                Every piece is a testament to patience. We invite you to slow down, savor the aroma, listen to the crisp snap, and let the velvety texture unfold on your tongue.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-8 mt-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full border border-gold flex items-center justify-center mb-4 text-gold">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <span class="uppercase tracking-wider text-sm">Global Sourcing</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full border border-gold flex items-center justify-center mb-4 text-gold">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <span class="uppercase tracking-wider text-sm">Master Alchemy</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full border border-gold flex items-center justify-center mb-4 text-gold">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <span class="uppercase tracking-wider text-sm">Artisan Finish</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visit / Contact -->
+    <section id="visit" class="py-24 bg-chocolate-900 text-center">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="font-serif text-4xl text-cream mb-8">Visit Our Atelier</h2>
+            <div class="bg-chocolate-800 p-8 md:p-12 border border-gold/20 shadow-2xl relative">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+                <address class="not-italic text-cream/80 mb-8 font-light leading-loose">
+                    <p class="text-xl mb-4">{{COMPANY_NAME}} Boutique</p>
+                    <p>{{ADDRESS}}</p>
+                    <p>New York, NY 10012</p>
+                </address>
+
+                <div class="space-y-2 mb-8 text-gold">
+                    <p class="tracking-wide">{{PHONE}}</p>
+                    <p class="tracking-wide">{{EMAIL}}</p>
+                </div>
+
+                <div class="border-t border-chocolate-700 pt-8 mt-8">
+                    <h4 class="text-sm uppercase tracking-widest text-gold mb-4">Opening Hours</h4>
+                    <p class="text-cream/70 text-sm">Mon - Sat: 10:00 AM - 8:00 PM</p>
+                    <p class="text-cream/70 text-sm">Sunday: 11:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-cream/60 py-12 border-t border-chocolate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <span class="font-serif text-2xl text-gold mb-4 block">{{COMPANY_NAME}}</span>
+                <p class="max-w-xs text-sm leading-relaxed">Crafting moments of pure joy through the art of chocolate making since 1924.</p>
+            </div>
+            <div>
+                <h4 class="text-gold uppercase tracking-widest text-xs mb-4">Explore</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#about" class="hover:text-gold transition-colors">Our Story</a></li>
+                    <li><a href="#collection" class="hover:text-gold transition-colors">Shop</a></li>
+                    <li><a href="#experience" class="hover:text-gold transition-colors">Events</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Corporate Gifts</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-gold uppercase tracking-widest text-xs mb-4">Legal</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-gold transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Shipping & Returns</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-chocolate-800 text-center text-xs">
+            <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
