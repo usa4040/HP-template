@@ -831,6 +831,19 @@
         "Artistic",
         "Dark"
       ]
+    },
+    {
+      "id": "065",
+      "name": "Slice & Hearth",
+      "category": "Pizzeria",
+      "style": "Rustic Italian",
+      "path": "catalog/template_065_pizzeria_rustic",
+      "description": "Authentic Italian rustic charm",
+      "tags": [
+        "Italian",
+        "Warm",
+        "Rustic"
+      ]
     }
   ]
 }
