@@ -766,6 +766,19 @@
         "Audio",
         "Vibrant"
       ]
+    },
+    {
+      "id": "060",
+      "name": "Hope Foundation",
+      "category": "Non-Profit",
+      "style": "Humanitarian",
+      "path": "catalog/template_060_non_profit_humanitarian",
+      "description": "Warm, emotional storytelling.",
+      "tags": [
+        "Charity",
+        "Community",
+        "Donation"
+      ]
     }
   ]
 }
