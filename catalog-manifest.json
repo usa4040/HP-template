@@ -727,6 +727,19 @@
         "Diverse",
         "Clean"
       ]
+    },
+    {
+      "id": "057",
+      "name": "The Midnight Blue",
+      "category": "Music Venue",
+      "style": "Noir",
+      "path": "catalog/template_057_music_venue_noir",
+      "description": "Elegant noir jazz club theme.",
+      "tags": [
+        "Jazz",
+        "Elegant",
+        "Dark"
+      ]
     }
   ]
 }

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | The Sound of the City</title>
+    <meta name="description" content="Experience the finest jazz and cocktails in an intimate, noir-inspired setting.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'noir-dark': '#0f172a',
+                        'noir-black': '#020617',
+                        'noir-gold': '#d4af37',
+                        'noir-gold-light': '#f3e5ab',
+                        'noir-red': '#7f1d1d',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1511192336575-5a79af67a629?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')",
+                        'texture': "url('https://www.transparenttextures.com/patterns/stardust.png')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .gold-gradient {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-noir-black text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-noir-gold selection:text-noir-black">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolldown: false }"
+         @scroll.window="scrolldown = (window.scrollY > 50)"
+         :class="{ 'bg-noir-black/95 backdrop-blur-md shadow-lg border-b border-white/10': scrolldown, 'bg-transparent': !scrolldown }"
+         class="fixed w-full z-50 transition-all duration-300 top-0 left-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-serif text-2xl font-bold tracking-widest text-noir-gold hover:text-white transition-colors duration-300">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-noir-gold px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Home</a>
+                        <a href="#about" class="hover:text-noir-gold px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">The Experience</a>
+                        <a href="#lineup" class="hover:text-noir-gold px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Lineup</a>
+                        <a href="#menu" class="hover:text-noir-gold px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Cocktails</a>
+                        <a href="#contact" class="bg-noir-gold text-noir-black hover:bg-white px-5 py-2 rounded-none text-sm font-bold transition-all uppercase tracking-widest hover:shadow-[0_0_15px_rgba(212,175,55,0.5)]">Reservations</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="open = !open" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-collapse class="md:hidden bg-noir-dark border-b border-white/10" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#home" @click="open = false" class="text-gray-300 hover:text-noir-gold block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wider">Home</a>
+                <a href="#about" @click="open = false" class="text-gray-300 hover:text-noir-gold block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wider">The Experience</a>
+                <a href="#lineup" @click="open = false" class="text-gray-300 hover:text-noir-gold block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wider">Lineup</a>
+                <a href="#menu" @click="open = false" class="text-gray-300 hover:text-noir-gold block px-3 py-2 rounded-md text-base font-medium uppercase tracking-wider">Cocktails</a>
+                <a href="#contact" @click="open = false" class="text-noir-gold font-bold block px-3 py-2 rounded-md text-base uppercase tracking-wider">Reservations</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <p class="text-noir-gold font-sans uppercase tracking-[0.3em] mb-4 text-sm md:text-base animate-pulse">Est. 1924</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight text-shadow">
+                <span class="block">The Night</span>
+                <span class="block italic text-noir-gold font-light">Comes Alive</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
+                Step into a world of timeless elegance, soulful rhythms, and artisanal spirits. Welcome to {{COMPANY_NAME}}.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#lineup" class="px-8 py-3 border border-noir-gold text-noir-gold hover:bg-noir-gold hover:text-noir-black transition-all duration-300 uppercase tracking-widest text-sm font-semibold">
+                    View Lineup
+                </a>
+                <a href="#contact" class="px-8 py-3 bg-noir-red text-white hover:bg-red-800 transition-all duration-300 uppercase tracking-widest text-sm font-semibold shadow-lg hover:shadow-red-900/50">
+                    Book a Table
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-white/50 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-noir-black relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-noir-gold/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-900/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1 relative group">
+                    <div class="absolute -inset-4 bg-noir-gold/20 transform rotate-2 transition-transform duration-500 group-hover:rotate-1"></div>
+                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16549766b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cocktail close-up" class="relative shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 w-full object-cover h-[500px]">
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-noir-gold text-sm font-bold uppercase tracking-[0.2em] mb-3">Our Philosophy</h2>
+                    <h3 class="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">Where Every Note Tells a Story</h3>
+                    <div class="w-20 h-1 bg-noir-gold mb-8"></div>
+                    <p class="text-gray-400 leading-loose mb-6 font-light text-lg">
+                        At {{COMPANY_NAME}}, we believe that jazz is more than just music—it's an atmosphere, a feeling, a conversation without words. Nestled in the heart of the city, our sanctuary offers an escape from the mundane.
+                    </p>
+                    <p class="text-gray-400 leading-loose mb-8 font-light text-lg">
+                        Whether you're here for the world-class musicians gracing our stage or the meticulously crafted cocktails poured by our expert mixologists, you're part of a tradition that celebrates the finer things in life.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <span class="block text-3xl font-serif text-white mb-1">50+</span>
+                            <span class="text-sm text-noir-gold uppercase tracking-wider">Years of Jazz</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-serif text-white mb-1">200+</span>
+                            <span class="text-sm text-noir-gold uppercase tracking-wider">Premium Spirits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lineup Section -->
+    <section id="lineup" class="py-24 bg-noir-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-noir-gold text-sm font-bold uppercase tracking-[0.2em] mb-3">On Stage</h2>
+                <h3 class="text-4xl md:text-5xl font-serif text-white mb-4">Upcoming Performances</h3>
+                <p class="text-gray-400 font-light max-w-2xl mx-auto">Experience live performances from local legends and international stars.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative overflow-hidden bg-noir-black border border-white/5 hover:border-noir-gold/30 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Jazz Trio" class="object-cover w-full h-64 transform group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-8 relative">
+                        <div class="absolute top-0 right-0 bg-noir-gold text-noir-black px-4 py-1 text-xs font-bold uppercase tracking-wider transform translate-x-2 -translate-y-1/2">Tonight</div>
+                        <h4 class="text-xl font-serif text-white mb-2 group-hover:text-noir-gold transition-colors">The Miles Quartet</h4>
+                        <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest">Modern Jazz Fusion</p>
+                        <div class="flex justify-between items-center text-sm text-gray-500 border-t border-white/10 pt-4">
+                            <span>9:00 PM</span>
+                            <span>$25 Cover</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative overflow-hidden bg-noir-black border border-white/5 hover:border-noir-gold/30 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Singer" class="object-cover w-full h-64 transform group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-xl font-serif text-white mb-2 group-hover:text-noir-gold transition-colors">Sarah Vance</h4>
+                        <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest">Soul & Blues Night</p>
+                        <div class="flex justify-between items-center text-sm text-gray-500 border-t border-white/10 pt-4">
+                            <span>Tomorrow, 8:30 PM</span>
+                            <span>$30 Cover</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative overflow-hidden bg-noir-black border border-white/5 hover:border-noir-gold/30 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Saxophonist" class="object-cover w-full h-64 transform group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-xl font-serif text-white mb-2 group-hover:text-noir-gold transition-colors">Blue Note Legacy</h4>
+                        <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest">Classic Bebop</p>
+                        <div class="flex justify-between items-center text-sm text-gray-500 border-t border-white/10 pt-4">
+                            <span>Fri, Nov 24</span>
+                            <span>$35 Cover</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block border-b border-noir-gold text-noir-gold pb-1 hover:text-white hover:border-white transition-colors uppercase tracking-widest text-sm">View Full Calendar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 bg-noir-black relative bg-fixed" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-noir-gold text-sm font-bold uppercase tracking-[0.2em] mb-3">Libations</h2>
+                <h3 class="text-4xl md:text-5xl font-serif text-white mb-4">Signature Cocktails</h3>
+                <div class="w-24 h-px bg-white/20 mx-auto mt-6"></div>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Item 1 -->
+                <div class="flex justify-between items-baseline group cursor-default">
+                    <div class="flex-1">
+                        <h4 class="text-xl font-serif text-white group-hover:text-noir-gold transition-colors">The Midnight Manhattan</h4>
+                        <p class="text-sm text-gray-500 mt-1 font-light italic">Rye whiskey, sweet vermouth, angostura bitters, brandied cherry</p>
+                    </div>
+                    <div class="ml-4 flex items-center">
+                        <span class="h-px w-24 bg-white/10 mx-4 hidden sm:block"></span>
+                        <span class="text-noir-gold font-serif text-xl">$18</span>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex justify-between items-baseline group cursor-default">
+                    <div class="flex-1">
+                        <h4 class="text-xl font-serif text-white group-hover:text-noir-gold transition-colors">Velvet Saxophone</h4>
+                        <p class="text-sm text-gray-500 mt-1 font-light italic">Gin, creme de violette, lemon, maraschino liqueur</p>
+                    </div>
+                    <div class="ml-4 flex items-center">
+                        <span class="h-px w-24 bg-white/10 mx-4 hidden sm:block"></span>
+                        <span class="text-noir-gold font-serif text-xl">$16</span>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="flex justify-between items-baseline group cursor-default">
+                    <div class="flex-1">
+                        <h4 class="text-xl font-serif text-white group-hover:text-noir-gold transition-colors">Smoked Old Fashioned</h4>
+                        <p class="text-sm text-gray-500 mt-1 font-light italic">Bourbon, maple syrup, orange bitters, hickory smoke</p>
+                    </div>
+                    <div class="ml-4 flex items-center">
+                        <span class="h-px w-24 bg-white/10 mx-4 hidden sm:block"></span>
+                        <span class="text-noir-gold font-serif text-xl">$20</span>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="flex justify-between items-baseline group cursor-default">
+                    <div class="flex-1">
+                        <h4 class="text-xl font-serif text-white group-hover:text-noir-gold transition-colors">Lady Day</h4>
+                        <p class="text-sm text-gray-500 mt-1 font-light italic">Vodka, elderflower, cucumber, lime, prosecco float</p>
+                    </div>
+                    <div class="ml-4 flex items-center">
+                        <span class="h-px w-24 bg-white/10 mx-4 hidden sm:block"></span>
+                        <span class="text-noir-gold font-serif text-xl">$17</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 p-8 border border-noir-gold/20 text-center bg-noir-dark/50 backdrop-blur-sm">
+                <p class="font-serif text-xl text-white mb-2">Private Lounge Access</p>
+                <p class="text-sm text-gray-400 font-light mb-4">Exclusive bottle service available for members.</p>
+                <a href="#contact" class="text-noir-gold text-xs uppercase tracking-widest hover:text-white transition-colors">Inquire for details</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation/Contact Section -->
+    <section id="contact" class="py-24 bg-noir-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Info -->
+                <div>
+                    <h2 class="text-noir-gold text-sm font-bold uppercase tracking-[0.2em] mb-3">Reservations</h2>
+                    <h3 class="text-4xl md:text-5xl font-serif text-white mb-8">Secure Your Table</h3>
+                    <p class="text-gray-400 mb-8 font-light leading-relaxed">
+                        Due to our intimate setting, reservations are highly recommended, especially on performance nights. We look forward to welcoming you.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-noir-gold mt-1">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-serif text-lg mb-1">Location</h4>
+                                <p class="text-gray-400 font-light">123 Jazz Avenue, Downtown District<br>New York, NY 10012</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="text-noir-gold mt-1">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-serif text-lg mb-1">Hours</h4>
+                                <p class="text-gray-400 font-light">Tue - Thu: 6:00 PM - 1:00 AM<br>Fri - Sat: 6:00 PM - 3:00 AM<br>Sun: 5:00 PM - 12:00 AM</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="text-noir-gold mt-1">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-serif text-lg mb-1">Contact</h4>
+                                <p class="text-gray-400 font-light">(555) 123-4567<br>bookings@{{COMPANY_NAME}}.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-noir-black p-8 border border-white/10">
+                    <form action="#" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Name</label>
+                                <input type="text" id="name" class="w-full bg-noir-dark border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-noir-gold transition-colors placeholder-gray-600" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Email</label>
+                                <input type="email" id="email" class="w-full bg-noir-dark border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-noir-gold transition-colors placeholder-gray-600" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="date" class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Date</label>
+                                <input type="date" id="date" class="w-full bg-noir-dark border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-noir-gold transition-colors text-gray-400">
+                            </div>
+                            <div>
+                                <label for="guests" class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Guests</label>
+                                <select id="guests" class="w-full bg-noir-dark border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-noir-gold transition-colors">
+                                    <option>2 People</option>
+                                    <option>3 People</option>
+                                    <option>4 People</option>
+                                    <option>5+ People</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Special Requests</label>
+                            <textarea id="message" rows="4" class="w-full bg-noir-dark border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-noir-gold transition-colors placeholder-gray-600"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-noir-gold text-noir-black hover:bg-white px-8 py-4 uppercase tracking-widest text-sm font-bold transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                            Confirm Reservation
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-serif text-2xl font-bold text-white tracking-widest">{{COMPANY_NAME}}</span>
+            </div>
+            <div class="text-gray-500 text-sm font-light">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="text-gray-500 hover:text-noir-gold transition-colors"><span class="sr-only">Instagram</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.047-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.067-.06-1.407-.06-4.123v-.08c0-2.643.012-2.987.06-4.043.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.407-.06 4.123-.06h.08zm1.472 5.333c0 2.86 2.318 5.178 5.178 5.178 2.86 0 5.178-2.318 5.178-5.178 0-2.86-2.318-5.178-5.178-5.178-2.86 0-5.178 2.318-5.178 5.178zm5.178-3.267c1.806 0 3.267 1.46 3.267 3.267 0 1.806-1.46 3.267-3.267 3.267-1.806 0-3.267-1.46-3.267-3.267 0-1.806 1.46-3.267 3.267-3.267zM16.418 5.418c.527 0 .955.428.955.955 0 .527-.428.955-.955.955-.527 0-.955-.428-.955-.955 0-.527.428-.955.955-.955z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-noir-gold transition-colors"><span class="sr-only">Facebook</span>
+                   <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
