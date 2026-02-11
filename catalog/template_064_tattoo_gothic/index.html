@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Premium Tattoo Studio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'gothic': ['"UnifrakturMaguntia"', 'cursive'],
+                        'sans': ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        crimson: {
+                            DEFAULT: '#8a0000',
+                            light: '#b30000',
+                            dark: '#660000',
+                        },
+                        charcoal: '#121212',
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(18,18,18,0.3), rgba(18,18,18,1)), url('https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js Core -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(138, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-charcoal text-neutral-300 font-sans antialiased selection:bg-crimson selection:text-white">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.scrollY > 50)"
+         :class="{'bg-charcoal/90 backdrop-blur-md border-b border-neutral-800': scrolled, 'bg-transparent': !scrolled}"
+         class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-gothic text-3xl text-white tracking-wider hover:text-crimson transition-colors">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="hover:text-crimson transition-colors px-3 py-2 text-sm uppercase tracking-widest font-semibold">Studio</a>
+                        <a href="#artists" class="hover:text-crimson transition-colors px-3 py-2 text-sm uppercase tracking-widest font-semibold">Artists</a>
+                        <a href="#portfolio" class="hover:text-crimson transition-colors px-3 py-2 text-sm uppercase tracking-widest font-semibold">Work</a>
+                        <a href="#faq" class="hover:text-crimson transition-colors px-3 py-2 text-sm uppercase tracking-widest font-semibold">FAQ</a>
+                        <a href="#contact" class="bg-crimson hover:bg-crimson-light text-white px-6 py-2 rounded-none transition-colors text-sm uppercase tracking-widest font-semibold">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button @click="open = !open" class="text-neutral-400 hover:text-white focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path x-show="open" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-neutral-900 border-b border-neutral-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#about" @click="open = false" class="block hover:bg-neutral-800 px-3 py-4 text-base font-medium text-white border-b border-neutral-800">Studio</a>
+                <a href="#artists" @click="open = false" class="block hover:bg-neutral-800 px-3 py-4 text-base font-medium text-white border-b border-neutral-800">Artists</a>
+                <a href="#portfolio" @click="open = false" class="block hover:bg-neutral-800 px-3 py-4 text-base font-medium text-white border-b border-neutral-800">Work</a>
+                <a href="#faq" @click="open = false" class="block hover:bg-neutral-800 px-3 py-4 text-base font-medium text-white border-b border-neutral-800">FAQ</a>
+                <a href="#contact" @click="open = false" class="block text-crimson font-bold px-3 py-4 text-base border-b border-neutral-800">Book Appointment</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen bg-hero-pattern bg-cover bg-center bg-fixed flex items-center justify-center">
+        <div class="text-center px-4 max-w-4xl mx-auto">
+            <h1 class="font-gothic text-6xl md:text-8xl lg:text-9xl text-white mb-6 text-glow tracking-wide animate-fade-in-up">
+                INK & SOUL
+            </h1>
+            <p class="text-lg md:text-xl text-neutral-300 font-light tracking-[0.2em] uppercase mb-12 max-w-2xl mx-auto">
+                Where artistry meets skin. Permanence with purpose.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#portfolio" class="border border-white hover:bg-white hover:text-black text-white px-8 py-3 uppercase tracking-widest text-sm transition-all duration-300">
+                    View Portfolio
+                </a>
+                <a href="#contact" class="bg-crimson hover:bg-crimson-light text-white px-8 py-3 uppercase tracking-widest text-sm transition-all duration-300 border border-crimson">
+                    Book Session
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-charcoal relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-neutral-900 to-transparent opacity-50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-crimson"></div>
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                         alt="Tattoo Artist Working"
+                         class="w-full h-[500px] object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-crimson"></div>
+                </div>
+                <div>
+                    <h2 class="font-gothic text-5xl text-white mb-8">The Art of Ritual</h2>
+                    <p class="text-neutral-400 mb-6 leading-relaxed text-lg font-light">
+                        At {{COMPANY_NAME}}, we believe a tattoo is more than ink in skin—it is a ritual of transformation. Founded on the principles of immaculate hygiene and uncompromising artistry, our studio is a sanctuary for self-expression.
+                    </p>
+                    <p class="text-neutral-400 mb-10 leading-relaxed text-lg font-light">
+                        Our artists specialize in diverse styles, from hyper-realism to traditional Japanese, blackwork to fine line. We don't just copy designs; we create custom pieces that resonate with your personal journey.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8 text-center border-t border-neutral-800 pt-8">
+                        <div>
+                            <span class="block text-4xl font-gothic text-crimson mb-2">10+</span>
+                            <span class="text-xs uppercase tracking-widest text-neutral-500">Years Experience</span>
+                        </div>
+                        <div>
+                            <span class="block text-4xl font-gothic text-crimson mb-2">100%</span>
+                            <span class="text-xs uppercase tracking-widest text-neutral-500">Sterile Environment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artists Section -->
+    <section id="artists" class="py-24 bg-neutral-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-gothic text-5xl text-white mb-4">Our Residents</h2>
+                <div class="w-24 h-1 bg-crimson mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Artist 1 -->
+                <div class="group relative overflow-hidden bg-charcoal border border-neutral-800 hover:border-crimson transition-colors duration-300">
+                    <div class="aspect-w-3 aspect-h-4 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             alt="Artist"
+                             class="w-full h-96 object-cover grayscale group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-90"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-6">
+                        <h3 class="font-gothic text-2xl text-white mb-1">Elena Vox</h3>
+                        <p class="text-crimson text-sm uppercase tracking-widest font-semibold mb-4">Realism & Portraits</p>
+                        <p class="text-neutral-400 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                            Specializing in photo-realistic portraiture and dark surrealism.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Artist 2 -->
+                <div class="group relative overflow-hidden bg-charcoal border border-neutral-800 hover:border-crimson transition-colors duration-300">
+                    <div class="aspect-w-3 aspect-h-4 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             alt="Artist"
+                             class="w-full h-96 object-cover grayscale group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-90"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-6">
+                        <h3 class="font-gothic text-2xl text-white mb-1">Marcus Steel</h3>
+                        <p class="text-crimson text-sm uppercase tracking-widest font-semibold mb-4">Blackwork & Geometric</p>
+                        <p class="text-neutral-400 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                            Master of sacred geometry, dotwork, and heavy black placement.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Artist 3 -->
+                <div class="group relative overflow-hidden bg-charcoal border border-neutral-800 hover:border-crimson transition-colors duration-300">
+                    <div class="aspect-w-3 aspect-h-4 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             alt="Artist"
+                             class="w-full h-96 object-cover grayscale group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-90"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-6">
+                        <h3 class="font-gothic text-2xl text-white mb-1">Kai Jin</h3>
+                        <p class="text-crimson text-sm uppercase tracking-widest font-semibold mb-4">Neo-Traditional</p>
+                        <p class="text-neutral-400 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                            Blending traditional motifs with modern color palettes and bold lines.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section id="portfolio" class="py-24 bg-charcoal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="font-gothic text-5xl text-white mb-2">Selected Works</h2>
+                    <p class="text-neutral-400">A curation of our recent masterpieces.</p>
+                </div>
+                <a href="#" class="text-crimson hover:text-white transition-colors uppercase tracking-widest text-sm font-semibold mt-4 md:mt-0 flex items-center gap-2">
+                    View Instagram
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[200px]">
+                <!-- Item 1 (Large) -->
+                <div class="md:col-span-2 md:row-span-2 group relative overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1611593352281-1f61f9070408?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-gothic text-2xl tracking-wider">Full Back Piece</span>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="group relative overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1590246294305-5512711658d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+                <!-- Item 3 -->
+                <div class="group relative overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1562962230-16bc9b3dd7cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+                <!-- Item 4 (Tall) -->
+                <div class="md:row-span-2 group relative overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1550537687-c913572886c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+                <!-- Item 5 -->
+                <div class="group relative overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-neutral-900">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-gothic text-5xl text-white mb-12 text-center">Common Queries</h2>
+
+            <div class="space-y-4" x-data="{ active: null }">
+                <!-- Item 1 -->
+                <div class="border border-neutral-800 bg-charcoal">
+                    <button @click="active = active === 1 ? null : 1" class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none">
+                        <span class="text-lg font-medium text-white">How do I book an appointment?</span>
+                        <span class="text-crimson text-2xl" x-text="active === 1 ? '−' : '+'"></span>
+                    </button>
+                    <div x-show="active === 1" x-collapse x-cloak class="px-6 pb-6 text-neutral-400 font-light">
+                        We operate primarily by appointment. Fill out the contact form below with your idea, placement, and size reference. Our artists will review your request and get back to you within 48 hours to schedule a consultation.
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="border border-neutral-800 bg-charcoal">
+                    <button @click="active = active === 2 ? null : 2" class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none">
+                        <span class="text-lg font-medium text-white">Is a deposit required?</span>
+                        <span class="text-crimson text-2xl" x-text="active === 2 ? '−' : '+'"></span>
+                    </button>
+                    <div x-show="active === 2" x-collapse x-cloak class="px-6 pb-6 text-neutral-400 font-light">
+                        Yes, a non-refundable deposit is required to secure your booking. This amount will be deducted from the final price of your tattoo.
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="border border-neutral-800 bg-charcoal">
+                    <button @click="active = active === 3 ? null : 3" class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none">
+                        <span class="text-lg font-medium text-white">Do you take walk-ins?</span>
+                        <span class="text-crimson text-2xl" x-text="active === 3 ? '−' : '+'"></span>
+                    </button>
+                    <div x-show="active === 3" x-collapse x-cloak class="px-6 pb-6 text-neutral-400 font-light">
+                        Walk-ins are subject to artist availability and are generally for smaller, flash pieces only. We recommend checking our Instagram stories for daily availability updates.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-charcoal relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-neutral-900 p-8 md:p-12 border border-neutral-800 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="font-gothic text-4xl text-white mb-4">Start Your Journey</h2>
+                    <p class="text-neutral-400">Tell us about your vision.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-neutral-500 mb-2">Name</label>
+                            <input type="text" class="w-full bg-charcoal border border-neutral-700 text-white px-4 py-3 focus:border-crimson focus:outline-none transition-colors" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-neutral-500 mb-2">Email</label>
+                            <input type="email" class="w-full bg-charcoal border border-neutral-700 text-white px-4 py-3 focus:border-crimson focus:outline-none transition-colors" placeholder="email@example.com">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-neutral-500 mb-2">Artist Preference</label>
+                        <select class="w-full bg-charcoal border border-neutral-700 text-neutral-400 px-4 py-3 focus:border-crimson focus:outline-none transition-colors">
+                            <option>No Preference</option>
+                            <option>Elena Vox</option>
+                            <option>Marcus Steel</option>
+                            <option>Kai Jin</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-neutral-500 mb-2">Description</label>
+                        <textarea rows="4" class="w-full bg-charcoal border border-neutral-700 text-white px-4 py-3 focus:border-crimson focus:outline-none transition-colors" placeholder="Describe your idea, placement, and size..."></textarea>
+                    </div>
+
+                    <button type="button" class="w-full bg-crimson hover:bg-crimson-light text-white font-bold py-4 uppercase tracking-widest transition-colors">
+                        Submit Request
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-neutral-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <a href="#" class="font-gothic text-2xl text-white tracking-wider">{{COMPANY_NAME}}</a>
+                <p class="text-neutral-500 text-sm mt-2">123 Dark Avenue, Arts District, City</p>
+            </div>
+
+            <div class="flex space-x-6">
+                <a href="#" class="text-neutral-500 hover:text-crimson transition-colors">Instagram</a>
+                <a href="#" class="text-neutral-500 hover:text-crimson transition-colors">Facebook</a>
+                <a href="#" class="text-neutral-500 hover:text-crimson transition-colors">Twitter</a>
+            </div>
+
+            <div class="text-neutral-600 text-sm">
+                &copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

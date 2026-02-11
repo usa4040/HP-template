@@ -818,6 +818,19 @@
         "Bold",
         "Grayscale"
       ]
+    },
+    {
+      "id": "064",
+      "name": "Ink & Soul",
+      "category": "Tattoo Studio",
+      "style": "Gothic Minimal",
+      "path": "catalog/template_064_tattoo_gothic",
+      "description": "Minimal dark gothic theme.",
+      "tags": [
+        "Gothic",
+        "Artistic",
+        "Dark"
+      ]
     }
   ]
 }
