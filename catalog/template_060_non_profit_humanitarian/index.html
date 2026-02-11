@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Bringing Hope to Communities</title>
+    <meta name="description" content="Join us in making a difference. {{COMPANY_NAME}} is dedicated to humanitarian aid and community development.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', // Amber Primary
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        },
+                        sky: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-600 font-sans antialiased selection:bg-brand-200 selection:text-brand-900">
+
+    <!-- Navigation -->
+    <header x-data="{ mobileMenuOpen: false, scrolled: false }"
+            @scroll.window="scrolled = (window.scrollY > 20)"
+            :class="{ 'bg-white shadow-md py-2': scrolled, 'bg-transparent py-4': !scrolled }"
+            class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-500 flex items-center justify-center text-white shadow-lg">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </div>
+                    <span :class="{ 'text-slate-800': scrolled, 'text-white': !scrolled }" class="font-serif font-bold text-xl tracking-tight transition-colors duration-300">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#mission" :class="{ 'text-slate-600 hover:text-brand-600': scrolled, 'text-white/90 hover:text-white': !scrolled }" class="font-medium transition duration-300">Our Mission</a>
+                    <a href="#campaigns" :class="{ 'text-slate-600 hover:text-brand-600': scrolled, 'text-white/90 hover:text-white': !scrolled }" class="font-medium transition duration-300">Campaigns</a>
+                    <a href="#stories" :class="{ 'text-slate-600 hover:text-brand-600': scrolled, 'text-white/90 hover:text-white': !scrolled }" class="font-medium transition duration-300">Stories</a>
+                    <a href="#contact" :class="{ 'text-slate-600 hover:text-brand-600': scrolled, 'text-white/90 hover:text-white': !scrolled }" class="font-medium transition duration-300">Contact</a>
+                </nav>
+
+                <!-- CTA -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#donate" class="bg-brand-500 hover:bg-brand-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-0.5">
+                        Donate Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" :class="{ 'text-slate-800': scrolled, 'text-white': !scrolled }" class="focus:outline-none transition-colors duration-300">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-cloak
+             @click.away="mobileMenuOpen = false"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="md:hidden bg-white border-t border-slate-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#mission" class="block px-3 py-3 text-base font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg">Our Mission</a>
+                <a href="#campaigns" class="block px-3 py-3 text-base font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg">Campaigns</a>
+                <a href="#stories" class="block px-3 py-3 text-base font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg">Stories</a>
+                <a href="#contact" class="block px-3 py-3 text-base font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg">Contact</a>
+                <div class="pt-4 border-t border-slate-100 mt-2">
+                    <a href="#donate" class="block w-full text-center bg-brand-500 text-white px-5 py-3 rounded-lg font-bold shadow-md">Donate Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1920&q=80" alt="Happy children smiling" class="w-full h-full object-cover object-center">
+            <div class="absolute inset-0 bg-slate-900/40 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-slate-900/30"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-500/90 text-white text-sm font-semibold tracking-wider uppercase mb-6 backdrop-blur-sm shadow-lg">Humanity First</span>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                Bring Hope to <br/> Those Who Need It Most
+            </h1>
+            <p class="text-lg md:text-xl text-slate-100 mb-10 max-w-2xl mx-auto font-light leading-relaxed drop-shadow-md">
+                Together, we can build a world where every child has access to education, clean water, and a safe home. Your support changes lives.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#donate" class="px-8 py-4 bg-brand-500 text-white font-bold rounded-full text-lg shadow-xl shadow-brand-500/40 hover:bg-brand-600 transition transform hover:-translate-y-1">
+                    Make a Donation
+                </a>
+                <a href="#mission" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold rounded-full text-lg hover:bg-white/20 transition">
+                    Our Mission
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-white/70">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Impact Stats -->
+    <section class="py-16 bg-white relative -mt-16 z-20 max-w-6xl mx-auto rounded-xl shadow-xl mx-4 lg:mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-100 px-8">
+            <div class="p-4">
+                <div class="text-5xl font-serif font-bold text-brand-500 mb-2">10k+</div>
+                <div class="text-slate-500 font-medium uppercase tracking-wide text-sm">Families Supported</div>
+            </div>
+            <div class="p-4">
+                <div class="text-5xl font-serif font-bold text-sky-500 mb-2">5M</div>
+                <div class="text-slate-500 font-medium uppercase tracking-wide text-sm">Meals Served</div>
+            </div>
+            <div class="p-4">
+                <div class="text-5xl font-serif font-bold text-brand-600 mb-2">25</div>
+                <div class="text-slate-500 font-medium uppercase tracking-wide text-sm">Communities Built</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="py-24 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-brand-200 rounded-full z-0 opacity-50"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-sky-200 rounded-full z-0 opacity-50"></div>
+                    <img src="https://images.unsplash.com/photo-1593113598340-0687191ea686?auto=format&fit=crop&w=800&q=80" alt="Volunteers helping" class="relative z-10 rounded-2xl shadow-2xl w-full object-cover h-[500px]">
+                    <div class="absolute bottom-8 right-8 z-20 bg-white p-6 rounded-xl shadow-lg max-w-xs hidden md:block">
+                        <p class="font-serif italic text-slate-600 text-sm">"The smallest act of kindness is worth more than the grandest intention."</p>
+                        <p class="text-brand-600 font-bold text-xs mt-2 uppercase">- Kahlil Gibran</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-brand-600 font-bold tracking-wider uppercase text-sm">About Us</span>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-900 mt-2 mb-6 leading-tight">Empowering Communities Through Direct Action</h2>
+                    <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe in the power of community. Founded in 2010, our mission has been simple: provide immediate relief and long-term sustainable solutions to vulnerable populations worldwide.
+                    </p>
+                    <p class="text-slate-600 text-lg mb-8 leading-relaxed">
+                        We work directly with local leaders to ensure that 100% of public donations go straight to the field. Transparency and impact are at the core of everything we do.
+                    </p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 mt-1">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            <span class="ml-3 text-slate-700 font-medium">Crisis Response & Emergency Aid</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 mt-1">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            <span class="ml-3 text-slate-700 font-medium">Education & Skill Development</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 mt-1">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            <span class="ml-3 text-slate-700 font-medium">Sustainable Infrastructure Projects</span>
+                        </li>
+                    </ul>
+
+                    <a href="#contact" class="text-brand-600 font-bold hover:text-brand-700 inline-flex items-center group transition">
+                        Learn more about our impact
+                        <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Campaigns Section -->
+    <section id="campaigns" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sky-600 font-bold tracking-wider uppercase text-sm">Current Campaigns</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-900 mt-2 mb-4">Urgent Causes Needing Your Help</h2>
+                <p class="text-slate-500 text-lg">Your contribution today can change the course of a life tomorrow. Choose a cause that speaks to your heart.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 hover:shadow-xl transition duration-300 flex flex-col h-full">
+                    <div class="relative h-48 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=800&q=80" alt="Clean Water" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-brand-600 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wide">Matching Gift</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-serif font-bold text-slate-900 mb-2">Clean Water Initiative</h3>
+                        <p class="text-slate-500 text-sm mb-4 line-clamp-3">Bringing sustainable filtration systems to remote villages in East Africa. Water is life.</p>
+
+                        <div class="mt-auto">
+                            <div class="flex justify-between text-sm font-medium mb-2">
+                                <span class="text-brand-600">$45,000 raised</span>
+                                <span class="text-slate-400">Goal: $60,000</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 mb-6">
+                                <div class="bg-brand-500 h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <a href="#donate" class="block w-full text-center bg-white border-2 border-brand-500 text-brand-600 font-bold py-2 rounded-lg hover:bg-brand-50 transition">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 hover:shadow-xl transition duration-300 flex flex-col h-full">
+                    <div class="relative h-48 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80" alt="Education" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-sky-500 text-white font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wide">Urgent</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-serif font-bold text-slate-900 mb-2">Education for All</h3>
+                        <p class="text-slate-500 text-sm mb-4 line-clamp-3">Providing textbooks, uniforms, and safe classrooms for underprivileged children.</p>
+
+                        <div class="mt-auto">
+                            <div class="flex justify-between text-sm font-medium mb-2">
+                                <span class="text-sky-600">$12,400 raised</span>
+                                <span class="text-slate-400">Goal: $20,000</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 mb-6">
+                                <div class="bg-sky-500 h-2.5 rounded-full" style="width: 62%"></div>
+                            </div>
+                            <a href="#donate" class="block w-full text-center bg-white border-2 border-sky-500 text-sky-600 font-bold py-2 rounded-lg hover:bg-sky-50 transition">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 hover:shadow-xl transition duration-300 flex flex-col h-full">
+                    <div class="relative h-48 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=80" alt="Food Distribution" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-serif font-bold text-slate-900 mb-2">Emergency Food Relief</h3>
+                        <p class="text-slate-500 text-sm mb-4 line-clamp-3">Distributing nutritious meals to families displaced by recent natural disasters.</p>
+
+                        <div class="mt-auto">
+                            <div class="flex justify-between text-sm font-medium mb-2">
+                                <span class="text-brand-600">$88,000 raised</span>
+                                <span class="text-slate-400">Goal: $100,000</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 mb-6">
+                                <div class="bg-brand-500 h-2.5 rounded-full" style="width: 88%"></div>
+                            </div>
+                            <a href="#donate" class="block w-full text-center bg-white border-2 border-brand-500 text-brand-600 font-bold py-2 rounded-lg hover:bg-brand-50 transition">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial / Story -->
+    <section id="stories" class="py-24 bg-sky-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-sky-500/20 rounded-full blur-3xl"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <svg class="w-12 h-12 text-brand-400 mx-auto mb-8 opacity-80" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0547 15.1924 14.7354 16.5912 14.1561C17.2764 13.8724 18.0672 13.7917 18.8475 14.027C19.3496 14.1784 19.866 14.4559 20.3015 14.8383L21.4323 15.8299L22.9567 14.0911L21.8262 13.0999C20.9388 12.3216 19.8828 11.7547 18.8519 11.4437C17.2144 10.95 15.5398 11.1278 14.017 11.9774L14.017 2.15186L12.017 2.15186L12.017 12.0626C10.4939 11.213 8.81889 11.0354 7.18134 11.5291C6.15049 11.8402 5.09448 12.407 4.20707 13.1853L3.07654 14.1766L4.60098 15.9154L5.73177 14.9238C6.16723 14.5414 6.68364 14.2639 7.18567 14.1125C7.96597 13.8772 8.75678 13.9579 9.44197 14.2416C10.8407 14.8209 12.0161 16.1402 12.0161 18.0855L12.0161 21L14.017 21Z"/></svg>
+                <h3 class="text-3xl md:text-5xl font-serif font-bold leading-tight mb-8">
+                    "Before {{COMPANY_NAME}} arrived, we walked 5 miles daily for water. Now, my daughters can go to school instead. You gave us our future back."
+                </h3>
+                <div class="flex items-center justify-center space-x-4">
+                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80" alt="Testimonial" class="w-16 h-16 rounded-full border-4 border-sky-800 object-cover">
+                    <div class="text-left">
+                        <div class="font-bold text-white text-lg">Amina K.</div>
+                        <div class="text-sky-300 text-sm uppercase tracking-wide">Community Leader, Kenya</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteer CTA -->
+    <section id="contact" class="py-24 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+                <div class="grid md:grid-cols-2">
+                    <div class="p-12 flex flex-col justify-center">
+                        <span class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-2">Get Involved</span>
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-6">Join Our Community of Changemakers</h2>
+                        <p class="text-slate-600 mb-8 text-lg">Whether you can donate time, money, or skills, there is a place for you here. Sign up for our newsletter to stay updated.</p>
+
+                        <form class="space-y-4">
+                            <div>
+                                <label for="email" class="sr-only">Email address</label>
+                                <input type="email" id="email" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition" placeholder="Enter your email address">
+                            </div>
+                            <div class="flex gap-4">
+                                <button type="button" class="flex-1 bg-brand-500 text-white font-bold py-4 rounded-xl hover:bg-brand-600 transition shadow-lg shadow-brand-500/20">Subscribe</button>
+                                <button type="button" class="flex-1 bg-white border border-slate-200 text-slate-700 font-bold py-4 rounded-xl hover:bg-slate-50 transition">Volunteer</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="relative h-64 md:h-auto">
+                        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=800&q=80" alt="Group of volunteers" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-brand-900/20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                         <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                        <span class="text-white font-serif font-bold text-xl">{{COMPANY_NAME}}</span>
+                    </div>
+                    <p class="mb-6 leading-relaxed text-sm">
+                        Dedicated to alleviating suffering and building sustainable communities through direct action and global partnership.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-brand-500 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                        <a href="#" class="text-white hover:text-brand-500 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.072 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Our Work</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-brand-500 transition">Water & Sanitation</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Emergency Relief</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Child Education</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Health Services</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Get Involved</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-brand-500 transition">Donate Monthly</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Volunteer</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Corporate Partners</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Fundraise</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-brand-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            <span>123 Hope Avenue,<br>New York, NY 10012</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-6 h-6 text-brand-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            <span>contact@hopefoundation.org</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2024 {{COMPANY_NAME}}. 501(c)(3) Nonprofit.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
