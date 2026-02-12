@@ -1013,6 +1013,19 @@
         "Industrial",
         "Warm"
       ]
+    },
+    {
+      "id": "079",
+      "name": "Fairway Estate",
+      "category": "Golf Resort",
+      "style": "Heritage Green",
+      "path": "catalog/template_079_golf_resort_heritage",
+      "description": "Classic luxury golf theme.",
+      "tags": [
+        "Luxury",
+        "Green",
+        "Sport"
+      ]
     }
   ]
 }
