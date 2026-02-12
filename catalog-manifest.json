@@ -948,6 +948,19 @@
         "Elegant",
         "Gourmet"
       ]
+    },
+    {
+      "id": "074",
+      "name": "Shizuka",
+      "category": "Tea House",
+      "style": "Zen Minimal",
+      "path": "catalog/template_074_tea_house_zen",
+      "description": "Zen minimalist tea house.",
+      "tags": [
+        "Zen",
+        "Minimalist",
+        "Japanese"
+      ]
     }
   ]
 }

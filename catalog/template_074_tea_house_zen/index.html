@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Zen Tea House</title>
+    <meta name="description" content="Experience the art of silence and tea at {{COMPANY_NAME}}.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        .font-serif { font-family: 'Shippori Mincho', serif; }
+        .font-sans { font-family: 'Lato', sans-serif; }
+        .writing-vertical { writing-mode: vertical-rl; text-orientation: mixed; }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F5F4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6D3D1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A8A29E;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        matcha: '#535E4B',
+                        'matcha-light': '#C5D8A4',
+                        sand: '#E6E2D3',
+                        charcoal: '#2C2C2C',
+                        stone: {
+                            50: '#FAFAF9',
+                            100: '#F5F5F4',
+                            800: '#292524',
+                            900: '#1C1917',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Shippori Mincho', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-100 text-stone-800 font-sans antialiased selection:bg-matcha-light selection:text-matcha overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 50)">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-500" :class="scrolled ? 'bg-stone-100/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-8'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif tracking-widest font-bold z-50 relative" :class="(scrolled || mobileMenuOpen) ? 'text-stone-800' : 'text-stone-800 md:text-white'">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-12 items-center">
+                <a href="#philosophy" class="text-sm tracking-widest hover:text-matcha transition-colors duration-300" :class="scrolled ? 'text-stone-600' : 'text-stone-200'">PHILOSOPHY</a>
+                <a href="#menu" class="text-sm tracking-widest hover:text-matcha transition-colors duration-300" :class="scrolled ? 'text-stone-600' : 'text-stone-200'">MENU</a>
+                <a href="#experience" class="text-sm tracking-widest hover:text-matcha transition-colors duration-300" :class="scrolled ? 'text-stone-600' : 'text-stone-200'">EXPERIENCE</a>
+                <a href="#contact" class="text-sm tracking-widest hover:text-matcha transition-colors duration-300" :class="scrolled ? 'text-stone-600' : 'text-stone-200'">VISIT</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden z-50 focus:outline-none">
+                <div class="w-6 h-0.5 bg-stone-800 mb-1.5 transition-all duration-300" :class="mobileMenuOpen ? 'rotate-45 translate-y-2' : ''"></div>
+                <div class="w-6 h-0.5 bg-stone-800 mb-1.5 transition-all duration-300" :class="mobileMenuOpen ? 'opacity-0' : ''"></div>
+                <div class="w-6 h-0.5 bg-stone-800 transition-all duration-300" :class="mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''"></div>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-x-full"
+             x-transition:enter-end="opacity-100 translate-x-0"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100 translate-x-0"
+             x-transition:leave-end="opacity-0 translate-x-full"
+             class="fixed inset-0 bg-stone-100 z-40 flex flex-col justify-center items-center space-y-8 md:hidden"
+             x-cloak>
+            <a href="#philosophy" @click="mobileMenuOpen = false" class="text-2xl font-serif tracking-widest text-stone-800 hover:text-matcha">PHILOSOPHY</a>
+            <a href="#menu" @click="mobileMenuOpen = false" class="text-2xl font-serif tracking-widest text-stone-800 hover:text-matcha">MENU</a>
+            <a href="#experience" @click="mobileMenuOpen = false" class="text-2xl font-serif tracking-widest text-stone-800 hover:text-matcha">EXPERIENCE</a>
+            <a href="#contact" @click="mobileMenuOpen = false" class="text-2xl font-serif tracking-widest text-stone-800 hover:text-matcha">VISIT</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1594498653385-d5172c532c00?q=80&w=2070&auto=format&fit=crop" alt="Zen Garden Tea" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-stone-900/40 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-stone-900/60"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center md:items-start">
+            <div class="flex flex-row-reverse md:flex-row items-start gap-8 md:gap-16">
+                <!-- Vertical Text (Japanese Style) -->
+                <div class="writing-vertical text-white/90 font-serif text-4xl md:text-6xl tracking-[0.2em] leading-relaxed h-64 md:h-96 border-r md:border-l border-white/30 pr-8 md:pl-8 md:pr-0 select-none">
+                    静寂の美学
+                </div>
+
+                <div class="flex flex-col justify-end h-64 md:h-96 pb-4">
+                    <p class="text-stone-300 tracking-[0.3em] text-sm md:text-base mb-4 uppercase">Established 2024</p>
+                    <h1 class="text-4xl md:text-7xl font-serif text-white mb-6 leading-tight">
+                        The Art<br>of Silence
+                    </h1>
+                    <p class="text-stone-200 max-w-md font-light leading-loose text-sm md:text-base mb-8">
+                        Discover tranquility in every sip. A sanctuary where time slows down, and the mind finds clarity through the ancient ritual of tea.
+                    </p>
+                    <a href="#menu" class="group inline-flex items-center text-white tracking-widest text-sm hover:text-matcha-light transition-colors duration-300 w-fit">
+                        EXPLORE MENU
+                        <span class="ml-4 w-12 h-[1px] bg-white group-hover:bg-matcha-light transition-colors duration-300"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/50">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-24 md:py-32 bg-stone-100 relative overflow-hidden">
+        <!-- Abstract Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-stone-200 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <span class="text-matcha text-sm tracking-[0.3em] uppercase block mb-6">Philosophy</span>
+            <h2 class="text-3xl md:text-5xl font-serif text-stone-800 mb-12 leading-relaxed">
+                "In the silence of the tea room,<br>
+                <span class="text-stone-500 italic">one hears the world."</span>
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 text-left">
+                <div>
+                    <p class="text-stone-600 leading-loose font-light">
+                        At {{COMPANY_NAME}}, we believe that tea is more than a beverage; it is a medium for mindfulness. Our space is designed to strip away the noise of the modern world, leaving only the essential. The aroma of roasted leaves, the sound of water boiling, the warmth of the ceramic cup.
+                    </p>
+                </div>
+                <div>
+                    <p class="text-stone-600 leading-loose font-light">
+                        We source our leaves directly from family-owned farms in Uji and Shizuoka, ensuring that every cup honors the dedication of the growers. Our preparation follows the way of tea—respect, harmony, purity, and tranquility.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-16">
+                <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=2574&auto=format&fit=crop" alt="Pouring Tea" class="w-full h-96 object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out">
+                <p class="text-right text-xs text-stone-400 mt-2 tracking-widest">THE RITUAL OF PREPARATION</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-stone-200 pb-8">
+                <div>
+                    <span class="text-matcha text-sm tracking-[0.3em] uppercase block mb-2">Selection</span>
+                    <h2 class="text-4xl font-serif text-stone-800">Seasonal Offerings</h2>
+                </div>
+                <p class="text-stone-500 font-light mt-4 md:mt-0 max-w-md text-right md:text-right text-sm leading-relaxed">
+                    Curated for the season. Each selection is prepared with precise water temperature and steeping time.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                <!-- Item 1 -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden mb-6 aspect-[3/4] relative">
+                        <img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?q=80&w=1742&auto=format&fit=crop" alt="Matcha" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-stone-900/10 group-hover:bg-stone-900/0 transition-colors duration-500"></div>
+                    </div>
+                    <div class="flex justify-between items-baseline mb-2">
+                        <h3 class="text-xl font-serif text-stone-800 group-hover:text-matcha transition-colors">Ceremonial Matcha</h3>
+                        <span class="text-stone-400 font-serif">$12</span>
+                    </div>
+                    <p class="text-stone-500 text-sm font-light leading-relaxed">
+                        Premium grade matcha from Uji. Rich umami flavor with a vibrant emerald color and creamy texture.
+                    </p>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group cursor-pointer md:translate-y-12">
+                    <div class="overflow-hidden mb-6 aspect-[3/4] relative">
+                        <img src="https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?q=80&w=1740&auto=format&fit=crop" alt="Sencha" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-stone-900/10 group-hover:bg-stone-900/0 transition-colors duration-500"></div>
+                    </div>
+                    <div class="flex justify-between items-baseline mb-2">
+                        <h3 class="text-xl font-serif text-stone-800 group-hover:text-matcha transition-colors">Deep Steamed Sencha</h3>
+                        <span class="text-stone-400 font-serif">$9</span>
+                    </div>
+                    <p class="text-stone-500 text-sm font-light leading-relaxed">
+                        Fukamushi style from Shizuoka. Full-bodied with a sweet finish and deep green liquor.
+                    </p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden mb-6 aspect-[3/4] relative">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=1665&auto=format&fit=crop" alt="Wagashi" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-stone-900/10 group-hover:bg-stone-900/0 transition-colors duration-500"></div>
+                    </div>
+                    <div class="flex justify-between items-baseline mb-2">
+                        <h3 class="text-xl font-serif text-stone-800 group-hover:text-matcha transition-colors">Seasonal Wagashi</h3>
+                        <span class="text-stone-400 font-serif">$8</span>
+                    </div>
+                    <p class="text-stone-500 text-sm font-light leading-relaxed">
+                        Handcrafted Japanese confectioneries designed to complement the bitterness of tea.
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center mt-20">
+                <a href="#" class="inline-block border border-stone-300 px-8 py-4 text-stone-600 text-xs tracking-[0.2em] hover:bg-matcha hover:text-white hover:border-matcha transition-all duration-300">VIEW FULL MENU</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 bg-stone-100">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2 relative">
+                    <div class="absolute -top-4 -left-4 w-full h-full border border-stone-300 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1765035058192-edd7ee3e0df0?q=80&w=1546&auto=format&fit=crop" alt="Tea Ceremony" class="w-full relative z-10 grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <span class="text-matcha text-sm tracking-[0.3em] uppercase block mb-6">Experience</span>
+                    <h2 class="text-3xl md:text-4xl font-serif text-stone-800 mb-8 leading-tight">The Way of Tea<br>Ceremony Workshop</h2>
+                    <p class="text-stone-600 font-light leading-loose mb-8">
+                        Join us for an intimate workshop where you will learn the fundamentals of the Japanese tea ceremony (Sado). Under the guidance of our tea master, you will learn to whisk the perfect bowl of matcha and understand the philosophy of "Ichi-go Ichi-e" (one time, one meeting).
+                    </p>
+                    <ul class="space-y-4 mb-10 text-stone-600 font-light">
+                        <li class="flex items-center gap-4">
+                            <span class="w-1 h-1 bg-matcha rounded-full"></span>
+                            90-minute private or group session
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <span class="w-1 h-1 bg-matcha rounded-full"></span>
+                            Traditional sweet pairing included
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <span class="w-1 h-1 bg-matcha rounded-full"></span>
+                            Take-home matcha starter kit available
+                        </li>
+                    </ul>
+                    <a href="#contact" class="text-stone-800 border-b border-stone-800 pb-1 hover:text-matcha hover:border-matcha transition-colors tracking-widest text-sm">BOOK A SESSION</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Separator -->
+    <div class="py-24 bg-stone-800 text-stone-200 text-center px-6">
+        <p class="font-serif text-2xl md:text-3xl italic tracking-wide leading-relaxed opacity-80">
+            "Tea is nought but this:<br>
+            First you heat the water,<br>
+            Then you make the tea.<br>
+            Then you drink it properly.<br>
+            That is all you need to know."
+        </p>
+        <p class="mt-6 text-sm tracking-[0.2em] text-stone-500">— SEN NO RIKYU</p>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-stone-100">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="bg-white p-8 md:p-16 shadow-sm relative overflow-hidden">
+                <!-- Decorative Circle -->
+                <div class="absolute -right-20 -top-20 w-64 h-64 border border-stone-100 rounded-full opacity-50"></div>
+
+                <div class="grid md:grid-cols-2 gap-16 relative z-10">
+                    <div>
+                        <span class="text-matcha text-sm tracking-[0.3em] uppercase block mb-6">Visit Us</span>
+                        <h2 class="text-3xl font-serif text-stone-800 mb-8">Find Your Silence</h2>
+
+                        <div class="space-y-8 font-light text-stone-600">
+                            <div>
+                                <h4 class="text-stone-800 font-normal tracking-widest text-sm mb-2">LOCATION</h4>
+                                <p>123 Serenity Lane, Kyoto District<br>Old Town, City 10023</p>
+                            </div>
+                            <div>
+                                <h4 class="text-stone-800 font-normal tracking-widest text-sm mb-2">HOURS</h4>
+                                <p>Tue - Sun: 10:00 AM - 6:00 PM<br>Closed Mondays</p>
+                            </div>
+                            <div>
+                                <h4 class="text-stone-800 font-normal tracking-widest text-sm mb-2">CONTACT</h4>
+                                <p>hello@company.com<br>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <form class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-xs tracking-widest text-stone-500 mb-2">NAME</label>
+                                <input type="text" id="name" class="w-full bg-stone-50 border-b border-stone-200 p-3 focus:outline-none focus:border-matcha transition-colors placeholder-stone-300" placeholder="Your name">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-xs tracking-widest text-stone-500 mb-2">EMAIL</label>
+                                <input type="email" id="email" class="w-full bg-stone-50 border-b border-stone-200 p-3 focus:outline-none focus:border-matcha transition-colors placeholder-stone-300" placeholder="your@email.com">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-xs tracking-widest text-stone-500 mb-2">MESSAGE</label>
+                                <textarea id="message" rows="4" class="w-full bg-stone-50 border-b border-stone-200 p-3 focus:outline-none focus:border-matcha transition-colors placeholder-stone-300" placeholder="How can we help you?"></textarea>
+                            </div>
+                            <button type="submit" class="bg-stone-800 text-white px-8 py-3 text-xs tracking-[0.2em] hover:bg-matcha transition-colors duration-300 w-full md:w-auto">
+                                SEND MESSAGE
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-2xl font-serif text-stone-200 tracking-widest font-bold">
+                {{COMPANY_NAME}}
+            </div>
+            <div class="text-xs font-light tracking-widest">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                <a href="#" class="hover:text-white transition-colors">Facebook</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
