@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Bespoke Tailoring</title>
+    <meta name="description" content="Experience the art of bespoke tailoring. Handcrafted suits, shirts, and alterations for the modern gentleman.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Prata&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        amber: {
+                            450: '#f59e0b',
+                            500: '#d97706',
+                            600: '#b45309',
+                        },
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            light: '#E5C079',
+                            dark: '#A58039',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Prata', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=2070&auto=format&fit=crop')",
+                        'fabric-pattern': "url('https://www.transparenttextures.com/patterns/dark-matter.png')",
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .gold-text-shadow { text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-300 font-sans antialiased selection:bg-gold selection:text-slate-950">
+
+    <!-- Navigation -->
+    <header x-data="{ mobileMenuOpen: false, scrolled: false }"
+            @scroll.window="scrolled = (window.scrollY > 50)"
+            :class="{ 'bg-slate-950/90 backdrop-blur-md shadow-lg': scrolled, 'bg-transparent': !scrolled }"
+            class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-white/5">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-serif text-gold tracking-wider hover:text-white transition-colors duration-300">
+                    {{COMPANY_NAME}}
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-sm uppercase tracking-widest hover:text-gold transition-colors duration-300">Heritage</a>
+                    <a href="#process" class="text-sm uppercase tracking-widest hover:text-gold transition-colors duration-300">Process</a>
+                    <a href="#services" class="text-sm uppercase tracking-widest hover:text-gold transition-colors duration-300">Services</a>
+                    <a href="#contact" class="px-6 py-2 border border-gold text-gold text-sm uppercase tracking-widest hover:bg-gold hover:text-slate-950 transition-all duration-300">Book Appointment</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-gold focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             x-cloak
+             class="md:hidden absolute w-full bg-slate-950 border-b border-white/10 shadow-xl">
+            <nav class="flex flex-col p-6 space-y-4 text-center">
+                <a @click="mobileMenuOpen = false" href="#about" class="text-sm uppercase tracking-widest hover:text-gold transition-colors">Heritage</a>
+                <a @click="mobileMenuOpen = false" href="#process" class="text-sm uppercase tracking-widest hover:text-gold transition-colors">Process</a>
+                <a @click="mobileMenuOpen = false" href="#services" class="text-sm uppercase tracking-widest hover:text-gold transition-colors">Services</a>
+                <a @click="mobileMenuOpen = false" href="#contact" class="text-sm uppercase tracking-widest text-gold hover:text-white transition-colors">Book Appointment</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=2070&auto=format&fit=crop"
+                 alt="Tailor measuring suit"
+                 class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 text-center">
+            <p class="text-gold uppercase tracking-[0.3em] text-sm md:text-base mb-4 animate-fade-in-up">Bespoke Tailoring since 1985</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-6 leading-tight gold-text-shadow">
+                The Art of <br/> <span class="italic text-gold">Distinctive</span> Style
+            </h1>
+            <p class="max-w-2xl mx-auto text-slate-300 text-lg md:text-xl font-light mb-10 leading-relaxed">
+                Crafting garments that define character. Experience the pinnacle of sartorial excellence, tailored exclusively for you.
+            </p>
+            <a href="#contact" class="inline-block px-8 py-4 bg-gold text-slate-950 font-serif uppercase tracking-widest hover:bg-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-gold/20">
+                Discover Your Fit
+            </a>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-gold/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About / Heritage Section -->
+    <section id="about" class="py-24 bg-slate-950 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-slate-900/50 -skew-x-12 transform translate-x-20"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Image Grid -->
+                <div class="w-full lg:w-1/2 grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?q=80&w=1974&auto=format&fit=crop"
+                         alt="Fabric Rolls"
+                         class="w-full h-80 object-cover rounded-sm shadow-2xl mt-12 transform hover:scale-[1.02] transition-transform duration-500">
+                    <img src="https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?q=80&w=1974&auto=format&fit=crop"
+                         alt="Tailor hands"
+                         class="w-full h-80 object-cover rounded-sm shadow-2xl -mt-4 transform hover:scale-[1.02] transition-transform duration-500">
+                </div>
+
+                <!-- Content -->
+                <div class="w-full lg:w-1/2">
+                    <span class="text-gold uppercase tracking-[0.2em] text-sm block mb-4">Our Heritage</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-white mb-8 leading-tight">
+                        Precision in Every <span class="text-gold italic">Stitch</span>.
+                    </h2>
+                    <p class="text-slate-400 leading-relaxed mb-6 font-light text-lg">
+                        At {{COMPANY_NAME}}, we believe that a suit is more than just clothing; it is a statement of intent. For over three decades, our master tailors have dedicated themselves to the timeless craft of bespoke tailoring.
+                    </p>
+                    <p class="text-slate-400 leading-relaxed mb-10 font-light text-lg">
+                        We source the finest wools from Italy and silks from the Orient, combining traditional techniques with modern silhouettes to create garments that feel as exceptional as they look.
+                    </p>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="h-px w-16 bg-gold"></div>
+                        <span class="font-serif text-white text-xl italic">Master Tailor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Process -->
+    <section id="process" class="py-24 bg-slate-900 border-y border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-gold uppercase tracking-[0.2em] text-sm block mb-4">How It Works</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-white mb-6">The Bespoke Journey</h2>
+                <p class="text-slate-400 font-light">From the first measurement to the final fitting, our process is designed around your unique physique and style.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-px bg-white/10 z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="relative z-10 group">
+                    <div class="w-24 h-24 mx-auto bg-slate-950 border border-gold/30 rounded-full flex items-center justify-center mb-8 group-hover:border-gold transition-colors duration-300 shadow-lg shadow-black/50">
+                        <span class="font-serif text-3xl text-gold">01</span>
+                    </div>
+                    <h3 class="text-2xl font-serif text-white text-center mb-4">Consultation</h3>
+                    <p class="text-slate-400 text-center font-light leading-relaxed px-4">
+                        We discuss your lifestyle, preferences, and select from over 5,000 premium fabrics to find your perfect match.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative z-10 group">
+                    <div class="w-24 h-24 mx-auto bg-slate-950 border border-gold/30 rounded-full flex items-center justify-center mb-8 group-hover:border-gold transition-colors duration-300 shadow-lg shadow-black/50">
+                        <span class="font-serif text-3xl text-gold">02</span>
+                    </div>
+                    <h3 class="text-2xl font-serif text-white text-center mb-4">Creation</h3>
+                    <p class="text-slate-400 text-center font-light leading-relaxed px-4">
+                        Over 40 hours of hand-work go into constructing your garment, with multiple fittings to ensure a flawless silhouette.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative z-10 group">
+                    <div class="w-24 h-24 mx-auto bg-slate-950 border border-gold/30 rounded-full flex items-center justify-center mb-8 group-hover:border-gold transition-colors duration-300 shadow-lg shadow-black/50">
+                        <span class="font-serif text-3xl text-gold">03</span>
+                    </div>
+                    <h3 class="text-2xl font-serif text-white text-center mb-4">Delivery</h3>
+                    <p class="text-slate-400 text-center font-light leading-relaxed px-4">
+                        The final garment is presented. A masterpiece of comfort and style, ready to accompany you on your journey.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-24 bg-slate-950">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <span class="text-gold uppercase tracking-[0.2em] text-sm block mb-4">Our Craft</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-white">Sartorial Services</h2>
+                </div>
+                <a href="#contact" class="hidden md:block text-white border-b border-gold pb-1 hover:text-gold transition-colors duration-300">View Full Price List</a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative overflow-hidden h-[500px] cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1593032465175-d812032760d1?q=80&w=1974&auto=format&fit=crop"
+                         alt="Bespoke Suits"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-50">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 class="text-3xl font-serif text-white mb-2">Bespoke Suits</h3>
+                        <p class="text-gold text-sm uppercase tracking-widest mb-4">Starting at $2,500</p>
+                        <p class="text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            Hand-cut and stitched to your exact measurements for unparalleled comfort and elegance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative overflow-hidden h-[500px] cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1620799140408-ed5341cd2431?q=80&w=2072&auto=format&fit=crop"
+                         alt="Custom Shirts"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-50">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 class="text-3xl font-serif text-white mb-2">Custom Shirts</h3>
+                        <p class="text-gold text-sm uppercase tracking-widest mb-4">Starting at $250</p>
+                        <p class="text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            Egyptian cotton, perfect collar fit, and monogramming options for the discerning gentleman.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative overflow-hidden h-[500px] cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1605518216938-7c31b7b14ad0?q=80&w=2009&auto=format&fit=crop"
+                         alt="Accessories"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-50">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 class="text-3xl font-serif text-white mb-2">Alterations</h3>
+                        <p class="text-gold text-sm uppercase tracking-widest mb-4">By Consultation</p>
+                        <p class="text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            Expert adjustments to breathe new life into your existing wardrobe.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-slate-900 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div x-data="{ active: 0, testimonials: [
+                { text: 'The attention to detail is simply unmatched. My suit fits like a second skin and commands attention wherever I go.', author: 'James Sterling', title: 'CEO, Sterling Finance' },
+                { text: 'I never knew what a proper shirt felt like until I visited {{COMPANY_NAME}}. The fabric selection is exquisite.', author: 'Arthur Pendelton', title: 'Architect' },
+                { text: 'True craftsmanship is a dying art, but it is alive and well here. An absolute pleasure from start to finish.', author: 'Marcus Thorne', title: 'Director' }
+            ]}" class="max-w-4xl mx-auto text-center">
+
+                <svg class="w-12 h-12 text-gold/30 mx-auto mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9.01703C7.91246 16 7.01703 16.8954 7.01703 18L7.01703 21H14.017ZM21.017 21L21.017 18C21.017 16.8954 20.1216 16 19.017 16H16.017C14.9125 16 14.017 16.8954 14.017 18L14.017 21H21.017ZM24.017 12C24.017 5.37258 18.6444 0 12.017 0C5.38961 0 0.0170288 5.37258 0.0170288 12C0.0170288 18.6274 5.38961 24 12.017 24C18.6444 24 24.017 18.6274 24.017 12ZM12.017 22C6.49419 22 2.01703 17.5228 2.01703 12C2.01703 6.47715 6.49419 2 12.017 2C17.5399 2 22.017 6.47715 22.017 12C22.017 17.5228 17.5399 22 12.017 22Z"></path></svg>
+
+                <div class="relative min-h-[200px]">
+                    <template x-for="(item, index) in testimonials" :key="index">
+                        <div x-show="active === index"
+                             x-transition:enter="transition ease-out duration-500"
+                             x-transition:enter-start="opacity-0 translate-y-4"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 -translate-y-4"
+                             class="absolute inset-0">
+                            <p class="text-2xl md:text-3xl font-serif text-slate-200 italic mb-8 leading-relaxed">"{{ item.text }}"</p>
+                            <cite class="not-italic block">
+                                <span class="text-gold font-bold uppercase tracking-widest text-sm" x-text="item.author"></span>
+                                <span class="text-slate-500 text-sm block mt-1" x-text="item.title"></span>
+                            </cite>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="flex justify-center space-x-3 mt-8">
+                    <template x-for="(item, index) in testimonials" :key="index">
+                        <button @click="active = index"
+                                :class="{'bg-gold w-8': active === index, 'bg-slate-700 w-2': active !== index}"
+                                class="h-2 rounded-full transition-all duration-300"></button>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-slate-950 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <!-- Info -->
+                <div class="w-full lg:w-1/3">
+                    <span class="text-gold uppercase tracking-[0.2em] text-sm block mb-4">Contact Us</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-white mb-8">Book Your Consultation</h2>
+                    <p class="text-slate-400 font-light mb-12">
+                        We operate by appointment only to ensure each client receives our undivided attention. Please fill out the form or contact us directly.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="text-white font-serif text-xl mb-2">Atelier</h4>
+                            <p class="text-slate-400 font-light">123 Savile Row,<br>London, W1S 2PJ</p>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-serif text-xl mb-2">Hours</h4>
+                            <p class="text-slate-400 font-light">Mon - Fri: 10am - 7pm<br>Sat: 11am - 5pm</p>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-serif text-xl mb-2">Direct</h4>
+                            <p class="text-slate-400 font-light">+44 (0) 20 1234 5678<br>bespoke@{{COMPANY_NAME}}.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="w-full lg:w-2/3">
+                    <form class="bg-slate-900 p-8 md:p-12 border border-white/5 shadow-2xl">
+                        <div class="grid md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">First Name</label>
+                                <input type="text" class="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-gold transition-colors duration-300 placeholder-slate-700" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Last Name</label>
+                                <input type="text" class="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-gold transition-colors duration-300 placeholder-slate-700" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div class="mb-8">
+                            <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Email Address</label>
+                            <input type="email" class="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-gold transition-colors duration-300 placeholder-slate-700" placeholder="john@example.com">
+                        </div>
+                        <div class="mb-8">
+                            <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Interest</label>
+                            <select class="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-gold transition-colors duration-300 appearance-none">
+                                <option>Bespoke Suit</option>
+                                <option>Custom Shirts</option>
+                                <option>Wedding Attire</option>
+                                <option>Alterations</option>
+                            </select>
+                        </div>
+                        <div class="mb-8">
+                            <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Message</label>
+                            <textarea class="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 h-32 focus:outline-none focus:border-gold transition-colors duration-300 placeholder-slate-700" placeholder="Tell us about your requirements..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gold text-slate-950 font-serif uppercase tracking-widest py-4 hover:bg-white transition-colors duration-300 font-bold">
+                            Request Appointment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-white/5 py-12">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0 text-center md:text-left">
+                <a href="#" class="text-2xl font-serif text-gold tracking-wider block mb-2">{{COMPANY_NAME}}</a>
+                <p class="text-slate-600 text-sm">© 2023 {{COMPANY_NAME}}. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-slate-500 hover:text-gold transition-colors"><span class="sr-only">Instagram</span>IG</a>
+                <a href="#" class="text-slate-500 hover:text-gold transition-colors"><span class="sr-only">Twitter</span>TW</a>
+                <a href="#" class="text-slate-500 hover:text-gold transition-colors"><span class="sr-only">Facebook</span>FB</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
