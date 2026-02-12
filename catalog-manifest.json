@@ -961,6 +961,19 @@
         "Minimalist",
         "Japanese"
       ]
+    },
+    {
+      "id": "075",
+      "name": "Solaris",
+      "category": "Music Festival",
+      "style": "Bohemian",
+      "path": "catalog/template_075_music_festival_bohemian",
+      "description": "Sunset gradients & bold type",
+      "tags": [
+        "Festival",
+        "Vibrant",
+        "Gradient"
+      ]
     }
   ]
 }
