@@ -922,6 +922,19 @@
         "Luxury",
         "Classic"
       ]
+    },
+    {
+      "id": "072",
+      "name": "Retro Comfort",
+      "category": "Furniture",
+      "style": "Mid-Century",
+      "path": "catalog/template_072_furniture_midcentury",
+      "description": "Authentic mid-century design.",
+      "tags": [
+        "Retro",
+        "Wood",
+        "Classic"
+      ]
     }
   ]
 }
