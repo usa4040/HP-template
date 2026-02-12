@@ -935,6 +935,19 @@
         "Wood",
         "Classic"
       ]
+    },
+    {
+      "id": "073",
+      "name": "Epicurean Essence",
+      "category": "Fine Dining",
+      "style": "Sensory Minimal",
+      "path": "catalog/template_073_fine_dining_sensory",
+      "description": "Minimalist fine dining with focus on negative space.",
+      "tags": [
+        "Minimal",
+        "Elegant",
+        "Gourmet"
+      ]
     }
   ]
 }
