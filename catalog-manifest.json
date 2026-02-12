@@ -883,6 +883,19 @@
         "Sky",
         "Tech"
       ]
+    },
+    {
+      "id": "069",
+      "name": "LuxeVision",
+      "category": "Eyewear",
+      "style": "Modern Optical",
+      "path": "catalog/template_069_eyewear_optical",
+      "description": "Luxury eyewear with AR try-on.",
+      "tags": [
+        "Minimalist",
+        "Fashion",
+        "AR"
+      ]
     }
   ]
 }

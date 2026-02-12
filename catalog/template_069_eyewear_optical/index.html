@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Modern Optical Boutique</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Bodoni Moda"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        amber: {
+                            700: '#b45309', // Tortoiseshell accent
+                            800: '#92400e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-stone-900 bg-stone-50 antialiased selection:bg-amber-700 selection:text-white" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 20)">
+
+    <!-- Navigation -->
+    <nav :class="{ 'bg-stone-50/90 backdrop-blur-md shadow-sm': scrolled, 'bg-transparent': !scrolled }" class="fixed w-full z-50 transition-all duration-300 top-0 left-0 border-b border-transparent" :class="{ 'border-stone-200': scrolled }">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-serif text-2xl tracking-widest font-bold uppercase">{{COMPANY_NAME}}</a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#collection" class="text-sm font-bold tracking-wide hover:text-amber-700 transition-colors uppercase">Collection</a>
+                        <a href="#craftsmanship" class="text-sm font-bold tracking-wide hover:text-amber-700 transition-colors uppercase">Craftsmanship</a>
+                        <a href="#try-on" class="text-sm font-bold tracking-wide hover:text-amber-700 transition-colors uppercase">Virtual Try-On</a>
+                        <a href="#contact" class="text-sm font-bold tracking-wide hover:text-amber-700 transition-colors uppercase">Book Exam</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-stone-900 hover:text-amber-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg x-show="!mobileMenuOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="mobileMenuOpen" x-cloak class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-cloak class="md:hidden bg-stone-50 border-b border-stone-200" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#collection" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-bold uppercase hover:text-amber-700">Collection</a>
+                <a href="#craftsmanship" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-bold uppercase hover:text-amber-700">Craftsmanship</a>
+                <a href="#try-on" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-bold uppercase hover:text-amber-700">Virtual Try-On</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-bold uppercase hover:text-amber-700">Book Exam</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1570222094114-28a9d88a27e6?q=80&w=2000&auto=format&fit=crop" alt="Woman wearing luxury glasses" class="w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.1]">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 300)">
+            <p x-show="show" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="text-stone-100 text-sm md:text-base font-bold tracking-[0.2em] uppercase mb-4">The Art of Vision</p>
+            <h1 x-show="show" x-transition:enter="transition ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-medium mb-8 leading-tight">
+                See the World<br><span class="italic text-amber-100">Differently.</span>
+            </h1>
+            <div x-show="show" x-transition:enter="transition ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+                <a href="#collection" class="inline-block px-8 py-4 bg-white text-stone-900 font-bold tracking-widest uppercase text-sm hover:bg-stone-200 transition-colors duration-300">Explore Collection</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introduction / Craftsmanship -->
+    <section id="craftsmanship" class="py-24 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div x-data="{ shown: false }" x-intersect.once="shown = true">
+                    <h2 :class="{ 'fade-in-up': shown, 'opacity-0': !shown }" class="font-serif text-4xl md:text-5xl text-stone-900 mb-6">Designed for the <br><span class="italic text-amber-700">Modern Visionary</span></h2>
+                    <p :class="{ 'fade-in-up': shown, 'opacity-0': !shown }" class="text-stone-600 text-lg leading-relaxed mb-8 delay-100" style="animation-delay: 0.1s;">
+                        At {{COMPANY_NAME}}, we believe eyewear is more than a necessity—it is an extension of your personality. Our frames are handcrafted from sustainable acetate and aerospace-grade titanium, ensuring durability without compromising on elegance.
+                    </p>
+                    <ul :class="{ 'fade-in-up': shown, 'opacity-0': !shown }" class="space-y-4 delay-200" style="animation-delay: 0.2s;">
+                        <li class="flex items-center space-x-3">
+                            <span class="w-1.5 h-1.5 bg-amber-700 rounded-full"></span>
+                            <span class="text-stone-800 font-medium tracking-wide">Hand-polished Italian Acetate</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="w-1.5 h-1.5 bg-amber-700 rounded-full"></span>
+                            <span class="text-stone-800 font-medium tracking-wide">Anti-Reflective Sapphire Coatings</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="w-1.5 h-1.5 bg-amber-700 rounded-full"></span>
+                            <span class="text-stone-800 font-medium tracking-wide">Japanese Titanium Hinges</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative h-[600px]" x-data="{ shown: false }" x-intersect.once="shown = true">
+                    <div :class="{ 'fade-in-up': shown, 'opacity-0': !shown }" class="absolute right-0 top-0 w-4/5 h-4/5 overflow-hidden delay-300" style="animation-delay: 0.3s;">
+                        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1000&auto=format&fit=crop" alt="Craftsmanship detail" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                    </div>
+                    <div :class="{ 'fade-in-up': shown, 'opacity-0': !shown }" class="absolute left-0 bottom-0 w-3/5 h-3/5 bg-stone-200 p-8 flex items-center justify-center delay-500 shadow-xl" style="animation-delay: 0.5s;">
+                        <p class="font-serif text-2xl text-stone-900 italic text-center">"Simplicity is the ultimate sophistication."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Grid -->
+    <section id="collection" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-amber-700 font-bold tracking-widest uppercase text-xs mb-2 block">New Arrivals</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-stone-900">The 2024 Collection</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="group cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-stone-100 mb-6">
+                        <img src="https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=1000&auto=format&fit=crop" alt="The Scholar Frame" class="w-full h-full object-cover transition-transform duration-700 transform group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-stone-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-between items-end">
+                            <span class="text-white text-sm font-bold tracking-wider">VIEW DETAILS</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="font-serif text-2xl text-stone-900 group-hover:text-amber-700 transition-colors">The Scholar</h3>
+                        <span class="text-stone-500 font-sans">$245</span>
+                    </div>
+                    <p class="text-stone-500 text-sm mt-1">Tortoiseshell Acetate</p>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-stone-100 mb-6">
+                        <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=1000&auto=format&fit=crop" alt="The Aviator Frame" class="w-full h-full object-cover transition-transform duration-700 transform group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-stone-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-between items-end">
+                            <span class="text-white text-sm font-bold tracking-wider">VIEW DETAILS</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="font-serif text-2xl text-stone-900 group-hover:text-amber-700 transition-colors">The Aviator</h3>
+                        <span class="text-stone-500 font-sans">$285</span>
+                    </div>
+                    <p class="text-stone-500 text-sm mt-1">Gold-Plated Titanium</p>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-stone-100 mb-6">
+                        <img src="https://images.unsplash.com/photo-1509695507497-903c140c43b0?q=80&w=1000&auto=format&fit=crop" alt="The Architect Frame" class="w-full h-full object-cover transition-transform duration-700 transform group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-stone-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-between items-end">
+                            <span class="text-white text-sm font-bold tracking-wider">VIEW DETAILS</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="font-serif text-2xl text-stone-900 group-hover:text-amber-700 transition-colors">The Architect</h3>
+                        <span class="text-stone-500 font-sans">$265</span>
+                    </div>
+                    <p class="text-stone-500 text-sm mt-1">Matte Black Steel</p>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="#" class="inline-block border border-stone-900 px-10 py-4 text-stone-900 font-bold tracking-widest uppercase text-sm hover:bg-stone-900 hover:text-white transition-all duration-300">View All Frames</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Try-On Teaser -->
+    <section id="try-on" class="py-24 bg-stone-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1589758438368-0ad531db3366?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Background pattern">
+        </div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            <span class="text-amber-500 font-bold tracking-widest uppercase text-xs mb-4 block">Innovation</span>
+            <h2 class="font-serif text-4xl md:text-6xl mb-8">Virtual Try-On Experience</h2>
+            <p class="text-stone-300 text-lg max-w-2xl mx-auto mb-10 font-light">
+                Not sure which frame suits you? Use our AI-powered virtual mirror to see how our collection fits your face shape in real-time, from the comfort of your home.
+            </p>
+            <button class="bg-amber-700 text-white px-8 py-4 font-bold tracking-widest uppercase text-sm hover:bg-amber-600 transition-colors shadow-lg hover:shadow-amber-700/20">
+                Launch Virtual Mirror
+            </button>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-stone-50">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center" x-data="{ activeSlide: 0, slides: [
+            { text: 'The attention to detail is remarkable. These are not just glasses; they are a piece of art that I wear every day.', author: 'Elena R., Architect' },
+            { text: 'Finally, a brand that understands the balance between modern minimalism and classic comfort.', author: 'Marcus T., Creative Director' },
+            { text: 'The virtual try-on was spot on. The frames fit perfectly right out of the box.', author: 'Sarah L., Designer' }
+        ] }">
+            <div class="mb-12">
+                <svg class="w-10 h-10 mx-auto text-amber-700 opacity-50 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0547 15.1924 14.6611 17.5414 13.8441V11.7719C15.8214 12.2882 14.8519 13.2435 14.6328 14.6293C14.0729 14.1627 13.2536 14.0538 12.5036 14.3023C11.1396 14.7538 10.3956 16.2238 10.8466 17.5888C11.2976 18.9528 12.7676 19.6968 14.1326 19.2468C14.9336 18.9818 15.4836 18.2818 15.6086 17.4778C15.8946 17.5858 16.1966 17.5828 16.4716 17.4668C16.7456 17.3508 16.9746 17.1408 17.1146 16.8828L17.1146 21H14.017ZM7.0166 21L7.0166 18C7.0166 16.0547 8.1926 14.6611 10.5416 13.8441V11.7719C8.8216 12.2882 7.8516 13.2435 7.6326 14.6293C7.0726 14.1627 6.2536 14.0538 5.5036 14.3023C4.1396 14.7538 3.3956 16.2238 3.8466 17.5888C4.2976 18.9528 5.7676 19.6968 7.1326 19.2468C7.9336 18.9818 8.4836 18.2818 8.6086 17.4778C8.8946 17.5858 9.1966 17.5828 9.4716 17.4668C9.7456 17.3508 9.9746 17.1408 10.1146 16.8828L10.1146 21H7.0166Z" /></svg>
+
+                <div class="relative">
+                    <template x-for="(slide, index) in slides" :key="index">
+                        <div x-show="activeSlide === index"
+                             x-transition:enter="transition ease-out duration-500"
+                             x-transition:enter-start="opacity-0 translate-y-4"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-300 absolute top-0 left-0 w-full"
+                             x-transition:leave-start="opacity-100"
+                             x-transition:leave-end="opacity-0">
+                            <blockquote class="font-serif text-2xl md:text-3xl text-stone-900 italic mb-6 leading-relaxed">
+                                "<span x-text="slide.text"></span>"
+                            </blockquote>
+                            <cite class="not-italic text-sm font-bold tracking-widest text-amber-700 uppercase" x-text="slide.author"></cite>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-3 mt-8">
+                <template x-for="(slide, index) in slides" :key="index">
+                    <button @click="activeSlide = index"
+                            class="w-2 h-2 rounded-full transition-colors duration-300"
+                            :class="activeSlide === index ? 'bg-stone-900' : 'bg-stone-300 hover:bg-stone-500'">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact" class="bg-stone-900 text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="font-serif text-2xl tracking-widest font-bold uppercase block mb-6">{{COMPANY_NAME}}</a>
+                    <p class="text-stone-400 text-sm leading-relaxed">
+                        Redefining the way you see the world through impeccable design and optical precision.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold tracking-widest text-xs uppercase mb-6 text-amber-500">Shop</h4>
+                    <ul class="space-y-4 text-sm text-stone-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Optical Frames</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Sunglasses</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Accessories</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold tracking-widest text-xs uppercase mb-6 text-amber-500">Support</h4>
+                    <ul class="space-y-4 text-sm text-stone-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Book an Eye Exam</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Care Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold tracking-widest text-xs uppercase mb-6 text-amber-500">Stay Connected</h4>
+                    <form class="flex flex-col space-y-4">
+                        <input type="email" placeholder="Email Address" class="bg-stone-800 border-none px-4 py-3 text-sm text-white focus:ring-1 focus:ring-amber-700 placeholder-stone-500">
+                        <button type="submit" class="bg-amber-700 text-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-amber-600 transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
