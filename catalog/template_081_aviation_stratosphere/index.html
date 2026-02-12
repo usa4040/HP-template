@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Premier Private Aviation</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f172a', // Slate 900
+                            primary: '#38bdf8', // Sky 400
+                            light: '#f8fafc', // Slate 50
+                            silver: '#cbd5e1', // Slate 300
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #38bdf8, #e0f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 1));
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-300 bg-brand-dark overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" :class="{ 'glass-nav py-4': scrolled, 'bg-transparent py-6': !scrolled }">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-display font-bold text-2xl text-white tracking-wider uppercase">
+                <i class="fa-solid fa-plane-departure text-brand-primary mr-2"></i>
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#fleet" class="text-sm font-medium hover:text-brand-primary transition-colors uppercase tracking-widest">The Fleet</a>
+                <a href="#experience" class="text-sm font-medium hover:text-brand-primary transition-colors uppercase tracking-widest">Experience</a>
+                <a href="#destinations" class="text-sm font-medium hover:text-brand-primary transition-colors uppercase tracking-widest">Destinations</a>
+                <a href="#contact" class="px-6 py-2 border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-brand-dark transition-all duration-300 rounded-sm font-display font-semibold text-sm uppercase tracking-wider">Book Flight</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white focus:outline-none" @click="mobileMenuOpen = !mobileMenuOpen">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-collapse class="md:hidden bg-brand-dark border-b border-slate-800" x-cloak>
+            <div class="px-6 py-4 flex flex-col space-y-4">
+                <a href="#fleet" class="text-white hover:text-brand-primary transition-colors" @click="mobileMenuOpen = false">The Fleet</a>
+                <a href="#experience" class="text-white hover:text-brand-primary transition-colors" @click="mobileMenuOpen = false">Experience</a>
+                <a href="#destinations" class="text-white hover:text-brand-primary transition-colors" @click="mobileMenuOpen = false">Destinations</a>
+                <a href="#contact" class="text-brand-primary font-semibold" @click="mobileMenuOpen = false">Book Flight</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed">
+        <div class="absolute inset-0 hero-overlay"></div>
+
+        <div class="relative z-10 container mx-auto px-6 text-center" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')">
+            <h2 class="text-brand-primary font-display font-semibold tracking-[0.2em] mb-4 uppercase text-sm md:text-base animate-pulse">Redefining Altitude</h2>
+            <h1 class="font-display font-bold text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight">
+                Ascend <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-white">Beyond</span><br>The Ordinary.
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-light">
+                Experience the pinnacle of private aviation with {{COMPANY_NAME}}. Unmatched luxury, speed, and privacy for the discerning traveler.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#contact" class="px-8 py-4 bg-brand-primary text-brand-dark font-display font-bold uppercase tracking-wider hover:bg-white transition-all duration-300 rounded-sm shadow-[0_0_20px_rgba(56,189,248,0.3)]">
+                    Request Quote
+                </a>
+                <a href="#fleet" class="px-8 py-4 border border-slate-500 text-white font-display font-bold uppercase tracking-wider hover:border-brand-primary hover:text-brand-primary transition-all duration-300 rounded-sm backdrop-blur-sm">
+                    View Fleet
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-white text-xl opacity-70"></i>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-slate-900 border-b border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-slate-800/50">
+                <div class="p-4 group">
+                    <div class="text-3xl md:text-4xl font-display font-bold text-white mb-2 group-hover:text-brand-primary transition-colors">50+</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-widest">Global Jets</div>
+                </div>
+                <div class="p-4 group">
+                    <div class="text-3xl md:text-4xl font-display font-bold text-white mb-2 group-hover:text-brand-primary transition-colors">2k+</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-widest">Airports</div>
+                </div>
+                <div class="p-4 group">
+                    <div class="text-3xl md:text-4xl font-display font-bold text-white mb-2 group-hover:text-brand-primary transition-colors">24/7</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-widest">Concierge</div>
+                </div>
+                <div class="p-4 group">
+                    <div class="text-3xl md:text-4xl font-display font-bold text-white mb-2 group-hover:text-brand-primary transition-colors">100%</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-widest">Safety Record</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section (Carousel) -->
+    <section id="fleet" class="py-24 bg-slate-950 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-slate-900 to-transparent opacity-50"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-primary/5 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h3 class="text-brand-primary font-display font-semibold tracking-[0.2em] mb-2 uppercase text-sm">Our Fleet</h3>
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white">Engineering Excellence</h2>
+            </div>
+
+            <div x-data="{
+                activeSlide: 0,
+                slides: [
+                    {
+                        title: 'Gulfstream G650ER',
+                        desc: 'The gold standard in long-range business travel. Fly faster and farther in complete comfort.',
+                        range: '7,500 nm',
+                        speed: 'Mach 0.925',
+                        seats: '19 Pax',
+                        image: 'https://images.unsplash.com/photo-1583068936647-750567a57497?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                    },
+                    {
+                        title: 'Bombardier Global 7500',
+                        desc: 'Industry-leading range and a four-zone cabin designed for maximum productivity and rest.',
+                        range: '7,700 nm',
+                        speed: 'Mach 0.925',
+                        seats: '19 Pax',
+                        image: 'https://images.unsplash.com/photo-1569629743817-70d8db6c323b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                    },
+                    {
+                        title: 'Cessna Citation Longitude',
+                        desc: 'A super-midsize jet that delivers transcontinental range and class-leading quiet cabin.',
+                        range: '3,500 nm',
+                        speed: 'Mach 0.84',
+                        seats: '12 Pax',
+                        image: 'https://images.unsplash.com/photo-1559066654-76678b66e3c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                    }
+                ]
+            }" class="relative">
+
+                <!-- Main Slide Display -->
+                <div class="relative h-[500px] md:h-[600px] w-full rounded-sm overflow-hidden shadow-2xl bg-slate-900">
+                    <template x-for="(slide, index) in slides" :key="index">
+                        <div x-show="activeSlide === index"
+                             x-transition:enter="transition ease-out duration-700"
+                             x-transition:enter-start="opacity-0 transform scale-95"
+                             x-transition:enter-end="opacity-100 transform scale-100"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100 transform scale-100"
+                             x-transition:leave-end="opacity-0 transform scale-105"
+                             class="absolute inset-0 w-full h-full">
+
+                            <!-- Image -->
+                            <img :src="slide.image" class="w-full h-full object-cover opacity-60">
+
+                            <!-- Content Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent flex flex-col justify-end p-8 md:p-16">
+                                <h3 class="text-3xl md:text-5xl font-display font-bold text-white mb-4" x-text="slide.title"></h3>
+                                <p class="text-slate-300 text-lg md:text-xl max-w-2xl mb-8 font-light" x-text="slide.desc"></p>
+
+                                <!-- Specs -->
+                                <div class="flex flex-wrap gap-6 md:gap-12 border-t border-white/10 pt-8">
+                                    <div>
+                                        <div class="text-brand-primary text-xs uppercase tracking-widest mb-1">Range</div>
+                                        <div class="text-white font-display font-bold text-xl" x-text="slide.range"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-brand-primary text-xs uppercase tracking-widest mb-1">Speed</div>
+                                        <div class="text-white font-display font-bold text-xl" x-text="slide.speed"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-brand-primary text-xs uppercase tracking-widest mb-1">Capacity</div>
+                                        <div class="text-white font-display font-bold text-xl" x-text="slide.seats"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Controls -->
+                <div class="absolute bottom-8 right-8 md:bottom-16 md:right-16 flex gap-4 z-20">
+                    <button @click="activeSlide = activeSlide === 0 ? slides.length - 1 : activeSlide - 1" class="w-12 h-12 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-brand-dark transition-all duration-300">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button @click="activeSlide = activeSlide === slides.length - 1 ? 0 : activeSlide + 1" class="w-12 h-12 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-brand-dark transition-all duration-300">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience / Services -->
+    <section id="experience" class="py-24 bg-brand-dark relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-brand-primary"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-brand-primary"></div>
+                    <img src="https://images.unsplash.com/photo-1542856391-010fb87dcfed?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Interior" class="w-full h-auto rounded-sm shadow-2xl opacity-90 grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-brand-primary font-display font-semibold tracking-[0.2em] mb-2 uppercase text-sm">The Experience</h3>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">Curated for the<br>Exceptional.</h2>
+                    <p class="text-slate-400 mb-8 leading-relaxed font-light">
+                        Every journey with {{COMPANY_NAME}} is a masterpiece of logistics and luxury. From gourmet dining tailored to your palate, to seamless ground transportation, we handle the details so you can focus on what matters.
+                    </p>
+
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-brand-primary mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-white font-display font-bold text-lg">Personalized Concierge</h4>
+                                <p class="text-slate-500 text-sm mt-1">Dedicated support available 24/7 for all your travel needs.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-brand-primary mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-white font-display font-bold text-lg">Global Access</h4>
+                                <p class="text-slate-500 text-sm mt-1">Land closer to your destination with access to thousands of private airports.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-brand-primary mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-white font-display font-bold text-lg">Utmost Privacy</h4>
+                                <p class="text-slate-500 text-sm mt-1">Discreet terminals and secure handling for your peace of mind.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Grid -->
+    <section id="destinations" class="py-24 bg-slate-900">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h3 class="text-brand-primary font-display font-semibold tracking-[0.2em] mb-2 uppercase text-sm">Destinations</h3>
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white">Popular Routes</h2>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center text-slate-300 hover:text-white transition-colors">
+                    View all locations <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative overflow-hidden h-[400px] cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1496442226666-8d4a0ee53e62?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <div class="text-brand-primary text-xs font-bold uppercase tracking-widest mb-2">Europe</div>
+                        <h3 class="text-3xl font-display font-bold text-white mb-2">London</h3>
+                        <p class="text-slate-300 text-sm opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                            Direct flights to LCY, LTN, and BQH.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative overflow-hidden h-[400px] cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1518391846015-55a3385287c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <div class="text-brand-primary text-xs font-bold uppercase tracking-widest mb-2">North America</div>
+                        <h3 class="text-3xl font-display font-bold text-white mb-2">New York</h3>
+                        <p class="text-slate-300 text-sm opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                            Executive access via Teterboro (TEB).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative overflow-hidden h-[400px] cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <div class="text-brand-primary text-xs font-bold uppercase tracking-widest mb-2">Middle East</div>
+                        <h3 class="text-3xl font-display font-bold text-white mb-2">Dubai</h3>
+                        <p class="text-slate-300 text-sm opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                            Luxury arrivals at Al Maktoum (DWC).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote / Contact Section -->
+    <section id="contact" class="py-24 bg-brand-dark relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/5 rounded-full"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/5 rounded-full"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto bg-slate-900/50 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-sm shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">Request a Flight</h2>
+                    <p class="text-slate-400">Tell us about your journey and we will arrange the rest.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-brand-primary mb-2">From</label>
+                            <input type="text" placeholder="Departure Airport" class="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-brand-primary mb-2">To</label>
+                            <input type="text" placeholder="Arrival Airport" class="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-brand-primary mb-2">Date</label>
+                            <input type="date" class="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors text-slate-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-brand-primary mb-2">Passengers</label>
+                            <select class="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors">
+                                <option>1-3 Passengers</option>
+                                <option>4-8 Passengers</option>
+                                <option>9+ Passengers</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-brand-primary mb-2">Contact Details</label>
+                        <input type="email" placeholder="Email Address" class="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors">
+                    </div>
+
+                    <button type="button" class="w-full bg-gradient-to-r from-brand-primary to-sky-500 text-brand-dark font-display font-bold uppercase tracking-widest py-4 hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-shadow duration-300 rounded-sm">
+                        Request Quote
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 pt-20 pb-10 border-t border-slate-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <a href="#" class="font-display font-bold text-2xl text-white tracking-wider uppercase mb-6 block">
+                        <i class="fa-solid fa-plane-departure text-brand-primary mr-2"></i>
+                        {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Redefining private aviation with a commitment to safety, luxury, and efficiency. Your journey begins here.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-display font-bold uppercase tracking-widest mb-6">Company</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-brand-primary transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition-colors">Our Fleet</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition-colors">Safety</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-display font-bold uppercase tracking-widest mb-6">Services</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-brand-primary transition-colors">Private Charter</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition-colors">Empty Legs</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition-colors">Jet Management</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition-colors">Sales & Acquisitions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-white font-display font-bold uppercase tracking-widest mb-6">Stay Updated</h4>
+                    <form class="flex flex-col gap-4">
+                        <input type="email" placeholder="Enter your email" class="bg-slate-900 border border-slate-800 text-white px-4 py-3 rounded-sm focus:outline-none focus:border-brand-primary transition-colors text-sm">
+                        <button class="bg-white text-brand-dark font-bold uppercase tracking-widest py-3 text-xs hover:bg-brand-primary transition-colors rounded-sm">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-slate-600 text-xs">
+                    &copy; 2023 {{COMPANY_NAME}}. All rights reserved.
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-slate-500 hover:text-white transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="text-slate-500 hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-slate-500 hover:text-white transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
