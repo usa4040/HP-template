@@ -896,6 +896,19 @@
         "Fashion",
         "AR"
       ]
+    },
+    {
+      "id": "070",
+      "name": "Verdant Future",
+      "category": "AgTech",
+      "style": "Bio-Futurism",
+      "path": "catalog/template_070_agtech_biofuturism",
+      "description": "High-tech vertical farming.",
+      "tags": [
+        "Sustainable",
+        "Tech",
+        "Green"
+      ]
     }
   ]
 }
