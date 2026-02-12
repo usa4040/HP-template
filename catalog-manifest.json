@@ -1039,6 +1039,19 @@
         "Eco",
         "Sporty"
       ]
+    },
+    {
+      "id": "081",
+      "name": "AeroElite",
+      "category": "Aviation",
+      "style": "Stratosphere",
+      "path": "catalog/template_081_aviation_stratosphere",
+      "description": "Luxury private jet charter.",
+      "tags": [
+        "Luxury",
+        "Travel",
+        "Sky"
+      ]
     }
   ]
 }
