@@ -1052,6 +1052,19 @@
         "Travel",
         "Sky"
       ]
+    },
+    {
+      "id": "082",
+      "name": "Automata Core",
+      "category": "Robotics",
+      "style": "Precision",
+      "path": "catalog/template_082_robotics_precision",
+      "description": "Precision blueprint aesthetic",
+      "tags": [
+        "Engineering",
+        "Tech",
+        "Blueprint"
+      ]
     }
   ]
 }
