@@ -987,6 +987,19 @@
         "Luxury",
         "Travel"
       ]
+    },
+    {
+      "id": "077",
+      "name": "Horizon Ventures",
+      "category": "Venture Capital",
+      "style": "Visionary Minimal",
+      "path": "catalog/template_077_venture_capital_visionary",
+      "description": "Visionary dark VC theme",
+      "tags": [
+        "Minimal",
+        "Dark",
+        "Future"
+      ]
     }
   ]
 }
