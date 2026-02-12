@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automata Core | Precision Robotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                        display: ['Chakra Petch', 'sans-serif'],
+                    },
+                    colors: {
+                        tech: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9', // Sky 500
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        },
+                        caution: {
+                            400: '#fb923c',
+                            500: '#f97316', // Orange 500
+                        },
+                        blueprint: '#1e293b', // Slate 800
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)",
+                    },
+                    animation: {
+                        marquee: 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .blueprint-grid {
+            background-size: 40px 40px;
+        }
+        .clip-tech {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
+        }
+        .clip-tech-button {
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden relative">
+
+    <!-- Grid Background -->
+    <div class="fixed inset-0 pointer-events-none z-0 blueprint-grid bg-grid-pattern opacity-[0.4]"></div>
+
+    <!-- Navigation -->
+    <header x-data="{ open: false, scrolled: false }"
+            @scroll.window="scrolled = (window.pageYOffset > 20)"
+            :class="{'bg-slate-50/90 backdrop-blur-md border-b border-slate-200': scrolled, 'bg-transparent border-transparent': !scrolled}"
+            class="fixed w-full top-0 z-50 transition-all duration-300 border-b">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-tech-500 clip-tech-button flex items-center justify-center text-white font-mono text-xs font-bold group-hover:bg-caution-500 transition-colors">AC</div>
+                <span class="font-display font-bold text-xl tracking-wider text-slate-900">{{COMPANY_NAME}}</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <template x-for="item in ['Solutions', 'R&D', 'Specs', 'Contact']">
+                    <a href="#" class="font-mono text-sm uppercase tracking-widest hover:text-tech-600 transition-colors relative group">
+                        <span x-text="item"></span>
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-caution-500 transition-all group-hover:w-full"></span>
+                    </a>
+                </template>
+                <a href="#" class="px-6 py-2 bg-slate-900 text-white font-mono text-sm uppercase tracking-wider clip-tech-button hover:bg-tech-600 transition-colors">
+                    Client Login
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="open = !open" class="md:hidden text-slate-900 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+                    <path x-show="open" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-collapse class="md:hidden bg-slate-50 border-b border-slate-200">
+            <nav class="flex flex-col p-6 gap-4">
+                <template x-for="item in ['Solutions', 'R&D', 'Specs', 'Contact']">
+                    <a href="#" class="font-mono text-sm uppercase tracking-widest text-slate-600 hover:text-tech-600">
+                        <span class="text-caution-500 mr-2">></span><span x-text="item"></span>
+                    </a>
+                </template>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen pt-20 flex items-center z-10">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8" x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 100)">
+                <div class="inline-flex items-center gap-2 px-3 py-1 border border-tech-500/30 bg-tech-50/50 rounded-sm">
+                    <span class="w-2 h-2 rounded-full bg-caution-500 animate-pulse"></span>
+                    <span class="font-mono text-xs text-tech-900 tracking-widest uppercase">System Operational</span>
+                </div>
+
+                <h1 class="font-display font-bold text-5xl md:text-7xl leading-tight text-slate-900">
+                    Precision in <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-500 to-tech-900">Every Motion</span>
+                </h1>
+
+                <p class="font-light text-slate-600 text-lg md:text-xl max-w-lg leading-relaxed border-l-2 border-caution-500 pl-6">
+                    Engineering the next generation of autonomous systems. From micron-level assembly to heavy-payload logistics.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#" class="px-8 py-4 bg-tech-600 text-white font-mono text-sm font-bold uppercase tracking-widest clip-tech-button hover:bg-slate-900 transition-colors text-center shadow-lg shadow-tech-500/20">
+                        View Schematics
+                    </a>
+                    <a href="#" class="px-8 py-4 border border-slate-300 text-slate-700 font-mono text-sm font-bold uppercase tracking-widest clip-tech-button hover:bg-slate-100 transition-colors text-center bg-white/50 backdrop-blur-sm">
+                        Tech Specs
+                    </a>
+                </div>
+
+                <div class="pt-8 flex items-center gap-8 border-t border-slate-200/50 w-full max-w-md">
+                    <div>
+                        <div class="font-display font-bold text-3xl text-slate-900">0.01<span class="text-sm text-slate-400 font-mono ml-1">mm</span></div>
+                        <div class="text-xs font-mono text-slate-500 uppercase tracking-widest mt-1">Tolerance</div>
+                    </div>
+                    <div class="h-8 w-px bg-slate-200"></div>
+                    <div>
+                        <div class="font-display font-bold text-3xl text-slate-900">99.9<span class="text-sm text-slate-400 font-mono ml-1">%</span></div>
+                        <div class="text-xs font-mono text-slate-500 uppercase tracking-widest mt-1">Uptime</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative h-[500px] w-full hidden md:block group perspective-1000">
+                <!-- Decorative elements behind image -->
+                <div class="absolute inset-0 border-2 border-dashed border-slate-300 rounded-sm transform translate-x-4 translate-y-4"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-caution-500 rounded-tr-3xl opacity-50"></div>
+
+                <!-- Main Image Container -->
+                <div class="absolute inset-0 bg-slate-200 clip-tech overflow-hidden shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                         alt="Robotic Arm"
+                         class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0">
+
+                    <!-- HUD Overlay -->
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent">
+                        <div class="font-mono text-xs text-tech-500 mb-1">UNIT: ARM-X7</div>
+                        <div class="h-1 w-full bg-slate-700/50 rounded-full overflow-hidden">
+                            <div class="h-full bg-caution-500 w-[75%] animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blueprint Marquee (Simulated) -->
+    <div class="border-y border-slate-200 bg-white/50 backdrop-blur-sm overflow-hidden py-4">
+        <div class="flex gap-12 animate-marquee whitespace-nowrap container mx-auto px-6 overflow-x-auto no-scrollbar">
+            <template x-for="i in 6">
+                <div class="flex items-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all shrink-0">
+                    <div class="h-8 w-8 bg-slate-300 rounded-sm"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-slate-500">Industry Partner <span x-text="i"></span></span>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <!-- Solutions Section -->
+    <section class="py-24 relative z-10 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <span class="font-mono text-tech-600 text-sm font-bold uppercase tracking-widest mb-2 block">/// Solutions</span>
+                    <h2 class="font-display font-bold text-4xl text-slate-900">Automated Architecture</h2>
+                </div>
+                <a href="#" class="group flex items-center gap-2 font-mono text-sm uppercase tracking-widest text-slate-600 hover:text-tech-600 transition-colors">
+                    View All Models <span class="group-hover:translate-x-1 transition-transform">-></span>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative bg-slate-50 border border-slate-200 p-1 hover:border-tech-500 transition-colors duration-300">
+                    <div class="relative h-64 overflow-hidden bg-slate-200 mb-6 clip-tech">
+                        <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110" alt="Industrial Arm">
+                        <div class="absolute top-2 right-2 bg-slate-900/80 text-white font-mono text-[10px] px-2 py-1 uppercase tracking-wider backdrop-blur-sm">
+                            Series-A
+                        </div>
+                    </div>
+                    <div class="px-5 pb-8">
+                        <h3 class="font-display font-bold text-2xl text-slate-900 mb-2 group-hover:text-tech-600 transition-colors">Assembly Arms</h3>
+                        <p class="text-slate-500 font-light text-sm leading-relaxed mb-6">High-speed, multi-axis robotic arms designed for precision manufacturing and assembly lines.</p>
+
+                        <div class="grid grid-cols-2 gap-4 border-t border-slate-200 pt-4">
+                            <div>
+                                <div class="text-[10px] font-mono text-slate-400 uppercase">Payload</div>
+                                <div class="font-mono font-bold text-slate-700">5-20kg</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-mono text-slate-400 uppercase">Reach</div>
+                                <div class="font-mono font-bold text-slate-700">1.8m</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Corner Markers -->
+                    <div class="absolute -top-[1px] -left-[1px] w-2 h-2 border-l-2 border-t-2 border-caution-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-r-2 border-b-2 border-caution-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-slate-50 border border-slate-200 p-1 hover:border-tech-500 transition-colors duration-300">
+                    <div class="relative h-64 overflow-hidden bg-slate-200 mb-6 clip-tech">
+                        <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110" alt="AI Interface">
+                        <div class="absolute top-2 right-2 bg-slate-900/80 text-white font-mono text-[10px] px-2 py-1 uppercase tracking-wider backdrop-blur-sm">
+                            Series-V
+                        </div>
+                    </div>
+                    <div class="px-5 pb-8">
+                        <h3 class="font-display font-bold text-2xl text-slate-900 mb-2 group-hover:text-tech-600 transition-colors">Vision Systems</h3>
+                        <p class="text-slate-500 font-light text-sm leading-relaxed mb-6">AI-powered optical sensors for real-time quality control and spatial awareness.</p>
+
+                        <div class="grid grid-cols-2 gap-4 border-t border-slate-200 pt-4">
+                            <div>
+                                <div class="text-[10px] font-mono text-slate-400 uppercase">Latency</div>
+                                <div class="font-mono font-bold text-slate-700">< 2ms</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-mono text-slate-400 uppercase">Resolution</div>
+                                <div class="font-mono font-bold text-slate-700">8K</div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Corner Markers -->
+                     <div class="absolute -top-[1px] -left-[1px] w-2 h-2 border-l-2 border-t-2 border-caution-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                     <div class="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-r-2 border-b-2 border-caution-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-slate-50 border border-slate-200 p-1 hover:border-tech-500 transition-colors duration-300">
+                    <div class="relative h-64 overflow-hidden bg-slate-200 mb-6 clip-tech">
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110" alt="AGV Robot">
+                        <div class="absolute top-2 right-2 bg-slate-900/80 text-white font-mono text-[10px] px-2 py-1 uppercase tracking-wider backdrop-blur-sm">
+                            Series-L
+                        </div>
+                    </div>
+                    <div class="px-5 pb-8">
+                        <h3 class="font-display font-bold text-2xl text-slate-900 mb-2 group-hover:text-tech-600 transition-colors">Logistics AGVs</h3>
+                        <p class="text-slate-500 font-light text-sm leading-relaxed mb-6">Autonomous ground vehicles for warehouse optimization and material transport.</p>
+
+                        <div class="grid grid-cols-2 gap-4 border-t border-slate-200 pt-4">
+                            <div>
+                                <div class="text-[10px] font-mono text-slate-400 uppercase">Load</div>
+                                <div class="font-mono font-bold text-slate-700">500kg</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-mono text-slate-400 uppercase">Battery</div>
+                                <div class="font-mono font-bold text-slate-700">12h</div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Corner Markers -->
+                     <div class="absolute -top-[1px] -left-[1px] w-2 h-2 border-l-2 border-t-2 border-caution-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                     <div class="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-r-2 border-b-2 border-caution-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Specs / Feature -->
+    <section class="py-24 bg-slate-900 relative overflow-hidden text-white">
+        <!-- Blueprint lines -->
+        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="font-mono text-caution-500 text-sm font-bold uppercase tracking-widest mb-2 block">/// Core Technology</span>
+                    <h2 class="font-display font-bold text-4xl mb-6">Neural Processing Unit</h2>
+                    <p class="text-slate-400 font-light mb-8 leading-relaxed">
+                        Our proprietary NPU-X chip processes sensory data at the edge, enabling sub-millisecond decision making without cloud dependency.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 group cursor-pointer">
+                            <div class="w-12 h-12 border border-slate-700 flex items-center justify-center group-hover:border-caution-500 transition-colors bg-slate-800">
+                                <span class="font-mono text-xl text-caution-500">01</span>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-lg group-hover:text-caution-500 transition-colors">Edge Computing</h4>
+                                <p class="text-sm text-slate-500 font-mono">Local processing eliminates latency.</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-px bg-slate-800"></div>
+                        <div class="flex items-center gap-4 group cursor-pointer">
+                            <div class="w-12 h-12 border border-slate-700 flex items-center justify-center group-hover:border-tech-500 transition-colors bg-slate-800">
+                                <span class="font-mono text-xl text-tech-500">02</span>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-lg group-hover:text-tech-500 transition-colors">Adaptive Learning</h4>
+                                <p class="text-sm text-slate-500 font-mono">Self-optimizing motion paths.</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-px bg-slate-800"></div>
+                        <div class="flex items-center gap-4 group cursor-pointer">
+                            <div class="w-12 h-12 border border-slate-700 flex items-center justify-center group-hover:border-white transition-colors bg-slate-800">
+                                <span class="font-mono text-xl text-white">03</span>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-lg group-hover:text-white transition-colors">Fail-Safe Logic</h4>
+                                <p class="text-sm text-slate-500 font-mono">Redundant safety protocols.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-0 bg-tech-500/20 blur-3xl rounded-full"></div>
+                    <div class="relative border border-slate-700 bg-slate-800/50 backdrop-blur-sm p-6 clip-tech">
+                        <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                            <span class="font-mono text-xs text-tech-500 uppercase">Monitor_Log.sys</span>
+                            <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                        </div>
+                        <!-- Fake Code Block -->
+                        <div class="font-mono text-xs space-y-2 text-slate-300">
+                            <div class="flex"><span class="text-slate-500 w-8">01</span><span class="text-purple-400">init_sequence</span>(<span class="text-orange-300">ARM_X7</span>);</div>
+                            <div class="flex"><span class="text-slate-500 w-8">02</span><span class="text-blue-400">await</span> sensor_array.<span class="text-yellow-300">calibrate</span>();</div>
+                            <div class="flex"><span class="text-slate-500 w-8">03</span><span class="text-green-400">if</span> (tolerance < 0.01) {</div>
+                            <div class="flex"><span class="text-slate-500 w-8">04</span>&nbsp;&nbsp;<span class="text-blue-400">return</span> <span class="text-green-400">true</span>;</div>
+                            <div class="flex"><span class="text-slate-500 w-8">05</span>} <span class="text-red-400">else</span> {</div>
+                            <div class="flex"><span class="text-slate-500 w-8">06</span>&nbsp;&nbsp;realign_axis(Z);</div>
+                            <div class="flex"><span class="text-slate-500 w-8">07</span>}</div>
+                            <div class="flex"><span class="text-slate-500 w-8">08</span><span class="text-slate-500">// System ready...</span></div>
+                        </div>
+
+                        <!-- Graph Visualization (CSS) -->
+                        <div class="mt-6 h-32 flex items-end justify-between gap-1">
+                            <template x-for="i in 20">
+                                <div class="bg-tech-500/50 w-full hover:bg-caution-500 transition-colors"
+                                     :style="`height: ${Math.floor(Math.random() * 80 + 20)}%`"></div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="bg-tech-900 rounded-sm relative overflow-hidden p-12 md:p-24 text-center clip-tech">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-caution-500 to-transparent"></div>
+
+                <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-6">Ready to Automate?</h2>
+                <p class="text-tech-100 max-w-2xl mx-auto mb-10 text-lg font-light">
+                    Consult with our engineering team to design a custom solution for your facility.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="#" class="px-8 py-4 bg-white text-tech-900 font-mono text-sm font-bold uppercase tracking-widest clip-tech-button hover:bg-caution-500 hover:text-white transition-colors">
+                        Request Consultation
+                    </a>
+                    <a href="#" class="px-8 py-4 border border-white/30 text-white font-mono text-sm font-bold uppercase tracking-widest clip-tech-button hover:bg-white/10 transition-colors">
+                        Download Brochure
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 pt-16 pb-8 text-slate-400 font-mono text-sm">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6 text-white">
+                        <div class="w-6 h-6 bg-tech-600 clip-tech-button flex items-center justify-center font-bold text-[10px]">AC</div>
+                        <span class="font-display font-bold text-lg">{{COMPANY_NAME}}</span>
+                    </div>
+                    <p class="text-xs leading-relaxed mb-6 max-w-xs">
+                        Pioneering the future of industrial robotics through precision engineering and advanced AI integration.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-8 h-8 border border-slate-700 flex items-center justify-center hover:border-tech-500 hover:text-white transition-colors">IN</a>
+                        <a href="#" class="w-8 h-8 border border-slate-700 flex items-center justify-center hover:border-tech-500 hover:text-white transition-colors">TW</a>
+                        <a href="#" class="w-8 h-8 border border-slate-700 flex items-center justify-center hover:border-tech-500 hover:text-white transition-colors">YT</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest mb-6 text-xs">Products</h4>
+                    <ul class="space-y-3 text-xs">
+                        <li><a href="#" class="hover:text-tech-500 transition-colors">Assembly Arms</a></li>
+                        <li><a href="#" class="hover:text-tech-500 transition-colors">AGV Systems</a></li>
+                        <li><a href="#" class="hover:text-tech-500 transition-colors">Vision Sensors</a></li>
+                        <li><a href="#" class="hover:text-tech-500 transition-colors">Software Suite</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest mb-6 text-xs">Company</h4>
+                    <ul class="space-y-3 text-xs">
+                        <li><a href="#" class="hover:text-tech-500 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-tech-500 transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-tech-500 transition-colors">Newsroom</a></li>
+                        <li><a href="#" class="hover:text-tech-500 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest mb-6 text-xs">Global HQ</h4>
+                    <ul class="space-y-3 text-xs">
+                        <li>1010 Silicon Ave, Tech District</li>
+                        <li>Tokyo, Japan 100-0001</li>
+                        <li class="pt-2 text-white">+81 3-5555-0199</li>
+                        <li>info@automata-core.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-[10px] uppercase">
+                    &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+                </div>
+                <div class="flex items-center gap-2 px-3 py-1 bg-slate-800 rounded-sm border border-slate-700">
+                    <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                    <span class="text-[10px] uppercase text-slate-300">All Systems Normal</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
