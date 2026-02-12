@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Future of Farming</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        bio: {
+                            black: '#0a0a0a',
+                            dark: '#121212',
+                            green: '#39FF14',
+                            purple: '#BD00FF',
+                            accent: '#00F0FF'
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?q=80&w=2670&auto=format&fit=crop')",
+                        'grid-pattern': "linear-gradient(to right, #2a2a2a 1px, transparent 1px), linear-gradient(to bottom, #2a2a2a 1px, transparent 1px)"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-text {
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+        }
+        .neon-purple {
+            text-shadow: 0 0 15px rgba(189, 0, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-bio-black text-white font-sans antialiased overflow-x-hidden selection:bg-bio-green selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b border-white/10" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-bio-green to-bio-purple rounded-lg transform rotate-45"></div>
+                    <span class="font-display font-bold text-2xl tracking-wider text-white">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#technology" class="text-gray-300 hover:text-bio-green transition-colors text-sm uppercase tracking-widest font-display font-semibold">Technology</a>
+                    <a href="#solutions" class="text-gray-300 hover:text-bio-green transition-colors text-sm uppercase tracking-widest font-display font-semibold">Solutions</a>
+                    <a href="#impact" class="text-gray-300 hover:text-bio-green transition-colors text-sm uppercase tracking-widest font-display font-semibold">Impact</a>
+                    <a href="#contact" class="px-6 py-2 border border-bio-green text-bio-green hover:bg-bio-green hover:text-black transition-all duration-300 rounded font-display font-bold tracking-wider uppercase text-sm">Contact Us</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-collapse class="md:hidden glass-panel border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-4 text-center">
+                <a href="#technology" class="block text-gray-300 hover:text-bio-green font-display font-semibold tracking-wider text-lg">TECHNOLOGY</a>
+                <a href="#solutions" class="block text-gray-300 hover:text-bio-green font-display font-semibold tracking-wider text-lg">SOLUTIONS</a>
+                <a href="#impact" class="block text-gray-300 hover:text-bio-green font-display font-semibold tracking-wider text-lg">IMPACT</a>
+                <a href="#contact" class="inline-block px-8 py-3 bg-bio-green text-black font-bold font-display tracking-wider rounded mt-4">CONTACT US</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=2574&auto=format&fit=crop" alt="Vertical Farming" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-b from-bio-black/80 via-bio-black/50 to-bio-black"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10 bg-[length:40px_40px]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-20">
+            <div class="inline-block mb-6 px-4 py-1 border border-bio-green/30 rounded-full bg-bio-green/10 backdrop-blur-sm">
+                <span class="text-bio-green font-display font-semibold tracking-[0.2em] text-sm uppercase">Next Gen AgTech</span>
+            </div>
+            <h1 class="text-6xl md:text-8xl font-display font-bold mb-6 tracking-tight leading-none text-white">
+                FEEDING THE <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-bio-green via-bio-accent to-bio-purple neon-text">FUTURE</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Sustainable vertical farming solutions powered by AI and precision hydroponics. We grow more with less.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#solutions" class="px-8 py-4 bg-bio-green text-black font-display font-bold text-lg rounded hover:bg-white transition-colors duration-300 tracking-wider">
+                    EXPLORE SYSTEMS
+                </a>
+                <a href="#contact" class="px-8 py-4 border border-white/20 hover:border-bio-purple text-white hover:text-bio-purple font-display font-bold text-lg rounded backdrop-blur-sm transition-all duration-300 tracking-wider">
+                    REQUEST DEMO
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-bio-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="py-20 border-b border-white/5 bg-bio-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center p-6 border border-white/5 rounded-lg hover:border-bio-green/50 transition-colors duration-500 group">
+                    <h3 class="text-5xl font-display font-bold text-white group-hover:text-bio-green transition-colors">95%</h3>
+                    <p class="text-gray-500 mt-2 font-display uppercase tracking-widest text-sm">Less Water Usage</p>
+                </div>
+                <div class="text-center p-6 border border-white/5 rounded-lg hover:border-bio-green/50 transition-colors duration-500 group">
+                    <h3 class="text-5xl font-display font-bold text-white group-hover:text-bio-green transition-colors">365</h3>
+                    <p class="text-gray-500 mt-2 font-display uppercase tracking-widest text-sm">Days of Harvest</p>
+                </div>
+                <div class="text-center p-6 border border-white/5 rounded-lg hover:border-bio-green/50 transition-colors duration-500 group">
+                    <h3 class="text-5xl font-display font-bold text-white group-hover:text-bio-green transition-colors">0%</h3>
+                    <p class="text-gray-500 mt-2 font-display uppercase tracking-widest text-sm">Pesticides</p>
+                </div>
+                <div class="text-center p-6 border border-white/5 rounded-lg hover:border-bio-green/50 transition-colors duration-500 group">
+                    <h3 class="text-5xl font-display font-bold text-white group-hover:text-bio-green transition-colors">100x</h3>
+                    <p class="text-gray-500 mt-2 font-display uppercase tracking-widest text-sm">Yield per Acre</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-24 relative overflow-hidden">
+        <!-- Decorative Glow -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-bio-purple/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">PRECISION <span class="text-bio-purple neon-purple">AGRICULTURE</span></h2>
+                <div class="h-1 w-20 bg-gradient-to-r from-bio-purple to-bio-green"></div>
+                <p class="text-gray-400 mt-6 max-w-2xl text-lg">Our proprietary OS monitors over 50 data points per second to ensure optimal growth conditions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="flex gap-6 group">
+                        <div class="flex-shrink-0 w-16 h-16 rounded border border-bio-purple/30 bg-bio-purple/10 flex items-center justify-center text-bio-purple group-hover:bg-bio-purple group-hover:text-white transition-all duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-display font-bold text-white mb-2">AI-Driven Climate Control</h3>
+                            <p class="text-gray-400 leading-relaxed">Machine learning algorithms adjust humidity, temperature, and light spectrum in real-time.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 group">
+                        <div class="flex-shrink-0 w-16 h-16 rounded border border-bio-green/30 bg-bio-green/10 flex items-center justify-center text-bio-green group-hover:bg-bio-green group-hover:text-black transition-all duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-display font-bold text-white mb-2">Hydroponic Nutrient Delivery</h3>
+                            <p class="text-gray-400 leading-relaxed">Closed-loop water systems deliver precise nutrient mixes directly to root systems.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 group">
+                        <div class="flex-shrink-0 w-16 h-16 rounded border border-bio-accent/30 bg-bio-accent/10 flex items-center justify-center text-bio-accent group-hover:bg-bio-accent group-hover:text-black transition-all duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-display font-bold text-white mb-2">Automated Harvesting</h3>
+                            <p class="text-gray-400 leading-relaxed">Robotic arms identify ripe produce and harvest with delicate precision, reducing waste.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative h-[600px] rounded-lg overflow-hidden border border-white/10 group">
+                    <img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?q=80&w=2670&auto=format&fit=crop" alt="Lab Tech" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-bio-black via-transparent to-transparent opacity-80"></div>
+
+                    <!-- Floating Data Card -->
+                    <div class="absolute bottom-8 left-8 right-8 glass-panel p-6 rounded border-l-4 border-bio-purple">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="text-bio-purple font-display font-bold text-sm tracking-widest uppercase mb-1">System Status</p>
+                                <h4 class="text-white text-xl font-bold">Zone A: Optimal</h4>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-3xl font-display font-bold text-white">24.5°C</p>
+                                <p class="text-gray-400 text-sm">Humidity 65%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Grid -->
+    <section id="solutions" class="py-24 bg-bio-dark border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-bio-green font-display font-bold tracking-[0.2em] uppercase text-sm">Our Models</span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-white mt-4">SCALABLE <span class="text-white">SOLUTIONS</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative overflow-hidden rounded-lg bg-bio-black border border-white/10 hover:border-bio-green/50 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?q=80&w=2670&auto=format&fit=crop" class="object-cover w-full h-64 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" alt="Urban Unit">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-display font-bold text-white mb-4 group-hover:text-bio-green transition-colors">Urban Modular</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Compact shipping container farms designed for city centers and restaurants. Plug and play.</p>
+                        <a href="#" class="inline-flex items-center text-bio-green font-bold font-display uppercase tracking-wider text-sm hover:text-white transition-colors">
+                            Learn More <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative overflow-hidden rounded-lg bg-bio-black border border-white/10 hover:border-bio-purple/50 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1615811361523-6bd03d7748dc?q=80&w=2668&auto=format&fit=crop" class="object-cover w-full h-64 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" alt="Warehouse">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-display font-bold text-white mb-4 group-hover:text-bio-purple transition-colors">Industrial Warehouse</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Large-scale vertical racking systems for distribution centers. Maximum yield density.</p>
+                        <a href="#" class="inline-flex items-center text-bio-purple font-bold font-display uppercase tracking-wider text-sm hover:text-white transition-colors">
+                            Learn More <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative overflow-hidden rounded-lg bg-bio-black border border-white/10 hover:border-bio-accent/50 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=2670&auto=format&fit=crop" class="object-cover w-full h-64 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" alt="R&D">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-display font-bold text-white mb-4 group-hover:text-bio-accent transition-colors">R&D Lab Suite</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Specialized environments for pharmaceutical crops and genetic research.</p>
+                        <a href="#" class="inline-flex items-center text-bio-accent font-bold font-display uppercase tracking-wider text-sm hover:text-white transition-colors">
+                            Learn More <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative">
+        <div class="absolute inset-0 bg-bio-black z-0">
+             <div class="absolute inset-0 bg-grid-pattern opacity-5 bg-[length:20px_20px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">START YOUR <br><span class="text-bio-green">GROWTH</span></h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Ready to revolutionize your agricultural output? Contact our engineering team for a consultation.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded bg-white/5 flex items-center justify-center text-bio-green">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            </div>
+                            <span class="text-gray-300 text-lg font-display">+1 (555) 000-0000</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded bg-white/5 flex items-center justify-center text-bio-purple">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <span class="text-gray-300 text-lg font-display">{{CONTACT_EMAIL}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-lg">
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you for your interest. We will contact you shortly.');">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-500 text-xs font-display font-bold uppercase tracking-wider mb-2">First Name</label>
+                                <input type="text" class="w-full bg-bio-black border border-white/20 rounded p-3 text-white focus:border-bio-green focus:outline-none focus:ring-1 focus:ring-bio-green transition-colors" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-gray-500 text-xs font-display font-bold uppercase tracking-wider mb-2">Last Name</label>
+                                <input type="text" class="w-full bg-bio-black border border-white/20 rounded p-3 text-white focus:border-bio-green focus:outline-none focus:ring-1 focus:ring-bio-green transition-colors" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-500 text-xs font-display font-bold uppercase tracking-wider mb-2">Email Address</label>
+                            <input type="email" class="w-full bg-bio-black border border-white/20 rounded p-3 text-white focus:border-bio-green focus:outline-none focus:ring-1 focus:ring-bio-green transition-colors" placeholder="john@company.com">
+                        </div>
+                        <div>
+                            <label class="block text-gray-500 text-xs font-display font-bold uppercase tracking-wider mb-2">Project Type</label>
+                            <select class="w-full bg-bio-black border border-white/20 rounded p-3 text-white focus:border-bio-green focus:outline-none focus:ring-1 focus:ring-bio-green transition-colors">
+                                <option>Commercial Farm</option>
+                                <option>Research Facility</option>
+                                <option>Urban Installation</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-500 text-xs font-display font-bold uppercase tracking-wider mb-2">Message</label>
+                            <textarea rows="4" class="w-full bg-bio-black border border-white/20 rounded p-3 text-white focus:border-bio-green focus:outline-none focus:ring-1 focus:ring-bio-green transition-colors" placeholder="Tell us about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-bio-green to-bio-purple text-black font-display font-bold text-lg uppercase tracking-wider py-4 rounded hover:opacity-90 transition-opacity">
+                            Send Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-bio-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-gradient-to-br from-bio-green to-bio-purple rounded transform rotate-45"></div>
+                <span class="font-display font-bold text-xl tracking-wider text-white">{{COMPANY_NAME}}</span>
+            </div>
+            <div class="text-gray-600 text-sm font-display uppercase tracking-widest">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 hover:text-bio-green transition-colors"><span class="sr-only">Twitter</span><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg></a>
+                <a href="#" class="text-gray-500 hover:text-bio-purple transition-colors"><span class="sr-only">LinkedIn</span><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"></path></svg></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
