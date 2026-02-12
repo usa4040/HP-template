@@ -1026,6 +1026,19 @@
         "Green",
         "Sport"
       ]
+    },
+    {
+      "id": "080",
+      "name": "Velocity X",
+      "category": "Urban Mobility",
+      "style": "Kinetic Eco",
+      "path": "catalog/template_080_urban_mobility_kinetic",
+      "description": "Dynamic e-bike urban theme",
+      "tags": [
+        "Modern",
+        "Eco",
+        "Sporty"
+      ]
     }
   ]
 }
