@@ -1000,6 +1000,19 @@
         "Dark",
         "Future"
       ]
+    },
+    {
+      "id": "078",
+      "name": "Copper Still Distillery",
+      "category": "Distillery",
+      "style": "Heritage Copper",
+      "path": "catalog/template_078_distillery_heritage",
+      "description": "Copper & stone artisan style.",
+      "tags": [
+        "Premium",
+        "Industrial",
+        "Warm"
+      ]
     }
   ]
 }

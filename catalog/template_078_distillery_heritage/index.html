@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Heritage Distillery</title>
+    <meta name="description" content="Handcrafted spirits distilled with tradition and passion. Experience the legacy of {{COMPANY_NAME}}.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        copper: {
+                            50: '#fbf5eb',
+                            100: '#f5e8d4',
+                            200: '#edd0a9',
+                            300: '#e3b378',
+                            400: '#d9914b',
+                            500: '#d3752c', // Main Copper
+                            600: '#c45a23',
+                            700: '#a3421f',
+                            800: '#833420', // Dark Copper
+                            900: '#6a2c1e',
+                            950: '#39140d',
+                        },
+                        stone: {
+                            850: '#1f1f1e', // Custom dark stone
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Bitter', 'serif'],
+                        body: ['Source Sans 3', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1527281400683-1aae777175f8?q=80&w=2574&auto=format&fit=crop')",
+                        'wood-texture': "url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=2674&auto=format&fit=crop')", // Dark wood
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        /* Smooth fade for images */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="bg-stone-950 text-stone-300 font-body antialiased selection:bg-copper-500 selection:text-white flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 50)">
+
+    <!-- Navigation -->
+    <header class="fixed w-full z-50 transition-all duration-300 border-b border-white/5" :class="scrolled ? 'bg-stone-950/95 backdrop-blur-sm py-3 shadow-lg' : 'bg-transparent py-6'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-heading font-bold tracking-wider text-white flex items-center gap-2">
+                <span class="text-copper-500 text-3xl">✦</span> {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-stone-300 uppercase">
+                <a href="#about" class="hover:text-copper-400 transition-colors duration-300">Our Craft</a>
+                <a href="#spirits" class="hover:text-copper-400 transition-colors duration-300">Spirits</a>
+                <a href="#experience" class="hover:text-copper-400 transition-colors duration-300">Experience</a>
+                <a href="#visit" class="px-6 py-2 border border-copper-500 text-copper-500 hover:bg-copper-500 hover:text-white transition-all duration-300 rounded-sm">Visit Us</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-stone-100 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="fixed inset-0 bg-stone-950/95 z-40 md:hidden flex flex-col justify-center items-center gap-8 text-xl font-heading" x-cloak>
+            <button @click="mobileMenuOpen = false" class="absolute top-6 right-6 text-stone-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <a href="#about" @click="mobileMenuOpen = false" class="hover:text-copper-500 transition-colors">Our Craft</a>
+            <a href="#spirits" @click="mobileMenuOpen = false" class="hover:text-copper-500 transition-colors">Spirits</a>
+            <a href="#experience" @click="mobileMenuOpen = false" class="hover:text-copper-500 transition-colors">Experience</a>
+            <a href="#visit" @click="mobileMenuOpen = false" class="text-copper-500 font-bold mt-4">Visit Us</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center">
+            <div class="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-stone-950/50 to-stone-950"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 text-center" x-data x-intersect="$el.classList.add('fade-in-up')">
+            <p class="text-copper-400 font-medium tracking-[0.2em] uppercase mb-4 text-sm md:text-base">Est. 1924</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white mb-6 leading-tight">
+                Crafted by <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-copper-300 to-copper-600">Tradition</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-stone-300 text-lg md:text-xl font-light mb-10 leading-relaxed">
+                Experience the soulful depth of small-batch spirits, distilled with patience in the heart of the valley.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#spirits" class="px-8 py-3 bg-copper-600 text-white font-medium tracking-wide hover:bg-copper-700 transition-colors duration-300 shadow-lg shadow-copper-900/50 rounded-sm">
+                    View Collection
+                </a>
+                <a href="#about" class="px-8 py-3 border border-stone-500 text-stone-300 font-medium tracking-wide hover:border-white hover:text-white transition-colors duration-300 rounded-sm">
+                    Our Story
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-stone-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Our Craft Section -->
+    <section id="about" class="py-24 bg-stone-950 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Image Grid -->
+                <div class="w-full lg:w-1/2 grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1707249907742-4d4984281f3a?q=80&w=1000&auto=format&fit=crop" alt="Copper Stills" class="w-full h-80 object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700 mt-12">
+                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1470&auto=format&fit=crop" alt="Barrels" class="w-full h-80 object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+
+                <!-- Content -->
+                <div class="w-full lg:w-1/2 space-y-8">
+                    <div class="w-20 h-1 bg-copper-600"></div>
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold text-white">The Art of Distillation</h2>
+                    <p class="text-stone-400 text-lg leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe that great spirits are not made, they are forged. Using locally sourced grains and pure mountain water, our process honors the time-tested methods of our ancestors while embracing the precision of modern craft.
+                    </p>
+                    <p class="text-stone-400 text-lg leading-relaxed">
+                        Every drop passes through our hand-hammered copper stills, ensuring a complexity and smoothness that defines our signature character.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-8 pt-8 border-t border-stone-800">
+                        <div>
+                            <span class="block text-3xl font-heading text-copper-500 font-bold mb-1">100%</span>
+                            <span class="text-stone-500 uppercase text-xs tracking-wider">Local Grains</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-heading text-copper-500 font-bold mb-1">24yr</span>
+                            <span class="text-stone-500 uppercase text-xs tracking-wider">Master Distiller</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spirits Collection -->
+    <section id="spirits" class="py-24 bg-stone-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-copper-500 font-medium tracking-widest uppercase text-sm">Our Selection</span>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mt-3 mb-6">Signature Spirits</h2>
+                <p class="text-stone-400">Discover the distinct profiles of our award-winning collection.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group bg-stone-950 border border-stone-800 p-8 hover:border-copper-900/50 transition-all duration-300">
+                    <div class="h-80 mb-6 overflow-hidden relative flex items-center justify-center bg-stone-900 rounded-sm group-hover:shadow-2xl transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1611536326696-b52be8ef45f6?q=80&w=1000&auto=format&fit=crop" alt="Single Malt Reserve" class="h-full w-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white mb-2">Single Malt Reserve</h3>
+                    <p class="text-stone-500 text-sm mb-4">Aged 12 Years • 46% ABV</p>
+                    <p class="text-stone-400 mb-6 leading-relaxed">Rich notes of vanilla, toasted oak, and dried fruit with a lingering smoky finish.</p>
+                    <a href="#" class="inline-flex items-center text-copper-500 hover:text-copper-400 font-medium transition-colors">
+                        View Details <span class="ml-2">→</span>
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-stone-950 border border-stone-800 p-8 hover:border-copper-900/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-copper-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wider">Bestseller</div>
+                    <div class="h-80 mb-6 overflow-hidden relative flex items-center justify-center bg-stone-900 rounded-sm group-hover:shadow-2xl transition-all duration-500">
+                         <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1000&auto=format&fit=crop" alt="Botanical Gin" class="h-full w-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white mb-2">Botanical Gin</h3>
+                    <p class="text-stone-500 text-sm mb-4">Small Batch • 42% ABV</p>
+                    <p class="text-stone-400 mb-6 leading-relaxed">A crisp fusion of juniper, citrus peel, and locally foraged mountain herbs.</p>
+                    <a href="#" class="inline-flex items-center text-copper-500 hover:text-copper-400 font-medium transition-colors">
+                        View Details <span class="ml-2">→</span>
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-stone-950 border border-stone-800 p-8 hover:border-copper-900/50 transition-all duration-300">
+                    <div class="h-80 mb-6 overflow-hidden relative flex items-center justify-center bg-stone-900 rounded-sm group-hover:shadow-2xl transition-all duration-500">
+                         <img src="https://images.unsplash.com/photo-1569529465841-dfecdab7503b?q=80&w=1000&auto=format&fit=crop" alt="Mountain Rye" class="h-full w-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white mb-2">Mountain Rye</h3>
+                    <p class="text-stone-500 text-sm mb-4">Cask Strength • 52% ABV</p>
+                    <p class="text-stone-400 mb-6 leading-relaxed">Bold, spicy, and unapologetic. Notes of black pepper, caramel, and leather.</p>
+                    <a href="#" class="inline-flex items-center text-copper-500 hover:text-copper-400 font-medium transition-colors">
+                        View Details <span class="ml-2">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience / Tasting Room -->
+    <section id="experience" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1572569992819-33104fb6b99b?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center bg-fixed">
+            <div class="absolute inset-0 bg-stone-950/90"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center bg-stone-900/50 backdrop-blur-md border border-stone-800 rounded-sm overflow-hidden">
+                <div class="w-full md:w-1/2 p-12 lg:p-16">
+                    <span class="text-copper-500 font-medium tracking-widest uppercase text-sm mb-2 block">The Tasting Room</span>
+                    <h2 class="text-4xl font-heading font-bold text-white mb-6">Sip, Savor, Stay</h2>
+                    <p class="text-stone-300 mb-8 leading-relaxed">
+                        Join us in our industrial-chic tasting room for a guided flight of our finest spirits. Learn about the distillation process directly from our makers and enjoy cocktails crafted with precision.
+                    </p>
+                    <ul class="space-y-4 mb-10 text-stone-400">
+                        <li class="flex items-center gap-3">
+                            <span class="text-copper-500">✓</span> Guided Flights & Tours
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-copper-500">✓</span> Private Events & Masterclasses
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-copper-500">✓</span> Exclusive Bottle Releases
+                        </li>
+                    </ul>
+                    <a href="#visit" class="px-8 py-3 bg-white text-stone-950 font-medium tracking-wide hover:bg-stone-200 transition-colors duration-300 rounded-sm">
+                        Book a Tour
+                    </a>
+                </div>
+                <div class="w-full md:w-1/2 h-96 md:h-auto min-h-[500px] bg-[url('https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?q=80&w=2574&auto=format&fit=crop')] bg-cover bg-center"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="visit" class="bg-stone-950 border-t border-stone-900 pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a href="#" class="text-2xl font-heading font-bold tracking-wider text-white flex items-center gap-2 mb-6">
+                        <span class="text-copper-500 text-3xl">✦</span> {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-stone-500 text-sm leading-relaxed">
+                        Handcrafted spirits distilled with integrity and passion. Honoring the past, pouring the future.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-heading font-bold mb-6">Explore</h4>
+                    <ul class="space-y-3 text-stone-400 text-sm">
+                        <li><a href="#" class="hover:text-copper-500 transition-colors">Our Story</a></li>
+                        <li><a href="#" class="hover:text-copper-500 transition-colors">Spirits Collection</a></li>
+                        <li><a href="#" class="hover:text-copper-500 transition-colors">Tasting Room</a></li>
+                        <li><a href="#" class="hover:text-copper-500 transition-colors">Cocktail Recipes</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-heading font-bold mb-6">Visit Us</h4>
+                    <address class="not-italic text-stone-400 text-sm space-y-3">
+                        <p>123 Distillery Lane</p>
+                        <p>Highland Valley, ST 90210</p>
+                        <p class="pt-2"><a href="tel:+15550000000" class="hover:text-copper-500 transition-colors">+1 (555) 000-0000</a></p>
+                        <p><a href="mailto:hello@example.com" class="hover:text-copper-500 transition-colors">hello@example.com</a></p>
+                    </address>
+                </div>
+
+                <!-- Hours -->
+                <div>
+                    <h4 class="text-white font-heading font-bold mb-6">Hours</h4>
+                    <ul class="space-y-3 text-stone-400 text-sm">
+                        <li class="flex justify-between"><span>Mon - Wed</span> <span>Closed</span></li>
+                        <li class="flex justify-between"><span>Thu - Fri</span> <span>4pm - 10pm</span></li>
+                        <li class="flex justify-between"><span>Sat</span> <span>12pm - 11pm</span></li>
+                        <li class="flex justify-between"><span>Sun</span> <span>12pm - 8pm</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-stone-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-600">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved. Please drink responsibly.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-stone-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-stone-400 transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
