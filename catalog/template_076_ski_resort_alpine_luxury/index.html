@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Alpine Luxury Resort</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Lato', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',  /* Slate 900 */
+                            light: '#f8fafc', /* Slate 50 */
+                            accent: '#38bdf8', /* Sky 400 */
+                            gold: '#d4af37',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 antialiased selection:bg-brand-gold selection:text-white">
+
+    <!-- Header -->
+    <header
+        x-data="{ scrolled: false, mobileMenu: false }"
+        @scroll.window="scrolled = (window.scrollY > 20)"
+        class="fixed w-full top-0 z-50 transition-all duration-300"
+        :class="scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'"
+    >
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-bold tracking-wider uppercase transition-colors"
+               :class="scrolled ? 'text-brand-dark' : 'text-white'">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8">
+                <template x-for="item in ['Resort', 'Chalets', 'Dining', 'Spa', 'Contact']">
+                    <a :href="'#' + item.toLowerCase()"
+                       class="text-sm uppercase tracking-widest font-bold hover:text-brand-gold transition-colors"
+                       :class="scrolled ? 'text-slate-600' : 'text-white/90'">
+                        <span x-text="item"></span>
+                    </a>
+                </template>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     :class="scrolled ? 'text-slate-800' : 'text-white'">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             @click.away="mobileMenu = false"
+             class="absolute top-full left-0 w-full bg-white shadow-lg md:hidden">
+            <nav class="flex flex-col py-4">
+                <template x-for="item in ['Resort', 'Chalets', 'Dining', 'Spa', 'Contact']">
+                    <a :href="'#' + item.toLowerCase()"
+                       class="px-6 py-3 text-slate-800 hover:bg-slate-50 border-l-4 border-transparent hover:border-brand-gold transition-colors font-serif"
+                       @click="mobileMenu = false">
+                        <span x-text="item"></span>
+                    </a>
+                </template>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&q=80" alt="Snowy Mountains" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-slate-900/90"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p class="text-brand-gold uppercase tracking-[0.3em] text-sm md:text-base font-bold mb-4 opacity-0 transition-opacity duration-1000"
+               :class="{ 'opacity-100': show }">Welcome to the Peak</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-8 opacity-0 translate-y-8 transition-all duration-1000 delay-300"
+                :class="{ 'opacity-100 translate-y-0': show }">
+                Ascend to Luxury
+            </h1>
+            <p class="text-slate-200 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto opacity-0 transition-opacity duration-1000 delay-500"
+               :class="{ 'opacity-100': show }">
+                Experience world-class skiing, bespoke chalets, and uncompromised elegance in the heart of the Alps.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center opacity-0 transition-opacity duration-1000 delay-700"
+                 :class="{ 'opacity-100': show }">
+                <a href="#chalets" class="px-8 py-4 bg-brand-gold text-white font-bold uppercase tracking-widest hover:bg-yellow-600 transition-colors">
+                    View Chalets
+                </a>
+                <a href="#contact" class="px-8 py-4 border border-white text-white font-bold uppercase tracking-widest hover:bg-white hover:text-brand-dark transition-colors">
+                    Inquire Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Live Conditions Widget -->
+        <div class="absolute bottom-0 left-0 w-full bg-white/10 backdrop-blur-md border-t border-white/20 py-4 hidden md:block">
+            <div class="container mx-auto px-6 flex justify-center gap-12 text-white/90 font-sans text-sm tracking-wide">
+                <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <span>Current: -4°C</span>
+                </div>
+                <div class="w-px h-5 bg-white/20"></div>
+                <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    <span>Base: 120cm</span>
+                </div>
+                <div class="w-px h-5 bg-white/20"></div>
+                <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Lifts Open: 14/15</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section id="resort" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="w-16 h-1 bg-brand-gold"></div>
+                    <h2 class="text-4xl md:text-5xl font-serif text-brand-dark leading-tight">
+                        Where Alpine Tradition Meets Modern Luxury.
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed text-lg">
+                        Nestled in a secluded valley, {{COMPANY_NAME}} offers an escape from the ordinary. Our philosophy blends the rustic charm of traditional alpine architecture with contemporary design and unparalleled service. From your private chalet to the pristine slopes, every detail is curated for your comfort.
+                    </p>
+                    <ul class="space-y-4 pt-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-gold mt-1">✦</span>
+                            <span class="text-slate-700">Ski-in, Ski-out Access to Premium Slopes</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-gold mt-1">✦</span>
+                            <span class="text-slate-700">Private Butlers & Concierge Service</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-gold mt-1">✦</span>
+                            <span class="text-slate-700">Award-Winning Michelin Star Dining</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-brand-gold z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1518602164578-cd0074062767?auto=format&fit=crop&q=80" alt="Luxury Interior" class="relative z-10 w-full h-[600px] object-cover shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chalets Section -->
+    <section id="chalets" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-gold uppercase tracking-widest font-bold text-sm">Accommodation</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-brand-dark mt-4 mb-6">Our Private Chalets</h2>
+                <p class="text-slate-600">Sanctuaries of warmth and style, offering panoramic views of the surrounding peaks.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Chalet 1 -->
+                <div class="group cursor-pointer bg-white shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative overflow-hidden h-72">
+                        <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&q=80" alt="Chalet 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-2 text-xs font-bold uppercase tracking-wider">
+                            Suite
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-serif text-brand-dark mb-2">The Matterhorn</h3>
+                        <p class="text-slate-500 text-sm mb-6">2 Guests • 65m² • Mountain View</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-6">
+                            <span class="text-brand-gold font-bold text-lg">$850<span class="text-slate-400 text-xs font-normal">/night</span></span>
+                            <span class="text-slate-800 text-sm uppercase tracking-wider font-bold group-hover:text-brand-gold transition-colors">Details →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chalet 2 -->
+                <div class="group cursor-pointer bg-white shadow-lg hover:shadow-2xl transition-all duration-300 transform md:-translate-y-4">
+                    <div class="relative overflow-hidden h-72">
+                        <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&q=80" alt="Chalet 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-brand-gold text-white px-4 py-2 text-xs font-bold uppercase tracking-wider">
+                            Premium
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-serif text-brand-dark mb-2">The Eiger Lodge</h3>
+                        <p class="text-slate-500 text-sm mb-6">4 Guests • 120m² • Fireplace</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-6">
+                            <span class="text-brand-gold font-bold text-lg">$1,200<span class="text-slate-400 text-xs font-normal">/night</span></span>
+                            <span class="text-slate-800 text-sm uppercase tracking-wider font-bold group-hover:text-brand-gold transition-colors">Details →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chalet 3 -->
+                <div class="group cursor-pointer bg-white shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative overflow-hidden h-72">
+                        <img src="https://images.unsplash.com/photo-1629079447841-d68748281363?auto=format&fit=crop&q=80" alt="Chalet 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-2 text-xs font-bold uppercase tracking-wider">
+                            Family
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-serif text-brand-dark mb-2">The Weisshorn</h3>
+                        <p class="text-slate-500 text-sm mb-6">6 Guests • 180m² • Terrace</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-6">
+                            <span class="text-brand-gold font-bold text-lg">$1,850<span class="text-slate-400 text-xs font-normal">/night</span></span>
+                            <span class="text-slate-800 text-sm uppercase tracking-wider font-bold group-hover:text-brand-gold transition-colors">Details →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dining & Spa Parallax -->
+    <section class="relative py-32 bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80');">
+        <div class="absolute inset-0 bg-slate-900/60"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Dining Card -->
+                <div class="bg-white p-12 text-center transform hover:-translate-y-2 transition-transform duration-500">
+                    <span class="text-brand-gold text-4xl mb-4 block">♨</span>
+                    <h3 class="text-3xl font-serif text-brand-dark mb-4">Alpine Gastronomy</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed">Savor locally sourced ingredients transformed into culinary masterpieces by our Michelin-starred chefs. An extensive wine cellar awaits.</p>
+                    <a href="#dining" class="inline-block border-b-2 border-brand-dark pb-1 text-sm font-bold uppercase tracking-widest hover:text-brand-gold hover:border-brand-gold transition-colors">View Menu</a>
+                </div>
+
+                <!-- Spa Card -->
+                <div class="bg-brand-dark p-12 text-center text-white transform hover:-translate-y-2 transition-transform duration-500 mt-12 md:mt-0">
+                    <span class="text-brand-gold text-4xl mb-4 block">❄</span>
+                    <h3 class="text-3xl font-serif mb-4">The Ice Spa</h3>
+                    <p class="text-slate-300 mb-8 leading-relaxed">Rejuvenate your body and mind with our signature treatments, heated outdoor pools, and panoramic sauna experiences.</p>
+                    <a href="#spa" class="inline-block border-b-2 border-white pb-1 text-sm font-bold uppercase tracking-widest hover:text-brand-gold hover:border-brand-gold transition-colors">Discover Wellness</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-white text-center">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <svg class="w-12 h-12 text-brand-gold mx-auto mb-8 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H11.983C10.8784 16 9.983 16.8954 9.983 18L9.983 21H2V11H6.017C7.1216 11 8.017 11.8954 8.017 13V15H8.017V15H15.983V15H15.983V13C15.983 11.8954 16.8784 11 17.983 11H22V21H14.017ZM12.017 3C6.49416 3 2.017 7.47715 2.017 13V9H6.017C7.1216 9 8.017 9.89543 8.017 11V11H15.983V11C15.983 9.89543 16.8784 9 17.983 9H22V13C22 7.47715 17.5228 3 12.017 3Z"></path></svg>
+            <blockquote class="text-2xl md:text-3xl font-serif text-slate-800 italic leading-relaxed mb-8">
+                "An absolute masterpiece of hospitality. The attention to detail is unmatched, and the location is simply breathtaking. The perfect winter escape."
+            </blockquote>
+            <cite class="not-italic font-sans text-sm font-bold uppercase tracking-widest text-brand-gold">— Elena R., Verified Guest</cite>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <span class="text-brand-gold uppercase tracking-widest font-bold text-sm">Inquiries</span>
+                    <h2 class="text-4xl font-serif text-brand-dark mt-4 mb-6">Plan Your Stay</h2>
+                    <p class="text-slate-600 mb-8">Ready to experience the pinnacle of alpine luxury? Contact our concierge team to customize your perfect winter holiday.</p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Call Us</h4>
+                                <p class="text-slate-500 text-sm">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Email</h4>
+                                <p class="text-slate-500 text-sm">concierge@{{COMPANY_NAME}}.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="bg-white p-8 shadow-xl space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Full Name</label>
+                        <input type="text" class="w-full bg-slate-50 border-b-2 border-slate-200 p-3 focus:outline-none focus:border-brand-gold transition-colors placeholder-slate-400" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Email Address</label>
+                        <input type="email" class="w-full bg-slate-50 border-b-2 border-slate-200 p-3 focus:outline-none focus:border-brand-gold transition-colors placeholder-slate-400" placeholder="john@example.com">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Arrival</label>
+                            <input type="date" class="w-full bg-slate-50 border-b-2 border-slate-200 p-3 focus:outline-none focus:border-brand-gold transition-colors text-slate-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Guests</label>
+                            <select class="w-full bg-slate-50 border-b-2 border-slate-200 p-3 focus:outline-none focus:border-brand-gold transition-colors text-slate-600">
+                                <option>2 Guests</option>
+                                <option>4 Guests</option>
+                                <option>6+ Guests</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Message</label>
+                        <textarea rows="4" class="w-full bg-slate-50 border-b-2 border-slate-200 p-3 focus:outline-none focus:border-brand-gold transition-colors placeholder-slate-400" placeholder="Tell us about your preferences..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-dark text-white py-4 font-bold uppercase tracking-widest hover:bg-brand-gold transition-colors">
+                        Request Availability
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <a href="#" class="text-3xl font-serif font-bold tracking-wider mb-6 md:mb-0">{{COMPANY_NAME}}</a>
+                <div class="flex gap-6">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors">Facebook</a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors">Twitter</a>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between text-sm text-slate-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-slate-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
