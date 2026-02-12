@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Music & Arts Festival</title>
+    <meta name="description" content="Join us for a weekend of music, art, and community under the desert stars.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        display: ['Abril Fatface', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f172a', // slate-900
+                            darker: '#020617', // slate-950
+                            accent: '#ec4899', // pink-500
+                            warm: '#f59e0b', // amber-500
+                        }
+                    },
+                    backgroundImage: {
+                        'sunset-gradient': 'linear-gradient(to right, #ec4899, #ef4444, #f59e0b)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .gradient-text {
+            background: linear-gradient(to right, #ec4899, #ef4444, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-white font-sans antialiased overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Navigation -->
+    <nav :class="{ 'bg-brand-dark/90 backdrop-blur-md border-b border-white/10': scrolled, 'bg-transparent': !scrolled }" class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-display text-3xl tracking-wide gradient-text">{{COMPANY_NAME}}</a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#lineup" class="hover:text-pink-500 transition-colors duration-300 text-sm font-medium tracking-wider uppercase">Lineup</a>
+                        <a href="#experience" class="hover:text-pink-500 transition-colors duration-300 text-sm font-medium tracking-wider uppercase">Experience</a>
+                        <a href="#tickets" class="hover:text-pink-500 transition-colors duration-300 text-sm font-medium tracking-wider uppercase">Tickets</a>
+                        <a href="#contact" class="hover:text-pink-500 transition-colors duration-300 text-sm font-medium tracking-wider uppercase">Info</a>
+                        <a href="#tickets" class="bg-white text-brand-dark hover:bg-gradient-to-r hover:from-pink-500 hover:to-orange-500 hover:text-white px-6 py-2 rounded-full font-bold transition-all duration-300 text-sm uppercase tracking-wide">Buy Passes</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none transition">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{'hidden': !mobileMenuOpen, 'inline-flex': mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="md:hidden bg-brand-dark/95 backdrop-blur-xl absolute w-full border-b border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#lineup" @click="mobileMenuOpen = false" class="block px-3 py-4 text-base font-medium hover:text-pink-500 transition">Lineup</a>
+                <a href="#experience" @click="mobileMenuOpen = false" class="block px-3 py-4 text-base font-medium hover:text-pink-500 transition">Experience</a>
+                <a href="#tickets" @click="mobileMenuOpen = false" class="block px-3 py-4 text-base font-medium hover:text-pink-500 transition">Tickets</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block px-3 py-4 text-base font-medium hover:text-pink-500 transition">Info</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1470229722913-7ea549c1c5ae?auto=format&fit=crop&w=2000&q=80" alt="Festival Crowd" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto" x-data="timer()">
+            <p class="text-pink-500 tracking-[0.3em] font-medium mb-4 uppercase">October 12-14, 2024 &bull; Joshua Tree, CA</p>
+            <h1 class="font-display text-6xl md:text-8xl lg:text-9xl mb-6 leading-tight">
+                <span class="gradient-text block">{{COMPANY_NAME}}</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-10 font-light max-w-2xl mx-auto">
+                Escape the ordinary. Immerse yourself in music, art, and the desert sky.
+            </p>
+
+            <!-- Countdown -->
+            <div class="flex justify-center space-x-4 md:space-x-8 mb-12 font-display text-white">
+                <div class="text-center">
+                    <div class="text-4xl md:text-6xl gradient-text" x-text="days">00</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400 mt-2">Days</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-6xl gradient-text" x-text="hours">00</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400 mt-2">Hours</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-6xl gradient-text" x-text="minutes">00</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400 mt-2">Mins</div>
+                </div>
+            </div>
+
+            <a href="#tickets" class="inline-block bg-white text-brand-dark px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(236,72,153,0.3)]">
+                Get Your Passes
+            </a>
+        </div>
+    </header>
+
+    <!-- Lineup Section -->
+    <section id="lineup" class="py-24 bg-brand-darker relative overflow-hidden">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-pink-600/20 rounded-full blur-[100px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-5xl md:text-6xl mb-6">The Sound</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-yellow-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Headliners -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80" alt="Artist" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="font-display text-3xl mb-2 text-white group-hover:text-pink-400 transition-colors">Neon Horizon</h3>
+                        <p class="text-sm text-gray-300 uppercase tracking-wider">Electronic / Synth</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer md:-mt-12">
+                    <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=800&q=80" alt="Artist" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="font-display text-3xl mb-2 text-white group-hover:text-pink-400 transition-colors">Velvet Echo</h3>
+                        <p class="text-sm text-gray-300 uppercase tracking-wider">Indie Rock</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?auto=format&fit=crop&w=800&q=80" alt="Artist" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="font-display text-3xl mb-2 text-white group-hover:text-pink-400 transition-colors">Solar Flare</h3>
+                        <p class="text-sm text-gray-300 uppercase tracking-wider">Deep House</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Acts List -->
+            <div class="text-center max-w-4xl mx-auto">
+                <p class="text-2xl md:text-3xl font-light leading-relaxed text-gray-300">
+                    The Midnight • Glass Animals • Tame Impala • Empire of the Sun • ODESZA • RÜFÜS DU SOL • Jungle • Khruangbin • Parcels • Polo & Pan • L'Impératrice
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section (Bento Grid) -->
+    <section id="experience" class="py-24 bg-brand-dark text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div>
+                    <h2 class="font-display text-5xl md:text-6xl mb-2">The Experience</h2>
+                    <p class="text-gray-400 text-lg">More than just music.</p>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center text-pink-500 font-medium hover:text-white transition group">
+                    View Full Map <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[600px]">
+                <!-- Art -->
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl bg-gray-800">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80">
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="font-display text-3xl mb-2">Immersive Art</h3>
+                        <p class="text-gray-300 text-sm">Walk through large-scale installations under the stars.</p>
+                    </div>
+                </div>
+
+                <!-- Camping -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-3xl bg-gray-800">
+                    <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="font-display text-2xl mb-1">Desert Camping</h3>
+                        <p class="text-gray-300 text-xs">Stay where the magic happens.</p>
+                    </div>
+                </div>
+
+                <!-- Food -->
+                <div class="relative group overflow-hidden rounded-3xl bg-gray-800">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="font-display text-xl mb-1">Gourmet Eats</h3>
+                    </div>
+                </div>
+
+                <!-- Wellness -->
+                <div class="relative group overflow-hidden rounded-3xl bg-gray-800">
+                    <img src="https://images.unsplash.com/photo-1544367563-12123d8975d9?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="font-display text-xl mb-1">Wellness</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tickets Section -->
+    <section id="tickets" class="py-24 bg-brand-darker relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-5xl md:text-6xl mb-6">Secure Your Spot</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Tickets are selling fast. Choose your level of access and join the community.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- GA -->
+                <div class="glass-card p-8 rounded-3xl hover:border-pink-500/50 transition-colors duration-300 flex flex-col">
+                    <div class="mb-4">
+                        <span class="text-pink-500 font-bold tracking-widest text-xs uppercase">General Admission</span>
+                        <h3 class="font-display text-4xl mt-2">$299</h3>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1 text-gray-300 text-sm">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-pink-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>3-Day Festival Access</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-pink-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Access to all 4 Stages</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-pink-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Free Water Stations</li>
+                    </ul>
+                    <button class="w-full border border-white/20 hover:bg-white hover:text-brand-dark text-white font-bold py-3 rounded-xl transition-all duration-300">Select</button>
+                </div>
+
+                <!-- VIP -->
+                <div class="glass-card p-8 rounded-3xl border-pink-500/30 bg-gradient-to-b from-pink-500/10 to-transparent relative transform md:-translate-y-4 flex flex-col">
+                    <div class="absolute top-0 right-0 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-2xl">POPULAR</div>
+                    <div class="mb-4">
+                        <span class="text-yellow-400 font-bold tracking-widest text-xs uppercase">VIP Experience</span>
+                        <h3 class="font-display text-4xl mt-2">$599</h3>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1 text-gray-300 text-sm">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-yellow-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in GA</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-yellow-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>VIP Viewing Areas</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-yellow-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Express Entry Lane</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-yellow-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Premium Bar & Restrooms</li>
+                    </ul>
+                    <button class="w-full bg-gradient-to-r from-pink-500 to-orange-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] text-white font-bold py-3 rounded-xl transition-all duration-300">Select</button>
+                </div>
+
+                <!-- Glamping -->
+                <div class="glass-card p-8 rounded-3xl hover:border-pink-500/50 transition-colors duration-300 flex flex-col">
+                    <div class="mb-4">
+                        <span class="text-purple-400 font-bold tracking-widest text-xs uppercase">Glamping Bundle</span>
+                        <h3 class="font-display text-4xl mt-2">$1,299</h3>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1 text-gray-300 text-sm">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>2x VIP Tickets</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Luxury Safari Tent</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>AC & Power Outlets</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Concierge Service</li>
+                    </ul>
+                    <button class="w-full border border-white/20 hover:bg-white hover:text-brand-dark text-white font-bold py-3 rounded-xl transition-all duration-300">Select</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ / Contact Section -->
+    <section id="contact" class="py-24 bg-brand-dark relative">
+         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display text-4xl text-center mb-12">Essential Info</h2>
+
+            <div class="space-y-4" x-data="{ active: null }">
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button @click="active = (active === 1 ? null : 1)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-lg">Where is {{COMPANY_NAME}} located?</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-300" :class="{'rotate-180': active === 1}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div x-show="active === 1" x-collapse class="px-6 pb-4 text-gray-400 text-sm">
+                        We are located in the heart of Joshua Tree, California. Detailed directions and shuttle information will be sent to ticket holders.
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button @click="active = (active === 2 ? null : 2)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-lg">What can I bring?</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-300" :class="{'rotate-180': active === 2}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div x-show="active === 2" x-collapse class="px-6 pb-4 text-gray-400 text-sm">
+                        Empty water bottles, sunscreen, small bags (12x12"), and good vibes are welcome. No outside food, beverages, or professional cameras.
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button @click="active = (active === 3 ? null : 3)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-lg">Contact Support</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-300" :class="{'rotate-180': active === 3}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div x-show="active === 3" x-collapse class="px-6 pb-4 text-gray-400 text-sm">
+                        Need help? Email us at support@{{COMPANY_NAME}}.com or find us on social media.
+                    </div>
+                </div>
+            </div>
+         </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <a href="#" class="font-display text-2xl gradient-text">{{COMPANY_NAME}}</a>
+                    <p class="text-gray-500 text-sm mt-2">© 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                </div>
+
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Instagram</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Twitter</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">TikTok</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        function timer() {
+            return {
+                days: '00',
+                hours: '00',
+                minutes: '00',
+                seconds: '00',
+                endDate: new Date().getTime() + (14 * 24 * 60 * 60 * 1000), // 14 days from now
+                init() {
+                    this.updateTimer();
+                    setInterval(() => {
+                        this.updateTimer();
+                    }, 1000);
+                },
+                updateTimer() {
+                    const now = new Date().getTime();
+                    const distance = this.endDate - now;
+
+                    if (distance < 0) {
+                        this.days = '00';
+                        this.hours = '00';
+                        this.minutes = '00';
+                        this.seconds = '00';
+                    } else {
+                        this.days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                        this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                        this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                        this.seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
