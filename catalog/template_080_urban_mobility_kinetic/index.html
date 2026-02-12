@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Urban Mobility Redefined</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kinetic: {
+                            lime: '#a3e635', // lime-400
+                            dark: '#171717', // neutral-900
+                            charcoal: '#262626', // neutral-800
+                            gray: '#d4d4d4', // neutral-300
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Teko', 'sans-serif'],
+                        body: ['Exo 2', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1596482181467-9c98b671a932?q=80&w=2070&auto=format&fit=crop')",
+                        'city-pattern': "url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2144&auto=format&fit=crop')",
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .clip-path-skew {
+            clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #171717;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a3e635;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bef264;
+        }
+    </style>
+</head>
+<body class="bg-kinetic-dark text-white font-body antialiased overflow-x-hidden" x-data="{ scrolled: false, mobileMenu: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav :class="scrolled ? 'bg-kinetic-dark/90 backdrop-blur-md shadow-lg border-b border-white/5' : 'bg-transparent'" class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-display text-4xl font-bold tracking-wider text-white"><span class="text-kinetic-lime">VELOCITY</span> X</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#features" class="text-kinetic-gray hover:text-kinetic-lime px-3 py-2 rounded-md text-lg font-medium transition-colors uppercase tracking-wide">Features</a>
+                        <a href="#specs" class="text-kinetic-gray hover:text-kinetic-lime px-3 py-2 rounded-md text-lg font-medium transition-colors uppercase tracking-wide">Specs</a>
+                        <a href="#app" class="text-kinetic-gray hover:text-kinetic-lime px-3 py-2 rounded-md text-lg font-medium transition-colors uppercase tracking-wide">App</a>
+                        <a href="#gallery" class="text-kinetic-gray hover:text-kinetic-lime px-3 py-2 rounded-md text-lg font-medium transition-colors uppercase tracking-wide">Gallery</a>
+                        <a href="#contact" class="bg-kinetic-lime text-kinetic-dark hover:bg-white px-6 py-2 rounded-none skew-x-[-10deg] font-bold text-lg transition-all transform hover:scale-105 inline-block">
+                            <span class="skew-x-[10deg] inline-block uppercase">Pre-Order Now</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="mobileMenu = !mobileMenu" type="button" class="bg-kinetic-charcoal inline-flex items-center justify-center p-2 rounded-md text-kinetic-gray hover:text-white hover:bg-white/10 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars text-xl" x-show="!mobileMenu"></i>
+                        <i class="fas fa-times text-xl" x-show="mobileMenu" x-cloak></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="md:hidden bg-kinetic-dark border-b border-white/10" id="mobile-menu" x-cloak>
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#features" @click="mobileMenu = false" class="text-kinetic-gray hover:text-kinetic-lime block px-3 py-2 rounded-md text-base font-medium uppercase">Features</a>
+                <a href="#specs" @click="mobileMenu = false" class="text-kinetic-gray hover:text-kinetic-lime block px-3 py-2 rounded-md text-base font-medium uppercase">Specs</a>
+                <a href="#app" @click="mobileMenu = false" class="text-kinetic-gray hover:text-kinetic-lime block px-3 py-2 rounded-md text-base font-medium uppercase">App</a>
+                <a href="#gallery" @click="mobileMenu = false" class="text-kinetic-gray hover:text-kinetic-lime block px-3 py-2 rounded-md text-base font-medium uppercase">Gallery</a>
+                <a href="#contact" @click="mobileMenu = false" class="text-kinetic-lime block px-3 py-2 rounded-md text-base font-bold uppercase">Pre-Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-t from-kinetic-dark via-kinetic-dark/60 to-transparent z-10"></div>
+            <img src="https://images.unsplash.com/photo-1596482181467-9c98b671a932?q=80&w=2070&auto=format&fit=crop" alt="Night Rider" class="w-full h-full object-cover object-center transform scale-105 animate-pulse-slow">
+        </div>
+
+        <div class="relative z-20 container mx-auto px-6 text-center" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')">
+            <div class="opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+                <h2 class="text-kinetic-lime font-display text-2xl md:text-3xl tracking-[0.5em] mb-4 uppercase">Urban Mobility Evolved</h2>
+                <h1 class="text-6xl md:text-9xl font-display font-bold text-white mb-6 leading-tight uppercase tracking-tighter">
+                    Redefine<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Commute</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-kinetic-gray max-w-2xl mx-auto mb-10 font-light">
+                    Experience the city like never before with the Velocity X.
+                    <span class="text-white font-medium">Silent. Powerful. Sustainable.</span>
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="#specs" class="group relative px-8 py-4 bg-transparent border border-kinetic-lime text-kinetic-lime font-display text-xl uppercase tracking-widest overflow-hidden hover:text-kinetic-dark transition-colors duration-300">
+                        <div class="absolute inset-0 w-0 bg-kinetic-lime transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+                        <span class="relative z-10 group-hover:text-kinetic-dark">Explore Specs</span>
+                    </a>
+                    <a href="#contact" class="group relative px-8 py-4 bg-white text-kinetic-dark font-display text-xl uppercase tracking-widest overflow-hidden transition-all hover:scale-105">
+                        <span class="relative z-10 font-bold">Book Test Ride</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+            <i class="fas fa-chevron-down text-kinetic-lime text-3xl"></i>
+        </div>
+    </header>
+
+    <!-- Stats Bar (Skewed) -->
+    <div class="relative z-30 -mt-20 transform -skew-y-3 bg-kinetic-charcoal border-t border-b border-white/10 py-12 shadow-2xl">
+        <div class="transform skew-y-3 container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
+                <div class="p-4" x-data="{ count: 0 }" x-intersect="count = 80">
+                    <div class="text-5xl font-display font-bold text-white mb-2"><span x-text="count">0</span><span class="text-kinetic-lime text-3xl align-top">+</span></div>
+                    <div class="text-sm uppercase tracking-widest text-kinetic-gray">Range (km)</div>
+                </div>
+                <div class="p-4" x-data="{ count: 0 }" x-intersect="count = 45">
+                    <div class="text-5xl font-display font-bold text-white mb-2"><span x-text="count">0</span><span class="text-kinetic-lime text-3xl align-top">km/h</span></div>
+                    <div class="text-sm uppercase tracking-widest text-kinetic-gray">Max Speed</div>
+                </div>
+                <div class="p-4" x-data="{ count: 0 }" x-intersect="count = 3">
+                    <div class="text-5xl font-display font-bold text-white mb-2"><span x-text="count">0</span><span class="text-kinetic-lime text-3xl align-top">h</span></div>
+                    <div class="text-sm uppercase tracking-widest text-kinetic-gray">Fast Charge</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-5xl font-display font-bold text-white mb-2">12<span class="text-kinetic-lime text-3xl align-top">kg</span></div>
+                    <div class="text-sm uppercase tracking-widest text-kinetic-gray">Ultra Light</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Philosophy / About -->
+    <section id="features" class="py-32 bg-kinetic-dark relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-kinetic-charcoal/50 to-transparent skew-x-12 transform translate-x-20"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2" x-data x-intersect="$el.classList.add('opacity-100', 'translate-x-0')">
+                    <div class="opacity-0 -translate-x-10 transition-all duration-1000">
+                        <h3 class="text-kinetic-lime font-display text-xl tracking-widest uppercase mb-4">Engineering Excellence</h3>
+                        <h2 class="text-5xl md:text-6xl font-display font-bold text-white mb-8 leading-none uppercase">Crafted for the <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-kinetic-lime to-white">Concrete Jungle</span></h2>
+                        <p class="text-lg text-kinetic-gray mb-6 leading-relaxed">
+                            {{COMPANY_NAME}} combines aerospace-grade carbon fiber with state-of-the-art battery technology to deliver a ride that feels effortless.
+                        </p>
+                        <p class="text-lg text-kinetic-gray mb-8 leading-relaxed">
+                            Navigate traffic with agility, conquer hills with ease, and arrive at your destination fresh and energized. This isn't just a bike; it's your new superpower.
+                        </p>
+
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center text-white">
+                                <span class="w-8 h-8 rounded-full bg-kinetic-lime/20 flex items-center justify-center mr-4 text-kinetic-lime"><i class="fas fa-check"></i></span>
+                                <span class="font-medium">Regenerative Braking System</span>
+                            </li>
+                            <li class="flex items-center text-white">
+                                <span class="w-8 h-8 rounded-full bg-kinetic-lime/20 flex items-center justify-center mr-4 text-kinetic-lime"><i class="fas fa-check"></i></span>
+                                <span class="font-medium">Integrated GPS Anti-Theft</span>
+                            </li>
+                            <li class="flex items-center text-white">
+                                <span class="w-8 h-8 rounded-full bg-kinetic-lime/20 flex items-center justify-center mr-4 text-kinetic-lime"><i class="fas fa-check"></i></span>
+                                <span class="font-medium">Smart App Connectivity</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative" x-data x-intersect="$el.classList.add('opacity-100', 'translate-x-0')">
+                    <div class="opacity-0 translate-x-10 transition-all duration-1000 delay-300">
+                        <div class="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl group">
+                            <div class="absolute inset-0 bg-kinetic-lime/10 mix-blend-overlay z-10 group-hover:bg-transparent transition-all duration-500"></div>
+                            <img src="https://images.unsplash.com/photo-1623067888761-9c869966b447?q=80&w=2070&auto=format&fit=crop" alt="Handlebars" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <!-- Floating Card -->
+                        <div class="absolute -bottom-10 -left-10 bg-kinetic-charcoal p-6 border-l-4 border-kinetic-lime shadow-xl hidden md:block">
+                            <div class="text-4xl font-display font-bold text-white mb-1">0%</div>
+                            <div class="text-sm text-kinetic-gray uppercase tracking-widest">Emissions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section id="specs" class="py-32 bg-kinetic-charcoal relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-display font-bold text-white uppercase mb-4">Technical <span class="text-kinetic-lime">Specs</span></h2>
+                <div class="w-24 h-1 bg-kinetic-lime mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Spec Card 1 -->
+                <div class="group relative bg-kinetic-dark border border-white/5 p-8 hover:border-kinetic-lime/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-bolt text-4xl text-kinetic-lime"></i>
+                    </div>
+                    <h3 class="text-3xl font-display font-bold text-white mb-2 group-hover:text-kinetic-lime transition-colors">Motor</h3>
+                    <p class="text-kinetic-gray mb-4">500W Brushless Hub Motor</p>
+                    <ul class="text-sm text-gray-400 space-y-2 border-t border-white/10 pt-4">
+                        <li class="flex justify-between"><span>Torque</span> <span class="text-white">65 Nm</span></li>
+                        <li class="flex justify-between"><span>Top Speed</span> <span class="text-white">45 km/h</span></li>
+                        <li class="flex justify-between"><span>Drive</span> <span class="text-white">Belt Drive</span></li>
+                    </ul>
+                </div>
+
+                <!-- Spec Card 2 -->
+                <div class="group relative bg-kinetic-dark border border-white/5 p-8 hover:border-kinetic-lime/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-battery-full text-4xl text-kinetic-lime"></i>
+                    </div>
+                    <h3 class="text-3xl font-display font-bold text-white mb-2 group-hover:text-kinetic-lime transition-colors">Battery</h3>
+                    <p class="text-kinetic-gray mb-4">Removable Li-ion Pack</p>
+                    <ul class="text-sm text-gray-400 space-y-2 border-t border-white/10 pt-4">
+                        <li class="flex justify-between"><span>Capacity</span> <span class="text-white">840 Wh</span></li>
+                        <li class="flex justify-between"><span>Range</span> <span class="text-white">Up to 120 km</span></li>
+                        <li class="flex justify-between"><span>Charge Time</span> <span class="text-white">3.5 Hours</span></li>
+                    </ul>
+                </div>
+
+                <!-- Spec Card 3 -->
+                <div class="group relative bg-kinetic-dark border border-white/5 p-8 hover:border-kinetic-lime/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-mobile-alt text-4xl text-kinetic-lime"></i>
+                    </div>
+                    <h3 class="text-3xl font-display font-bold text-white mb-2 group-hover:text-kinetic-lime transition-colors">Smart Tech</h3>
+                    <p class="text-kinetic-gray mb-4">Integrated Cockpit</p>
+                    <ul class="text-sm text-gray-400 space-y-2 border-t border-white/10 pt-4">
+                        <li class="flex justify-between"><span>Display</span> <span class="text-white">OLED Touch</span></li>
+                        <li class="flex justify-between"><span>Unlock</span> <span class="text-white">NFC / App</span></li>
+                        <li class="flex justify-between"><span>Connectivity</span> <span class="text-white">4G / Bluetooth</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Section (Parallax) -->
+    <section id="app" class="relative py-40 bg-fixed bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2144&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-kinetic-dark/80 backdrop-blur-sm"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-12 md:mb-0">
+                    <h2 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 uppercase">Total Control<br><span class="text-kinetic-lime">In Your Pocket</span></h2>
+                    <p class="text-xl text-kinetic-gray mb-8 max-w-lg">
+                        Track your rides, monitor battery health, and lock your bike remotely. The Velocity App puts the power of the grid at your fingertips.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="flex items-center bg-white text-kinetic-dark px-6 py-3 rounded hover:bg-kinetic-lime transition-colors">
+                            <i class="fab fa-apple text-2xl mr-3"></i>
+                            <div class="text-left">
+                                <div class="text-xs uppercase font-bold">Download on the</div>
+                                <div class="text-lg font-bold leading-none">App Store</div>
+                            </div>
+                        </button>
+                        <button class="flex items-center bg-transparent border border-white/30 text-white px-6 py-3 rounded hover:bg-white/10 transition-colors">
+                            <i class="fab fa-google-play text-2xl mr-3"></i>
+                            <div class="text-left">
+                                <div class="text-xs uppercase font-bold">Get it on</div>
+                                <div class="text-lg font-bold leading-none">Google Play</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Mockup -->
+                <div class="md:w-1/3 relative">
+                    <div class="bg-black rounded-[3rem] border-[8px] border-zinc-800 overflow-hidden shadow-2xl mx-auto max-w-[300px] h-[600px] relative">
+                        <!-- Notch -->
+                        <div class="absolute top-0 inset-x-0 h-6 bg-zinc-800 rounded-b-xl w-32 mx-auto z-20"></div>
+                        <!-- Screen Content -->
+                        <div class="bg-zinc-900 w-full h-full pt-10 px-6 flex flex-col relative z-10">
+                            <div class="flex justify-between items-center mb-8 text-white">
+                                <i class="fas fa-bars"></i>
+                                <span class="font-display tracking-widest text-kinetic-lime">VELOCITY</span>
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="text-center mb-8">
+                                <div class="w-40 h-40 rounded-full border-4 border-kinetic-lime flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(163,230,53,0.3)]">
+                                    <div class="text-center">
+                                        <span class="block text-4xl font-display font-bold text-white">84<small class="text-lg">%</small></span>
+                                        <span class="text-xs text-gray-400 uppercase">Charge</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">Ready to Ride</h3>
+                                <p class="text-green-400 text-sm flex items-center justify-center mt-2"><i class="fas fa-circle text-[8px] mr-2"></i> Connected</p>
+                            </div>
+                            <div class="bg-zinc-800 rounded-xl p-4 mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-400 text-sm">Last Ride</span>
+                                    <span class="text-white font-bold">12.4 km</span>
+                                </div>
+                                <div class="h-1 bg-zinc-700 rounded-full overflow-hidden">
+                                    <div class="h-full bg-kinetic-lime w-3/4"></div>
+                                </div>
+                            </div>
+                            <div class="mt-auto mb-8 grid grid-cols-2 gap-4">
+                                <button class="bg-zinc-800 p-4 rounded-xl text-white hover:bg-zinc-700 transition-colors">
+                                    <i class="fas fa-lock mb-2 text-kinetic-lime"></i>
+                                    <div class="text-sm font-bold">Lock</div>
+                                </button>
+                                <button class="bg-zinc-800 p-4 rounded-xl text-white hover:bg-zinc-700 transition-colors">
+                                    <i class="fas fa-map-marker-alt mb-2 text-kinetic-lime"></i>
+                                    <div class="text-sm font-bold">Find</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-32 bg-kinetic-dark">
+        <div class="container mx-auto px-6 mb-16">
+            <h2 class="text-5xl font-display font-bold text-white uppercase text-center">Urban <span class="text-kinetic-lime">Lifestyle</span></h2>
+        </div>
+
+        <!-- Scrolling Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 h-[600px]">
+            <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2070&auto=format&fit=crop" alt="Lifestyle" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
+                    <p class="text-white font-display text-2xl uppercase tracking-widest">Sunset Rides</p>
+                </div>
+            </div>
+            <div class="relative group overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1571188654248-7a89213915f7?q=80&w=2070&auto=format&fit=crop" alt="Wheel Detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-kinetic-lime/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+            <div class="relative group overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?q=80&w=2070&auto=format&fit=crop" alt="Riding" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="md:col-span-2 relative group overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1485965120184-e224f723d62f?q=80&w=2070&auto=format&fit=crop" alt="City View" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
+                    <p class="text-white font-display text-2xl uppercase tracking-widest">City Lights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-kinetic-charcoal">
+        <div class="container mx-auto px-6 max-w-4xl text-center" x-data="{ active: 0, testimonials: [
+            { text: 'The Velocity X completely changed my morning commute. I arrive at work energized instead of exhausted.', author: 'Alex Chen', role: 'Architect' },
+            { text: 'Incredible design and build quality. The battery life is exactly as advertised, if not better.', author: 'Sarah Jenkins', role: 'Designer' },
+            { text: 'Finally an e-bike that looks as good as it rides. The app integration is seamless.', author: 'Marcus Thorne', role: 'Tech Lead' }
+        ] }">
+            <i class="fas fa-quote-left text-4xl text-kinetic-lime mb-8 opacity-50"></i>
+
+            <div class="relative min-h-[200px]">
+                <template x-for="(item, index) in testimonials" :key="index">
+                    <div x-show="active === index" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="absolute inset-0">
+                        <p class="text-2xl md:text-3xl text-white font-light italic mb-8" x-text="item.text"></p>
+                        <div class="font-display uppercase tracking-widest">
+                            <span class="text-kinetic-lime font-bold block text-xl" x-text="item.author"></span>
+                            <span class="text-gray-500 text-sm" x-text="item.role"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="flex justify-center space-x-2 mt-8">
+                <template x-for="(item, index) in testimonials" :key="index">
+                    <button @click="active = index" :class="active === index ? 'bg-kinetic-lime w-8' : 'bg-gray-600 w-2'" class="h-2 rounded-full transition-all duration-300"></button>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-Order CTA -->
+    <section id="contact" class="py-32 bg-kinetic-dark relative overflow-hidden">
+        <div class="absolute inset-0 bg-kinetic-lime/5 skew-y-3 transform origin-bottom-left"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mx-auto bg-black/40 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-lg shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl md:text-6xl font-display font-bold text-white uppercase mb-4">Secure Your <span class="text-kinetic-lime">Ride</span></h2>
+                    <p class="text-kinetic-gray text-lg">Limited first batch shipping soon. Reserve yours today.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-kinetic-gray text-sm uppercase tracking-wider mb-2">Name</label>
+                            <input type="text" class="w-full bg-kinetic-charcoal border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-kinetic-lime transition-colors" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-kinetic-gray text-sm uppercase tracking-wider mb-2">Email</label>
+                            <input type="email" class="w-full bg-kinetic-charcoal border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-kinetic-lime transition-colors" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-kinetic-gray text-sm uppercase tracking-wider mb-2">Model Preference</label>
+                        <select class="w-full bg-kinetic-charcoal border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-kinetic-lime transition-colors appearance-none">
+                            <option>Velocity X - Standard (Graphite)</option>
+                            <option>Velocity X - Standard (White)</option>
+                            <option>Velocity X - Pro (Carbon)</option>
+                        </select>
+                    </div>
+                    <button type="button" class="w-full bg-kinetic-lime text-kinetic-dark font-display font-bold text-xl uppercase py-4 hover:bg-white transition-colors tracking-widest transform hover:translate-y-[-2px]">
+                        Pre-Order Now
+                    </button>
+                    <p class="text-center text-gray-500 text-xs mt-4">By pre-ordering you agree to our Terms of Service. No payment required today.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white pt-20 pb-10 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <span class="font-display text-3xl font-bold tracking-wider text-white mb-6 block"><span class="text-kinetic-lime">VELOCITY</span> X</span>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Redefining urban mobility one ride at a time. Designed in Tokyo, engineered for the world.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl uppercase tracking-widest mb-6">Explore</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-kinetic-lime transition-colors">E-Bikes</a></li>
+                        <li><a href="#" class="hover:text-kinetic-lime transition-colors">Accessories</a></li>
+                        <li><a href="#" class="hover:text-kinetic-lime transition-colors">App</a></li>
+                        <li><a href="#" class="hover:text-kinetic-lime transition-colors">Stories</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl uppercase tracking-widest mb-6">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-kinetic-lime transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-kinetic-lime transition-colors">Warranty</a></li>
+                        <li><a href="#" class="hover:text-kinetic-lime transition-colors">Find a Dealer</a></li>
+                        <li><a href="#" class="hover:text-kinetic-lime transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl uppercase tracking-widest mb-6">Stay Connected</h4>
+                    <div class="flex space-x-4 mb-6">
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full hover:bg-kinetic-lime hover:text-black transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full hover:bg-kinetic-lime hover:text-black transition-all">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center rounded-full hover:bg-kinetic-lime hover:text-black transition-all">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
