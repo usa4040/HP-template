@@ -974,6 +974,19 @@
         "Vibrant",
         "Gradient"
       ]
+    },
+    {
+      "id": "076",
+      "name": "Alpine Summit",
+      "category": "Ski Resort",
+      "style": "Alpine Luxury",
+      "path": "catalog/template_076_ski_resort_alpine_luxury",
+      "description": "Elegant alpine luxury resort.",
+      "tags": [
+        "Winter",
+        "Luxury",
+        "Travel"
+      ]
     }
   ]
 }
