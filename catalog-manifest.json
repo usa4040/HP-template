@@ -1195,6 +1195,19 @@
         "Gradient",
         "Glassmorphism"
       ]
+    },
+    {
+      "id": "093",
+      "name": "Archivum",
+      "category": "Museum",
+      "style": "Curatorial",
+      "path": "catalog/template_093_museum_curatorial",
+      "description": "Classic academic aesthetic with serif type.",
+      "tags": [
+        "History",
+        "Academic",
+        "Elegant"
+      ]
     }
   ]
 }
