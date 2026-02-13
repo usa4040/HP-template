@@ -1169,6 +1169,19 @@
         "Scientific",
         "Ocean"
       ]
+    },
+    {
+      "id": "091",
+      "name": "Neon Nexus",
+      "category": "VR Arcade",
+      "style": "Holographic",
+      "path": "catalog/template_091_vr_arcade_holographic",
+      "description": "Immersive holographic 3D interface",
+      "tags": [
+        "Holographic",
+        "Immersive",
+        "Future"
+      ]
     }
   ]
 }
