@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Fusion Studio - Indie Game Developers</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pixel: {
+                            dark: '#1a1a2e',
+                            purple: '#16213e',
+                            pink: '#e94560',
+                            cyan: '#0f3460',
+                            neon: '#00ffcc',
+                            yellow: '#f1d302', // Fixed typo here
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['"Press Start 2P"', 'cursive'],
+                        body: ['"VT323"', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'blink': 'blink 1s step-end infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+
+        body {
+            background-color: #1a1a2e;
+            color: #e94560;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #16213e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e94560;
+            border: 2px solid #1a1a2e;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00ffcc;
+        }
+
+        /* CRT Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: scroll 10s linear infinite;
+        }
+
+        /* CRT Flicker */
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes scroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            50% { opacity: 1; }
+            100% { opacity: 0.98; }
+        }
+
+        /* Pixel Border Utility */
+        .pixel-box {
+            box-shadow:
+                -4px 0 0 0 #0f3460,
+                4px 0 0 0 #0f3460,
+                0 -4px 0 0 #0f3460,
+                0 4px 0 0 #0f3460;
+            margin: 4px;
+        }
+
+        .pixel-btn {
+            position: relative;
+            display: inline-block;
+            box-shadow: inset -4px -4px 0px 0px rgba(0,0,0,0.5);
+        }
+
+        .pixel-btn:active {
+            transform: translateY(4px);
+            box-shadow: inset -2px -2px 0px 0px rgba(0,0,0,0.5);
+        }
+
+        /* Text Shadow for Neon Effect */
+        .text-neon {
+            text-shadow: 2px 2px 0px #0f3460;
+        }
+
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #00ffcc;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+</head>
+<body class="font-body text-xl leading-relaxed relative selection:bg-pixel-neon selection:text-pixel-dark" x-data="{ mobileMenuOpen: false }">
+
+    <!-- CRT Overlay -->
+    <div class="scanlines"></div>
+    <div class="fixed inset-0 bg-pixel-purple opacity-5 pointer-events-none z-50 mix-blend-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 bg-pixel-dark/90 backdrop-blur-sm border-b-4 border-pixel-purple">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-heading text-pixel-neon text-lg md:text-xl tracking-tighter hover:text-pixel-pink transition-colors">
+                        <span class="text-pixel-pink">&lt;</span>{{COMPANY_NAME}}<span class="text-pixel-pink">/&gt;</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 font-heading text-xs">
+                        <a href="#about" class="text-gray-300 hover:text-pixel-neon px-3 py-2 rounded-md transition-colors glitch-hover">QUESTS</a>
+                        <a href="#games" class="text-gray-300 hover:text-pixel-neon px-3 py-2 rounded-md transition-colors glitch-hover">WORLDS</a>
+                        <a href="#team" class="text-gray-300 hover:text-pixel-neon px-3 py-2 rounded-md transition-colors glitch-hover">GUILD</a>
+                        <a href="#contact" class="bg-pixel-pink text-white hover:bg-white hover:text-pixel-dark px-4 py-2 pixel-btn transition-colors">START</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-pixel-neon hover:text-white hover:bg-pixel-purple focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Icon -->
+                        <svg class="h-8 w-8" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path class="stroke-[3px]" stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="md:hidden bg-pixel-dark border-b-4 border-pixel-purple" x-cloak>
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-heading text-sm">
+                <a href="#about" @click="mobileMenuOpen = false" class="text-gray-300 hover:text-pixel-neon block px-3 py-2 rounded-md">QUESTS</a>
+                <a href="#games" @click="mobileMenuOpen = false" class="text-gray-300 hover:text-pixel-neon block px-3 py-2 rounded-md">WORLDS</a>
+                <a href="#team" @click="mobileMenuOpen = false" class="text-gray-300 hover:text-pixel-neon block px-3 py-2 rounded-md">GUILD</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="text-pixel-pink hover:text-white block px-3 py-2 rounded-md">START GAME</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-16 md:pt-48 md:pb-32 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+             <!-- Animated background grid -->
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(22,33,62,0.5)_2px,transparent_2px),linear-gradient(90deg,rgba(22,33,62,0.5)_2px,transparent_2px)] bg-[size:40px_40px] [transform:perspective(500px)_rotateX(60deg)_translateY(-100px)_scale(2)] opacity-30"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <div class="mb-6 inline-block">
+                <span class="bg-pixel-neon text-pixel-dark px-2 py-1 font-heading text-xs md:text-sm animate-pulse">NEW RELEASE AVAILABLE</span>
+            </div>
+            <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl mb-8 text-white leading-tight text-neon">
+                WE CRAFT <br/>
+                <span class="text-pixel-pink">PIXEL PERFECT</span> <br/>
+                ADVENTURES
+            </h1>
+            <p class="font-body text-2xl md:text-3xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                {{COMPANY_NAME}} is an indie game studio dedicated to reviving the golden age of gaming with modern twists.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6 font-heading text-sm">
+                <a href="#games" class="pixel-btn bg-pixel-pink text-white px-8 py-4 hover:bg-white hover:text-pixel-dark hover:-translate-y-1 transition-all">
+                    PLAY NOW
+                </a>
+                <a href="#contact" class="pixel-btn bg-pixel-cyan text-white px-8 py-4 hover:bg-pixel-neon hover:text-pixel-dark hover:-translate-y-1 transition-all">
+                    JOIN BETA
+                </a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="mt-20 animate-float text-pixel-neon">
+                <p class="font-heading text-xs mb-2">SCROLL TO START</p>
+                <div class="w-6 h-10 border-4 border-pixel-neon mx-auto relative">
+                    <div class="w-2 h-2 bg-pixel-neon absolute top-2 left-1/2 -translate-x-1/2 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="bg-pixel-purple border-y-4 border-pixel-dark py-4 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 flex justify-around items-center font-heading text-xs md:text-sm text-pixel-neon">
+            <div class="flex flex-col md:flex-row items-center gap-2">
+                <span class="text-pixel-pink">LEVEL</span>
+                <span>86</span>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-2">
+                <span class="text-pixel-pink">EXP</span>
+                <span>9,999,999</span>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-2">
+                <span class="text-pixel-pink">WORLD</span>
+                <span>1-1</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section (RPG Text Box) -->
+    <section id="about" class="py-20 px-4 bg-pixel-dark">
+        <div class="max-w-4xl mx-auto">
+            <div class="pixel-box bg-pixel-purple p-8 md:p-12 border-4 border-white relative">
+                <!-- Triangle indicator -->
+                <div class="absolute bottom-4 right-4 w-0 h-0 border-l-[10px] border-l-transparent border-t-[15px] border-t-white border-r-[10px] border-r-transparent animate-bounce"></div>
+
+                <h2 class="font-heading text-2xl md:text-3xl text-pixel-neon mb-6 flex items-center">
+                    <span class="w-4 h-4 bg-pixel-neon mr-4 animate-blink"></span>
+                    MISSION BRIEFING
+                </h2>
+                <div class="font-body text-2xl text-gray-200 space-y-4">
+                    <p>
+                        Welcome to {{COMPANY_NAME}}. We are a collective of dreamers, coders, and artists.
+                    </p>
+                    <p>
+                        Our mission is simple: to create immersive worlds that resonate with the player's soul. We believe that <span class="text-pixel-pink">gameplay is king</span> and pixels are our paint.
+                    </p>
+                    <p>
+                        From dungeon crawlers to space operas, we build experiences that stick with you long after you've put down the controller.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-heading text-3xl md:text-4xl text-center text-white mb-16">
+                <span class="text-pixel-pink">SELECT</span> YOUR WORLD
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Game 1 -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-pixel-neon translate-x-2 translate-y-2 group-hover:translate-x-4 group-hover:translate-y-4 transition-transform"></div>
+                    <div class="relative bg-pixel-purple border-4 border-white p-2 h-full flex flex-col hover:-translate-y-2 transition-transform">
+                        <div class="aspect-video bg-black mb-4 overflow-hidden relative">
+                             <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cyber City Game" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" style="image-rendering: pixelated;">
+                             <div class="absolute top-2 right-2 bg-pixel-pink text-white text-xs font-heading px-2 py-1">RPG</div>
+                        </div>
+                        <div class="p-4 flex-grow flex flex-col">
+                            <h3 class="font-heading text-xl text-pixel-neon mb-2">NEON CHRONICLES</h3>
+                            <p class="font-body text-xl text-gray-400 mb-6 flex-grow">A cyberpunk narrative adventure set in a decaying metropolis. Hack the system, save the future.</p>
+                            <a href="#" class="block text-center border-2 border-pixel-neon text-pixel-neon py-2 font-heading text-xs hover:bg-pixel-neon hover:text-pixel-dark transition-colors">
+                                VIEW GAME
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-pixel-pink translate-x-2 translate-y-2 group-hover:translate-x-4 group-hover:translate-y-4 transition-transform"></div>
+                    <div class="relative bg-pixel-purple border-4 border-white p-2 h-full flex flex-col hover:-translate-y-2 transition-transform">
+                        <div class="aspect-video bg-black mb-4 overflow-hidden relative">
+                             <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Space Shooter Game" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" style="image-rendering: pixelated;">
+                             <div class="absolute top-2 right-2 bg-pixel-cyan text-white text-xs font-heading px-2 py-1">ACTION</div>
+                        </div>
+                        <div class="p-4 flex-grow flex flex-col">
+                            <h3 class="font-heading text-xl text-pixel-pink mb-2">ASTRO BLASTER</h3>
+                            <p class="font-body text-xl text-gray-400 mb-6 flex-grow">Retro space shooter with roguelike elements. Upgrade your ship and defend the galaxy.</p>
+                            <a href="#" class="block text-center border-2 border-pixel-pink text-pixel-pink py-2 font-heading text-xs hover:bg-pixel-pink hover:text-white transition-colors">
+                                VIEW GAME
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-white translate-x-2 translate-y-2 group-hover:translate-x-4 group-hover:translate-y-4 transition-transform"></div>
+                    <div class="relative bg-pixel-purple border-4 border-white p-2 h-full flex flex-col hover:-translate-y-2 transition-transform">
+                        <div class="aspect-video bg-black mb-4 overflow-hidden relative">
+                             <img src="https://images.unsplash.com/photo-1614726365723-49cfa05d3fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fantasy Game" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" style="image-rendering: pixelated;">
+                             <div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs font-heading px-2 py-1">STRATEGY</div>
+                        </div>
+                        <div class="p-4 flex-grow flex flex-col">
+                            <h3 class="font-heading text-xl text-white mb-2">KINGDOM BITS</h3>
+                            <p class="font-body text-xl text-gray-400 mb-6 flex-grow">Build your kingdom pixel by pixel. Manage resources and defend against hordes.</p>
+                            <a href="#" class="block text-center border-2 border-white text-white py-2 font-heading text-xs hover:bg-white hover:text-pixel-dark transition-colors">
+                                VIEW GAME
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section (Character Select) -->
+    <section id="team" class="py-20 px-4 bg-pixel-purple border-y-4 border-pixel-dark">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-heading text-3xl md:text-4xl text-center text-white mb-4">
+                GUILD <span class="text-pixel-neon">MEMBERS</span>
+            </h2>
+            <p class="font-body text-2xl text-center text-gray-400 mb-16">CHOOSE YOUR CHARACTER</p>
+
+            <div class="flex flex-wrap justify-center gap-8">
+                <!-- Member 1 -->
+                <div class="w-full sm:w-64 bg-pixel-dark border-4 border-pixel-pink p-4 text-center group cursor-pointer hover:bg-pixel-pink hover:bg-opacity-20 transition-colors">
+                    <div class="w-32 h-32 mx-auto bg-gray-700 mb-4 overflow-hidden border-2 border-white relative">
+                         <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" alt="CEO">
+                         <div class="absolute inset-0 border-4 border-transparent group-hover:border-pixel-neon animate-pulse"></div>
+                    </div>
+                    <h3 class="font-heading text-sm text-white mb-1">ALEX "BOSS"</h3>
+                    <p class="font-heading text-xs text-pixel-pink mb-4">LEAD DEV</p>
+                    <div class="text-left font-body text-lg text-gray-400 space-y-1 bg-black/30 p-2">
+                        <div class="flex justify-between"><span>CODING</span><span class="text-pixel-neon">█████</span></div>
+                        <div class="flex justify-between"><span>COFFEE</span><span class="text-pixel-neon">██████</span></div>
+                        <div class="flex justify-between"><span>SLEEP</span><span class="text-red-500">█</span></div>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="w-full sm:w-64 bg-pixel-dark border-4 border-pixel-cyan p-4 text-center group cursor-pointer hover:bg-pixel-cyan hover:bg-opacity-20 transition-colors">
+                    <div class="w-32 h-32 mx-auto bg-gray-700 mb-4 overflow-hidden border-2 border-white relative">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" alt="Artist">
+                        <div class="absolute inset-0 border-4 border-transparent group-hover:border-pixel-neon animate-pulse"></div>
+                    </div>
+                    <h3 class="font-heading text-sm text-white mb-1">SARAH "PIX"</h3>
+                    <p class="font-heading text-xs text-pixel-cyan mb-4">ART DIRECTOR</p>
+                    <div class="text-left font-body text-lg text-gray-400 space-y-1 bg-black/30 p-2">
+                        <div class="flex justify-between"><span>ART</span><span class="text-pixel-cyan">██████</span></div>
+                        <div class="flex justify-between"><span>UI/UX</span><span class="text-pixel-cyan">████</span></div>
+                        <div class="flex justify-between"><span>BUGS</span><span class="text-red-500">██</span></div>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="w-full sm:w-64 bg-pixel-dark border-4 border-yellow-500 p-4 text-center group cursor-pointer hover:bg-yellow-500 hover:bg-opacity-20 transition-colors">
+                    <div class="w-32 h-32 mx-auto bg-gray-700 mb-4 overflow-hidden border-2 border-white relative">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" alt="Designer">
+                        <div class="absolute inset-0 border-4 border-transparent group-hover:border-pixel-neon animate-pulse"></div>
+                    </div>
+                    <h3 class="font-heading text-sm text-white mb-1">MIKE "SOUND"</h3>
+                    <p class="font-heading text-xs text-yellow-500 mb-4">AUDIO ENGINEER</p>
+                    <div class="text-left font-body text-lg text-gray-400 space-y-1 bg-black/30 p-2">
+                        <div class="flex justify-between"><span>BEATS</span><span class="text-yellow-500">█████</span></div>
+                        <div class="flex justify-between"><span>FX</span><span class="text-yellow-500">█████</span></div>
+                        <div class="flex justify-between"><span>VOL</span><span class="text-red-500">██████</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (High Score) -->
+    <section id="contact" class="py-20 px-4">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="font-heading text-3xl text-center text-pixel-neon mb-12 animate-pulse">
+                ENTER HIGH SCORE
+            </h2>
+
+            <div class="bg-black border-4 border-pixel-pink p-8 pixel-box">
+                <form class="space-y-6">
+                    <div>
+                        <label for="name" class="block font-heading text-xs text-pixel-pink mb-2">PLAYER NAME</label>
+                        <input type="text" id="name" class="w-full bg-pixel-dark border-2 border-gray-600 text-white font-body text-2xl p-2 focus:border-pixel-neon focus:outline-none uppercase" placeholder="AAA">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block font-heading text-xs text-pixel-pink mb-2">CONTACT EMAIL</label>
+                        <input type="email" id="email" class="w-full bg-pixel-dark border-2 border-gray-600 text-white font-body text-2xl p-2 focus:border-pixel-neon focus:outline-none" placeholder="PLAYER@EXAMPLE.COM">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block font-heading text-xs text-pixel-pink mb-2">MESSAGE</label>
+                        <textarea id="message" rows="4" class="w-full bg-pixel-dark border-2 border-gray-600 text-white font-body text-2xl p-2 focus:border-pixel-neon focus:outline-none" placeholder="READY TO COLLABORATE?"></textarea>
+                    </div>
+
+                    <button type="button" class="w-full bg-pixel-neon text-pixel-dark font-heading text-sm py-4 hover:bg-white hover:text-pixel-pink transition-colors pixel-btn">
+                        SUBMIT SCORE
+                    </button>
+                </form>
+            </div>
+
+            <div class="mt-12 text-center font-heading text-xs text-gray-500">
+                <p>INSERT COIN TO CONTINUE</p>
+                <p class="mt-2 text-pixel-pink animate-pulse">CREDITS: 0</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t-4 border-pixel-dark">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="font-heading text-xs text-gray-400">
+                © 2024 {{COMPANY_NAME}}. ALL RIGHTS RESERVED.
+            </div>
+            <div class="flex space-x-6 font-heading text-xs">
+                <a href="#" class="text-gray-400 hover:text-pixel-neon">TWITTER</a>
+                <a href="#" class="text-gray-400 hover:text-pixel-neon">DISCORD</a>
+                <a href="#" class="text-gray-400 hover:text-pixel-neon">ITCH.IO</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

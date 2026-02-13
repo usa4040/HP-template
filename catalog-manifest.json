@@ -1104,6 +1104,19 @@
         "UI-Style",
         "Tech"
       ]
+    },
+    {
+      "id": "086",
+      "name": "Pixel Fusion Studio",
+      "category": "Indie Game Studio",
+      "style": "Pixel Retro",
+      "path": "catalog/template_086_indie_game_pixel",
+      "description": "Nostalgic pixel art theme for indie game devs.",
+      "tags": [
+        "Pixel Art",
+        "Retro",
+        "Gaming"
+      ]
     }
   ]
 }
