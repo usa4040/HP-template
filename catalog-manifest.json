@@ -1130,6 +1130,19 @@
         "Vibrant",
         "Technical"
       ]
+    },
+    {
+      "id": "088",
+      "name": "Qubit Core",
+      "category": "Quantum Computing",
+      "style": "Subatomic",
+      "path": "catalog/template_088_quantum_subatomic",
+      "description": "Futuristic quantum interface with particle effects.",
+      "tags": [
+        "Science",
+        "Dark",
+        "Future"
+      ]
     }
   ]
 }
