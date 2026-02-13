@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Holographic VR Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Exo 2"', 'sans-serif'],
+                        display: ['"Syncopate"', 'sans-serif'],
+                    },
+                    colors: {
+                        holo: {
+                            cyan: '#00f3ff',
+                            pink: '#bc13fe',
+                            dark: '#0f0c29',
+                            void: '#050505'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-holo': 'linear-gradient(135deg, #00f3ff 0%, #bc13fe 100%)',
+                        'grid-pattern': "url('data:image/svg+xml,%3Csvg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 0h40v40H0V0zm1 1h38v38H1V1z\" fill=\"%23bc13fe\" fill-opacity=\"0.05\" fill-rule=\"evenodd\"/%3E%3C/svg%3E')",
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glitch': 'glitch 1s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        glitch: {
+                            '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                            '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                            '62%': { transform: 'translate(0,0) skew(5deg)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Holographic Effects */
+        .glass-panel {
+            background: rgba(15, 12, 41, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .holo-border {
+            position: relative;
+            background: rgba(15, 12, 41, 0.8);
+            z-index: 1;
+        }
+
+        .holo-border::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            z-index: -1;
+            background: linear-gradient(45deg, #00f3ff, #bc13fe, #00f3ff);
+            filter: blur(5px);
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .holo-border:hover::before {
+            opacity: 1;
+            filter: blur(10px);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(188, 19, 254, 0.3);
+        }
+
+        .clip-text-holo {
+            background: linear-gradient(to right, #00f3ff, #bc13fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glitch Effect */
+        .glitch-text {
+            position: relative;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 #00f3ff;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 #bc13fe;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(13px, 9999px, 88px, 0); }
+            20% { clip: rect(133px, 9999px, 9px, 0); }
+            40% { clip: rect(62px, 9999px, 78px, 0); }
+            60% { clip: rect(19px, 9999px, 20px, 0); }
+            80% { clip: rect(87px, 9999px, 120px, 0); }
+            100% { clip: rect(147px, 9999px, 53px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 119px, 0); }
+            20% { clip: rect(144px, 9999px, 66px, 0); }
+            40% { clip: rect(15px, 9999px, 137px, 0); }
+            60% { clip: rect(89px, 9999px, 34px, 0); }
+            80% { clip: rect(126px, 9999px, 65px, 0); }
+            100% { clip: rect(51px, 9999px, 11px, 0); }
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.15;
+        }
+    </style>
+</head>
+<body class="bg-holo-void text-white font-sans overflow-x-hidden selection:bg-holo-cyan selection:text-holo-void">
+
+    <!-- Scanline Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolly: 0 }"
+         @scroll.window="scrolly = window.scrollY"
+         :class="scrolly > 50 ? 'bg-holo-dark/90 backdrop-blur-md border-b border-white/10' : 'bg-transparent'"
+         class="fixed w-full z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-display text-2xl tracking-widest text-white group">
+                        <span class="text-holo-cyan group-hover:text-holo-pink transition-colors duration-300">&lt;</span>
+                        {{COMPANY_NAME}}
+                        <span class="text-holo-cyan group-hover:text-holo-pink transition-colors duration-300">/&gt;</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#experiences" class="hover:text-holo-cyan transition-colors px-3 py-2 text-sm uppercase tracking-widest">Experiences</a>
+                        <a href="#technology" class="hover:text-holo-cyan transition-colors px-3 py-2 text-sm uppercase tracking-widest">Tech</a>
+                        <a href="#pricing" class="hover:text-holo-cyan transition-colors px-3 py-2 text-sm uppercase tracking-widest">Pricing</a>
+                        <a href="#book" class="relative px-6 py-2 group overflow-hidden bg-transparent border border-holo-cyan text-white text-sm uppercase tracking-widest font-bold transition-all hover:border-holo-pink">
+                            <div class="absolute inset-0 w-0 bg-holo-pink transition-all duration-[250ms] ease-out group-hover:w-full opacity-20"></div>
+                            <span class="relative group-hover:text-white">Book Now</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-100"
+             x-transition:enter-start="transform opacity-0 scale-95"
+             x-transition:enter-end="transform opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-75"
+             x-transition:leave-start="transform opacity-100 scale-100"
+             x-transition:leave-end="transform opacity-0 scale-95"
+             class="md:hidden bg-holo-dark/95 backdrop-blur-xl border-b border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#experiences" class="text-gray-300 hover:text-holo-cyan block px-3 py-2 text-base font-medium">Experiences</a>
+                <a href="#technology" class="text-gray-300 hover:text-holo-cyan block px-3 py-2 text-base font-medium">Tech</a>
+                <a href="#pricing" class="text-gray-300 hover:text-holo-cyan block px-3 py-2 text-base font-medium">Pricing</a>
+                <a href="#book" class="text-holo-cyan block px-3 py-2 text-base font-medium">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1622979135225-d2ba269fb1ac?q=80&w=2070&auto=format&fit=crop" alt="VR Background" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-holo-void via-holo-void/50 to-transparent"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-30"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <div class="mb-4 inline-block px-4 py-1 border border-holo-cyan/50 rounded-full bg-holo-cyan/10 backdrop-blur-sm">
+                <span class="text-holo-cyan text-sm tracking-[0.2em] uppercase font-bold animate-pulse">System Online</span>
+            </div>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-9xl font-bold mb-6 tracking-tight text-white glitch-text" data-text="NEON NEXUS">
+                NEON NEXUS
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-300 mb-10 font-light tracking-wide max-w-2xl mx-auto">
+                Step beyond reality. Experience the next evolution of immersive entertainment at <span class="text-holo-cyan font-semibold">{{COMPANY_NAME}}</span>.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#experiences" class="holo-border px-8 py-4 text-white font-display uppercase tracking-widest text-sm font-bold transition-transform hover:scale-105 inline-block">
+                    Explore Worlds
+                </a>
+                <a href="#book" class="px-8 py-4 border border-white/20 hover:bg-white/10 text-white font-display uppercase tracking-widest text-sm font-bold transition-all inline-block backdrop-blur-sm">
+                    Book Session
+                </a>
+            </div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="absolute bottom-10 left-10 hidden lg:block animate-float">
+            <div class="glass-panel p-4 rounded-lg border-l-4 border-holo-cyan max-w-xs">
+                <h4 class="text-holo-cyan font-display text-sm mb-1">Latest Update</h4>
+                <p class="text-xs text-gray-400">Cyber City 2077 map expansion now available. Sector 7 unlocked.</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="py-10 border-y border-white/5 bg-white/5 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-holo-cyan to-white mb-2">50+</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400">Unique Worlds</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-holo-pink mb-2">8K</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400">Resolution</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-holo-pink to-holo-cyan mb-2">120</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400">Hz Refresh Rate</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-holo-cyan to-white mb-2">0ms</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400">Perceived Latency</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiences Section -->
+    <section id="experiences" class="py-24 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-holo-pink/10 to-transparent pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">
+                    <span class="text-white">Curated</span> <span class="clip-text-holo">Realities</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-holo-cyan to-holo-pink mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative h-[500px] overflow-hidden rounded-xl border border-white/10 transition-all duration-500 hover:border-holo-cyan/50">
+                    <img src="https://images.unsplash.com/photo-1592478411213-61535fdd861d?q=80&w=2070&auto=format&fit=crop" alt="Action VR" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-holo-dark via-transparent to-transparent"></div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
+                        <div class="text-holo-cyan font-display text-sm tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">Adrenaline</div>
+                        <h3 class="text-3xl font-bold text-white mb-4">Combat Arena</h3>
+                        <p class="text-gray-300 text-sm mb-6 opacity-0 h-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300">
+                            Full-body haptic feedback suits available. Engage in intense tactical warfare simulation.
+                        </p>
+                        <a href="#book" class="inline-flex items-center text-white font-bold uppercase tracking-wider text-xs border-b border-holo-cyan pb-1 hover:text-holo-cyan transition-colors">
+                            Initialize <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative h-[500px] overflow-hidden rounded-xl border border-white/10 transition-all duration-500 hover:border-holo-pink/50">
+                    <img src="https://images.unsplash.com/photo-1535905557558-afc4877a26fc?q=80&w=1974&auto=format&fit=crop" alt="Exploration VR" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-holo-dark via-transparent to-transparent"></div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
+                        <div class="text-holo-pink font-display text-sm tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">Exploration</div>
+                        <h3 class="text-3xl font-bold text-white mb-4">Neon City 2099</h3>
+                        <p class="text-gray-300 text-sm mb-6 opacity-0 h-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300">
+                            Explore a living, breathing cyberpunk metropolis. No objectives, just pure immersion.
+                        </p>
+                        <a href="#book" class="inline-flex items-center text-white font-bold uppercase tracking-wider text-xs border-b border-holo-pink pb-1 hover:text-holo-pink transition-colors">
+                            Initialize <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative h-[500px] overflow-hidden rounded-xl border border-white/10 transition-all duration-500 hover:border-holo-cyan/50">
+                    <img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?q=80&w=2070&auto=format&fit=crop" alt="Puzzle VR" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-holo-dark via-transparent to-transparent"></div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
+                        <div class="text-holo-cyan font-display text-sm tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">Puzzle</div>
+                        <h3 class="text-3xl font-bold text-white mb-4">Quantum Void</h3>
+                        <p class="text-gray-300 text-sm mb-6 opacity-0 h-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300">
+                            Bend time and space to solve 4-dimensional puzzles in this mind-bending experience.
+                        </p>
+                        <a href="#book" class="inline-flex items-center text-white font-bold uppercase tracking-wider text-xs border-b border-holo-cyan pb-1 hover:text-holo-cyan transition-colors">
+                            Initialize <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-24 bg-black relative">
+        <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-holo-cyan to-holo-pink opacity-30 blur-xl animate-pulse-slow"></div>
+                        <div class="glass-panel p-1 rounded-2xl relative overflow-hidden">
+                             <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=2078&auto=format&fit=crop" alt="VR Tech" class="rounded-xl w-full">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-8">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold">State of the Art <br><span class="text-holo-cyan">Hardware</span></h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        We don't just offer VR; we offer hyper-reality. Our facility is equipped with the latest omnidirectional treadmills and haptic feedback suits.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 p-3 bg-white/5 rounded-lg border border-white/10 text-holo-pink">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-bold font-display text-lg">Retina-Resolution</h4>
+                                <p class="text-gray-400 text-sm mt-1">120Hz refresh rate panels with 8K resolution per eye for zero screen-door effect.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 p-3 bg-white/5 rounded-lg border border-white/10 text-holo-cyan">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-bold font-display text-lg">Haptic Feedback</h4>
+                                <p class="text-gray-400 text-sm mt-1">Feel every impact, texture, and movement with our full-body TeslaSuits.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 p-3 bg-white/5 rounded-lg border border-white/10 text-purple-400">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-bold font-display text-lg">Omnidirectional Movement</h4>
+                                <p class="text-gray-400 text-sm mt-1">Run, jump, and crouch in any direction without hitting a wall.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-holo-dark relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-holo-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Access <span class="text-holo-pink">Passes</span></h2>
+                <p class="text-gray-400">Choose your level of immersion</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Basic -->
+                <div class="glass-panel p-8 rounded-2xl border border-white/10 hover:border-white/30 transition-all">
+                    <h3 class="text-xl font-bold text-white mb-2">Initiate</h3>
+                    <div class="text-4xl font-display font-bold text-holo-cyan mb-6">$29<span class="text-sm font-sans text-gray-400 font-normal">/hr</span></div>
+                    <ul class="space-y-4 mb-8 text-sm text-gray-300">
+                        <li class="flex items-center"><span class="text-holo-cyan mr-2">✓</span> Standard VR Headset</li>
+                        <li class="flex items-center"><span class="text-holo-cyan mr-2">✓</span> 20+ Games Library</li>
+                        <li class="flex items-center"><span class="text-holo-cyan mr-2">✓</span> Standing Area</li>
+                    </ul>
+                    <a href="#book" class="block w-full py-3 border border-white/20 text-center text-white uppercase tracking-wider text-sm hover:bg-white/10 transition-colors">Select</a>
+                </div>
+
+                <!-- Pro -->
+                <div class="relative transform scale-105 z-10">
+                    <div class="absolute inset-0 bg-gradient-to-r from-holo-cyan to-holo-pink rounded-2xl blur opacity-30"></div>
+                    <div class="glass-panel p-8 rounded-2xl border border-holo-cyan/50 relative">
+                        <div class="absolute top-0 right-0 bg-gradient-to-l from-holo-cyan to-holo-pink text-white text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-widest">Best Value</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Voyager</h3>
+                        <div class="text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-holo-cyan to-white mb-6">$49<span class="text-sm font-sans text-gray-400 font-normal">/hr</span></div>
+                        <ul class="space-y-4 mb-8 text-sm text-gray-300">
+                            <li class="flex items-center"><span class="text-holo-pink mr-2">✓</span> Pro 8K Headset</li>
+                            <li class="flex items-center"><span class="text-holo-pink mr-2">✓</span> All 50+ Games</li>
+                            <li class="flex items-center"><span class="text-holo-pink mr-2">✓</span> Omnidirectional Treadmill</li>
+                            <li class="flex items-center"><span class="text-holo-pink mr-2">✓</span> Haptic Vest</li>
+                        </ul>
+                        <a href="#book" class="holo-border block w-full py-4 text-center text-white font-bold uppercase tracking-wider text-sm transition-transform hover:scale-[1.02]">Select Pass</a>
+                    </div>
+                </div>
+
+                <!-- Elite -->
+                <div class="glass-panel p-8 rounded-2xl border border-white/10 hover:border-white/30 transition-all">
+                    <h3 class="text-xl font-bold text-white mb-2">Architect</h3>
+                    <div class="text-4xl font-display font-bold text-holo-pink mb-6">$89<span class="text-sm font-sans text-gray-400 font-normal">/hr</span></div>
+                    <ul class="space-y-4 mb-8 text-sm text-gray-300">
+                        <li class="flex items-center"><span class="text-holo-pink mr-2">✓</span> Private Room</li>
+                        <li class="flex items-center"><span class="text-holo-pink mr-2">✓</span> Full Haptic Suit</li>
+                        <li class="flex items-center"><span class="text-holo-pink mr-2">✓</span> Multiplayer Setup (up to 4)</li>
+                        <li class="flex items-center"><span class="text-holo-pink mr-2">✓</span> Concierge Service</li>
+                    </ul>
+                    <a href="#book" class="block w-full py-3 border border-white/20 text-center text-white uppercase tracking-wider text-sm hover:bg-white/10 transition-colors">Select</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form Section -->
+    <section id="book" class="py-24 bg-holo-void relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel p-8 md:p-12 rounded-3xl border border-white/10">
+                <div class="text-center mb-10">
+                    <h2 class="font-display text-3xl font-bold text-white mb-2">Initialize <span class="text-holo-cyan">Session</span></h2>
+                    <p class="text-gray-400">Secure your slot in the simulation.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">User ID (Name)</label>
+                            <input type="text" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-holo-cyan focus:ring-1 focus:ring-holo-cyan transition-all" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Comm Link (Email)</label>
+                            <input type="email" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-holo-cyan focus:ring-1 focus:ring-holo-cyan transition-all" placeholder="john@example.com">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Access Level</label>
+                            <select class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-holo-cyan focus:ring-1 focus:ring-holo-cyan transition-all">
+                                <option>Initiate ($29/hr)</option>
+                                <option>Voyager ($49/hr)</option>
+                                <option>Architect ($89/hr)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Time Slot</label>
+                            <input type="datetime-local" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-holo-cyan focus:ring-1 focus:ring-holo-cyan transition-all text-gray-400">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Protocol Parameters (Message)</label>
+                        <textarea rows="4" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-holo-cyan focus:ring-1 focus:ring-holo-cyan transition-all" placeholder="Special requests or group details..."></textarea>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full holo-border py-4 text-white font-display font-bold uppercase tracking-widest text-lg transition-transform hover:scale-[1.01]">
+                            Confirm Uplink
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 py-12 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-holo-cyan to-transparent opacity-50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="font-display text-2xl tracking-widest text-white block mb-6">
+                        <span class="text-holo-cyan">&lt;</span>
+                        {{COMPANY_NAME}}
+                        <span class="text-holo-cyan">/&gt;</span>
+                    </a>
+                    <p class="text-gray-500 text-sm">
+                        Redefining reality through cutting-edge immersive technology. Step into the future.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-display font-bold uppercase tracking-widest mb-6">Coordinates</h4>
+                    <p class="text-gray-500 text-sm mb-2">1010 Binary Blvd, Sector 7</p>
+                    <p class="text-gray-500 text-sm mb-2">Neo-Tokyo, NT 2049</p>
+                    <p class="text-gray-500 text-sm">Earth</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-display font-bold uppercase tracking-widest mb-6">Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-holo-cyan transition-colors">Privacy Protocol</a></li>
+                        <li><a href="#" class="hover:text-holo-cyan transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-holo-cyan transition-colors">Safety Guidelines</a></li>
+                        <li><a href="#" class="hover:text-holo-cyan transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-display font-bold uppercase tracking-widest mb-6">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-holo-cyan hover:text-holo-cyan transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-holo-pink hover:text-holo-pink transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.468 2.373c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center">
+                <p class="text-xs text-gray-600 uppercase tracking-widest">&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
