@@ -1208,6 +1208,19 @@
         "Academic",
         "Elegant"
       ]
+    },
+    {
+      "id": "094",
+      "name": "Groove Vault",
+      "category": "Record Store",
+      "style": "Analog",
+      "path": "catalog/template_094_record_store_analog",
+      "description": "Warm analog, spinning vinyl.",
+      "tags": [
+        "Vinyl",
+        "Retro",
+        "Warm"
+      ]
     }
   ]
 }
