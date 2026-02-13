@@ -1117,6 +1117,19 @@
         "Retro",
         "Gaming"
       ]
+    },
+    {
+      "id": "087",
+      "name": "Offset Vision",
+      "category": "Print Shop",
+      "style": "CMYK Overprint",
+      "path": "catalog/template_087_print_shop_cmyk",
+      "description": "Vibrant offset printing aesthetic.",
+      "tags": [
+        "Creative",
+        "Vibrant",
+        "Technical"
+      ]
     }
   ]
 }
