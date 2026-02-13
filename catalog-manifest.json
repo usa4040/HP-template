@@ -1156,6 +1156,19 @@
         "Serif",
         "Exclusive"
       ]
+    },
+    {
+      "id": "090",
+      "name": "Abyssos Institute",
+      "category": "Marine Research",
+      "style": "Abyssal",
+      "path": "catalog/template_090_marine_research_abyssal",
+      "description": "Deep ocean aesthetic with bioluminescent accents.",
+      "tags": [
+        "Dark",
+        "Scientific",
+        "Ocean"
+      ]
     }
   ]
 }
