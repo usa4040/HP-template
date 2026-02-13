@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Marine Research Institute</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        deep: {
+                            900: '#020617', // slate-950
+                            800: '#0f172a', // slate-900
+                        },
+                        bio: {
+                            400: '#2dd4bf', // teal-400
+                            500: '#14b8a6', // teal-500
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1582967788606-a171f1080ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(45, 212, 191, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-deep-900 text-slate-300 font-sans antialiased selection:bg-bio-500 selection:text-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenuOpen: false, scrolled: false }"
+         @scroll.window="scrolled = (window.scrollY > 20)"
+         :class="{ 'bg-deep-900/90 backdrop-blur-md shadow-lg border-b border-white/5': scrolled, 'bg-transparent': !scrolled }"
+         class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-bio-500 animate-pulse-slow"></div>
+                    <a href="#" class="font-display font-bold text-2xl text-white tracking-widest uppercase">{{COMPANY_NAME}}</a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#mission" class="text-sm font-medium hover:text-cyan-400 transition-colors tracking-wide">MISSION</a>
+                    <a href="#research" class="text-sm font-medium hover:text-cyan-400 transition-colors tracking-wide">RESEARCH</a>
+                    <a href="#expeditions" class="text-sm font-medium hover:text-cyan-400 transition-colors tracking-wide">EXPEDITIONS</a>
+                    <a href="#contact" class="px-5 py-2 rounded-full border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400 hover:text-deep-900 transition-all duration-300 text-sm font-semibold tracking-wide">CONTACT</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:text-cyan-400 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-deep-900/95 backdrop-blur-xl border-b border-white/10 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#mission" class="block px-3 py-4 text-base font-medium text-white hover:bg-white/5 hover:text-cyan-400 border-l-2 border-transparent hover:border-cyan-400 transition-all">MISSION</a>
+                <a href="#research" class="block px-3 py-4 text-base font-medium text-white hover:bg-white/5 hover:text-cyan-400 border-l-2 border-transparent hover:border-cyan-400 transition-all">RESEARCH</a>
+                <a href="#expeditions" class="block px-3 py-4 text-base font-medium text-white hover:bg-white/5 hover:text-cyan-400 border-l-2 border-transparent hover:border-cyan-400 transition-all">EXPEDITIONS</a>
+                <a href="#contact" class="block px-3 py-4 text-base font-medium text-cyan-400 hover:bg-white/5 border-l-2 border-transparent hover:border-cyan-400 transition-all">CONTACT US</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center"></div>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-deep-900 via-deep-900/80 to-deep-900/30"></div>
+        <!-- Animated Particles/Glow (Simulated) -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-bio-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-cyan-400 text-sm md:text-base font-bold tracking-[0.3em] uppercase mb-4 animate-float">Into the Abyss</h2>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-light text-white mb-6 leading-tight tracking-tight text-glow">
+                The Depth of <br/> <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-bio-500">Discovery</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-slate-300 font-light leading-relaxed">
+                Pioneering scientific research in the world's most extreme environments.
+                We map, monitor, and protect the last great frontier of our planet.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#research" class="px-8 py-4 bg-gradient-to-r from-cyan-600 to-bio-600 rounded-full text-white font-semibold tracking-wide hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all duration-300 transform hover:-translate-y-1">
+                    Explore Research
+                </a>
+                <a href="#mission" class="px-8 py-4 border border-white/20 rounded-full text-white font-medium hover:bg-white/5 hover:border-white/40 transition-all duration-300 flex items-center gap-2 group">
+                    <span>Our Mission</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-cyan-200">Scroll</span>
+            <div class="w-[1px] h-16 bg-gradient-to-b from-cyan-400 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="relative py-20 bg-deep-900 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">11km</div>
+                    <div class="text-xs uppercase tracking-widest text-slate-500">Max Depth Reached</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">500+</div>
+                    <div class="text-xs uppercase tracking-widest text-slate-500">Species Cataloged</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">42</div>
+                    <div class="text-xs uppercase tracking-widest text-slate-500">Active Expeditions</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">20yr</div>
+                    <div class="text-xs uppercase tracking-widest text-slate-500">Ocean Data</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="py-24 relative bg-deep-900 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-cyan-900/10 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20">
+                <span class="text-cyan-400 font-bold tracking-[0.2em] uppercase text-sm">Our Purpose</span>
+                <h2 class="mt-2 text-3xl md:text-4xl font-display font-light text-white">Understanding the <span class="italic font-serif text-cyan-200">Blue Heart</span> of Our Planet</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass p-8 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-cyan-900/50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-display font-semibold text-white mb-4">Biodiversity Mapping</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">Cataloging life in the hadal zone to understand evolutionary adaptation and ecosystem resilience.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass p-8 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:-translate-y-2 border-cyan-500/20 shadow-[0_0_30px_rgba(34,211,238,0.05)]">
+                    <div class="w-12 h-12 bg-cyan-900/50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-display font-semibold text-white mb-4">Chemical Analysis</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">Analyzing ocean chemistry changes to predict climate impact and carbon sequestration potential.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass p-8 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-cyan-900/50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-display font-semibold text-white mb-4">Conservation Tech</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">Developing non-invasive autonomous vehicles (AUVs) for long-term monitoring of fragile reefs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Grid -->
+    <section id="research" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <span class="text-cyan-400 font-bold tracking-[0.2em] uppercase text-sm">Research Focus</span>
+                    <h2 class="mt-2 text-3xl md:text-4xl font-display font-light text-white">Areas of <span class="text-white font-semibold">Study</span></h2>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-widest mt-4 md:mt-0">
+                    View All Archives <span class="text-xl">&rarr;</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Grid Item 1 (Large) -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-xl h-[400px]">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Data" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <div class="text-cyan-400 text-xs font-bold tracking-widest uppercase mb-2">Data Science</div>
+                        <h3 class="text-2xl font-display font-bold text-white mb-2">Predictive Ocean Modeling</h3>
+                        <p class="text-slate-300 text-sm max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Using AI to analyze seismic data and water column anomalies in real-time.</p>
+                    </div>
+                </div>
+
+                <!-- Grid Item 2 -->
+                <div class="relative group overflow-hidden rounded-xl h-[400px]">
+                    <img src="https://images.unsplash.com/photo-1544551763-46a42a46180b?auto=format&fit=crop&w=800&q=80" alt="Coral" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <div class="text-cyan-400 text-xs font-bold tracking-widest uppercase mb-2">Biology</div>
+                        <h3 class="text-2xl font-display font-bold text-white">Deep Coral Recovery</h3>
+                    </div>
+                </div>
+
+                <!-- Grid Item 3 -->
+                <div class="relative group overflow-hidden rounded-xl h-[400px]">
+                    <img src="https://images.unsplash.com/photo-1530053969600-caed2596d242?auto=format&fit=crop&w=800&q=80" alt="Bubbles" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <div class="text-cyan-400 text-xs font-bold tracking-widest uppercase mb-2">Hydrothermal</div>
+                        <h3 class="text-2xl font-display font-bold text-white">Vent Ecosystems</h3>
+                    </div>
+                </div>
+
+                 <!-- Grid Item 4 (Large) -->
+                 <div class="md:col-span-2 relative group overflow-hidden rounded-xl h-[400px]">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Tech" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <div class="text-cyan-400 text-xs font-bold tracking-widest uppercase mb-2">Technology</div>
+                        <h3 class="text-2xl font-display font-bold text-white mb-2">Next-Gen Submersibles</h3>
+                        <p class="text-slate-300 text-sm max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Titanium-hulled vessels capable of reaching Challenger Deep with full sensor suites.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team / Expeditions Parallax -->
+    <section id="expeditions" class="py-32 relative bg-fixed bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1484591974057-265bb767ef71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+        <div class="absolute inset-0 bg-deep-900/80 backdrop-blur-sm"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="border-l border-cyan-500/30 pl-8 ml-4 md:ml-0">
+                <span class="text-cyan-400 font-bold tracking-[0.2em] uppercase text-sm block mb-4">Latest Expedition</span>
+                <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Mariana Trench <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-white">Descent Phase IV</span></h2>
+                <p class="text-lg text-slate-300 max-w-2xl leading-relaxed mb-8">
+                    Our team successfully deployed the new autonomous sensors at 10,920 meters. Preliminary data suggests a new species of amphipod and unexpected thermal activity.
+                </p>
+                <div class="flex items-center gap-4 text-sm font-mono text-cyan-300">
+                    <span class="px-3 py-1 border border-cyan-500/50 rounded">LAT: 11° 21' N</span>
+                    <span class="px-3 py-1 border border-cyan-500/50 rounded">LONG: 142° 12' E</span>
+                    <span class="px-3 py-1 bg-cyan-500/20 text-cyan-100 rounded">STATUS: ACTIVE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-deep-900 relative">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-display font-light text-white">Join the <span class="text-cyan-400">Voyage</span></h2>
+                <p class="mt-4 text-slate-400">Subscribe for research updates or inquire about partnership.</p>
+            </div>
+
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Name</label>
+                        <input type="text" id="name" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all placeholder-slate-600" placeholder="Dr. Jane Doe">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Email</label>
+                        <input type="email" id="email" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all placeholder-slate-600" placeholder="jane@institute.org">
+                    </div>
+                </div>
+                <div>
+                    <label for="message" class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Inquiry</label>
+                    <textarea id="message" rows="4" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all placeholder-slate-600" placeholder="Tell us about your interest..."></textarea>
+                </div>
+                <div class="text-center pt-4">
+                    <button type="submit" class="px-10 py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold tracking-widest uppercase rounded-lg transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)]">
+                        Send Transmission
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-cyan-400 to-bio-500 opacity-80"></div>
+                <span class="text-white font-display font-bold tracking-widest">{{COMPANY_NAME}}</span>
+            </div>
+            <div class="flex gap-8 text-xs text-slate-500 tracking-widest uppercase">
+                <a href="#" class="hover:text-cyan-400 transition-colors">Privacy</a>
+                <a href="#" class="hover:text-cyan-400 transition-colors">Terms</a>
+                <a href="#" class="hover:text-cyan-400 transition-colors">Data</a>
+            </div>
+            <div class="text-slate-600 text-sm">
+                &copy; 2024 {{COMPANY_NAME}} Institute.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
