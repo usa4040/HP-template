@@ -1065,6 +1065,19 @@
         "Tech",
         "Blueprint"
       ]
+    },
+    {
+      "id": "083",
+      "name": "Zenith Dojo",
+      "category": "Martial Arts",
+      "style": "Disciplined",
+      "path": "catalog/template_083_martial_arts_disciplined",
+      "description": "Clean, powerful martial arts theme.",
+      "tags": [
+        "Clean",
+        "Strong",
+        "Traditional"
+      ]
     }
   ]
 }

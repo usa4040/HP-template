@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith Dojo - {{COMPANY_NAME}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Roboto', 'sans-serif'],
+                        'heading': ['Teko', 'sans-serif'],
+                    },
+                    colors: {
+                        'dojo-black': '#0a0a0a',
+                        'dojo-red': '#b91c1c',
+                        'dojo-gold': '#d4af37',
+                        'dojo-gray': '#1f1f1f',
+                    },
+                    backgroundImage: {
+                        'tatami': "url('https://www.transparenttextures.com/patterns/black-linen.png')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-dojo-black text-white font-sans antialiased selection:bg-dojo-red selection:text-white" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" :class="scrolled ? 'bg-dojo-black/95 backdrop-blur-md shadow-lg py-4 border-b border-white/5' : 'bg-transparent py-6'">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-dojo-red flex items-center justify-center transform rotate-45 group-hover:rotate-0 transition-transform duration-500">
+                    <span class="text-white font-heading font-bold text-2xl -rotate-45 group-hover:rotate-0 transition-transform duration-500">Z</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-bold text-3xl tracking-wider leading-none">ZENITH</span>
+                    <span class="text-[10px] tracking-[0.3em] text-dojo-gold uppercase">Dojo</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="#about" class="text-sm uppercase tracking-widest hover:text-dojo-red transition-colors duration-300 relative group">
+                    The Way
+                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-dojo-red group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#classes" class="text-sm uppercase tracking-widest hover:text-dojo-red transition-colors duration-300 relative group">
+                    Classes
+                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-dojo-red group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#instructors" class="text-sm uppercase tracking-widest hover:text-dojo-red transition-colors duration-300 relative group">
+                    Masters
+                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-dojo-red group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#contact" class="px-8 py-2 border border-dojo-red text-dojo-red hover:bg-dojo-red hover:text-white transition-all duration-300 uppercase tracking-widest text-sm font-medium">
+                    Join Us
+                </a>
+            </div>
+
+            <!-- Mobile Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white hover:text-dojo-red transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-full" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-full" class="absolute top-full left-0 w-full bg-dojo-black border-b border-dojo-red md:hidden flex flex-col items-center py-10 space-y-6 shadow-2xl" x-cloak>
+            <a href="#about" @click="mobileMenuOpen = false" class="text-xl font-heading tracking-widest hover:text-dojo-red">The Way</a>
+            <a href="#classes" @click="mobileMenuOpen = false" class="text-xl font-heading tracking-widest hover:text-dojo-red">Classes</a>
+            <a href="#instructors" @click="mobileMenuOpen = false" class="text-xl font-heading tracking-widest hover:text-dojo-red">Masters</a>
+            <a href="#contact" @click="mobileMenuOpen = false" class="px-8 py-3 bg-dojo-red text-white uppercase tracking-widest font-bold">Join Now</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1544367563-12123d832d34?q=80&w=2070&auto=format&fit=crop" alt="Martial Arts Background" class="w-full h-full object-cover filter brightness-50 grayscale hover:grayscale-0 transition-all duration-[3000ms] scale-105 hover:scale-100">
+            <div class="absolute inset-0 bg-gradient-to-t from-dojo-black via-dojo-black/50 to-transparent"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <div class="mb-4 overflow-hidden">
+                <p class="text-dojo-gold font-bold tracking-[0.5em] uppercase text-sm md:text-base transform transition-transform duration-1000" :class="show ? 'translate-y-0' : 'translate-y-full'">
+                    Established 1998
+                </p>
+            </div>
+            <h1 class="text-6xl md:text-9xl font-heading font-bold uppercase leading-none mb-6 tracking-tight">
+                <span class="block transform transition-all duration-1000 delay-300" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">Discipline</span>
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 transform transition-all duration-1000 delay-500" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">Is Freedom</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed transform transition-all duration-1000 delay-700" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+                Master your body, sharpen your mind, and elevate your spirit. Experience the true essence of martial arts at {{COMPANY_NAME}}.
+            </p>
+            <div class="transform transition-all duration-1000 delay-1000" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+                <a href="#classes" class="group relative px-10 py-4 overflow-hidden bg-transparent border border-white text-white font-bold tracking-widest uppercase inline-block hover:border-dojo-red transition-colors duration-300">
+                    <span class="absolute top-0 left-0 w-full h-full bg-dojo-red transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out -z-10"></span>
+                    Start Training
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce opacity-50">
+            <span class="text-[10px] uppercase tracking-widest mb-2">Scroll</span>
+            <div class="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- Philosophy Section -->
+    <section id="about" class="py-32 px-6 bg-dojo-black relative overflow-hidden">
+        <!-- Japanese Kanji Background Decoration -->
+        <div class="absolute top-0 right-0 text-[20rem] font-black text-white/5 font-heading select-none pointer-events-none -mr-20 -mt-20 leading-none">
+            道
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-4 border border-dojo-red/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="absolute -inset-2 bg-dojo-red/10 transform rotate-2 group-hover:rotate-0 transition-transform duration-500"></div>
+                <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop" alt="Meditation" class="relative z-10 w-full h-[600px] object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700">
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex items-center space-x-4">
+                    <div class="h-px w-12 bg-dojo-red"></div>
+                    <span class="text-dojo-gold uppercase tracking-[0.3em] text-sm font-bold">The Philosophy</span>
+                </div>
+                <h2 class="text-5xl md:text-7xl font-heading font-bold uppercase leading-none">
+                    More Than <br>
+                    <span class="text-dojo-red">Just Fighting</span>
+                </h2>
+                <p class="text-gray-400 leading-relaxed text-lg font-light">
+                    At {{COMPANY_NAME}}, we believe martial arts is a path to self-discovery. It is not merely about learning how to strike or throw, but about cultivating a relentless spirit, a focused mind, and a compassionate heart.
+                </p>
+                <p class="text-gray-400 leading-relaxed text-lg font-light">
+                    Our training combines ancient traditions with modern sports science to provide a holistic approach to physical and mental development. Whether you seek self-defense, fitness, or inner peace, the dojo is your sanctuary.
+                </p>
+
+                <div class="grid grid-cols-2 gap-8 pt-8 border-t border-white/10">
+                    <div>
+                        <h3 class="text-4xl font-heading font-bold text-white mb-2">25+</h3>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest">Years Experience</p>
+                    </div>
+                    <div>
+                        <h3 class="text-4xl font-heading font-bold text-white mb-2">1000+</h3>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest">Black Belts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="py-32 px-6 bg-dojo-gray relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <span class="text-dojo-red uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Our Disciplines</span>
+                <h2 class="text-5xl md:text-7xl font-heading font-bold uppercase text-white">Choose Your Path</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative h-[500px] overflow-hidden bg-dojo-black border border-white/5 hover:border-dojo-red/50 transition-colors duration-300">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40" style="background-image: url('https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=2070&auto=format&fit=crop');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dojo-black via-transparent to-transparent opacity-90"></div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="mb-4">
+                            <span class="text-dojo-gold text-xs uppercase tracking-widest border border-dojo-gold px-2 py-1">Striking</span>
+                        </div>
+                        <h3 class="text-5xl font-heading font-bold uppercase mb-4 text-white">Karate</h3>
+                        <p class="text-gray-400 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 text-sm leading-relaxed">
+                            The way of the empty hand. Focus on powerful strikes, precise blocks, and kata forms to build strength and discipline.
+                        </p>
+                        <a href="#" class="text-white text-sm uppercase tracking-widest hover:text-dojo-red transition-colors inline-flex items-center gap-2">
+                            Explore <span class="text-xl leading-none">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative h-[500px] overflow-hidden bg-dojo-black border border-white/5 hover:border-dojo-red/50 transition-colors duration-300">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40" style="background-image: url('https://images.unsplash.com/photo-1574542283995-1f9c8f8d689b?q=80&w=2069&auto=format&fit=crop');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dojo-black via-transparent to-transparent opacity-90"></div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="mb-4">
+                            <span class="text-dojo-gold text-xs uppercase tracking-widest border border-dojo-gold px-2 py-1">Grappling</span>
+                        </div>
+                        <h3 class="text-5xl font-heading font-bold uppercase mb-4 text-white">Judo</h3>
+                        <p class="text-gray-400 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 text-sm leading-relaxed">
+                            The gentle way. Master the art of using your opponent's strength against them through throws, pins, and joint locks.
+                        </p>
+                        <a href="#" class="text-white text-sm uppercase tracking-widest hover:text-dojo-red transition-colors inline-flex items-center gap-2">
+                            Explore <span class="text-xl leading-none">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative h-[500px] overflow-hidden bg-dojo-black border border-white/5 hover:border-dojo-red/50 transition-colors duration-300">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40" style="background-image: url('https://images.unsplash.com/photo-1517482813131-01f237305943?q=80&w=1974&auto=format&fit=crop');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dojo-black via-transparent to-transparent opacity-90"></div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="mb-4">
+                            <span class="text-dojo-gold text-xs uppercase tracking-widest border border-dojo-gold px-2 py-1">Mind & Body</span>
+                        </div>
+                        <h3 class="text-5xl font-heading font-bold uppercase mb-4 text-white">Aikido</h3>
+                        <p class="text-gray-400 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 text-sm leading-relaxed">
+                            The way of harmonious spirit. A defensive art focusing on neutralizing attacks without causing serious injury.
+                        </p>
+                        <a href="#" class="text-white text-sm uppercase tracking-widest hover:text-dojo-red transition-colors inline-flex items-center gap-2">
+                            Explore <span class="text-xl leading-none">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructors -->
+    <section id="instructors" class="py-32 px-6 bg-dojo-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <span class="text-dojo-gold uppercase tracking-[0.3em] text-sm font-bold mb-4 block">The Masters</span>
+                    <h2 class="text-5xl md:text-7xl font-heading font-bold uppercase text-white">Meet Your Sensei</h2>
+                </div>
+                <div class="mt-8 md:mt-0">
+                    <a href="#" class="text-white hover:text-dojo-red transition-colors uppercase tracking-widest text-sm border-b border-white/20 pb-1 hover:border-dojo-red">View All Instructors</a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Instructor 1 -->
+                <div class="group">
+                    <div class="relative overflow-hidden mb-6 aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop" alt="Sensei" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-black group-hover:h-2 group-hover:bg-dojo-red transition-all duration-300"></div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold uppercase text-white mb-1">Kenji Tanaka</h3>
+                    <p class="text-dojo-red text-sm uppercase tracking-widest">Head Master (7th Dan)</p>
+                </div>
+
+                <!-- Instructor 2 -->
+                <div class="group">
+                    <div class="relative overflow-hidden mb-6 aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?q=80&w=2000&auto=format&fit=crop" alt="Sensei" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-black group-hover:h-2 group-hover:bg-dojo-red transition-all duration-300"></div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold uppercase text-white mb-1">Sarah Chen</h3>
+                    <p class="text-gray-500 text-sm uppercase tracking-widest">Judo Instructor (5th Dan)</p>
+                </div>
+
+                <!-- Instructor 3 -->
+                <div class="group">
+                    <div class="relative overflow-hidden mb-6 aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop" alt="Sensei" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-black group-hover:h-2 group-hover:bg-dojo-red transition-all duration-300"></div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold uppercase text-white mb-1">David Ross</h3>
+                    <p class="text-gray-500 text-sm uppercase tracking-widest">Karate Instructor (4th Dan)</p>
+                </div>
+
+                <!-- Instructor 4 -->
+                <div class="group">
+                    <div class="relative overflow-hidden mb-6 aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?q=80&w=2070&auto=format&fit=crop" alt="Sensei" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-black group-hover:h-2 group-hover:bg-dojo-red transition-all duration-300"></div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold uppercase text-white mb-1">Elena Kovac</h3>
+                    <p class="text-gray-500 text-sm uppercase tracking-widest">Aikido Instructor (4th Dan)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule/CTA -->
+    <section id="contact" class="py-32 px-6 bg-dojo-gray relative overflow-hidden">
+        <!-- Abstract Background Shape -->
+        <div class="absolute -right-20 -bottom-20 w-[600px] h-[600px] bg-dojo-black rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+        <div class="absolute -left-20 -top-20 w-[400px] h-[400px] bg-dojo-red rounded-full mix-blend-multiply filter blur-[100px] opacity-20"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <h2 class="text-5xl md:text-8xl font-heading font-bold uppercase leading-none mb-8">
+                Begin Your <span class="text-stroke text-transparent">Journey</span> Today
+            </h2>
+            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto font-light">
+                The first step is always the hardest. We offer a free trial class for all new students. No commitment, just training.
+            </p>
+
+            <form class="max-w-md mx-auto space-y-4">
+                <input type="text" placeholder="Full Name" class="w-full bg-dojo-black border border-white/10 p-4 text-white focus:outline-none focus:border-dojo-red transition-colors placeholder-gray-600">
+                <input type="email" placeholder="Email Address" class="w-full bg-dojo-black border border-white/10 p-4 text-white focus:outline-none focus:border-dojo-red transition-colors placeholder-gray-600">
+                <select class="w-full bg-dojo-black border border-white/10 p-4 text-white focus:outline-none focus:border-dojo-red transition-colors text-gray-400">
+                    <option>Select Discipline</option>
+                    <option>Karate</option>
+                    <option>Judo</option>
+                    <option>Aikido</option>
+                </select>
+                <button type="submit" class="w-full bg-dojo-red text-white font-heading font-bold text-xl uppercase tracking-widest py-4 hover:bg-red-800 transition-colors duration-300">
+                    Claim Free Class
+                </button>
+            </form>
+
+            <p class="mt-8 text-sm text-gray-600">
+                Or visit us at: {{ADDRESS}} | Call: {{PHONE}}
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dojo-black border-t border-white/5 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col items-center md:items-start">
+                <span class="font-heading font-bold text-2xl tracking-wider uppercase mb-1">Zenith Dojo</span>
+                <span class="text-xs text-gray-600 uppercase tracking-widest">&copy; 2026 {{COMPANY_NAME}}. All Rights Reserved.</span>
+            </div>
+
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.409-.06 3.809-.06z" clip-rule="evenodd" /></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
