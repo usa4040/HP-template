@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - International Design Summit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'swiss-red': '#FF3B30',
+                        'swiss-black': '#111111',
+                        'swiss-gray': '#F5F5F7',
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Grid Lines */
+        .grid-lines {
+            background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+                              linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+            background-size: 4rem 4rem;
+        }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-white text-swiss-black font-sans antialiased selection:bg-swiss-red selection:text-white" x-data="{ mobileMenuOpen: false }">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b-2 border-swiss-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-3xl font-black tracking-tighter uppercase">
+                        <span class="text-swiss-red">HEL</span>VETICA
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-12 items-center">
+                    <a href="#about" class="text-sm font-bold uppercase tracking-widest hover:text-swiss-red transition-colors">Manifesto</a>
+                    <a href="#speakers" class="text-sm font-bold uppercase tracking-widest hover:text-swiss-red transition-colors">Speakers</a>
+                    <a href="#schedule" class="text-sm font-bold uppercase tracking-widest hover:text-swiss-red transition-colors">Schedule</a>
+                    <a href="#tickets" class="bg-swiss-black text-white px-6 py-3 text-sm font-bold uppercase tracking-widest hover:bg-swiss-red transition-colors">Get Tickets</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-swiss-black hover:text-swiss-red focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition x-cloak class="md:hidden bg-white border-b-2 border-swiss-black absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#about" @click="mobileMenuOpen = false" class="block px-3 py-4 text-xl font-bold uppercase tracking-tighter border-b border-gray-100 hover:bg-gray-50 hover:text-swiss-red">Manifesto</a>
+                <a href="#speakers" @click="mobileMenuOpen = false" class="block px-3 py-4 text-xl font-bold uppercase tracking-tighter border-b border-gray-100 hover:bg-gray-50 hover:text-swiss-red">Speakers</a>
+                <a href="#schedule" @click="mobileMenuOpen = false" class="block px-3 py-4 text-xl font-bold uppercase tracking-tighter border-b border-gray-100 hover:bg-gray-50 hover:text-swiss-red">Schedule</a>
+                <a href="#tickets" @click="mobileMenuOpen = false" class="block px-3 py-4 text-xl font-bold uppercase tracking-tighter text-swiss-red hover:bg-gray-50">Get Tickets →</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-20 min-h-screen flex flex-col justify-center relative overflow-hidden border-b-2 border-swiss-black">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 grid-lines opacity-30 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                <div class="lg:col-span-8">
+                    <h1 class="text-7xl sm:text-8xl lg:text-[10rem] font-black leading-[0.85] tracking-tighter uppercase mb-8">
+                        Design<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-swiss-black to-gray-600">Summit</span><br>
+                        <span class="text-swiss-red">2024</span>
+                    </h1>
+                </div>
+                <div class="lg:col-span-4 flex flex-col justify-end h-full pb-4 space-y-8">
+                    <div class="border-l-4 border-swiss-black pl-6">
+                        <p class="text-xl font-bold uppercase tracking-widest mb-1">Zurich, Switzerland</p>
+                        <p class="text-lg font-medium text-gray-600">October 12-14, 2024</p>
+                    </div>
+                    <div class="border-l-4 border-swiss-red pl-6">
+                        <p class="text-lg leading-relaxed font-medium">
+                            Gathering the world's most visionary designers to explore the intersection of form, function, and future.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Marquee -->
+        <div class="bg-swiss-black text-white py-4 overflow-hidden whitespace-nowrap border-t-2 border-swiss-black">
+            <div class="inline-block animate-marquee pl-4">
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8">International Design Summit</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8 text-swiss-red">•</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8">{{COMPANY_NAME}}</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8 text-swiss-red">•</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8">Typography & Grid Systems</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8 text-swiss-red">•</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8">Architecture & Space</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8 text-swiss-red">•</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8">Digital & Print</span>
+                <span class="text-2xl font-bold uppercase tracking-widest mx-8 text-swiss-red">•</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Manifesto / About Section -->
+    <section id="about" class="py-24 border-b-2 border-swiss-black bg-swiss-gray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-5xl font-black uppercase tracking-tighter mb-8 relative inline-block">
+                        The Manifesto
+                        <span class="absolute -bottom-2 left-0 w-full h-2 bg-swiss-red"></span>
+                    </h2>
+                    <p class="text-2xl font-bold leading-tight mb-6">
+                        "Design is not just what it looks like and feels like. Design is how it works."
+                    </p>
+                </div>
+                <div class="text-lg leading-relaxed space-y-6 font-medium text-gray-800">
+                    <p>
+                        At {{COMPANY_NAME}}, we believe in the power of clarity, precision, and purpose. The International Design Summit is a celebration of the principles that have shaped modern visual communication.
+                    </p>
+                    <p>
+                        From the rigorous grids of the Swiss International Style to the fluid dynamics of contemporary digital interfaces, we explore how discipline creates freedom. Join us for three days of talks, workshops, and exhibitions.
+                    </p>
+                    <div class="pt-4">
+                        <a href="#" class="inline-flex items-center text-swiss-red font-black uppercase tracking-widest hover:underline decoration-2 underline-offset-4">
+                            Read Full Mission
+                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Grid -->
+    <section id="speakers" class="border-b-2 border-swiss-black">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <!-- Speaker 1 -->
+            <div class="group relative aspect-[3/4] border-b md:border-b-0 md:border-r-2 border-swiss-black overflow-hidden bg-black">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Speaker" class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full bg-white p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300 border-t-2 border-swiss-black">
+                    <p class="text-xs font-bold uppercase tracking-widest text-swiss-red mb-1">Typography</p>
+                    <h3 class="text-2xl font-black uppercase tracking-tight">Elena Rossi</h3>
+                    <p class="text-sm font-medium mt-1">Creative Director, TypeFoundry</p>
+                </div>
+            </div>
+
+            <!-- Speaker 2 -->
+            <div class="group relative aspect-[3/4] border-b md:border-b-0 lg:border-r-2 border-swiss-black overflow-hidden bg-black">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Speaker" class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full bg-white p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300 border-t-2 border-swiss-black">
+                    <p class="text-xs font-bold uppercase tracking-widest text-swiss-red mb-1">Architecture</p>
+                    <h3 class="text-2xl font-black uppercase tracking-tight">David Chen</h3>
+                    <p class="text-sm font-medium mt-1">Principal, Chen Architects</p>
+                </div>
+            </div>
+
+            <!-- Speaker 3 -->
+            <div class="group relative aspect-[3/4] border-b md:border-b-0 md:border-r-2 border-swiss-black overflow-hidden bg-black">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Speaker" class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full bg-white p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300 border-t-2 border-swiss-black">
+                    <p class="text-xs font-bold uppercase tracking-widest text-swiss-red mb-1">Interaction</p>
+                    <h3 class="text-2xl font-black uppercase tracking-tight">Sarah Jones</h3>
+                    <p class="text-sm font-medium mt-1">Head of Design, TechFlow</p>
+                </div>
+            </div>
+
+            <!-- Speaker 4 -->
+            <div class="group relative aspect-[3/4] border-b md:border-b-0 border-swiss-black overflow-hidden bg-black">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Speaker" class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full bg-white p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300 border-t-2 border-swiss-black">
+                    <p class="text-xs font-bold uppercase tracking-widest text-swiss-red mb-1">Branding</p>
+                    <h3 class="text-2xl font-black uppercase tracking-tight">Marcus Wolf</h3>
+                    <p class="text-sm font-medium mt-1">Founder, Wolf & Co.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="py-24 bg-white border-b-2 border-swiss-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-6xl font-black uppercase tracking-tighter mb-4 text-swiss-black">Program</h2>
+                <div class="w-24 h-4 bg-swiss-red"></div>
+            </div>
+
+            <div class="space-y-0 border-t-2 border-swiss-black">
+                <!-- Item 1 -->
+                <div class="group grid grid-cols-1 md:grid-cols-12 border-b-2 border-swiss-black hover:bg-swiss-gray transition-colors">
+                    <div class="md:col-span-3 p-6 border-b md:border-b-0 md:border-r-2 border-swiss-black">
+                        <span class="text-3xl font-black tracking-tight text-swiss-red">09:00</span>
+                    </div>
+                    <div class="md:col-span-9 p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold uppercase tracking-tight mb-2">Opening Keynote: The Future of Grid</h3>
+                        <p class="text-gray-600 font-medium">Main Hall • Elena Rossi</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group grid grid-cols-1 md:grid-cols-12 border-b-2 border-swiss-black hover:bg-swiss-gray transition-colors">
+                    <div class="md:col-span-3 p-6 border-b md:border-b-0 md:border-r-2 border-swiss-black">
+                        <span class="text-3xl font-black tracking-tight text-swiss-black group-hover:text-swiss-red transition-colors">11:30</span>
+                    </div>
+                    <div class="md:col-span-9 p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold uppercase tracking-tight mb-2">Architectural Typography</h3>
+                        <p class="text-gray-600 font-medium">Workshop Room B • David Chen</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group grid grid-cols-1 md:grid-cols-12 border-b-2 border-swiss-black hover:bg-swiss-gray transition-colors">
+                    <div class="md:col-span-3 p-6 border-b md:border-b-0 md:border-r-2 border-swiss-black">
+                        <span class="text-3xl font-black tracking-tight text-swiss-black group-hover:text-swiss-red transition-colors">14:00</span>
+                    </div>
+                    <div class="md:col-span-9 p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold uppercase tracking-tight mb-2">Digital Brutalism vs. Swiss Minimalism</h3>
+                        <p class="text-gray-600 font-medium">Main Hall • Panel Discussion</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="group grid grid-cols-1 md:grid-cols-12 border-b-2 border-swiss-black hover:bg-swiss-gray transition-colors">
+                    <div class="md:col-span-3 p-6 border-b md:border-b-0 md:border-r-2 border-swiss-black">
+                        <span class="text-3xl font-black tracking-tight text-swiss-black group-hover:text-swiss-red transition-colors">16:30</span>
+                    </div>
+                    <div class="md:col-span-9 p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold uppercase tracking-tight mb-2">Closing Remarks & Networking</h3>
+                        <p class="text-gray-600 font-medium">Lobby Bar • All Speakers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tickets Section -->
+    <section id="tickets" class="py-24 bg-swiss-black text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-8 leading-none">
+                        Secure<br>Your<br><span class="text-swiss-red">Spot</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 font-medium max-w-md mb-12">
+                        Limited seats available for the premier design event of the year. Don't miss out on the conversation.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Ticket Card -->
+                    <div class="border-2 border-white/20 p-8 hover:border-swiss-red transition-colors bg-white/5">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-3xl font-black uppercase tracking-tight">Standard</h3>
+                                <p class="text-gray-400 text-sm uppercase tracking-widest mt-1">Full Access</p>
+                            </div>
+                            <span class="text-4xl font-bold">$299</span>
+                        </div>
+                        <ul class="space-y-3 mb-8 text-sm font-medium text-gray-300">
+                            <li class="flex items-center"><span class="w-2 h-2 bg-swiss-red mr-3"></span>Access to all keynotes</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-swiss-red mr-3"></span>Workshop participation</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-swiss-red mr-3"></span>Networking lunch included</li>
+                        </ul>
+                        <a href="#" class="block w-full py-4 bg-white text-swiss-black text-center font-black uppercase tracking-widest hover:bg-swiss-red hover:text-white transition-colors">Purchase</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white text-swiss-black border-t-2 border-swiss-black pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="text-4xl font-black tracking-tighter uppercase mb-6 block">
+                        <span class="text-swiss-red">HEL</span>VETICA
+                    </a>
+                    <p class="text-lg font-medium max-w-sm">
+                        {{COMPANY_NAME}} is dedicated to promoting excellence in design through education, collaboration, and inspiration.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold uppercase tracking-widest mb-6 border-b-2 border-swiss-black inline-block pb-1">Connect</h4>
+                    <ul class="space-y-3 font-medium">
+                        <li><a href="#" class="hover:text-swiss-red">Twitter / X</a></li>
+                        <li><a href="#" class="hover:text-swiss-red">Instagram</a></li>
+                        <li><a href="#" class="hover:text-swiss-red">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-swiss-red">Email Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold uppercase tracking-widest mb-6 border-b-2 border-swiss-black inline-block pb-1">Legal</h4>
+                    <ul class="space-y-3 font-medium">
+                        <li><a href="#" class="hover:text-swiss-red">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-swiss-red">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-swiss-red">Code of Conduct</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t-2 border-swiss-black pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm font-bold uppercase tracking-widest text-gray-500">© 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+                <p class="text-sm font-bold uppercase tracking-widest text-gray-500 mt-4 md:mt-0">Designed in Switzerland</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+    </style>
+</body>
+</html>

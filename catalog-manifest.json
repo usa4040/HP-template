@@ -1078,6 +1078,19 @@
         "Strong",
         "Traditional"
       ]
+    },
+    {
+      "id": "084",
+      "name": "Helvetica Summit",
+      "category": "Conference",
+      "style": "Swiss International",
+      "path": "catalog/template_084_conference_swiss",
+      "description": "Bold Swiss-style design conference theme with strong grid and typography.",
+      "tags": [
+        "Swiss",
+        "Typographic",
+        "Bold"
+      ]
     }
   ]
 }
