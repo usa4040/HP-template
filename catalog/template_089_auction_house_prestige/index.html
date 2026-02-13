@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Legacy Auction House</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: {
+                            DEFAULT: '#4A0404',
+                            900: '#2A0202',
+                        },
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#F4E4BC',
+                            dark: '#B4941F',
+                        },
+                        charcoal: {
+                            DEFAULT: '#1A1A1A',
+                            light: '#333333',
+                        },
+                        stone: {
+                            50: '#F9F9F7',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Bodoni Moda"', 'serif'],
+                        sans: ['"Manrope"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-stone-50 text-charcoal font-sans antialiased">
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200 transition-all duration-300" x-data="{ scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-3xl font-serif font-bold tracking-tight text-burgundy">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#auctions" class="text-sm uppercase tracking-widest hover:text-burgundy transition-colors">Auctions</a>
+                    <a href="#private-sales" class="text-sm uppercase tracking-widest hover:text-burgundy transition-colors">Private Sales</a>
+                    <a href="#services" class="text-sm uppercase tracking-widest hover:text-burgundy transition-colors">Services</a>
+                    <a href="#about" class="text-sm uppercase tracking-widest hover:text-burgundy transition-colors">About</a>
+                </nav>
+
+                <!-- CTA -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-sm font-semibold hover:text-burgundy transition-colors">Log In</a>
+                    <a href="#" class="bg-burgundy text-white px-6 py-2.5 text-sm uppercase tracking-widest hover:bg-burgundy-900 transition-colors duration-300 shadow-md">
+                        Register to Bid
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center" x-data="{ open: false }">
+                    <button @click="open = !open" type="button" class="text-charcoal hover:text-burgundy focus:outline-none" aria-label="Menu">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <!-- Mobile Nav -->
+                    <div x-show="open" @click.away="open = false" x-transition class="absolute top-20 left-0 w-full bg-stone-50 border-b border-stone-200 py-4 shadow-lg flex flex-col items-center space-y-4 md:hidden">
+                        <a href="#auctions" class="text-sm uppercase tracking-widest hover:text-burgundy transition-colors">Auctions</a>
+                        <a href="#private-sales" class="text-sm uppercase tracking-widest hover:text-burgundy transition-colors">Private Sales</a>
+                        <a href="#services" class="text-sm uppercase tracking-widest hover:text-burgundy transition-colors">Services</a>
+                        <a href="#about" class="text-sm uppercase tracking-widest hover:text-burgundy transition-colors">About</a>
+                        <a href="#" class="bg-burgundy text-white px-6 py-2.5 text-sm uppercase tracking-widest hover:bg-burgundy-900 transition-colors">Register to Bid</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1577720580479-7d839d829c73?q=80&w=2574&auto=format&fit=crop" alt="Fine Art Gallery" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/20 to-charcoal/60 mix-blend-multiply"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto" x-data="{
+            expiry: new Date().getTime() + (2 * 60 * 60 * 1000 + 14 * 60 * 1000 + 59 * 1000),
+            remaining: null,
+            interval: null,
+            format(value) { return ('0' + Math.floor(value)).slice(-2); },
+            update() {
+                const now = new Date().getTime();
+                const distance = this.expiry - now;
+                if (distance < 0) {
+                    this.remaining = { hours: '00', minutes: '00', seconds: '00' };
+                    clearInterval(this.interval);
+                } else {
+                    this.remaining = {
+                        hours: this.format((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                        minutes: this.format((distance % (1000 * 60 * 60)) / (1000 * 60)),
+                        seconds: this.format((distance % (1000 * 60)) / 1000)
+                    };
+                }
+            }
+        }" x-init="interval = setInterval(() => update(), 1000); update()">
+            <p class="text-gold font-serif italic text-xl md:text-2xl mb-4 animate-fade-in-up">The Autumn Collection</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight mb-8 drop-shadow-lg animate-fade-in-up delay-100">
+                Masterpieces of<br><span class="italic font-light">The Gilded Age</span>
+            </h1>
+
+            <!-- Countdown -->
+            <div class="flex justify-center space-x-8 md:space-x-12 mb-10 animate-fade-in-up delay-200" x-cloak>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-serif" x-text="remaining.hours">02</div>
+                    <div class="text-xs uppercase tracking-widest text-gold mt-1">Hours</div>
+                </div>
+                <div class="text-4xl md:text-5xl font-serif">:</div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-serif" x-text="remaining.minutes">14</div>
+                    <div class="text-xs uppercase tracking-widest text-gold mt-1">Minutes</div>
+                </div>
+                <div class="text-4xl md:text-5xl font-serif">:</div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-serif" x-text="remaining.seconds">59</div>
+                    <div class="text-xs uppercase tracking-widest text-gold mt-1">Seconds</div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-300">
+                <a href="#auctions" class="bg-white text-charcoal px-8 py-3 uppercase tracking-widest font-semibold hover:bg-gold hover:text-white transition-colors duration-300">
+                    View Catalog
+                </a>
+                <a href="#" class="border border-white text-white px-8 py-3 uppercase tracking-widest font-semibold hover:bg-white hover:text-charcoal transition-colors duration-300">
+                    Register to Bid
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Lots -->
+    <section id="auctions" class="py-24 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-burgundy mb-4">Featured Lots</h2>
+                <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+                <p class="text-charcoal-light max-w-2xl mx-auto font-light text-lg">
+                    Curated selections from our upcoming evening sale. Exceptional provenance and rarity guaranteed.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Lot 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[3/4] mb-6 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&w=2628&auto=format&fit=crop" alt="Abstract Painting" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-widest text-burgundy">
+                            Lot 88
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                            <button class="w-full bg-gold text-white py-3 uppercase tracking-widest text-sm hover:bg-gold-dark transition-colors">Place Bid</button>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-bold mb-1 group-hover:text-burgundy transition-colors">Abstract Composition No. 5</h3>
+                        <p class="text-sm text-charcoal-light uppercase tracking-widest mb-3">Oil on Canvas, 1962</p>
+                        <div class="border-t border-stone-200 w-12 mx-auto my-3"></div>
+                        <p class="font-serif text-lg italic text-gold-dark">Est. $1,200,000 - $1,500,000</p>
+                    </div>
+                </div>
+
+                <!-- Lot 2 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[3/4] mb-6 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2680&auto=format&fit=crop" alt="Vintage Watch" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-widest text-burgundy">
+                            Lot 104
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                            <button class="w-full bg-gold text-white py-3 uppercase tracking-widest text-sm hover:bg-gold-dark transition-colors">Place Bid</button>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-bold mb-1 group-hover:text-burgundy transition-colors">Grand Complication '54</h3>
+                        <p class="text-sm text-charcoal-light uppercase tracking-widest mb-3">18k Rose Gold</p>
+                        <div class="border-t border-stone-200 w-12 mx-auto my-3"></div>
+                        <p class="font-serif text-lg italic text-gold-dark">Est. $45,000 - $60,000</p>
+                    </div>
+                </div>
+
+                <!-- Lot 3 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[3/4] mb-6 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1610444648714-3507d612e52c?q=80&w=2670&auto=format&fit=crop" alt="Antique Vase" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-widest text-burgundy">
+                            Lot 42
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                            <button class="w-full bg-gold text-white py-3 uppercase tracking-widest text-sm hover:bg-gold-dark transition-colors">Place Bid</button>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-bold mb-1 group-hover:text-burgundy transition-colors">Imperial Ming Vase</h3>
+                        <p class="text-sm text-charcoal-light uppercase tracking-widest mb-3">Blue and White Porcelain</p>
+                        <div class="border-t border-stone-200 w-12 mx-auto my-3"></div>
+                        <p class="font-serif text-lg italic text-gold-dark">Est. $200,000 - $250,000</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="#" class="inline-block border-b-2 border-burgundy pb-1 text-burgundy uppercase tracking-widest hover:text-charcoal hover:border-charcoal transition-colors">
+                    View All 156 Lots
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1541516160071-4bb0c5af65ba?q=80&w=2670&auto=format&fit=crop" alt="Auctioneer" class="shadow-2xl w-full h-auto object-cover grayscale opacity-90 hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute -bottom-8 -right-8 w-64 h-64 bg-stone-50 border border-stone-200 p-8 shadow-lg hidden md:block">
+                        <div class="h-full border border-gold p-6 flex flex-col justify-center text-center">
+                            <span class="font-serif text-4xl text-burgundy mb-2">300+</span>
+                            <span class="text-xs uppercase tracking-widest text-charcoal-light">Years of Heritage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pl-0 lg:pl-12">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-burgundy mb-6">Expert Services for the <br>Discerning Collector</h2>
+                    <p class="text-charcoal-light mb-8 leading-relaxed font-light">
+                        {{COMPANY_NAME}} offers a comprehensive suite of services designed to assist you in every aspect of collecting. Whether you are acquiring your first piece or managing a generational estate, our specialists are here to guide you.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-full bg-stone-50 flex items-center justify-center text-gold">
+                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-serif font-bold text-charcoal mb-2">Valuation & Appraisal</h3>
+                                <p class="text-sm text-charcoal-light leading-relaxed">Complimentary and confidential valuations for single items or entire collections.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-full bg-stone-50 flex items-center justify-center text-gold">
+                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-serif font-bold text-charcoal mb-2">Private Sales</h3>
+                                <p class="text-sm text-charcoal-light leading-relaxed">Bespoke brokerage services for high-value assets outside the auction calendar.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-full bg-stone-50 flex items-center justify-center text-gold">
+                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-serif font-bold text-charcoal mb-2">Global Shipping & Logistics</h3>
+                                <p class="text-sm text-charcoal-light leading-relaxed">White-glove handling and secure transport to any destination worldwide.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlight -->
+    <section class="py-24 bg-burgundy text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <span class="text-gold uppercase tracking-[0.2em] text-sm mb-4 block">Upcoming Highlight</span>
+            <h2 class="text-4xl md:text-6xl font-serif font-bold mb-8 leading-tight">The Modern Art Evening Sale</h2>
+            <p class="text-xl font-light text-stone-300 mb-10">New York • November 12, 2024</p>
+            <a href="#" class="inline-block border border-gold text-gold px-10 py-4 uppercase tracking-widest hover:bg-gold hover:text-burgundy transition-all duration-300">
+                Explore the Catalog
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white pt-20 pb-10 border-t border-charcoal-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <a href="#" class="text-2xl font-serif font-bold tracking-tight text-white mb-6 block">
+                        {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        The world's premier destination for fine art, antiques, and luxury collectibles. Established in 1744.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Instagram</span><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.407-.06 4.123-.06h.08zm0 1.8c-2.607 0-2.928.012-3.95.058-1.018.045-1.57.237-1.935.379a3.103 3.103 0 00-1.144.745 3.102 3.102 0 00-.745 1.144c-.142.365-.335.917-.38 1.935-.046 1.022-.058 1.343-.058 3.95s.012 2.928.058 3.95c.045 1.018.237 1.57.379 1.935.25.647.758 1.154 1.405 1.405.365.142.917.335 1.935.38 1.022.046 1.343.058 3.95.058s2.928-.012 3.95-.058c1.018-.045 1.57-.237 1.935-.379a3.102 3.102 0 001.144-.745 3.103 3.103 0 00.745-1.144c.142-.365.335-.917.38-1.935.046-1.022.058-1.343.058-3.95s-.012-2.928-.058-3.95c-.045-1.018-.237-1.57-.379-1.935a3.102 3.102 0 00-.745-1.144 3.103 3.103 0 00-1.144-.745c-.365-.142-.917-.335-1.935-.38-1.022-.046-1.343-.058-3.95-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.8a3.335 3.335 0 100 6.67 3.335 3.335 0 000-6.67zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Twitter</span><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg></a>
+                    </div>
+                </div>
+
+                <!-- Locations -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-gold mb-6">Locations</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">New York</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">London</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Paris</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Hong Kong</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Geneva</a></li>
+                    </ul>
+                </div>
+
+                <!-- Departments -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-gold mb-6">Departments</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Impressionist & Modern Art</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contemporary Art</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Jewelry & Watches</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Old Master Paintings</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Asian Art</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-gold mb-6">Subscribe</h4>
+                    <p class="text-gray-400 text-sm mb-4">Receive the latest updates on auctions and exhibitions.</p>
+                    <form class="flex flex-col space-y-3">
+                        <input type="email" placeholder="Email Address" class="bg-charcoal-light border border-gray-700 text-white px-4 py-3 text-sm focus:outline-none focus:border-gold transition-colors">
+                        <button class="bg-white text-charcoal px-4 py-3 text-sm uppercase tracking-widest font-bold hover:bg-gold hover:text-white transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms & Conditions</a>
+                    <a href="#" class="hover:text-white">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

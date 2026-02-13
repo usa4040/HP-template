@@ -1143,6 +1143,19 @@
         "Dark",
         "Future"
       ]
+    },
+    {
+      "id": "089",
+      "name": "Legacy Auction",
+      "category": "Auction House",
+      "style": "Prestige",
+      "path": "catalog/template_089_auction_house_prestige",
+      "description": "Luxury fine art auctions.",
+      "tags": [
+        "Luxury",
+        "Serif",
+        "Exclusive"
+      ]
     }
   ]
 }
