@@ -1182,6 +1182,19 @@
         "Immersive",
         "Future"
       ]
+    },
+    {
+      "id": "092",
+      "name": "Aether Analytics",
+      "category": "Climate Tech",
+      "style": "Atmospheric",
+      "path": "catalog/template_092_climate_atmospheric",
+      "description": "Ethereal gradients visualizing climate data.",
+      "tags": [
+        "Data",
+        "Gradient",
+        "Glassmorphism"
+      ]
     }
   ]
 }
