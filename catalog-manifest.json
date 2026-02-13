@@ -1091,6 +1091,19 @@
         "Typographic",
         "Bold"
       ]
+    },
+    {
+      "id": "085",
+      "name": "Nexus Living",
+      "category": "Smart Home",
+      "style": "Connected",
+      "path": "catalog/template_085_smart_home_connected",
+      "description": "App-inspired interface for smart living.",
+      "tags": [
+        "Modern",
+        "UI-Style",
+        "Tech"
+      ]
     }
   ]
 }
