@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offset Vision | {{COMPANY_NAME}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyan: { DEFAULT: '#00FFFF' },
+                        magenta: { DEFAULT: '#FF00FF' },
+                        yellow: { DEFAULT: '#FFFF00' },
+                        black: { DEFAULT: '#000000' },
+                    },
+                    fontFamily: {
+                        display: ['"Archivo Black"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .mix-multiply { mix-blend-mode: multiply; }
+        .bg-grid {
+            background-image:
+                linear-gradient(to right, #e5e5e5 1px, transparent 1px),
+                linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .registration-mark {
+            width: 20px;
+            height: 20px;
+            position: relative;
+        }
+        .registration-mark::before, .registration-mark::after {
+            content: '';
+            position: absolute;
+            background: black;
+        }
+        .registration-mark::before {
+            top: 9px; left: 0; width: 20px; height: 2px;
+        }
+        .registration-mark::after {
+            top: 0; left: 9px; width: 2px; height: 20px;
+        }
+        /* CMYK Layers */
+        .cmyk-text {
+            position: relative;
+            display: inline-block;
+            color: black;
+            z-index: 10;
+        }
+        .cmyk-text::before, .cmyk-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.7;
+            mix-blend-mode: multiply;
+            z-index: -1;
+            transition: transform 0.3s ease;
+        }
+        .cmyk-text::before {
+            color: #00FFFF;
+            transform: translate(-2px, -2px);
+        }
+        .cmyk-text::after {
+            color: #FF00FF;
+            transform: translate(2px, 2px);
+        }
+        .cmyk-text:hover::before { transform: translate(-4px, -4px); }
+        .cmyk-text:hover::after { transform: translate(4px, 4px); }
+
+        /* Halftone overlay */
+        .halftone {
+            background-image: radial-gradient(circle, #000 1px, transparent 1.5px);
+            background-size: 8px 8px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        /* Image treatment */
+        .duotone-img {
+            filter: grayscale(100%) contrast(1.2);
+            mix-blend-mode: multiply;
+            transition: all 0.5s ease;
+        }
+        .group:hover .duotone-img {
+            filter: grayscale(0%);
+            mix-blend-mode: normal;
+        }
+    </style>
+</head>
+<body class="bg-white text-black font-mono antialiased overflow-x-hidden selection:bg-cyan selection:text-white relative">
+
+    <!-- Global Halftone Overlay -->
+    <div class="fixed inset-0 halftone z-50 pointer-events-none"></div>
+
+    <!-- Registration Marks (Corners) -->
+    <div class="fixed top-8 left-8 registration-mark z-40 hidden md:block"></div>
+    <div class="fixed top-8 right-8 registration-mark z-40 hidden md:block"></div>
+    <div class="fixed bottom-8 left-8 registration-mark z-40 hidden md:block"></div>
+    <div class="fixed bottom-8 right-8 registration-mark z-40 hidden md:block"></div>
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false }" class="fixed w-full z-40 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center space-x-2">
+                    <div class="flex space-x-[-4px] mix-multiply">
+                        <div class="w-4 h-4 rounded-full bg-cyan mix-multiply"></div>
+                        <div class="w-4 h-4 rounded-full bg-magenta mix-multiply"></div>
+                        <div class="w-4 h-4 rounded-full bg-yellow mix-multiply"></div>
+                        <div class="w-4 h-4 rounded-full bg-black mix-multiply"></div>
+                    </div>
+                    <span class="font-display text-2xl tracking-tighter uppercase">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#work" class="text-sm font-bold uppercase hover:text-cyan transition-colors">Work</a>
+                    <a href="#services" class="text-sm font-bold uppercase hover:text-magenta transition-colors">Services</a>
+                    <a href="#about" class="text-sm font-bold uppercase hover:text-yellow-600 transition-colors">About</a>
+                    <a href="#contact" class="px-6 py-2 bg-black text-white text-sm font-bold uppercase hover:bg-cyan hover:text-black transition-colors border-2 border-transparent hover:border-black">Start Project</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="open = !open" class="text-black hover:text-cyan focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden border-t-2 border-black bg-white absolute w-full">
+            <div class="px-4 pt-4 pb-6 space-y-2">
+                <a href="#work" @click="open = false" class="block px-3 py-2 text-base font-bold uppercase hover:bg-cyan/10 hover:text-cyan">Work</a>
+                <a href="#services" @click="open = false" class="block px-3 py-2 text-base font-bold uppercase hover:bg-magenta/10 hover:text-magenta">Services</a>
+                <a href="#about" @click="open = false" class="block px-3 py-2 text-base font-bold uppercase hover:bg-yellow/10 hover:text-yellow-600">About</a>
+                <a href="#contact" @click="open = false" class="block px-3 py-2 text-base font-bold uppercase bg-black text-white text-center mt-4">Start Project</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-grid">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <p class="mb-4 text-sm font-bold tracking-widest uppercase text-neutral-500">Est. 2024 &mdash; Premium Print Studio</p>
+                <h1 class="text-6xl md:text-9xl font-display uppercase tracking-tighter leading-none mb-8 cmyk-text" data-text="OFFSET">
+                    OFFSET
+                </h1>
+                <h2 class="text-6xl md:text-9xl font-display uppercase tracking-tighter leading-none mb-12 cmyk-text" data-text="VISION">
+                    VISION
+                </h2>
+                <p class="max-w-2xl mx-auto text-lg md:text-xl text-neutral-700 mb-12 border-l-4 border-cyan pl-6">
+                    We bring digital precision to analog warmth. Specializing in high-fidelity offset printing, risograph, and bespoke packaging for brands that demand tangible impact.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#work" class="inline-block px-8 py-4 bg-black text-white font-bold uppercase tracking-wide border-2 border-black hover:bg-transparent hover:text-black transition-colors shadow-[4px_4px_0px_0px_rgba(0,255,255,1)] hover:shadow-[6px_6px_0px_0px_rgba(255,0,255,1)]">
+                        View Portfolio
+                    </a>
+                    <a href="#contact" class="inline-block px-8 py-4 bg-transparent text-black font-bold uppercase tracking-wide border-2 border-black hover:bg-black hover:text-white transition-colors">
+                        Request Quote
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative Color Bars -->
+        <div class="absolute bottom-0 left-0 w-full h-2 flex">
+            <div class="w-1/4 bg-cyan h-full"></div>
+            <div class="w-1/4 bg-magenta h-full"></div>
+            <div class="w-1/4 bg-yellow h-full"></div>
+            <div class="w-1/4 bg-black h-full"></div>
+        </div>
+    </header>
+
+    <!-- Marquee -->
+    <div class="bg-black text-white overflow-hidden py-4 border-y-4 border-yellow">
+        <div class="whitespace-nowrap animate-marquee font-display text-4xl uppercase tracking-widest">
+            Print is not dead • Tactile Experience • CMYK Color Space • High Fidelity • Offset Lithography • Digital Precision • Print is not dead • Tactile Experience • CMYK Color Space •
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-neutral-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-end justify-between mb-16 border-b-2 border-black pb-4">
+                <h3 class="text-4xl md:text-6xl font-display uppercase">Services</h3>
+                <span class="font-mono text-sm">01 / CAPABILITIES</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group bg-white border-2 border-black p-8 relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-cyan opacity-0 group-hover:opacity-100 transition-opacity mix-multiply -z-10 translate-x-2 translate-y-2 border-2 border-black"></div>
+                    <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-display text-2xl mb-6">C</div>
+                    <h4 class="text-2xl font-bold uppercase mb-4">Offset Printing</h4>
+                    <p class="text-neutral-600 mb-6">High-volume production with unmatched color fidelity and crisp details. Ideal for magazines, catalogs, and brand collateral.</p>
+                    <ul class="text-sm space-y-2 border-t border-dashed border-black pt-4">
+                        <li class="flex justify-between"><span>MOQ</span> <span>500 Units</span></li>
+                        <li class="flex justify-between"><span>Turnaround</span> <span>5-7 Days</span></li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group bg-white border-2 border-black p-8 relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-magenta opacity-0 group-hover:opacity-100 transition-opacity mix-multiply -z-10 translate-x-2 translate-y-2 border-2 border-black"></div>
+                    <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-display text-2xl mb-6">M</div>
+                    <h4 class="text-2xl font-bold uppercase mb-4">Risograph</h4>
+                    <p class="text-neutral-600 mb-6">Eco-friendly printing with a unique, textured aesthetic. Vibrant soy-based inks create a distinctive retro-modern look.</p>
+                    <ul class="text-sm space-y-2 border-t border-dashed border-black pt-4">
+                        <li class="flex justify-between"><span>MOQ</span> <span>50 Units</span></li>
+                        <li class="flex justify-between"><span>Turnaround</span> <span>3-5 Days</span></li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group bg-white border-2 border-black p-8 relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-yellow opacity-0 group-hover:opacity-100 transition-opacity mix-multiply -z-10 translate-x-2 translate-y-2 border-2 border-black"></div>
+                    <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-display text-2xl mb-6">Y</div>
+                    <h4 class="text-2xl font-bold uppercase mb-4">Large Format</h4>
+                    <p class="text-neutral-600 mb-6">Posters, banners, and signage that demand attention. Archival quality papers and weather-resistant vinyls available.</p>
+                    <ul class="text-sm space-y-2 border-t border-dashed border-black pt-4">
+                        <li class="flex justify-between"><span>Max Width</span> <span>60 Inches</span></li>
+                        <li class="flex justify-between"><span>Turnaround</span> <span>24 Hours</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Work Section -->
+    <section id="work" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-end justify-between mb-16 border-b-2 border-black pb-4">
+                <h3 class="text-4xl md:text-6xl font-display uppercase">Selected Work</h3>
+                <span class="font-mono text-sm">02 / PORTFOLIO</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border-2 border-black">
+                <!-- Project 1 -->
+                <div class="group relative aspect-square border-b-2 md:border-b-0 md:border-r-2 border-black overflow-hidden bg-neutral-100">
+                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Art Book" class="w-full h-full object-cover duotone-img">
+                    <div class="absolute inset-0 bg-cyan mix-blend-multiply opacity-50 group-hover:opacity-0 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-white border-t-2 border-black translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="text-xl font-bold uppercase">Modern Typography</h4>
+                                <p class="text-xs uppercase text-neutral-500">Editorial Design / Offset</p>
+                            </div>
+                            <span class="text-2xl font-display">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group relative aspect-square overflow-hidden bg-neutral-100">
+                    <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Poster Series" class="w-full h-full object-cover duotone-img">
+                    <div class="absolute inset-0 bg-magenta mix-blend-multiply opacity-50 group-hover:opacity-0 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-white border-t-2 border-black translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="text-xl font-bold uppercase">Neon Nights</h4>
+                                <p class="text-xs uppercase text-neutral-500">Poster Series / Screenprint</p>
+                            </div>
+                            <span class="text-2xl font-display">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group relative aspect-square border-b-2 md:border-b-0 md:border-r-2 border-black overflow-hidden bg-neutral-100 border-t-2">
+                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Brand Identity" class="w-full h-full object-cover duotone-img">
+                    <div class="absolute inset-0 bg-yellow mix-blend-multiply opacity-50 group-hover:opacity-0 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-white border-t-2 border-black translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="text-xl font-bold uppercase">Tech Startup</h4>
+                                <p class="text-xs uppercase text-neutral-500">Branding / Stationery</p>
+                            </div>
+                            <span class="text-2xl font-display">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="group relative aspect-square overflow-hidden bg-neutral-100 border-t-2 border-black">
+                    <img src="https://images.unsplash.com/photo-1586075010923-2dd4570fb338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Magazine" class="w-full h-full object-cover duotone-img">
+                    <div class="absolute inset-0 bg-black mix-blend-multiply opacity-20 group-hover:opacity-0 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-white border-t-2 border-black translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="text-xl font-bold uppercase">Architecture Digest</h4>
+                                <p class="text-xs uppercase text-neutral-500">Publication / Binding</p>
+                            </div>
+                            <span class="text-2xl font-display">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-24 bg-neutral-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-end justify-between mb-16 border-b-2 border-white pb-4">
+                <h3 class="text-4xl md:text-6xl font-display uppercase">The Process</h3>
+                <span class="font-mono text-sm">03 / WORKFLOW</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="relative pl-8 border-l-2 border-cyan">
+                    <span class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-cyan"></span>
+                    <h4 class="text-2xl font-display text-cyan mb-4">01. PREPRESS</h4>
+                    <p class="text-neutral-400 text-sm">File verification, color separation, and proofing. We ensure your digital files are print-ready.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative pl-8 border-l-2 border-magenta">
+                    <span class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-magenta"></span>
+                    <h4 class="text-2xl font-display text-magenta mb-4">02. PLATING</h4>
+                    <p class="text-neutral-400 text-sm">High-resolution CTP (Computer-to-Plate) output ensures razor-sharp details and registration.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative pl-8 border-l-2 border-yellow">
+                    <span class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-yellow"></span>
+                    <h4 class="text-2xl font-display text-yellow mb-4">03. PRESS</h4>
+                    <p class="text-neutral-400 text-sm">Inking and impression. Our Heidelberg presses run at 15,000 sheets per hour.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="relative pl-8 border-l-2 border-white">
+                    <span class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white"></span>
+                    <h4 class="text-2xl font-display text-white mb-4">04. FINISH</h4>
+                    <p class="text-neutral-400 text-sm">Trimming, folding, binding, and special effects like foil stamping or embossing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial / Stats -->
+    <section class="py-24 border-b-2 border-black bg-grid">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-3xl md:text-5xl font-display uppercase mb-12">"The only printer that understands<br><span class="bg-cyan px-2">color theory</span> as well as we do."</h3>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="p-6 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <div class="text-4xl font-bold font-display mb-2">12K+</div>
+                    <div class="text-xs uppercase tracking-widest">Projects</div>
+                </div>
+                <div class="p-6 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <div class="text-4xl font-bold font-display mb-2">98%</div>
+                    <div class="text-xs uppercase tracking-widest">Accuracy</div>
+                </div>
+                <div class="p-6 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <div class="text-4xl font-bold font-display mb-2">24h</div>
+                    <div class="text-xs uppercase tracking-widest">Rush Available</div>
+                </div>
+                <div class="p-6 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <div class="text-4xl font-bold font-display mb-2">100%</div>
+                    <div class="text-xs uppercase tracking-widest">Eco Ink</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-4xl md:text-6xl font-display uppercase mb-8">Start A Project</h3>
+                    <p class="text-lg mb-12 max-w-md">Ready to print? Send us your specs or schedule a consultation to discuss paper stocks and finishes.</p>
+
+                    <div class="space-y-8">
+                        <div>
+                            <h5 class="font-bold uppercase text-sm mb-2 text-cyan">Visit Us</h5>
+                            <p>{{ADDRESS}}</p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold uppercase text-sm mb-2 text-magenta">Email Us</h5>
+                            <p>{{EMAIL}}</p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold uppercase text-sm mb-2 text-yellow-600">Call Us</h5>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-neutral-50 p-8 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,255,255,1)]">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold uppercase mb-2">Name</label>
+                                <input type="text" class="w-full bg-white border-2 border-black p-3 focus:outline-none focus:border-cyan transition-colors" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase mb-2">Company</label>
+                                <input type="text" class="w-full bg-white border-2 border-black p-3 focus:outline-none focus:border-magenta transition-colors" placeholder="Studio X">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-2">Email</label>
+                            <input type="email" class="w-full bg-white border-2 border-black p-3 focus:outline-none focus:border-yellow transition-colors" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-2">Project Details</label>
+                            <textarea rows="4" class="w-full bg-white border-2 border-black p-3 focus:outline-none focus:border-black transition-colors" placeholder="Describe your project, quantity, and timeline..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-black text-white font-bold uppercase py-4 hover:bg-cyan hover:text-black transition-colors border-2 border-transparent hover:border-black">
+                            Send Request
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 border-t-4 border-cyan">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-8 md:mb-0">
+                <span class="font-display text-2xl uppercase tracking-tighter">{{COMPANY_NAME}}</span>
+                <p class="text-xs text-neutral-500 mt-2">© 2024 Offset Vision. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6 text-sm font-bold uppercase">
+                <a href="#" class="hover:text-cyan transition-colors">Instagram</a>
+                <a href="#" class="hover:text-magenta transition-colors">Behance</a>
+                <a href="#" class="hover:text-yellow transition-colors">LinkedIn</a>
+            </div>
+        </div>
+        <!-- Color Bar Footer -->
+        <div class="w-full h-1 mt-12 flex">
+            <div class="w-1/4 bg-cyan h-full"></div>
+            <div class="w-1/4 bg-magenta h-full"></div>
+            <div class="w-1/4 bg-yellow h-full"></div>
+            <div class="w-1/4 bg-white h-full"></div>
+        </div>
+    </footer>
+
+</body>
+</html>
