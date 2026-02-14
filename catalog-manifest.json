@@ -1286,6 +1286,19 @@
         "Future",
         "Medical"
       ]
+    },
+    {
+      "id": "100",
+      "name": "Glacial Pure",
+      "category": "Premium Beverage",
+      "style": "Crystalline",
+      "path": "catalog/template_100_beverage_crystalline",
+      "description": "Pure arctic luxury water brand",
+      "tags": [
+        "Luxury",
+        "Minimalist",
+        "Ice"
+      ]
     }
   ]
 }

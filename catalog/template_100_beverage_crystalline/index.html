@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Pure Glacial Water</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Mulish', 'sans-serif'],
+                    },
+                    colors: {
+                        glacial: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        }
+                    },
+                    backgroundImage: {
+                        'ice-texture': "url('https://www.transparenttextures.com/patterns/cubes.png')",
+                        'water-ripple': "url('https://images.unsplash.com/photo-1530053969600-caed2596d242?auto=format&fit=crop&w=1200&q=80')"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .text-shadow-sm {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .clip-path-slant {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0f9ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bae6fd;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7dd3fc;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 bg-glacial-50 antialiased overflow-x-hidden" x-data="{ scrolled: false, mobileMenuOpen: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav :class="scrolled ? 'glass-panel shadow-sm py-4' : 'bg-transparent py-6'" class="fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl tracking-widest font-semibold text-slate-900">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-12 items-center">
+                <a href="#source" class="text-sm uppercase tracking-widest text-slate-600 hover:text-glacial-800 transition-colors">The Source</a>
+                <a href="#purity" class="text-sm uppercase tracking-widest text-slate-600 hover:text-glacial-800 transition-colors">Purity</a>
+                <a href="#collection" class="text-sm uppercase tracking-widest text-slate-600 hover:text-glacial-800 transition-colors">Collection</a>
+                <a href="#contact" class="px-6 py-2 border border-slate-800 text-slate-900 text-xs uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all duration-300">Order Now</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden absolute top-full left-0 w-full glass-panel border-b border-white/20 shadow-lg">
+            <div class="flex flex-col py-4 px-6 space-y-4">
+                <a href="#source" @click="mobileMenuOpen = false" class="text-sm uppercase tracking-widest text-slate-600">The Source</a>
+                <a href="#purity" @click="mobileMenuOpen = false" class="text-sm uppercase tracking-widest text-slate-600">Purity</a>
+                <a href="#collection" @click="mobileMenuOpen = false" class="text-sm uppercase tracking-widest text-slate-600">Collection</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="text-sm uppercase tracking-widest text-slate-600">Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1738629532760-35a06d9fa9a3?auto=format&fit=crop&q=80" alt="Glacier Water" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-glacial-50/90"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p class="text-glacial-800 uppercase tracking-[0.3em] text-sm mb-6 font-medium opacity-0 translate-y-4 transition-all duration-1000 delay-300"
+               :class="show ? 'opacity-100 translate-y-0' : ''">
+                7,000 Years in the Making
+            </p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 mb-8 leading-tight opacity-0 translate-y-8 transition-all duration-1000 delay-500"
+                :class="show ? 'opacity-100 translate-y-0' : ''">
+                PURE<span class="text-glacial-500">.</span> COLD<span class="text-glacial-500">.</span><br>TIMELESS<span class="text-glacial-500">.</span>
+            </h1>
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center opacity-0 translate-y-8 transition-all duration-1000 delay-700"
+                 :class="show ? 'opacity-100 translate-y-0' : ''">
+                <a href="#collection" class="group relative px-8 py-3 bg-slate-900 text-white text-xs uppercase tracking-widest overflow-hidden transition-all hover:shadow-lg">
+                    <span class="relative z-10">Experience Purity</span>
+                    <div class="absolute inset-0 bg-glacial-600 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></div>
+                </a>
+                <a href="#source" class="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-700 hover:text-glacial-800 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Watch the Journey
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Source Section -->
+    <section id="source" class="py-24 md:py-32 relative bg-white overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2 relative">
+                    <div class="relative z-10 overflow-hidden rounded-sm shadow-2xl group">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop" alt="The Mountain Source" class="w-full h-[600px] object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+                    </div>
+                    <!-- Decorative Element -->
+                    <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-glacial-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
+                </div>
+
+                <div class="md:w-1/2" x-data="{ shown: false }" x-intersect.threshold.50="shown = true">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="h-px w-12 bg-glacial-400"></div>
+                        <span class="text-glacial-600 uppercase tracking-widest text-xs font-semibold">The Origin</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl text-slate-900 mb-8 leading-tight transition-all duration-700 delay-100"
+                        :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'">
+                        Harvested from the<br>Heart of the Ice.
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed mb-6 font-light transition-all duration-700 delay-200"
+                       :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'">
+                        Beneath the ancient glaciers of the Arctic Circle lies a water source untouched by modern civilization. Filtered through volcanic rock for millennia, {{COMPANY_NAME}} captures the essence of purity in its most elemental form.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed mb-10 font-light transition-all duration-700 delay-300"
+                       :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'">
+                        We employ a sustainable, zero-impact harvesting method that respects the fragile ecosystem, ensuring that every drop you taste is a gift from nature, preserved perfectly.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-8 border-t border-slate-100 pt-8 transition-all duration-700 delay-400"
+                         :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+                        <div>
+                            <span class="block font-serif text-3xl text-slate-900 mb-1">7.4</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-500">Perfect pH Balance</span>
+                        </div>
+                        <div>
+                            <span class="block font-serif text-3xl text-slate-900 mb-1">0%</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-500">Nitrates</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purity / Stats Section -->
+    <section id="purity" class="py-24 bg-glacial-950 relative text-white clip-path-slant">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="font-serif text-3xl md:text-5xl mb-6">Absolute Clarity</h2>
+                <p class="text-glacial-200 font-light leading-relaxed">
+                    Our water undergoes a rigorous natural filtration process, resulting in a mineral profile that is both distinct and refreshingly light.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Stat Card 1 -->
+                <div class="glass-panel bg-white/5 border-white/10 p-10 text-center hover:bg-white/10 transition-colors duration-300">
+                    <div class="w-16 h-16 mx-auto bg-glacial-500/20 rounded-full flex items-center justify-center mb-6 text-glacial-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-xl mb-3">TDS Level</h3>
+                    <p class="text-glacial-200 font-light text-sm">Exceptionally low Total Dissolved Solids (28mg/L) for a crisp finish.</p>
+                </div>
+
+                <!-- Stat Card 2 -->
+                <div class="glass-panel bg-white/5 border-white/10 p-10 text-center hover:bg-white/10 transition-colors duration-300">
+                    <div class="w-16 h-16 mx-auto bg-glacial-500/20 rounded-full flex items-center justify-center mb-6 text-glacial-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-xl mb-3">Electrolytes</h3>
+                    <p class="text-glacial-200 font-light text-sm">Naturally occurring minerals including Calcium and Magnesium.</p>
+                </div>
+
+                <!-- Stat Card 3 -->
+                <div class="glass-panel bg-white/5 border-white/10 p-10 text-center hover:bg-white/10 transition-colors duration-300">
+                    <div class="w-16 h-16 mx-auto bg-glacial-500/20 rounded-full flex items-center justify-center mb-6 text-glacial-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-xl mb-3">Zero Additives</h3>
+                    <p class="text-glacial-200 font-light text-sm">Nothing added, nothing removed. Bottled directly at the source.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section id="collection" class="py-32 bg-glacial-50 relative overflow-hidden">
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-20 w-64 h-64 bg-white rounded-full filter blur-3xl opacity-60"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-glacial-200 rounded-full filter blur-3xl opacity-40"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-20">
+
+                <!-- Bottle Image Area -->
+                <div class="lg:w-1/2 flex justify-center relative group">
+                    <div class="relative z-10 transform transition-transform duration-700 group-hover:-translate-y-4">
+                        <!-- Simulated Bottle using CSS/Image -->
+                        <div class="w-48 md:w-64 h-[500px] md:h-[600px] relative mx-auto">
+                            <img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover rounded-full opacity-90 shadow-2xl filter hue-rotate-180 brightness-110 saturate-50" style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);" alt="Bottle">
+                            <div class="absolute inset-0 rounded-full ring-1 ring-white/40 pointer-events-none"></div>
+                        </div>
+                    </div>
+                    <!-- Shadow -->
+                    <div class="absolute bottom-0 w-48 h-12 bg-slate-900/20 blur-xl rounded-[100%] transform scale-x-150"></div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="lg:w-1/2">
+                    <span class="text-glacial-600 uppercase tracking-widest text-xs font-semibold mb-2 block">The Collection</span>
+                    <h2 class="font-serif text-4xl md:text-6xl text-slate-900 mb-8">{{COMPANY_NAME}} Still</h2>
+                    <p class="text-slate-600 font-light mb-8 max-w-md">
+                        Encased in our signature recycled glass vessel, designed to mimic the clarity of the glacial ice from which it was born. A centerpiece for any table.
+                    </p>
+
+                    <div class="flex items-center gap-8 mb-10">
+                        <button class="w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center hover:bg-slate-900 hover:border-slate-900 hover:text-white transition-colors">
+                            <span class="font-serif">S</span>
+                        </button>
+                        <button class="w-12 h-12 rounded-full border-2 border-slate-900 flex items-center justify-center text-slate-900 font-medium">
+                            <span class="font-serif">M</span>
+                        </button>
+                        <button class="w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center hover:bg-slate-900 hover:border-slate-900 hover:text-white transition-colors">
+                            <span class="font-serif">L</span>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-8">
+                        <span class="font-serif text-2xl text-slate-900">$45.00</span>
+                        <button class="px-8 py-4 bg-slate-900 text-white text-xs uppercase tracking-widest hover:bg-glacial-800 transition-colors">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Image Strip -->
+    <div class="h-96 bg-fixed bg-center bg-cover relative" style="background-image: url('https://images.unsplash.com/photo-1461800919507-79b16743b257?q=80&w=2574&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+            <h2 class="font-serif text-4xl md:text-6xl text-white tracking-widest text-center">
+                TASTE THE SILENCE
+            </h2>
+        </div>
+    </div>
+
+    <!-- Contact / Newsletter -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <h2 class="font-serif text-3xl md:text-4xl text-slate-900 mb-6">Join the Inner Circle</h2>
+            <p class="text-slate-500 font-light mb-10">
+                Subscribe to receive limited edition releases and stories from the expedition.
+            </p>
+            <form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Email Address" class="flex-1 px-6 py-3 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-900 font-light text-sm">
+                <button type="submit" class="px-8 py-3 bg-slate-900 text-white text-xs uppercase tracking-widest hover:bg-glacial-800 transition-colors">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-glacial-950 text-white py-16 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-center md:text-left">
+                    <a href="#" class="font-serif text-2xl tracking-widest font-semibold block mb-4">
+                        {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-glacial-300 text-xs tracking-wider uppercase opacity-60">
+                        Glacial Water • Arctic Circle
+                    </p>
+                </div>
+
+                <div class="flex gap-8">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors text-sm">Instagram</a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors text-sm">Twitter</a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors text-sm">Journal</a>
+                </div>
+            </div>
+
+            <div class="mt-16 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 font-light border-t border-white/5 pt-8">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-slate-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
