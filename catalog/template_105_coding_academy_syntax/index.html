@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCraft Academy - Learn to Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vscode: {
+                            bg: '#1e1e1e',
+                            sidebar: '#252526',
+                            activity: '#333333',
+                            tab: '#2d2d2d',
+                            activeTab: '#1e1e1e',
+                            status: '#007acc',
+                            fg: '#d4d4d4',
+                            keyword: '#569cd6',     // blue
+                            string: '#ce9178',      // orange
+                            class: '#4ec9b0',       // teal
+                            function: '#dcdcaa',    // yellow
+                            comment: '#6a9955',     // green
+                            number: '#b5cea8',      // light green
+                            operator: '#d4d4d4',    // white
+                            variable: '#9cdcfe',    // light blue
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+        }
+        .line-number {
+            color: #858585;
+            text-align: right;
+            padding-right: 1.5rem;
+            user-select: none;
+            min-width: 3rem;
+        }
+        .code-line {
+            display: flex;
+            line-height: 1.6;
+        }
+        .code-content {
+            flex: 1;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #424242;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4f4f4f;
+        }
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-vscode-bg text-vscode-fg flex flex-col h-screen overflow-hidden" x-data="{
+    activeTab: 'home',
+    mobileMenuOpen: false,
+    typedText: '',
+    fullText: 'const future = await CodeCraft.learn();',
+    typeWriter() {
+        let i = 0;
+        this.typedText = '';
+        let interval = setInterval(() => {
+            this.typedText += this.fullText.charAt(i);
+            i++;
+            if (i > this.fullText.length) clearInterval(interval);
+        }, 100);
+    }
+}" x-init="typeWriter()">
+
+    <!-- Top Menu Bar (Visual Only) -->
+    <header class="h-8 bg-vscode-activity flex items-center px-4 text-xs select-none border-b border-black">
+        <div class="mr-4 font-bold text-vscode-keyword">{{COMPANY_NAME}}</div>
+        <div class="hidden md:flex space-x-4 text-vscode-fg opacity-80">
+            <span class="hover:text-white cursor-pointer">File</span>
+            <span class="hover:text-white cursor-pointer">Edit</span>
+            <span class="hover:text-white cursor-pointer">Selection</span>
+            <span class="hover:text-white cursor-pointer">View</span>
+            <span class="hover:text-white cursor-pointer">Go</span>
+            <span class="hover:text-white cursor-pointer">Run</span>
+            <span class="hover:text-white cursor-pointer">Terminal</span>
+            <span class="hover:text-white cursor-pointer">Help</span>
+        </div>
+        <div class="ml-auto md:hidden">
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:bg-vscode-tab p-1 rounded">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="flex-1 flex overflow-hidden">
+        <!-- Sidebar (Activity Bar + Explorer) -->
+        <aside class="hidden md:flex flex-col w-12 bg-vscode-activity items-center py-4 space-y-6 border-r border-black">
+            <div class="w-6 h-6 text-vscode-fg opacity-60 hover:opacity-100 cursor-pointer border-l-2 border-vscode-fg pl-3 -ml-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+            </div> <!-- Files -->
+            <div class="w-6 h-6 text-vscode-fg opacity-40 hover:opacity-100 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div> <!-- Search -->
+            <div class="w-6 h-6 text-vscode-fg opacity-40 hover:opacity-100 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div> <!-- Git -->
+            <div class="mt-auto w-6 h-6 text-vscode-fg opacity-40 hover:opacity-100 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></div> <!-- Settings -->
+        </aside>
+
+        <!-- Explorer Panel -->
+        <aside class="hidden md:flex flex-col w-64 bg-vscode-sidebar border-r border-black/50 text-sm">
+            <div class="p-3 text-xs font-bold text-vscode-fg opacity-60 uppercase tracking-wide">Explorer</div>
+            <div class="px-2 pb-2">
+                <div class="flex items-center py-1 cursor-pointer font-bold text-vscode-fg">
+                    <svg class="w-4 h-4 mr-1 transform rotate-90 text-vscode-fg opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    <span>CODECRAFT_PROJECT</span>
+                </div>
+                <!-- File Tree -->
+                <div class="pl-4 space-y-1">
+                    <a href="#home" @click.prevent="activeTab = 'home'" :class="activeTab === 'home' ? 'bg-vscode-activity text-white' : 'text-vscode-fg opacity-80 hover:bg-vscode-tab'" class="flex items-center py-1 px-2 cursor-pointer">
+                        <span class="text-vscode-string mr-2 text-base">&lt;&gt;</span> index.html
+                    </a>
+                    <a href="#courses" @click.prevent="activeTab = 'courses'" :class="activeTab === 'courses' ? 'bg-vscode-activity text-white' : 'text-vscode-fg opacity-80 hover:bg-vscode-tab'" class="flex items-center py-1 px-2 cursor-pointer">
+                        <span class="text-vscode-function mr-2 text-base">JS</span> courses.js
+                    </a>
+                    <a href="#about" @click.prevent="activeTab = 'about'" :class="activeTab === 'about' ? 'bg-vscode-activity text-white' : 'text-vscode-fg opacity-80 hover:bg-vscode-tab'" class="flex items-center py-1 px-2 cursor-pointer">
+                        <span class="text-vscode-variable mr-2 text-base">#</span> README.md
+                    </a>
+                    <a href="#reviews" @click.prevent="activeTab = 'reviews'" :class="activeTab === 'reviews' ? 'bg-vscode-activity text-white' : 'text-vscode-fg opacity-80 hover:bg-vscode-tab'" class="flex items-center py-1 px-2 cursor-pointer">
+                        <span class="text-vscode-comment mr-2 text-base">/*</span> reviews.css
+                    </a>
+                    <a href="#contact" @click.prevent="activeTab = 'contact'" :class="activeTab === 'contact' ? 'bg-vscode-activity text-white' : 'text-vscode-fg opacity-80 hover:bg-vscode-tab'" class="flex items-center py-1 px-2 cursor-pointer">
+                        <span class="text-vscode-keyword mr-2 text-base">$</span> terminal.sh
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Editor Area -->
+        <main class="flex-1 flex flex-col bg-vscode-bg relative overflow-y-auto w-full">
+
+            <!-- Mobile Menu Overlay -->
+            <div x-show="mobileMenuOpen" class="absolute inset-0 z-50 bg-vscode-sidebar bg-opacity-95 md:hidden p-4">
+                <div class="flex justify-end">
+                    <button @click="mobileMenuOpen = false" class="text-white p-2">✕</button>
+                </div>
+                <div class="flex flex-col space-y-4 mt-8 text-xl">
+                    <a href="#home" @click="activeTab = 'home'; mobileMenuOpen = false" class="text-vscode-string">&lt;&gt; Home</a>
+                    <a href="#courses" @click="activeTab = 'courses'; mobileMenuOpen = false" class="text-vscode-function">JS Courses</a>
+                    <a href="#about" @click="activeTab = 'about'; mobileMenuOpen = false" class="text-vscode-variable"># About</a>
+                    <a href="#reviews" @click="activeTab = 'reviews'; mobileMenuOpen = false" class="text-vscode-comment">/* Reviews */</a>
+                    <a href="#contact" @click="activeTab = 'contact'; mobileMenuOpen = false" class="text-vscode-keyword">$ Contact</a>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex bg-vscode-activity overflow-x-auto border-b border-black text-sm">
+                <div @click="activeTab = 'home'" :class="activeTab === 'home' ? 'bg-vscode-bg border-t-2 border-vscode-keyword text-white' : 'bg-vscode-tab text-vscode-fg opacity-60 hover:bg-vscode-bg'" class="px-4 py-2 cursor-pointer flex items-center min-w-fit border-r border-black/50">
+                    <span class="text-vscode-string mr-2">&lt;&gt;</span> index.html
+                    <span class="ml-2 hover:bg-white/20 rounded-full p-0.5 w-4 h-4 flex items-center justify-center text-xs ml-4">×</span>
+                </div>
+                <div @click="activeTab = 'courses'" :class="activeTab === 'courses' ? 'bg-vscode-bg border-t-2 border-vscode-function text-white' : 'bg-vscode-tab text-vscode-fg opacity-60 hover:bg-vscode-bg'" class="px-4 py-2 cursor-pointer flex items-center min-w-fit border-r border-black/50">
+                    <span class="text-vscode-function mr-2">JS</span> courses.js
+                </div>
+                <div @click="activeTab = 'about'" :class="activeTab === 'about' ? 'bg-vscode-bg border-t-2 border-vscode-variable text-white' : 'bg-vscode-tab text-vscode-fg opacity-60 hover:bg-vscode-bg'" class="px-4 py-2 cursor-pointer flex items-center min-w-fit border-r border-black/50">
+                    <span class="text-vscode-variable mr-2">#</span> README.md
+                </div>
+                <div @click="activeTab = 'reviews'" :class="activeTab === 'reviews' ? 'bg-vscode-bg border-t-2 border-vscode-comment text-white' : 'bg-vscode-tab text-vscode-fg opacity-60 hover:bg-vscode-bg'" class="px-4 py-2 cursor-pointer flex items-center min-w-fit border-r border-black/50">
+                    <span class="text-vscode-comment mr-2">/*</span> reviews.css
+                </div>
+                <div @click="activeTab = 'contact'" :class="activeTab === 'contact' ? 'bg-vscode-bg border-t-2 border-vscode-keyword text-white' : 'bg-vscode-tab text-vscode-fg opacity-60 hover:bg-vscode-bg'" class="px-4 py-2 cursor-pointer flex items-center min-w-fit border-r border-black/50">
+                    <span class="text-vscode-keyword mr-2">$</span> terminal.sh
+                </div>
+            </div>
+
+            <!-- Content Area (Scrollable) -->
+            <div class="flex-1 overflow-y-auto p-4 md:p-8 relative">
+
+                <!-- Home Tab -->
+                <div x-show="activeTab === 'home'" class="max-w-4xl mx-auto space-y-1">
+                    <!-- Lines of code -->
+                    <div class="code-line"><span class="line-number">1</span><span class="code-content"><span class="text-vscode-keyword">import</span> { <span class="text-vscode-variable">Mastery</span> } <span class="text-vscode-keyword">from</span> <span class="text-vscode-string">'./future'</span>;</span></div>
+                    <div class="code-line"><span class="line-number">2</span><span class="code-content"></span></div>
+                    <div class="code-line"><span class="line-number">3</span><span class="code-content"><span class="text-vscode-comment">// Welcome to {{COMPANY_NAME}}</span></span></div>
+                    <div class="code-line"><span class="line-number">4</span><span class="code-content"><span class="text-vscode-comment">// We turn syntax into success.</span></span></div>
+                    <div class="code-line"><span class="line-number">5</span><span class="code-content"></span></div>
+                    <div class="code-line"><span class="line-number">6</span><span class="code-content"><span class="text-vscode-keyword">const</span> <span class="text-vscode-function">init</span> = <span class="text-vscode-keyword">async</span> () => {</span></div>
+                    <div class="code-line"><span class="line-number">7</span><span class="code-content pl-8"><span class="text-vscode-variable">console</span>.<span class="text-vscode-function">log</span>(<span class="text-vscode-string">"Starting your dev journey..."</span>);</span></div>
+                    <div class="code-line"><span class="line-number">8</span><span class="code-content pl-8"><span class="text-vscode-variable">this</span>.<span class="text-vscode-variable">status</span> = <span class="text-vscode-string">"Loading Potential..."</span>;</span></div>
+                    <div class="code-line"><span class="line-number">9</span><span class="code-content pl-8"></span></div>
+                    <div class="code-line"><span class="line-number">10</span><span class="code-content pl-8"><span class="text-vscode-keyword">return</span> <span class="text-vscode-class">new</span> <span class="text-vscode-class">Promise</span>((<span class="text-vscode-variable">resolve</span>) => {</span></div>
+                    <div class="code-line"><span class="line-number">11</span><span class="code-content pl-16"><span class="text-vscode-comment">// Mastering Full Stack Development</span></span></div>
+                    <div class="code-line"><span class="line-number">12</span><span class="code-content pl-16"><span class="text-vscode-variable" x-text="typedText"></span><span class="cursor-blink border-l-2 border-vscode-fg ml-1"></span></span></div>
+                    <div class="code-line"><span class="line-number">13</span><span class="code-content pl-8">});</span></div>
+                    <div class="code-line"><span class="line-number">14</span><span class="code-content">}</span></div>
+                    <div class="code-line"><span class="line-number">15</span><span class="code-content"></span></div>
+                    <div class="code-line"><span class="line-number">16</span><span class="code-content"><span class="text-vscode-function">init</span>();</span></div>
+
+                    <div class="mt-12 ml-12">
+                        <button @click="activeTab = 'courses'" class="bg-vscode-status hover:bg-blue-600 text-white px-6 py-2 rounded shadow-lg flex items-center space-x-2 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                            <span>Run Code</span>
+                        </button>
+                    </div>
+
+                    <!-- Images Grid representing "Project Files" -->
+                    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 ml-8">
+                        <div class="group relative aspect-video bg-vscode-sidebar border border-vscode-activity hover:border-vscode-status transition overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Coding" class="object-cover w-full h-full opacity-60 group-hover:opacity-100 transition duration-500">
+                            <div class="absolute bottom-0 left-0 bg-black/80 px-2 py-1 text-xs text-vscode-keyword">workspace_v1.jpg</div>
+                        </div>
+                         <div class="group relative aspect-video bg-vscode-sidebar border border-vscode-activity hover:border-vscode-status transition overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Team" class="object-cover w-full h-full opacity-60 group-hover:opacity-100 transition duration-500">
+                            <div class="absolute bottom-0 left-0 bg-black/80 px-2 py-1 text-xs text-vscode-string">pair_programming.png</div>
+                        </div>
+                         <div class="group relative aspect-video bg-vscode-sidebar border border-vscode-activity hover:border-vscode-status transition overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Code" class="object-cover w-full h-full opacity-60 group-hover:opacity-100 transition duration-500">
+                            <div class="absolute bottom-0 left-0 bg-black/80 px-2 py-1 text-xs text-vscode-function">backend_logic.svg</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Courses Tab -->
+                <div x-show="activeTab === 'courses'" class="max-w-4xl mx-auto">
+                    <div class="code-line mb-4"><span class="line-number">1</span><span class="code-content text-vscode-comment">// Available Modules</span></div>
+                    <div class="code-line mb-8"><span class="line-number">2</span><span class="code-content"><span class="text-vscode-keyword">const</span> <span class="text-vscode-variable">curriculum</span> = [</span></div>
+
+                    <!-- Course Items -->
+                    <div class="ml-8 space-y-4">
+                        <template x-for="(course, index) in [
+                            { title: 'Frontend Mastery', lang: 'React', price: '$499', desc: 'Build modern UIs with component architecture.' },
+                            { title: 'Backend Systems', lang: 'NodeJS', price: '$599', desc: 'Scalable APIs and database management.' },
+                            { title: 'DevOps & Cloud', lang: 'AWS', price: '$699', desc: 'CI/CD pipelines and containerization.' }
+                        ]">
+                            <div class="p-4 bg-vscode-sidebar border border-vscode-activity hover:border-vscode-class transition group cursor-pointer">
+                                <div class="flex items-start">
+                                    <span class="text-vscode-number mr-4" x-text="index + 3"></span>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-vscode-class font-bold text-lg" x-text="course.title"></span>
+                                            <span class="text-vscode-string font-mono" x-text="course.price"></span>
+                                        </div>
+                                        <div class="text-vscode-keyword text-sm mb-2" x-text="'import { ' + course.lang + ' } from \'tech-stack\';'"></div>
+                                        <p class="text-vscode-fg opacity-80 text-sm" x-text="'// ' + course.desc"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="code-line mt-8"><span class="line-number">10</span><span class="code-content">];</span></div>
+                    <div class="code-line"><span class="line-number">11</span><span class="code-content text-vscode-comment">// Select a course to initialize enrollment</span></div>
+                </div>
+
+                <!-- About Tab -->
+                <div x-show="activeTab === 'about'" class="max-w-3xl mx-auto">
+                    <div class="prose prose-invert prose-code:text-vscode-string max-w-none">
+                        <h1 class="text-vscode-keyword text-2xl mb-4"># About {{COMPANY_NAME}}</h1>
+                        <p class="text-vscode-fg opacity-90 mb-6">
+                            We are not just a bootcamp. We are a <span class="bg-vscode-activity px-1 rounded text-vscode-function">function generator()</span> for your career. Established in 2024, our mission is to debug the education system and compile job-ready developers.
+                        </p>
+
+                        <div class="bg-vscode-sidebar p-6 border border-vscode-activity rounded mb-6">
+                            <h2 class="text-vscode-class text-xl mb-4">## Our Stack</h2>
+                            <ul class="list-disc pl-5 space-y-2 text-vscode-variable">
+                                <li>Real-world project architecture</li>
+                                <li>Senior Code Reviews</li>
+                                <li>Algorithmic Optimization</li>
+                                <li>Career Git Push</li>
+                            </ul>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                             <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="rounded opacity-80 hover:opacity-100 transition border border-vscode-activity">
+                             <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="rounded opacity-80 hover:opacity-100 transition border border-vscode-activity">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews Tab -->
+                <div x-show="activeTab === 'reviews'" class="max-w-4xl mx-auto">
+                    <div class="code-line mb-4"><span class="line-number">1</span><span class="code-content text-vscode-comment">/* What our graduates say */</span></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ml-8">
+                        <div class="bg-vscode-sidebar p-6 border-l-4 border-vscode-string relative">
+                            <div class="text-vscode-keyword mb-2">.student-review <span class="text-vscode-fg">{</span></div>
+                            <div class="pl-4">
+                                <div class="mb-1"><span class="text-vscode-variable">name</span>: <span class="text-vscode-string">"Sarah Jenkins"</span>;</div>
+                                <div class="mb-1"><span class="text-vscode-variable">role</span>: <span class="text-vscode-string">"Frontend Dev @ TechCorp"</span>;</div>
+                                <div class="mb-1"><span class="text-vscode-variable">rating</span>: <span class="text-vscode-number">5.0</span>;</div>
+                                <div><span class="text-vscode-variable">content</span>: <span class="text-vscode-string">"The syntax highlighting of my career. I learned more in 3 months than 4 years of college."</span>;</div>
+                            </div>
+                            <div class="text-vscode-fg">}</div>
+                        </div>
+
+                        <div class="bg-vscode-sidebar p-6 border-l-4 border-vscode-function relative">
+                            <div class="text-vscode-keyword mb-2">.student-review <span class="text-vscode-fg">{</span></div>
+                            <div class="pl-4">
+                                <div class="mb-1"><span class="text-vscode-variable">name</span>: <span class="text-vscode-string">"David Chen"</span>;</div>
+                                <div class="mb-1"><span class="text-vscode-variable">role</span>: <span class="text-vscode-string">"Fullstack Engineer"</span>;</div>
+                                <div class="mb-1"><span class="text-vscode-variable">rating</span>: <span class="text-vscode-number">4.9</span>;</div>
+                                <div><span class="text-vscode-variable">content</span>: <span class="text-vscode-string">"Zero fluff. Pure code. The instructors are senior devs who actually know their stuff."</span>;</div>
+                            </div>
+                            <div class="text-vscode-fg">}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Tab -->
+                <div x-show="activeTab === 'contact'" class="max-w-2xl mx-auto mt-8">
+                     <div class="bg-black p-4 rounded-t-lg flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-xs text-vscode-fg ml-2">bash — 80x24</span>
+                    </div>
+                    <div class="bg-vscode-sidebar p-6 font-mono text-sm border-x border-b border-black shadow-2xl">
+                        <div class="mb-4 text-vscode-fg">Last login: <span x-text="new Date().toDateString()"></span> on ttys000</div>
+
+                        <div class="mb-4">
+                            <span class="text-vscode-comment"># Enter your details to initialize contact protocol</span>
+                        </div>
+
+                        <form class="space-y-4">
+                            <div class="flex items-center">
+                                <span class="text-vscode-keyword mr-2">user@{{COMPANY_NAME}}:~$</span>
+                                <input type="text" placeholder="enter_name.sh" class="bg-transparent border-none outline-none text-vscode-function w-full placeholder-vscode-fg opacity-50 focus:placeholder-transparent focus:ring-0">
+                            </div>
+                             <div class="flex items-center">
+                                <span class="text-vscode-keyword mr-2">user@{{COMPANY_NAME}}:~$</span>
+                                <input type="email" placeholder="enter_email.config" class="bg-transparent border-none outline-none text-vscode-string w-full placeholder-vscode-fg opacity-50 focus:placeholder-transparent focus:ring-0">
+                            </div>
+                             <div class="flex items-start mt-2">
+                                <span class="text-vscode-keyword mr-2 pt-1">user@{{COMPANY_NAME}}:~$</span>
+                                <textarea rows="3" placeholder="echo 'Your message here...'" class="bg-transparent border-none outline-none text-vscode-variable w-full resize-none placeholder-vscode-fg opacity-50 focus:placeholder-transparent focus:ring-0"></textarea>
+                            </div>
+                            <div class="pt-4">
+                                <button type="button" class="text-vscode-bg bg-vscode-keyword px-4 py-1 hover:bg-white transition">./send_message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Status Bar -->
+    <footer class="h-6 bg-vscode-status flex items-center px-4 text-xs text-white justify-between select-none">
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center"><svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg> master*</div>
+            <div class="hidden sm:block">0 errors, 0 warnings</div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="hidden sm:block">Ln 12, Col 45</div>
+            <div>UTF-8</div>
+            <div>JavaScript</div>
+            <div class="flex items-center"><svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg></div>
+        </div>
+    </footer>
+
+</body>
+</html>
