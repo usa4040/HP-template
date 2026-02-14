@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Excellence in Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ivy: {
+                            navy: '#002147',
+                            gold: '#C5B358', // Vegas Gold
+                            goldHover: '#B09F4D',
+                            crimson: '#990000',
+                            cream: '#F9F7F1', // Parchment
+                            stone: '#EAE8E3',
+                            dark: '#0A1A2F',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Crimson Text', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-ivy-cream selection:bg-ivy-gold selection:text-ivy-navy">
+
+    <!-- Top Bar -->
+    <div class="bg-ivy-navy text-white py-2 text-sm border-b border-ivy-gold/30 hidden md:block">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex space-x-6 opacity-80 hover:opacity-100 transition">
+                <span><i class="fas fa-phone mr-2"></i>Admissions: (555) 123-4567</span>
+                <span><i class="fas fa-envelope mr-2"></i>info@{{COMPANY_NAME}}.edu</span>
+            </div>
+            <div class="flex space-x-4 font-serif italic">
+                <a href="#" class="hover:text-ivy-gold transition">Alumni</a>
+                <span class="text-ivy-gold/50">|</span>
+                <a href="#" class="hover:text-ivy-gold transition">Portal</a>
+                <span class="text-ivy-gold/50">|</span>
+                <a href="#" class="hover:text-ivy-gold transition">Library</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header x-data="{ mobileMenuOpen: false, scrolled: false }"
+            @scroll.window="scrolled = (window.pageYOffset > 20)"
+            :class="{ 'bg-white shadow-lg py-2': scrolled, 'bg-white/95 py-4': !scrolled }"
+            class="sticky top-0 z-50 transition-all duration-300 border-b-4 border-ivy-gold">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 bg-ivy-navy text-ivy-gold flex items-center justify-center font-serif text-2xl font-bold rounded-sm border-2 border-ivy-gold shadow-md group-hover:bg-ivy-gold group-hover:text-ivy-navy transition-colors duration-300">
+                    S
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-bold text-ivy-navy leading-none tracking-tight group-hover:text-ivy-crimson transition-colors">{{COMPANY_NAME}}</span>
+                    <span class="text-xs uppercase tracking-[0.2em] text-gray-500 font-sans mt-1 group-hover:text-ivy-navy transition-colors">Est. 1895</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-8 font-sans font-medium text-ivy-navy">
+                <div class="relative group h-full py-2">
+                    <button class="flex items-center hover:text-ivy-crimson transition focus:outline-none">Academics</button>
+                    <!-- Mega Menu Dropdown -->
+                    <div class="absolute top-full -left-10 w-64 bg-white shadow-xl border-t-4 border-ivy-crimson opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 p-4 rounded-b-sm">
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><a href="#" class="block hover:text-ivy-navy hover:bg-ivy-cream px-2 py-1 rounded transition">Undergraduate</a></li>
+                            <li><a href="#" class="block hover:text-ivy-navy hover:bg-ivy-cream px-2 py-1 rounded transition">Graduate School</a></li>
+                            <li><a href="#" class="block hover:text-ivy-navy hover:bg-ivy-cream px-2 py-1 rounded transition">Law School</a></li>
+                            <li><a href="#" class="block hover:text-ivy-navy hover:bg-ivy-cream px-2 py-1 rounded transition">Medical School</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="#" class="hover:text-ivy-crimson transition">Admissions</a>
+                <a href="#" class="hover:text-ivy-crimson transition">Research</a>
+                <a href="#" class="hover:text-ivy-crimson transition">Campus Life</a>
+                <a href="#" class="bg-ivy-gold text-ivy-navy hover:bg-ivy-goldHover px-6 py-2 rounded-sm font-bold uppercase text-sm tracking-wide transition shadow-sm hover:shadow-md transform hover:-translate-y-0.5">Apply Now</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-ivy-navy p-2 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-collapse class="lg:hidden bg-ivy-cream border-t border-gray-200 shadow-inner">
+            <nav class="flex flex-col p-6 space-y-4 font-serif text-lg text-ivy-navy">
+                <a href="#" class="block py-2 border-b border-gray-300">Academics</a>
+                <a href="#" class="block py-2 border-b border-gray-300">Admissions</a>
+                <a href="#" class="block py-2 border-b border-gray-300">Research</a>
+                <a href="#" class="block py-2 border-b border-gray-300">Campus Life</a>
+                <a href="#" class="block w-full text-center bg-ivy-navy text-ivy-gold py-3 mt-4 rounded-sm font-bold shadow-md">Apply Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-[85vh] flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Parallax-ish feel -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-fixed transform scale-105"></div>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-ivy-navy/90 via-ivy-navy/40 to-transparent"></div>
+
+        <div class="relative container mx-auto px-6 text-center text-white z-10 max-w-4xl"
+             x-data="{ show: false }"
+             x-init="setTimeout(() => show = true, 300)">
+            <span class="inline-block py-1 px-3 border border-ivy-gold/50 text-ivy-gold uppercase tracking-[0.3em] text-xs mb-6 bg-black/30 backdrop-blur-sm opacity-0 transition-all duration-1000 transform translate-y-4" :class="{ 'opacity-100 translate-y-0': show }">Tradition meets Innovation</span>
+
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-shadow opacity-0 transition-all duration-1000 delay-300 transform translate-y-8" :class="{ 'opacity-100 translate-y-0': show }">
+                Knowledge for <br class="hidden md:block"/> <span class="text-ivy-gold italic font-normal">the Future</span>
+            </h1>
+
+            <p class="font-sans text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed opacity-0 transition-all duration-1000 delay-500 transform translate-y-8" :class="{ 'opacity-100 translate-y-0': show }">
+                For over a century, {{COMPANY_NAME}} has been cultivating leaders who challenge the status quo and shape the world through rigorous inquiry and compassionate action.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 opacity-0 transition-all duration-1000 delay-700 transform translate-y-8" :class="{ 'opacity-100 translate-y-0': show }">
+                <a href="#" class="bg-ivy-gold text-ivy-navy hover:bg-white hover:text-ivy-crimson px-8 py-4 rounded-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl ring-2 ring-ivy-gold ring-offset-2 ring-offset-transparent">
+                    Explore Programs
+                </a>
+                <a href="#" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-ivy-navy px-8 py-4 rounded-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-lg backdrop-blur-sm">
+                    Virtual Tour
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-white/70">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-ivy-navy text-white py-16 border-b border-ivy-gold relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-ivy-gold/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-ivy-crimson/5 rounded-full blur-3xl -ml-48 -mb-48"></div>
+
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10 font-serif">
+            <div class="p-6 border-r border-ivy-gold/20 last:border-0 hover:bg-white/5 transition rounded-lg" x-data="{ count: 0 }" x-intersect="count = 1895">
+                <div class="text-5xl font-bold text-ivy-gold mb-2" x-text="count">1895</div>
+                <div class="text-sm uppercase tracking-widest text-gray-300 font-sans">Founded</div>
+            </div>
+            <div class="p-6 border-r border-ivy-gold/20 last:border-0 hover:bg-white/5 transition rounded-lg" x-data="{ count: 0 }" x-intersect="count = 42">
+                <div class="text-5xl font-bold text-ivy-gold mb-2 flex justify-center items-center"><span x-text="count">42</span><span>+</span></div>
+                <div class="text-sm uppercase tracking-widest text-gray-300 font-sans">Academic Majors</div>
+            </div>
+            <div class="p-6 border-r border-ivy-gold/20 last:border-0 hover:bg-white/5 transition rounded-lg" x-data="{ count: 0 }" x-intersect="count = 100">
+                <div class="text-5xl font-bold text-ivy-gold mb-2 flex justify-center items-center"><span x-text="count">100</span><span>%</span></div>
+                <div class="text-sm uppercase tracking-widest text-gray-300 font-sans">Commitment</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction / About -->
+    <section class="py-24 bg-ivy-cream">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-ivy-gold z-0"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-ivy-navy z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1590402494587-44b71d87e3f6?q=80&w=2070&auto=format&fit=crop" alt="Students in library" class="relative z-10 w-full h-[500px] object-cover shadow-2xl rounded-sm grayscale hover:grayscale-0 transition duration-700 ease-in-out">
+                    <div class="absolute bottom-10 -right-10 bg-white p-6 shadow-xl max-w-xs z-20 hidden md:block border-l-4 border-ivy-crimson">
+                        <p class="font-serif italic text-lg text-ivy-navy">"Education is not the filling of a pail, but the lighting of a fire."</p>
+                        <p class="font-sans text-xs text-gray-500 mt-2 uppercase tracking-wide">— William Butler Yeats</p>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h4 class="text-ivy-crimson uppercase tracking-widest font-bold text-sm mb-4">Welcome to {{COMPANY_NAME}}</h4>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-ivy-navy mb-8 leading-tight">A Legacy of <br><span class="italic text-ivy-gold">Excellence</span> & Integrity</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed font-light">
+                        Located in the heart of historic academia, our university stands as a beacon of higher learning. We combine centuries-old traditions with cutting-edge research to prepare students for the challenges of a rapidly evolving global landscape.
+                    </p>
+                    <p class="text-gray-600 mb-10 text-lg leading-relaxed font-light">
+                        Our world-class faculty are not just teachers; they are mentors, researchers, and pioneers in their fields, dedicated to unlocking the potential within every student.
+                    </p>
+                    <a href="#" class="group inline-flex items-center text-ivy-navy font-bold uppercase tracking-wider hover:text-ivy-crimson transition">
+                        Read Our History
+                        <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Grid -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 max-w-2xl mx-auto">
+                <span class="text-ivy-gold uppercase tracking-[0.2em] font-bold text-xs mb-3 block">Academics</span>
+                <h2 class="font-serif text-4xl font-bold text-ivy-navy mb-6">Distinguished Colleges</h2>
+                <div class="w-24 h-1 bg-ivy-crimson mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative overflow-hidden h-96 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=2070&auto=format&fit=crop" alt="Law School" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-ivy-navy via-ivy-navy/60 to-transparent opacity-90 transition duration-500 group-hover:opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                        <div class="w-12 h-1 bg-ivy-gold mb-4 w-0 group-hover:w-12 transition-all duration-500 delay-100"></div>
+                        <h3 class="font-serif text-3xl text-white mb-2">College of Law</h3>
+                        <p class="text-gray-300 font-light text-sm opacity-0 group-hover:opacity-100 transition duration-500 delay-200 transform translate-y-4 group-hover:translate-y-0">Defending justice through rigorous analysis and ethical practice.</p>
+                        <span class="inline-block mt-4 text-ivy-gold text-sm uppercase tracking-wider font-bold opacity-0 group-hover:opacity-100 transition duration-500 delay-300">Explore &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative overflow-hidden h-96 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop" alt="Medicine" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-ivy-navy via-ivy-navy/60 to-transparent opacity-90 transition duration-500 group-hover:opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                        <div class="w-12 h-1 bg-ivy-gold mb-4 w-0 group-hover:w-12 transition-all duration-500 delay-100"></div>
+                        <h3 class="font-serif text-3xl text-white mb-2">School of Medicine</h3>
+                        <p class="text-gray-300 font-light text-sm opacity-0 group-hover:opacity-100 transition duration-500 delay-200 transform translate-y-4 group-hover:translate-y-0">Pioneering treatments and compassionate care for tomorrow.</p>
+                        <span class="inline-block mt-4 text-ivy-gold text-sm uppercase tracking-wider font-bold opacity-0 group-hover:opacity-100 transition duration-500 delay-300">Explore &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative overflow-hidden h-96 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=2071&auto=format&fit=crop" alt="Arts" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-ivy-navy via-ivy-navy/60 to-transparent opacity-90 transition duration-500 group-hover:opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                        <div class="w-12 h-1 bg-ivy-gold mb-4 w-0 group-hover:w-12 transition-all duration-500 delay-100"></div>
+                        <h3 class="font-serif text-3xl text-white mb-2">Arts & Sciences</h3>
+                        <p class="text-gray-300 font-light text-sm opacity-0 group-hover:opacity-100 transition duration-500 delay-200 transform translate-y-4 group-hover:translate-y-0">Fostering creativity and critical thinking across disciplines.</p>
+                        <span class="inline-block mt-4 text-ivy-gold text-sm uppercase tracking-wider font-bold opacity-0 group-hover:opacity-100 transition duration-500 delay-300">Explore &rarr;</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border border-ivy-navy text-ivy-navy px-8 py-3 rounded-sm hover:bg-ivy-navy hover:text-white transition duration-300 font-bold uppercase text-sm tracking-widest">View All Programs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News & Events -->
+    <section class="py-24 bg-ivy-stone">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="font-serif text-4xl font-bold text-ivy-navy">Campus News</h2>
+                    <p class="text-gray-600 mt-2 font-light">Stay updated with the latest from our community.</p>
+                </div>
+                <a href="#" class="text-ivy-crimson font-bold uppercase tracking-wider text-sm hover:underline mt-4 md:mt-0">All News &rarr;</a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- News Item 1 -->
+                <article class="bg-white shadow-md group hover:shadow-xl transition duration-300 rounded-sm overflow-hidden">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Graduation">
+                        <div class="absolute top-4 left-4 bg-ivy-gold text-ivy-navy font-bold px-3 py-1 text-xs uppercase tracking-wider rounded-sm">Event</div>
+                    </div>
+                    <div class="p-6 border-b-4 border-transparent group-hover:border-ivy-gold transition duration-300">
+                        <div class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-sans">May 15, 2024</div>
+                        <h3 class="font-serif text-2xl font-bold text-ivy-navy mb-3 group-hover:text-ivy-crimson transition">Commencement Ceremony</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Join us in celebrating the graduating class of 2024 at the historic Main Quadrangle.</p>
+                        <a href="#" class="text-ivy-navy font-bold text-sm uppercase tracking-wider group-hover:underline">Read More</a>
+                    </div>
+                </article>
+
+                <!-- News Item 2 -->
+                <article class="bg-white shadow-md group hover:shadow-xl transition duration-300 rounded-sm overflow-hidden">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Conference">
+                        <div class="absolute top-4 left-4 bg-ivy-navy text-white font-bold px-3 py-1 text-xs uppercase tracking-wider rounded-sm">Research</div>
+                    </div>
+                    <div class="p-6 border-b-4 border-transparent group-hover:border-ivy-gold transition duration-300">
+                        <div class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-sans">June 02, 2024</div>
+                        <h3 class="font-serif text-2xl font-bold text-ivy-navy mb-3 group-hover:text-ivy-crimson transition">Global Innovation Summit</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Leading scholars gather to discuss the future of artificial intelligence and ethics.</p>
+                        <a href="#" class="text-ivy-navy font-bold text-sm uppercase tracking-wider group-hover:underline">Read More</a>
+                    </div>
+                </article>
+
+                <!-- News Item 3 -->
+                <article class="bg-white shadow-md group hover:shadow-xl transition duration-300 rounded-sm overflow-hidden">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Students">
+                        <div class="absolute top-4 left-4 bg-ivy-crimson text-white font-bold px-3 py-1 text-xs uppercase tracking-wider rounded-sm">Student Life</div>
+                    </div>
+                    <div class="p-6 border-b-4 border-transparent group-hover:border-ivy-gold transition duration-300">
+                        <div class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-sans">July 10, 2024</div>
+                        <h3 class="font-serif text-2xl font-bold text-ivy-navy mb-3 group-hover:text-ivy-crimson transition">Summer Research Program</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Applications are now open for undergraduates seeking intensive laboratory experience.</p>
+                        <a href="#" class="text-ivy-navy font-bold text-sm uppercase tracking-wider group-hover:underline">Read More</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Spotlight -->
+    <section class="py-24 bg-ivy-navy text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/3">
+                    <span class="text-ivy-gold uppercase tracking-[0.2em] font-bold text-xs mb-3 block">Alumni Spotlight</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">Leaders of<br>Influence</h2>
+                    <p class="text-gray-300 mb-8 font-light text-lg">
+                        Our graduates define industries, lead nations, and create art that moves the soul. Join a network of over 100,000 alumni worldwide.
+                    </p>
+                    <a href="#" class="bg-ivy-gold text-ivy-navy hover:bg-white hover:text-ivy-crimson px-8 py-3 rounded-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-lg">
+                        Meet Our Alumni
+                    </a>
+                </div>
+                <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white/5 backdrop-blur-sm p-8 border border-white/10 rounded-sm hover:border-ivy-gold/50 transition duration-300">
+                        <div class="flex items-center gap-4 mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Alumni" class="w-16 h-16 rounded-full border-2 border-ivy-gold">
+                            <div>
+                                <h4 class="font-serif text-xl font-bold text-ivy-gold">Dr. Elena Rostova</h4>
+                                <span class="text-xs uppercase tracking-wide text-gray-400">Class of 2005 • Neuroscience</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 italic font-serif">"The rigorous training and mentorship I received at {{COMPANY_NAME}} laid the foundation for my research in neuroplasticity. It is a place where curiosity is truly celebrated."</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white/5 backdrop-blur-sm p-8 border border-white/10 rounded-sm hover:border-ivy-gold/50 transition duration-300">
+                        <div class="flex items-center gap-4 mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Alumni" class="w-16 h-16 rounded-full border-2 border-ivy-gold">
+                            <div>
+                                <h4 class="font-serif text-xl font-bold text-ivy-gold">James Sterling</h4>
+                                <span class="text-xs uppercase tracking-wide text-gray-400">Class of 2012 • International Law</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 italic font-serif">"The perspective I gained here went beyond textbooks. It was about understanding the human condition and applying the law with empathy and precision."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ivy-dark text-gray-400 pt-20 pb-10 border-t border-white/10 font-sans">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <a href="#" class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-ivy-gold text-ivy-navy flex items-center justify-center font-serif text-xl font-bold rounded-sm">S</div>
+                        <span class="font-serif text-2xl font-bold text-white">{{COMPANY_NAME}}</span>
+                    </a>
+                    <p class="text-sm leading-relaxed mb-6">
+                        123 University Avenue,<br>
+                        Cambridge, MA 02138<br>
+                        United States
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-ivy-gold hover:text-ivy-navy transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-ivy-gold hover:text-ivy-navy transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-ivy-gold hover:text-ivy-navy transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-ivy-gold hover:text-ivy-navy transition"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links 1 -->
+                <div>
+                    <h5 class="text-white font-bold uppercase tracking-widest text-sm mb-6">Admissions</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-ivy-gold transition">Undergraduate</a></li>
+                        <li><a href="#" class="hover:text-ivy-gold transition">Graduate</a></li>
+                        <li><a href="#" class="hover:text-ivy-gold transition">Tuition & Aid</a></li>
+                        <li><a href="#" class="hover:text-ivy-gold transition">Campus Visits</a></li>
+                        <li><a href="#" class="hover:text-ivy-gold transition">Apply Now</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links 2 -->
+                <div>
+                    <h5 class="text-white font-bold uppercase tracking-widest text-sm mb-6">Academics</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-ivy-gold transition">Majors & Minors</a></li>
+                        <li><a href="#" class="hover:text-ivy-gold transition">Academic Calendar</a></li>
+                        <li><a href="#" class="hover:text-ivy-gold transition">Libraries</a></li>
+                        <li><a href="#" class="hover:text-ivy-gold transition">Faculty Directory</a></li>
+                        <li><a href="#" class="hover:text-ivy-gold transition">Research Centers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h5 class="text-white font-bold uppercase tracking-widest text-sm mb-6">Stay Connected</h5>
+                    <p class="text-sm mb-4">Subscribe to our monthly newsletter for updates and events.</p>
+                    <form class="flex flex-col space-y-2">
+                        <input type="email" placeholder="Email Address" class="bg-white/5 border border-white/20 text-white px-4 py-2 rounded-sm focus:outline-none focus:border-ivy-gold transition placeholder-gray-500">
+                        <button class="bg-ivy-gold text-ivy-navy font-bold uppercase text-xs tracking-widest px-4 py-2 rounded-sm hover:bg-white hover:text-ivy-crimson transition">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Use</a>
+                    <a href="#" class="hover:text-white transition">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</body>
+</html>

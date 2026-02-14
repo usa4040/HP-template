@@ -1234,6 +1234,19 @@
         "Dark",
         "Portfolio"
       ]
+    },
+    {
+      "id": "096",
+      "name": "Scholastic Summit",
+      "category": "University",
+      "style": "Ivy League",
+      "path": "catalog/template_096_university_ivy_league",
+      "description": "Prestigious academic theme",
+      "tags": [
+        "Academic",
+        "Tradition",
+        "Navy"
+      ]
     }
   ]
 }
