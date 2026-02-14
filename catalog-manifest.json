@@ -1260,6 +1260,19 @@
         "Biophilic",
         "Elegant"
       ]
+    },
+    {
+      "id": "098",
+      "name": "Velvet Horizon",
+      "category": "Cinema",
+      "style": "Art Deco",
+      "path": "catalog/template_098_cinema_art_deco",
+      "description": "Golden age cinema aesthetic with geometric patterns.",
+      "tags": [
+        "Luxury",
+        "Vintage",
+        "Entertainment"
+      ]
     }
   ]
 }
