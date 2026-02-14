@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Premium Organic Honey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Fraunces', 'serif'],
+                        sans: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        honey: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                            950: '#451a03',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'drip': 'drip 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        drip: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hex-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .hexagon-mask {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        .hexagon-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='24' height='40' viewBox='0 0 24 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10V10c0-5.523 4.477-10 10-10s10 4.477 10 10v20c0 5.523-4.477 10-10 10S0 35.523 0 30V40z' fill='%23f59e0b' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="font-sans text-honey-900 bg-honey-50 antialiased" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Navigation -->
+    <nav :class="{ 'bg-white/90 backdrop-blur-md shadow-sm': scrolled, 'bg-transparent': !scrolled }" class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <svg class="h-8 w-8 text-honey-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>
+                    </svg>
+                    <span class="font-serif font-bold text-2xl text-honey-900 tracking-tight">{{COMPANY_NAME}}</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-honey-900 hover:text-honey-600 font-medium transition-colors">Our Story</a>
+                    <a href="#products" class="text-honey-900 hover:text-honey-600 font-medium transition-colors">Shop Honey</a>
+                    <a href="#process" class="text-honey-900 hover:text-honey-600 font-medium transition-colors">Process</a>
+                    <a href="#contact" class="bg-honey-600 hover:bg-honey-700 text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Order Now</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-honey-900 focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="md:hidden bg-white/95 backdrop-blur-xl absolute top-20 left-0 w-full shadow-lg border-t border-honey-100">
+            <div class="px-4 pt-4 pb-6 space-y-2">
+                <a href="#about" @click="mobileMenuOpen = false" class="block px-3 py-3 text-honey-900 hover:bg-honey-50 rounded-lg font-medium">Our Story</a>
+                <a href="#products" @click="mobileMenuOpen = false" class="block px-3 py-3 text-honey-900 hover:bg-honey-50 rounded-lg font-medium">Shop Honey</a>
+                <a href="#process" @click="mobileMenuOpen = false" class="block px-3 py-3 text-honey-900 hover:bg-honey-50 rounded-lg font-medium">Process</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block px-3 py-3 mt-4 text-center bg-honey-600 text-white rounded-full font-medium">Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1471943311424-646960669fbc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Honeycomb background" class="w-full h-full object-cover brightness-[0.85]">
+            <div class="absolute inset-0 bg-gradient-to-b from-honey-900/30 to-honey-900/10"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <div class="mb-6 inline-flex items-center justify-center w-20 h-20 bg-honey-400/20 backdrop-blur-sm rounded-full animate-float">
+                <svg class="w-12 h-12 text-honey-100" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l-2.5 4.5h-5L7 11 4.5 15.5l5 2.5L12 22l2.5-4.5 5-2.5L17 11l2.5-4.5h-5L12 2z"/>
+                </svg>
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-lg transition-all duration-1000 transform translate-y-8 opacity-0" :class="{ '!translate-y-0 !opacity-100': show }">
+                Golden.<br>Raw.<br>Pure.
+            </h1>
+            <p class="font-sans text-xl md:text-2xl text-honey-50 mb-10 max-w-2xl mx-auto font-light drop-shadow-md transition-all duration-1000 delay-300 transform translate-y-8 opacity-0" :class="{ '!translate-y-0 !opacity-100': show }">
+                Sustainably harvested from our family hives to your table. Experience the unfiltered taste of nature.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center transition-all duration-1000 delay-500 transform translate-y-8 opacity-0" :class="{ '!translate-y-0 !opacity-100': show }">
+                <a href="#products" class="px-8 py-4 bg-honey-500 hover:bg-honey-400 text-honey-950 font-bold rounded-full transition-all shadow-lg hover:shadow-honey-500/50">Shop Collection</a>
+                <a href="#about" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold rounded-full transition-all">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Drip Divider -->
+        <div class="absolute bottom-0 w-full z-20 text-honey-50">
+            <svg class="w-full h-16 md:h-24" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="currentColor" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <!-- Decorative Hexagon Pattern BG -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#d97706 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative group">
+                    <!-- Image Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="translate-y-8 space-y-4">
+                            <img src="https://images.unsplash.com/photo-1587049352847-81a4510e8d4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Beekeeper" class="rounded-2xl shadow-xl w-full h-64 object-cover hexagon-mask transition-transform duration-500 hover:scale-105">
+                            <img src="https://images.unsplash.com/photo-1558583055-d7ac00b1adca?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bee on flower" class="rounded-2xl shadow-xl w-full h-48 object-cover hexagon-mask transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div class="space-y-4">
+                            <img src="https://images.unsplash.com/photo-1587049352851-8d4e1541d729?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Honey spoon" class="rounded-2xl shadow-xl w-full h-48 object-cover hexagon-mask transition-transform duration-500 hover:scale-105">
+                            <img src="https://images.unsplash.com/photo-1478369402113-1fd53f17e8b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hives" class="rounded-2xl shadow-xl w-full h-64 object-cover hexagon-mask transition-transform duration-500 hover:scale-105">
+                        </div>
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-md p-6 rounded-full shadow-2xl border border-honey-100 text-center animate-float">
+                        <span class="block font-serif text-3xl font-bold text-honey-600">100%</span>
+                        <span class="text-sm font-semibold uppercase tracking-wider text-honey-900">Organic</span>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="text-honey-600 font-bold uppercase tracking-widest text-sm mb-2 block">Our Heritage</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-honey-900 mb-6">Custodians of the Hive.</h2>
+                    <p class="text-lg text-honey-800/80 mb-6 leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe in the sacred bond between bees and the environment. Founded three generations ago, our apiary is dedicated to sustainable practices that prioritize the health of our colonies above all else.
+                    </p>
+                    <p class="text-lg text-honey-800/80 mb-8 leading-relaxed">
+                        We don't pasteurize or filter our honey. What you get is raw, enzyme-rich nectar exactly as the bees intended—full of local pollen and distinct floral notes from our wildflower meadows.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-honey-900 font-medium">
+                            <svg class="w-6 h-6 text-honey-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Antibiotic & Pesticide Free
+                        </li>
+                        <li class="flex items-center text-honey-900 font-medium">
+                            <svg class="w-6 h-6 text-honey-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Cold Extracted
+                        </li>
+                        <li class="flex items-center text-honey-900 font-medium">
+                            <svg class="w-6 h-6 text-honey-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Supports Local Pollinator Habitats
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-honey-600 font-bold uppercase tracking-widest text-sm mb-2 block">The Harvest</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-honey-900 mb-4">Pure Varietals</h2>
+                <div class="w-24 h-1 bg-honey-400 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Product 1 -->
+                <div class="group bg-honey-50 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-honey-100">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Wildflower Honey" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-honey-900 uppercase tracking-wide">Bestseller</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-serif text-2xl font-bold text-honey-900 mb-2">Wildflower Raw</h3>
+                        <p class="text-honey-700/80 mb-4 text-sm">A complex, polyfloral blend with notes of clover, dandelion, and thyme. Perfect for daily wellness.</p>
+                        <div class="flex justify-between items-center mt-6">
+                            <span class="text-xl font-bold text-honey-900">$18.00</span>
+                            <button class="w-10 h-10 rounded-full bg-honey-600 text-white flex items-center justify-center hover:bg-honey-700 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group bg-honey-50 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-honey-100">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1587049352824-f7e128d4ebe5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Acacia Honey" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-serif text-2xl font-bold text-honey-900 mb-2">Golden Acacia</h3>
+                        <p class="text-honey-700/80 mb-4 text-sm">Light, crisp, and slow to crystallize. This single-origin honey brings a delicate sweetness to tea and baking.</p>
+                        <div class="flex justify-between items-center mt-6">
+                            <span class="text-xl font-bold text-honey-900">$22.00</span>
+                            <button class="w-10 h-10 rounded-full bg-honey-600 text-white flex items-center justify-center hover:bg-honey-700 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group bg-honey-50 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-honey-100">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1471943311424-646960669fbc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Honeycomb" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-honey-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wide">Limited</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-serif text-2xl font-bold text-honey-900 mb-2">Raw Honeycomb</h3>
+                        <p class="text-honey-700/80 mb-4 text-sm">Experience honey in its most primal form. Hand-cut comb packed with flavor and texture. Edible wax.</p>
+                        <div class="flex justify-between items-center mt-6">
+                            <span class="text-xl font-bold text-honey-900">$28.00</span>
+                            <button class="w-10 h-10 rounded-full bg-honey-600 text-white flex items-center justify-center hover:bg-honey-700 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process / Education Section -->
+    <section id="process" class="py-24 bg-honey-900 text-honey-50 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-honey-400 font-bold uppercase tracking-widest text-sm mb-2 block">Seed to Spoon</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-honey-100 mb-4">The Golden Cycle</h2>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div class="w-16 h-16 bg-honey-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg shadow-honey-500/50">1</div>
+                    <h3 class="text-xl font-bold mb-3 font-serif">Foraging</h3>
+                    <p class="text-honey-200/80 text-sm">Bees travel up to 3 miles visiting wildflowers, collecting nectar and pollen.</p>
+                </div>
+                <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div class="w-16 h-16 bg-honey-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg shadow-honey-500/50">2</div>
+                    <h3 class="text-xl font-bold mb-3 font-serif">Ripening</h3>
+                    <p class="text-honey-200/80 text-sm">Bees fan the nectar with their wings to reduce moisture, transforming it into honey.</p>
+                </div>
+                <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div class="w-16 h-16 bg-honey-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg shadow-honey-500/50">3</div>
+                    <h3 class="text-xl font-bold mb-3 font-serif">Harvesting</h3>
+                    <p class="text-honey-200/80 text-sm">We gently collect surplus combs, leaving plenty for the colony to thrive.</p>
+                </div>
+                <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div class="w-16 h-16 bg-honey-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg shadow-honey-500/50">4</div>
+                    <h3 class="text-xl font-bold mb-3 font-serif">Bottling</h3>
+                    <p class="text-honey-200/80 text-sm">Raw honey is cold-settled and bottled by hand, preserving all enzymes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <footer id="contact" class="bg-honey-950 text-honey-100/60 py-16 border-t border-honey-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <span class="font-serif font-bold text-2xl text-honey-100 tracking-tight block mb-6">{{COMPANY_NAME}}</span>
+                    <p class="mb-6">Cultivating liquid gold with respect for nature and tradition.</p>
+                </div>
+                <div>
+                    <h4 class="text-honey-100 font-bold mb-4 uppercase text-sm tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-honey-400 transition-colors">Our Farm</a></li>
+                        <li><a href="#" class="hover:text-honey-400 transition-colors">Shop All</a></li>
+                        <li><a href="#" class="hover:text-honey-400 transition-colors">Wholesale</a></li>
+                        <li><a href="#" class="hover:text-honey-400 transition-colors">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-honey-100 font-bold mb-4 uppercase text-sm tracking-wider">Contact</h4>
+                    <ul class="space-y-2">
+                        <li>123 Apiary Lane, Valley Green</li>
+                        <li>hello@{{COMPANY_NAME | lower}}.com</li>
+                        <li>(555) 123-4567</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-honey-100 font-bold mb-4 uppercase text-sm tracking-wider">Newsletter</h4>
+                    <p class="mb-4 text-sm">Join the hive for recipes & sweet updates.</p>
+                    <form class="flex" onsubmit="event.preventDefault();">
+                        <input type="email" placeholder="Email address" class="w-full px-4 py-2 rounded-l-lg bg-honey-900 border border-honey-800 focus:outline-none focus:border-honey-500 text-white placeholder-honey-100/30">
+                        <button type="submit" class="bg-honey-600 px-4 py-2 rounded-r-lg text-white font-bold hover:bg-honey-500 transition-colors">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-honey-900 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-honey-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-honey-400">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

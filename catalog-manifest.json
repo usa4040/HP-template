@@ -1338,6 +1338,19 @@
         "Dark",
         "Heat"
       ]
+    },
+    {
+      "id": "104",
+      "name": "Hive & Harvest",
+      "category": "Apiary",
+      "style": "Golden Hex",
+      "path": "catalog/template_104_apiary_golden_hex",
+      "description": "Organic honey aesthetic with hexagon grids.",
+      "tags": [
+        "Organic",
+        "Golden",
+        "Geometric"
+      ]
     }
   ]
 }
