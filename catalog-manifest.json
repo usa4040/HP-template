@@ -1351,6 +1351,19 @@
         "Golden",
         "Geometric"
       ]
+    },
+    {
+      "id": "105",
+      "name": "CodeCraft Academy",
+      "category": "Coding Academy",
+      "style": "Syntax",
+      "path": "catalog/template_105_coding_academy_syntax",
+      "description": "IDE-inspired theme with syntax highlighting.",
+      "tags": [
+        "Dev",
+        "Dark",
+        "Monospace"
+      ]
     }
   ]
 }
