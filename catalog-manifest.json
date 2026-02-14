@@ -1364,6 +1364,19 @@
         "Dark",
         "Monospace"
       ]
+    },
+    {
+      "id": "106",
+      "name": "ModuLife",
+      "category": "Modular Housing",
+      "style": "Nordic Modular",
+      "path": "catalog/template_106_modular_housing_nordic",
+      "description": "Sustainable prefab homes with modular grid design.",
+      "tags": [
+        "Modular",
+        "Sustainable",
+        "Nordic"
+      ]
     }
   ]
 }
