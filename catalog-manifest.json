@@ -1247,6 +1247,19 @@
         "Tradition",
         "Navy"
       ]
+    },
+    {
+      "id": "097",
+      "name": "Verdant Scapes",
+      "category": "Landscape Architecture",
+      "style": "Organic Modern",
+      "path": "catalog/template_097_landscape_organic",
+      "description": "Harmonizing structure with nature.",
+      "tags": [
+        "Organic",
+        "Biophilic",
+        "Elegant"
+      ]
     }
   ]
 }
