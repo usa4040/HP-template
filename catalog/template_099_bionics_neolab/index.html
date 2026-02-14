@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Redefining Evolution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Maven Pro', 'sans-serif'],
+                        display: ['Jura', 'sans-serif'],
+                    },
+                    colors: {
+                        bio: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        },
+                        chrome: {
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+        }
+        .animate-pulse-slow {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .clip-path-slant {
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-bio-500 selection:text-white">
+
+    <!-- Background Grid -->
+    <div class="fixed inset-0 z-0 opacity-[0.4] pointer-events-none" style="background-size: 40px 40px; background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);"></div>
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false }" class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-display font-bold text-2xl tracking-widest text-slate-900 uppercase">{{COMPANY_NAME}}</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#technology" class="font-display text-sm tracking-wider text-slate-500 hover:text-bio-600 transition-colors uppercase">Technology</a>
+                    <a href="#products" class="font-display text-sm tracking-wider text-slate-500 hover:text-bio-600 transition-colors uppercase">Products</a>
+                    <a href="#about" class="font-display text-sm tracking-wider text-slate-500 hover:text-bio-600 transition-colors uppercase">Research</a>
+                    <a href="#contact" class="px-6 py-2 bg-slate-900 text-white font-display text-xs tracking-widest uppercase hover:bg-bio-600 transition-colors clip-path-slant">Initialize</a>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="open = !open" class="text-slate-500 hover:text-slate-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="open" class="md:hidden bg-white border-b border-slate-200">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#technology" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-bio-600 hover:bg-slate-50">Technology</a>
+                <a href="#products" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-bio-600 hover:bg-slate-50">Products</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-bio-600 hover:bg-slate-50">Research</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-bio-600 hover:bg-slate-50">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Abstract Shapes -->
+        <div class="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gradient-to-br from-bio-100 to-slate-200 rounded-full blur-3xl opacity-50 animate-pulse-slow"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-slate-200 to-white rounded-full blur-3xl opacity-60"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-block mb-4 px-4 py-1 border border-slate-300 rounded-full bg-white/50 backdrop-blur-sm">
+                <span class="text-xs font-display tracking-[0.2em] text-slate-500 uppercase">System Version 4.0 Online</span>
+            </div>
+            <h1 class="font-display text-5xl md:text-8xl font-bold text-slate-900 tracking-tight leading-none mb-6">
+                REDEFINING <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-400 via-slate-600 to-slate-400">EVOLUTION</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-500 font-light">
+                Bridging the gap between organic biology and synthetic precision.
+                Experience the next generation of human augmentation.
+            </p>
+            <div class="mt-10 flex justify-center gap-6">
+                <a href="#products" class="group relative px-8 py-4 bg-slate-900 text-white font-display text-sm tracking-widest uppercase overflow-hidden">
+                    <span class="relative z-10 group-hover:text-bio-400 transition-colors">Explore Models</span>
+                    <div class="absolute inset-0 bg-slate-800 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                </a>
+                <a href="#about" class="px-8 py-4 border border-slate-300 text-slate-600 font-display text-sm tracking-widest uppercase hover:bg-white hover:text-slate-900 transition-colors">
+                    Clinical Data
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 border-y border-slate-200 bg-white/50 backdrop-blur-sm relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-slate-200">
+                <div class="p-4">
+                    <div class="text-4xl font-display font-bold text-slate-900 mb-2">0.02<span class="text-lg text-slate-400">ms</span></div>
+                    <div class="text-xs font-display tracking-widest text-slate-500 uppercase">Neural Latency</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-display font-bold text-slate-900 mb-2">100<span class="text-lg text-slate-400">%</span></div>
+                    <div class="text-xs font-display tracking-widest text-slate-500 uppercase">Bio-Compatibility</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-display font-bold text-slate-900 mb-2">24<span class="text-lg text-slate-400">h</span></div>
+                    <div class="text-xs font-display tracking-widest text-slate-500 uppercase">Active Battery</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-display font-bold text-slate-900 mb-2">50<span class="text-lg text-slate-400">+</span></div>
+                    <div class="text-xs font-display tracking-widest text-slate-500 uppercase">Patents Filed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section id="products" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">AUGMENTATION SERIES</h2>
+                <div class="h-1 w-20 bg-bio-500 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Product Image -->
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-bio-100 to-slate-200 rounded-xl blur-lg opacity-70 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="relative rounded-xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Cybernetic Hand" class="w-full h-[500px] object-cover hover:scale-105 transition duration-700">
+                        <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-slate-900/90 to-transparent">
+                            <h3 class="text-white font-display text-2xl font-bold">Series X-1 Hand</h3>
+                            <p class="text-slate-300 text-sm mt-2">Haptic feedback sensors included.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="space-y-8">
+                    <div class="glass-card p-8 rounded-lg">
+                        <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Neural Integration</h3>
+                        <p class="text-slate-600">Our proprietary neural lace technology allows for seamless two-way communication between the nervous system and the device.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-lg">
+                        <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Titanium Core</h3>
+                        <p class="text-slate-600">Aerospace-grade titanium alloy structure provides maximum durability with minimal weight impact.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-lg">
+                        <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Synthetic Skin</h3>
+                        <p class="text-slate-600">Advanced polymers mimic human skin texture and temperature regulation for natural integration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology / Features -->
+    <section id="technology" class="py-24 bg-slate-100 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-bio-600 font-display text-sm tracking-widest uppercase">Research & Development</span>
+                <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mt-2">CORE TECHNOLOGIES</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 border border-slate-200 hover:border-bio-400 transition-colors duration-300 group">
+                    <div class="h-12 w-12 bg-slate-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-bio-50 transition-colors">
+                        <svg class="w-6 h-6 text-slate-600 group-hover:text-bio-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-slate-900 mb-3">Micro-Processing</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">On-board AI processors adapt to user movement patterns in real-time.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 border border-slate-200 hover:border-bio-400 transition-colors duration-300 group">
+                    <div class="h-12 w-12 bg-slate-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-bio-50 transition-colors">
+                        <svg class="w-6 h-6 text-slate-600 group-hover:text-bio-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-slate-900 mb-3">Fluid Dynamics</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Self-lubricating synthetic joints tested for over 50 million cycles.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 border border-slate-200 hover:border-bio-400 transition-colors duration-300 group">
+                    <div class="h-12 w-12 bg-slate-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-bio-50 transition-colors">
+                        <svg class="w-6 h-6 text-slate-600 group-hover:text-bio-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-slate-900 mb-3">Energy Harvest</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Kinetic energy recovery system extends battery life during rigorous activity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Clean Lab" class="rounded-lg shadow-xl grayscale hover:grayscale-0 transition duration-700">
+            </div>
+            <div class="md:w-1/2">
+                <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-6">ENGINEERED FOR HUMANITY</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    At {{COMPANY_NAME}}, we don't just replace limbs; we upgrade potential. Our state-of-the-art laboratories in Zurich and Tokyo are dedicated to the single pursuit of seamless bionic integration.
+                </p>
+                <p class="text-slate-600 mb-8 leading-relaxed">
+                    Founded by leading neuroscientists and robotics engineers, we are pioneering the future where biology and technology are indistinguishable.
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="h-px flex-1 bg-slate-300"></div>
+                    <span class="font-display text-xs tracking-widest text-slate-400 uppercase">Est. 2024</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-slate-900 text-white relative z-10">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-bio-900 rounded-full blur-3xl opacity-20"></div>
+        </div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">INITIATE PROTOCOL</h2>
+            <p class="text-slate-400 mb-12">Contact our clinical team for consultation or partnership inquiries.</p>
+
+            <form class="space-y-6 text-left">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-display tracking-widest text-slate-500 mb-2 uppercase">Identity</label>
+                        <input type="text" class="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 focus:outline-none focus:border-bio-500 transition-colors" placeholder="Name">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-display tracking-widest text-slate-500 mb-2 uppercase">Coordinates</label>
+                        <input type="email" class="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 focus:outline-none focus:border-bio-500 transition-colors" placeholder="Email">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-display tracking-widest text-slate-500 mb-2 uppercase">Transmission</label>
+                    <textarea rows="4" class="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 focus:outline-none focus:border-bio-500 transition-colors" placeholder="Message"></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 bg-bio-600 text-white font-display text-sm tracking-widest uppercase hover:bg-bio-500 transition-colors">
+                    Send Transmission
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-12 border-t border-slate-900 text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-display font-bold text-xl tracking-widest text-white uppercase">{{COMPANY_NAME}}</span>
+            </div>
+            <div class="flex space-x-6 text-sm">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="#" class="hover:text-white transition-colors">Patents</a>
+            </div>
+            <div class="mt-4 md:mt-0 text-xs font-mono text-slate-600">
+                &copy; 2024 {{COMPANY_NAME}} Corp. All systems nominal.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
