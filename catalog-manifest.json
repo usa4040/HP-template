@@ -1299,6 +1299,19 @@
         "Minimalist",
         "Ice"
       ]
+    },
+    {
+      "id": "101",
+      "name": "Vanguard Chrono",
+      "category": "Horology",
+      "style": "Chronometric",
+      "path": "catalog/template_101_horology_chronometric",
+      "description": "Precision Swiss watchmaking with metallic accents.",
+      "tags": [
+        "Luxury",
+        "Technical",
+        "Dark"
+      ]
     }
   ]
 }
