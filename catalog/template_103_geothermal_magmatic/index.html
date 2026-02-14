@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Geothermal Energy Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Oxanium:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        magma: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                            950: '#431407',
+                        },
+                        obsidian: {
+                            800: '#292524',
+                            900: '#1c1917',
+                            950: '#0c0a09', // Deepest black/brown
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        display: ['Oxanium', 'cursive'],
+                    },
+                    backgroundImage: {
+                        'magma-gradient': 'linear-gradient(135deg, #7c2d12 0%, #ea580c 50%, #fb923c 100%)',
+                        'radial-glow': 'radial-gradient(circle at center, rgba(234, 88, 12, 0.15) 0%, transparent 70%)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(28, 25, 23, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .magma-text {
+            background: linear-gradient(to right, #fb923c, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .magma-border-glow:hover {
+            box-shadow: 0 0 25px rgba(234, 88, 12, 0.3);
+            border-color: #ea580c;
+        }
+    </style>
+</head>
+<body class="bg-obsidian-950 text-stone-300 antialiased overflow-x-hidden selection:bg-magma-600 selection:text-white">
+
+    <!-- Navbar -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)"
+         :class="scrolled ? 'bg-obsidian-950/90 backdrop-blur-md border-b border-white/5' : 'bg-transparent'"
+         class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 group cursor-pointer">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-magma-600 to-red-700 flex items-center justify-center shadow-lg shadow-magma-500/20 group-hover:shadow-magma-500/40 transition-all duration-300">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <span class="font-display font-bold text-2xl text-white tracking-wider group-hover:text-magma-400 transition-colors">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#solutions" class="hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-medium">Solutions</a>
+                        <a href="#technology" class="hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-medium">Technology</a>
+                        <a href="#sustainability" class="hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-medium">Impact</a>
+                        <a href="#contact" class="bg-white/5 hover:bg-magma-600 hover:text-white text-magma-400 border border-magma-600/30 px-6 py-2 rounded-full text-sm font-display font-semibold transition-all duration-300 shadow-[0_0_15px_rgba(234,88,12,0.1)] hover:shadow-[0_0_20px_rgba(234,88,12,0.4)]">
+                            Get Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none">
+                        <svg class="h-6 w-6" :class="{'hidden': open, 'block': !open }" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="h-6 w-6" :class="{'block': open, 'hidden': !open }" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-5"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="md:hidden bg-obsidian-900 border-b border-white/5">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#solutions" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Solutions</a>
+                <a href="#technology" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Technology</a>
+                <a href="#sustainability" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Impact</a>
+                <a href="#contact" class="text-magma-400 font-bold block px-3 py-2 rounded-md text-base">Get Quote</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1469532822763-c554e7d4834e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Volcanic Landscape" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-b from-obsidian-950/80 via-obsidian-950/60 to-obsidian-950"></div>
+            <!-- Animated Particles/Glow -->
+            <div class="absolute inset-0 bg-radial-glow animate-pulse-slow"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-magma-900/30 border border-magma-500/30 backdrop-blur-sm mb-8 animate-float">
+                <span class="w-2 h-2 rounded-full bg-magma-500 animate-pulse"></span>
+                <span class="text-xs font-mono text-magma-300 uppercase tracking-widest">Base Load Power Online</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-display font-extrabold tracking-tight text-white mb-6 leading-tight">
+                UNLEASH THE <br />
+                <span class="magma-text">EARTH'S CORE</span>
+            </h1>
+
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-stone-400 font-light leading-relaxed">
+                We harness deep subterranean thermal energy to provide 24/7 sustainable baseload power for the next generation of industry.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#technology" class="px-8 py-4 rounded-lg bg-gradient-to-r from-magma-600 to-red-700 text-white font-display font-bold text-lg tracking-wide hover:shadow-[0_0_30px_rgba(234,88,12,0.5)] transition-all duration-300 transform hover:-translate-y-1">
+                    Explore Technology
+                </a>
+                <a href="#solutions" class="px-8 py-4 rounded-lg glass-panel text-white font-display font-semibold text-lg hover:bg-white/5 transition-all duration-300 border border-white/10 hover:border-white/20">
+                    Our Solutions
+                </a>
+            </div>
+
+            <!-- Stats Strip -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/5 pt-10">
+                <div class="text-center group">
+                    <p class="text-3xl font-display font-bold text-white group-hover:text-magma-400 transition-colors">300<span class="text-magma-500 text-xl">MW</span></p>
+                    <p class="text-xs text-stone-500 uppercase tracking-widest mt-1">Total Capacity</p>
+                </div>
+                <div class="text-center group">
+                    <p class="text-3xl font-display font-bold text-white group-hover:text-magma-400 transition-colors">0<span class="text-magma-500 text-xl">%</span></p>
+                    <p class="text-xs text-stone-500 uppercase tracking-widest mt-1">Carbon Emissions</p>
+                </div>
+                <div class="text-center group">
+                    <p class="text-3xl font-display font-bold text-white group-hover:text-magma-400 transition-colors">24<span class="text-magma-500 text-xl">/7</span></p>
+                    <p class="text-xs text-stone-500 uppercase tracking-widest mt-1">Availability</p>
+                </div>
+                <div class="text-center group">
+                    <p class="text-3xl font-display font-bold text-white group-hover:text-magma-400 transition-colors">5<span class="text-magma-500 text-xl">km</span></p>
+                    <p class="text-xs text-stone-500 uppercase tracking-widest mt-1">Drill Depth</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Data Section (Simulated) -->
+    <section class="py-20 bg-obsidian-900 border-y border-white/5 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-magma-900/10 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-display font-bold text-white mb-4">Live Plant Metrics</h2>
+                    <p class="text-stone-400 mb-8">Real-time telemetry from our flagship <span class="text-magma-400 font-mono">SITE-ALPHA</span> geothermal facility. Our closed-loop systems ensure zero surface discharge.</p>
+
+                    <div class="space-y-6" x-data="{ temp: 284, flow: 1250 }">
+                        <!-- Metric 1 -->
+                        <div class="glass-panel p-6 rounded-xl border-l-4 border-magma-500 hover:bg-white/5 transition-colors">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-sm font-mono text-stone-400 uppercase">Borehole Temp (C°)</span>
+                                <span class="text-2xl font-mono text-magma-400 font-bold" x-text="temp + '.' + Math.floor(Math.random() * 9)"></span>
+                            </div>
+                            <div class="w-full bg-stone-800 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-magma-600 to-red-500 h-1.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Metric 2 -->
+                        <div class="glass-panel p-6 rounded-xl border-l-4 border-blue-500 hover:bg-white/5 transition-colors">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-sm font-mono text-stone-400 uppercase">Fluid Flow Rate (L/s)</span>
+                                <span class="text-2xl font-mono text-blue-400 font-bold" x-text="flow + Math.floor(Math.random() * 10 - 5)"></span>
+                            </div>
+                            <div class="w-full bg-stone-800 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-blue-600 to-cyan-500 h-1.5 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 flex justify-center">
+                    <!-- Abstract Visualization -->
+                    <div class="relative w-80 h-80">
+                        <div class="absolute inset-0 rounded-full border border-magma-500/20 animate-[spin_10s_linear_infinite]"></div>
+                        <div class="absolute inset-4 rounded-full border border-dashed border-magma-500/40 animate-[spin_15s_linear_infinite_reverse]"></div>
+                        <div class="absolute inset-12 rounded-full border-2 border-magma-600/10 flex items-center justify-center bg-obsidian-950 shadow-[0_0_50px_rgba(234,88,12,0.2)]">
+                            <div class="text-center">
+                                <div class="text-5xl font-display font-bold text-white">98<span class="text-lg text-magma-500">%</span></div>
+                                <div class="text-xs text-stone-500 uppercase mt-1">Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Grid -->
+    <section id="solutions" class="py-24 bg-obsidian-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-mono text-magma-500 uppercase tracking-widest mb-2">Our Capabilities</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-white">Powering the Future</h3>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl group transition-all duration-300 hover:-translate-y-2 magma-border-glow border border-transparent">
+                    <div class="w-14 h-14 rounded-lg bg-stone-800 flex items-center justify-center mb-6 group-hover:bg-magma-900/50 transition-colors">
+                        <svg class="w-8 h-8 text-magma-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-display font-bold text-white mb-3">Binary Cycle Power</h4>
+                    <p class="text-stone-400 leading-relaxed text-sm">Our closed-loop binary plants operate at lower temperatures, unlocking geothermal potential in previously unviable regions.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl group transition-all duration-300 hover:-translate-y-2 magma-border-glow border border-transparent">
+                    <div class="w-14 h-14 rounded-lg bg-stone-800 flex items-center justify-center mb-6 group-hover:bg-magma-900/50 transition-colors">
+                        <svg class="w-8 h-8 text-magma-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-display font-bold text-white mb-3">District Heating</h4>
+                    <p class="text-stone-400 leading-relaxed text-sm">Direct use applications providing clean, consistent heat for industrial processes, agriculture, and urban centers.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl group transition-all duration-300 hover:-translate-y-2 magma-border-glow border border-transparent">
+                    <div class="w-14 h-14 rounded-lg bg-stone-800 flex items-center justify-center mb-6 group-hover:bg-magma-900/50 transition-colors">
+                        <svg class="w-8 h-8 text-magma-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-display font-bold text-white mb-3">Lithium Extraction</h4>
+                    <p class="text-stone-400 leading-relaxed text-sm">Sustainable mineral recovery from geothermal brines, supplying the critical materials for the EV revolution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Break -->
+    <section class="relative h-96">
+        <img src="https://images.unsplash.com/photo-1541845157-a6d2d100d931?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Geothermal Pipes" class="w-full h-full object-cover grayscale opacity-50 hover:grayscale-0 transition-all duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-obsidian-950"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="bg-obsidian-950/80 backdrop-blur-md p-8 rounded-2xl border border-white/10 max-w-2xl text-center mx-4">
+                <h3 class="text-2xl font-display font-bold text-white mb-2">Sustainable by Design</h3>
+                <p class="text-stone-400">Our operations return 100% of fluids back to the reservoir, maintaining pressure and ensuring longevity.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-obsidian-950 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-3xl p-8 md:p-12 border border-white/5 relative overflow-hidden">
+                <!-- Background Glow -->
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-magma-600/20 rounded-full blur-3xl"></div>
+
+                <div class="relative z-10 text-center mb-10">
+                    <h2 class="text-3xl font-display font-bold text-white">Partner with {{COMPANY_NAME}}</h2>
+                    <p class="text-stone-400 mt-2">Ready to transition to stable, renewable baseload energy?</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-stone-400 mb-2">Name</label>
+                            <input type="text" class="w-full bg-obsidian-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-magma-500 focus:ring-1 focus:ring-magma-500 transition-all placeholder-stone-600" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-stone-400 mb-2">Email</label>
+                            <input type="email" class="w-full bg-obsidian-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-magma-500 focus:ring-1 focus:ring-magma-500 transition-all placeholder-stone-600" placeholder="john@company.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-stone-400 mb-2">Interest</label>
+                        <select class="w-full bg-obsidian-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-magma-500 focus:ring-1 focus:ring-magma-500 transition-all">
+                            <option>Power Purchase Agreement</option>
+                            <option>District Heating</option>
+                            <option>Mineral Extraction</option>
+                            <option>Investment Inquiry</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-stone-400 mb-2">Message</label>
+                        <textarea rows="4" class="w-full bg-obsidian-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-magma-500 focus:ring-1 focus:ring-magma-500 transition-all placeholder-stone-600" placeholder="Tell us about your project requirements..."></textarea>
+                    </div>
+                    <button type="button" class="w-full bg-gradient-to-r from-magma-600 to-red-700 text-white font-display font-bold py-4 rounded-lg hover:shadow-[0_0_20px_rgba(234,88,12,0.4)] transition-all duration-300 transform hover:-translate-y-0.5">
+                        Initialize Contact
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-obsidian-900 border-t border-white/5 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded bg-magma-600 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <span class="font-display font-bold text-white text-lg">{{COMPANY_NAME}}</span>
+            </div>
+
+            <div class="text-stone-500 text-sm">
+                &copy; 2024 {{COMPANY_NAME}} Geothermal. All systems nominal.
+            </div>
+
+            <div class="flex space-x-6">
+                <a href="#" class="text-stone-500 hover:text-magma-400 transition-colors">
+                    <span class="sr-only">Twitter</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg>
+                </a>
+                <a href="#" class="text-stone-500 hover:text-magma-400 transition-colors">
+                    <span class="sr-only">LinkedIn</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
