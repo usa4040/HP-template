@@ -1377,6 +1377,19 @@
         "Sustainable",
         "Nordic"
       ]
+    },
+    {
+      "id": "107",
+      "name": "Grand Overture",
+      "category": "Philharmonic Orchestra",
+      "style": "Symphonic",
+      "path": "catalog/template_107_philharmonic_symphonic",
+      "description": "Elegant dark theme for classical music organizations.",
+      "tags": [
+        "Classical",
+        "Elegant",
+        "Dark"
+      ]
     }
   ]
 }
