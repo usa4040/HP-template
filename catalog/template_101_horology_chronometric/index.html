@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Vanguard Chrono</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #020617; /* slate-950 */
+            color: #e2e8f0; /* slate-200 */
+        }
+        h1, h2, h3, h4, h5, h6, .font-serif {
+            font-family: 'Cinzel', serif;
+        }
+        .text-gold {
+            color: #d4af37;
+        }
+        .bg-gold {
+            background-color: #d4af37;
+        }
+        .border-gold {
+            border-color: #d4af37;
+        }
+        .hover-gold:hover {
+            color: #d4af37;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#020617',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                        },
+                        gold: {
+                            400: '#eec14d',
+                            500: '#d4af37',
+                            600: '#b08d26',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 150;
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Trigger once on load
+        });
+    </script>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 50)"
+         :class="{ 'bg-slate-950/90 backdrop-blur-md border-b border-slate-800': scrolled, 'bg-transparent': !scrolled }"
+         class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-serif text-2xl tracking-widest text-white font-bold uppercase">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#collection" class="text-sm font-medium text-slate-300 hover:text-gold-400 transition-colors uppercase tracking-widest">Collection</a>
+                        <a href="#caliber" class="text-sm font-medium text-slate-300 hover:text-gold-400 transition-colors uppercase tracking-widest">The Caliber</a>
+                        <a href="#heritage" class="text-sm font-medium text-slate-300 hover:text-gold-400 transition-colors uppercase tracking-widest">Heritage</a>
+                        <a href="#contact" class="px-6 py-2 border border-slate-600 text-slate-300 hover:border-gold-500 hover:text-gold-400 transition-all uppercase text-xs tracking-widest">Concierge</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="open = !open" type="button" class="inline-flex items-center justify-center p-2 text-slate-400 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-slate-950 border-b border-slate-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#collection" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-gold-400 uppercase tracking-widest">Collection</a>
+                <a href="#caliber" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-gold-400 uppercase tracking-widest">The Caliber</a>
+                <a href="#heritage" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-gold-400 uppercase tracking-widest">Heritage</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gold-500 hover:text-white uppercase tracking-widest">Concierge</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1547996160-71df45ef82cb?auto=format&fit=crop&w=1920&q=80" alt="Luxury Watch Detail" class="w-full h-full object-cover opacity-60 scale-105 animate-[pulse_10s_ease-in-out_infinite]">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto reveal">
+            <p class="text-gold-500 tracking-[0.3em] uppercase text-sm mb-4 font-semibold">Swiss Made &bull; Est. 1884</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-6 tracking-tight leading-tight">
+                Mastering <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-300 to-slate-500">Eternity</span>
+            </h1>
+            <p class="text-slate-300 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed">
+                Precision engineering meets timeless elegance. Discover the pinnacle of horological craftsmanship with {{COMPANY_NAME}}.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#collection" class="group relative px-8 py-3 bg-transparent border border-white text-white font-medium tracking-widest uppercase overflow-hidden hover:border-gold-500 transition-colors duration-300">
+                    <span class="absolute inset-0 w-full h-full bg-gold-500/10 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+                    <span class="relative group-hover:text-gold-400 transition-colors duration-300">Explore Collection</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- The Collection -->
+    <section id="collection" class="py-24 bg-slate-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-4 tracking-wide">The Vanguard Collection</h2>
+                <div class="w-24 h-px bg-gold-500 mx-auto"></div>
+                <p class="mt-4 text-slate-400 font-light max-w-2xl mx-auto">
+                    Three distinct expressions of time, united by a singular commitment to perfection.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative bg-slate-900/50 border border-slate-800 hover:border-gold-500/50 transition-all duration-500 reveal">
+                    <div class="aspect-[3/4] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1612817288484-9660c989716d?auto=format&fit=crop&w=800&q=80" alt="Chronograph" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div>
+                    </div>
+                    <div class="p-8 text-center relative">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-slate-950 border border-slate-800 px-4 py-2 text-xs tracking-widest uppercase text-gold-500">
+                            Automatic
+                        </div>
+                        <h3 class="text-xl font-serif text-white mb-2">The Aviator</h3>
+                        <p class="text-sm text-slate-400 mb-4 font-light">42mm &bull; Titanium &bull; Sapphire</p>
+                        <span class="inline-block border-b border-transparent group-hover:border-gold-500 text-xs tracking-[0.2em] uppercase transition-all duration-300 text-slate-300 group-hover:text-gold-400">View Timepiece</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-slate-900/50 border border-slate-800 hover:border-gold-500/50 transition-all duration-500 reveal" style="transition-delay: 100ms;">
+                    <div class="aspect-[3/4] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=800&q=80" alt="Dive Watch" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div>
+                    </div>
+                    <div class="p-8 text-center relative">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-slate-950 border border-slate-800 px-4 py-2 text-xs tracking-widest uppercase text-gold-500">
+                            300m Diver
+                        </div>
+                        <h3 class="text-xl font-serif text-white mb-2">The Abyssal</h3>
+                        <p class="text-sm text-slate-400 mb-4 font-light">44mm &bull; Steel &bull; Ceramic Bezel</p>
+                        <span class="inline-block border-b border-transparent group-hover:border-gold-500 text-xs tracking-[0.2em] uppercase transition-all duration-300 text-slate-300 group-hover:text-gold-400">View Timepiece</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-slate-900/50 border border-slate-800 hover:border-gold-500/50 transition-all duration-500 reveal" style="transition-delay: 200ms;">
+                    <div class="aspect-[3/4] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80" alt="Dress Watch" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div>
+                    </div>
+                    <div class="p-8 text-center relative">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-slate-950 border border-slate-800 px-4 py-2 text-xs tracking-widest uppercase text-gold-500">
+                            Manual Wind
+                        </div>
+                        <h3 class="text-xl font-serif text-white mb-2">The Sovereign</h3>
+                        <p class="text-sm text-slate-400 mb-4 font-light">39mm &bull; Rose Gold &bull; Alligator</p>
+                        <span class="inline-block border-b border-transparent group-hover:border-gold-500 text-xs tracking-[0.2em] uppercase transition-all duration-300 text-slate-300 group-hover:text-gold-400">View Timepiece</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Caliber (Tech Specs) -->
+    <section id="caliber" class="py-24 bg-slate-900 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Image Side -->
+                <div class="w-full lg:w-1/2 reveal">
+                    <div class="relative">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 border-t border-l border-gold-500/30"></div>
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b border-r border-gold-500/30"></div>
+                        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=800&q=80" alt="Watch Movement" class="w-full h-auto grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl shadow-black/50">
+                    </div>
+                </div>
+
+                <!-- Text Side -->
+                <div class="w-full lg:w-1/2 reveal">
+                    <p class="text-gold-500 text-sm tracking-[0.3em] uppercase mb-4 font-bold">In-House Manufacture</p>
+                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-6">Caliber KF-9001</h2>
+                    <p class="text-slate-400 leading-relaxed mb-10 font-light">
+                        Designed, developed, and assembled entirely within our workshops. The KF-9001 movement represents the culmination of decades of research into chronometric precision. Featuring a silicon escapement and a twin-barrel architecture, it delivers unwavering accuracy.
+                    </p>
+
+                    <!-- Specs Grid -->
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="border-l border-slate-700 pl-6">
+                            <h4 class="text-white font-serif text-lg mb-1">72 Hours</h4>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest">Power Reserve</p>
+                        </div>
+                        <div class="border-l border-slate-700 pl-6">
+                            <h4 class="text-white font-serif text-lg mb-1">28,800 vph</h4>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest">Frequency (4Hz)</p>
+                        </div>
+                        <div class="border-l border-slate-700 pl-6">
+                            <h4 class="text-white font-serif text-lg mb-1">32 Jewels</h4>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest">Synthetic Ruby</p>
+                        </div>
+                        <div class="border-l border-slate-700 pl-6">
+                            <h4 class="text-white font-serif text-lg mb-1">COSC</h4>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest">Certified</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Separator -->
+    <section class="relative py-32 bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=1920&q=80');">
+        <div class="absolute inset-0 bg-slate-950/70"></div>
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-4 reveal">
+            <h2 class="text-3xl md:text-5xl font-serif text-white mb-8 leading-tight">"A watch is not just a device to tell time.<br>It is a vessel for history."</h2>
+            <p class="text-gold-400 tracking-widest uppercase text-sm font-semibold">— The Founder</p>
+        </div>
+    </section>
+
+    <!-- Heritage / Atelier -->
+    <section id="heritage" class="py-24 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">The Atelier</h2>
+                <div class="w-24 h-px bg-gold-500 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-slate-900 p-10 border border-slate-800 reveal">
+                    <span class="text-6xl text-slate-800 font-serif absolute -mt-14 ml-0 opacity-50 select-none">1884</span>
+                    <h3 class="text-2xl font-serif text-white mb-4 relative z-10">The Beginning</h3>
+                    <p class="text-slate-400 font-light leading-relaxed mb-6">
+                        Founded in the heart of the Jura Mountains, {{COMPANY_NAME}} began as a small workshop dedicated to creating complications for pocket watches. Our commitment to traditional hand-finishing techniques remains unchanged to this day.
+                    </p>
+                    <a href="#" class="text-gold-500 hover:text-white text-sm uppercase tracking-widest transition-colors">Read Our Story &rarr;</a>
+                </div>
+                <div class="bg-slate-900 p-10 border border-slate-800 reveal" style="transition-delay: 150ms;">
+                    <span class="text-6xl text-slate-800 font-serif absolute -mt-14 ml-0 opacity-50 select-none">2024</span>
+                    <h3 class="text-2xl font-serif text-white mb-4 relative z-10">Innovation</h3>
+                    <p class="text-slate-400 font-light leading-relaxed mb-6">
+                        While honoring our past, we look firmly to the future. Our new Research & Development wing pioneers the use of advanced materials like carbon fiber and ceramized titanium to push the boundaries of durability.
+                    </p>
+                    <a href="#" class="text-gold-500 hover:text-white text-sm uppercase tracking-widest transition-colors">Discover Materials &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-slate-950 border-t border-slate-900 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="font-serif text-2xl tracking-widest text-white font-bold uppercase block mb-6">
+                        {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Geneva &bull; New York &bull; Tokyo &bull; London
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-serif mb-6">Collections</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">The Aviator</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">The Abyssal</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">The Sovereign</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Limited Editions</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-serif mb-6">Service</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Store Locator</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Maintenance</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Warranty</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Contact Concierge</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-white font-serif mb-6">Newsletter</h4>
+                    <p class="text-slate-500 text-sm mb-4">Be the first to know about new releases.</p>
+                    <form class="flex flex-col gap-2">
+                        <input type="email" placeholder="Email Address" class="bg-slate-900 border border-slate-800 text-white px-4 py-2 focus:outline-none focus:border-gold-500 transition-colors text-sm">
+                        <button type="submit" class="bg-gold-600 hover:bg-gold-500 text-slate-950 font-medium px-4 py-2 uppercase tracking-widest text-xs transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-600">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
