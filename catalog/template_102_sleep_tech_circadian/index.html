@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Advanced Sleep Technology</title>
+    <meta name="description" content="Unlock your best rest with {{COMPANY_NAME}}'s circadian rhythm optimization technology. Science-backed sleep solutions for peak performance.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        midnight: {
+                            900: '#0F172A', // Slate 900
+                            800: '#1E293B', // Slate 800
+                            700: '#334155', // Slate 700
+                        },
+                        starlight: {
+                            50: '#F8FAFC', // Slate 50
+                            100: '#F1F5F9', // Slate 100
+                            200: '#E2E8F0', // Slate 200
+                        },
+                        dream: {
+                            DEFAULT: '#818CF8', // Indigo 400
+                            light: '#A5B4FC',   // Indigo 300
+                            dark: '#6366F1',    // Indigo 500
+                        },
+                        bio: {
+                            DEFAULT: '#2DD4BF', // Teal 400
+                            glow: '#14B8A6',    // Teal 500
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Philosopher', 'serif'],
+                        body: ['Nunito Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1519681393798-3828fb4090bb?q=80&w=2940&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
+        }
+
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-midnight-900 text-starlight-100 font-body antialiased selection:bg-dream selection:text-white overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Navigation -->
+    <header class="fixed w-full z-50 transition-all duration-300" :class="{ 'bg-midnight-900/90 backdrop-blur-md shadow-lg': scrolled, 'bg-transparent': !scrolled }">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-dream to-bio flex items-center justify-center shadow-[0_0_15px_rgba(129,140,248,0.5)] group-hover:shadow-[0_0_25px_rgba(45,212,191,0.6)] transition-all duration-500">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </div>
+                <span class="font-display text-2xl font-bold tracking-wide text-white">{{COMPANY_NAME}}</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#science" class="text-starlight-200 hover:text-white hover:text-glow transition-colors text-sm uppercase tracking-widest font-semibold">Science</a>
+                <a href="#technology" class="text-starlight-200 hover:text-white hover:text-glow transition-colors text-sm uppercase tracking-widest font-semibold">Technology</a>
+                <a href="#features" class="text-starlight-200 hover:text-white hover:text-glow transition-colors text-sm uppercase tracking-widest font-semibold">Features</a>
+                <a href="#reviews" class="text-starlight-200 hover:text-white hover:text-glow transition-colors text-sm uppercase tracking-widest font-semibold">Reviews</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="hidden md:block">
+                <a href="#order" class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-medium text-white transition-all duration-300 bg-dream rounded hover:bg-dream-dark group">
+                    <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+                    <span class="relative text-sm tracking-wider font-semibold">START SLEEPING</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-starlight-100 hover:text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="fixed inset-0 z-40 bg-midnight-900/95 backdrop-blur-xl md:hidden flex flex-col items-center justify-center gap-8">
+            <a href="#science" @click="mobileMenuOpen = false" class="text-2xl font-display text-starlight-100 hover:text-dream">Science</a>
+            <a href="#technology" @click="mobileMenuOpen = false" class="text-2xl font-display text-starlight-100 hover:text-dream">Technology</a>
+            <a href="#features" @click="mobileMenuOpen = false" class="text-2xl font-display text-starlight-100 hover:text-dream">Features</a>
+            <a href="#reviews" @click="mobileMenuOpen = false" class="text-2xl font-display text-starlight-100 hover:text-dream">Reviews</a>
+            <a href="#order" @click="mobileMenuOpen = false" class="px-8 py-3 bg-dream text-white rounded font-bold tracking-wider">Get Started</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-midnight-900 via-midnight-900/80 to-midnight-900"></div>
+
+        <!-- Animated Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-dream/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-bio/10 rounded-full blur-[100px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div x-data="{ show: false }" x-init="setTimeout(() => show = true, 200)" class="max-w-4xl mx-auto">
+                <span x-show="show" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" class="inline-block px-4 py-1 mb-6 text-xs tracking-[0.2em] font-bold text-bio uppercase border border-bio/30 rounded-full bg-bio/5 backdrop-blur-sm">
+                    Circadian Rhythm Optimization
+                </span>
+
+                <h1 x-show="show" x-transition:enter="transition ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" class="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 bg-clip-text text-transparent bg-gradient-to-r from-starlight-50 via-starlight-100 to-dream-light drop-shadow-2xl pb-2">
+                    Master Your <br class="hidden md:block" /> Nocturnal Potential.
+                </h1>
+
+                <p x-show="show" x-transition:enter="transition ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" class="text-starlight-200 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12 leading-relaxed">
+                    {{COMPANY_NAME}} combines advanced biosensors with AI-driven environmental control to align your sleep cycle with nature's rhythm.
+                </p>
+
+                <div x-show="show" x-transition:enter="transition ease-out duration-1000 delay-700" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" class="flex flex-col md:flex-row items-center justify-center gap-6">
+                    <a href="#order" class="w-full md:w-auto px-8 py-4 bg-white text-midnight-900 font-bold rounded hover:bg-starlight-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]">
+                        Explore the System
+                    </a>
+                    <a href="#science" class="w-full md:w-auto px-8 py-4 border border-starlight-200/30 text-starlight-100 rounded hover:bg-white/5 transition-colors backdrop-blur-sm flex items-center justify-center gap-2 group">
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Watch the Science
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div x-show="show" x-transition:enter="transition ease-out duration-1000 delay-1000" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <svg class="w-6 h-6 text-starlight-200/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats / Trust Section -->
+    <section class="py-12 border-y border-white/5 bg-midnight-800/30 backdrop-blur-sm">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
+                <div x-data="{ count: 0 }" x-intersect.once="setInterval(() => { if(count < 98) count++ }, 20)">
+                    <div class="font-display text-4xl font-bold text-dream mb-1"><span x-text="count">0</span>%</div>
+                    <div class="text-xs uppercase tracking-widest text-starlight-200">Sleep Efficiency</div>
+                </div>
+                <div x-data="{ count: 0 }" x-intersect.once="setInterval(() => { if(count < 45) count++ }, 40)">
+                    <div class="font-display text-4xl font-bold text-bio mb-1"><span x-text="count">0</span>min</div>
+                    <div class="text-xs uppercase tracking-widest text-starlight-200">Faster Onset</div>
+                </div>
+                <div x-data="{ count: 0 }" x-intersect.once="setInterval(() => { if(count < 10) count++ }, 150)">
+                    <div class="font-display text-4xl font-bold text-dream-light mb-1"><span x-text="count">0</span>k+</div>
+                    <div class="text-xs uppercase tracking-widest text-starlight-200">Users Rested</div>
+                </div>
+                <div>
+                    <div class="font-display text-4xl font-bold text-starlight-100 mb-1">4.9</div>
+                    <div class="text-xs uppercase tracking-widest text-starlight-200">Star Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Science Section -->
+    <section id="science" class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Text Content -->
+                <div x-intersect.threshold.0.5="$el.classList.add('opacity-100', 'translate-x-0'); $el.classList.remove('opacity-0', '-translate-x-10')" class="opacity-0 -translate-x-10 transition-all duration-1000 ease-out">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Synchronized with <br><span class="text-bio text-glow">Nature's Rhythm</span></h2>
+                    <p class="text-starlight-200 text-lg leading-relaxed mb-8">
+                        Modern life disrupts our internal clock. Blue light, stress, and irregular schedules confuse the suprachiasmatic nucleus—the brain's master clock.
+                    </p>
+                    <p class="text-starlight-200 text-lg leading-relaxed mb-8">
+                        {{COMPANY_NAME}} restores balance using dynamic light therapy and acoustic entrainment, guiding your brainwaves from Beta (alert) to Delta (deep sleep) seamlessly.
+                    </p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-4 text-starlight-100">
+                            <span class="w-8 h-8 rounded-full bg-dream/20 flex items-center justify-center text-dream">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </span>
+                            <span>Melatonin Production Support</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-starlight-100">
+                            <span class="w-8 h-8 rounded-full bg-dream/20 flex items-center justify-center text-dream">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </span>
+                            <span>REM Cycle Optimization</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-starlight-100">
+                            <span class="w-8 h-8 rounded-full bg-dream/20 flex items-center justify-center text-dream">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </span>
+                            <span>Cortisol Reduction</span>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="text-dream hover:text-white transition-colors border-b border-dream hover:border-white pb-1 inline-block">Read the Clinical Study &rarr;</a>
+                </div>
+
+                <!-- Visual -->
+                <div x-intersect.threshold.0.5="$el.classList.add('opacity-100', 'translate-x-0'); $el.classList.remove('opacity-0', 'translate-x-10')" class="opacity-0 translate-x-10 transition-all duration-1000 ease-out relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-dream to-bio opacity-20 blur-2xl rounded-full"></div>
+                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2940&auto=format&fit=crop" alt="Circadian Rhythm Chart" class="relative rounded-2xl shadow-2xl border border-white/10 w-full h-auto object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-700">
+
+                    <!-- Floating Card -->
+                    <div class="absolute -bottom-6 -left-6 bg-midnight-800/90 backdrop-blur border border-white/10 p-6 rounded-xl shadow-xl max-w-xs animate-float">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-bio/20 flex items-center justify-center text-bio">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Sleep Quality</h4>
+                                <p class="text-bio text-xs">+42% Improvement</p>
+                            </div>
+                        </div>
+                        <div class="w-full bg-midnight-900 rounded-full h-2 overflow-hidden">
+                            <div class="bg-gradient-to-r from-dream to-bio h-full rounded-full" style="width: 82%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Features Grid -->
+    <section id="features" class="py-24 bg-midnight-800/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 max-w-2xl mx-auto">
+                <span class="text-dream text-sm font-bold tracking-widest uppercase mb-4 block">The Ecosystem</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Designed for <span class="text-white">Deep Rest</span></h2>
+                <p class="text-starlight-200">Our integrated system monitors, adjusts, and optimizes your environment in real-time.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative p-8 rounded-2xl bg-midnight-900 border border-white/5 hover:border-dream/30 transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-dream/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-xl bg-midnight-800 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-dream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-white">Smart Lighting</h3>
+                        <p class="text-starlight-200 text-sm leading-relaxed">
+                            Simulates sunset to trigger melatonin release and sunrise for a gentle, cortisol-free awakening.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative p-8 rounded-2xl bg-midnight-900 border border-white/5 hover:border-bio/30 transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-bio/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-xl bg-midnight-800 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-bio" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 3-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 3-2 3-2 3 .895 3 2zM9 10l12-3" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-white">Binaural Beats</h3>
+                        <p class="text-starlight-200 text-sm leading-relaxed">
+                            AI-generated soundscapes that entrain brainwaves to slower frequencies, inducing deep relaxation instantly.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative p-8 rounded-2xl bg-midnight-900 border border-white/5 hover:border-dream-light/30 transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-dream-light/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-xl bg-midnight-800 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-dream-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-white">Biometric Tracking</h3>
+                        <p class="text-starlight-200 text-sm leading-relaxed">
+                            Non-invasive sensors track HRV, breath rate, and movement to adjust the environment while you dream.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax / Product Showcase -->
+    <section id="technology" class="min-h-screen relative flex items-center bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2948&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-midnight-900/80"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-xl ml-auto bg-midnight-900/40 backdrop-blur-xl p-10 rounded-2xl border border-white/10 shadow-2xl">
+                <span class="text-bio font-bold tracking-widest uppercase mb-2 block">The Hub</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-white">Sleep Intelligence <br>Center</h2>
+                <p class="text-starlight-100 mb-8 leading-relaxed">
+                    The {{COMPANY_NAME}} Hub sits elegantly on your nightstand. No wearable required. It senses the room and your presence with radar precision, creating a sanctuary of rest.
+                </p>
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-2 h-2 rounded-full bg-dream shadow-[0_0_10px_#818CF8]"></div>
+                        <span class="text-starlight-200">Radar Sleep Staging</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-2 h-2 rounded-full bg-bio shadow-[0_0_10px_#2DD4BF]"></div>
+                        <span class="text-starlight-200">CO2 & Temperature Monitoring</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-2 h-2 rounded-full bg-white shadow-[0_0_10px_white]"></div>
+                        <span class="text-starlight-200">Voice-Activated Night Mode</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Slider -->
+    <section id="reviews" class="py-24 bg-midnight-900 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="font-display text-4xl font-bold text-center mb-16">Dreamers' Stories</h2>
+
+            <div x-data="{ active: 0, testimonials: [
+                { text: 'I used to stare at the ceiling for hours. With {{COMPANY_NAME}}, I feel a wave of calm wash over me within minutes. It’s not just tech; it’s magic.', author: 'Elena R.', role: 'Neuroscientist' },
+                { text: 'The wake-up sequence is a game changer. No more jarring alarms, just a gentle sunrise that leaves me energized for my morning run.', author: 'Marcus T.', role: 'Athlete' },
+                { text: 'Data I can actually use. Seeing my deep sleep scores improve has been the biggest motivation to prioritize my rest.', author: 'Sarah J.', role: 'CEO' }
+            ]}" class="relative max-w-4xl mx-auto">
+
+                <div class="relative overflow-hidden min-h-[300px]">
+                    <template x-for="(item, index) in testimonials" :key="index">
+                        <div x-show="active === index"
+                             x-transition:enter="transition ease-out duration-500"
+                             x-transition:enter-start="opacity-0 translate-x-20"
+                             x-transition:enter-end="opacity-100 translate-x-0"
+                             x-transition:leave="transition ease-in duration-500 absolute top-0 w-full"
+                             x-transition:leave-start="opacity-100 translate-x-0"
+                             x-transition:leave-end="opacity-0 -translate-x-20"
+                             class="text-center px-4 md:px-12">
+                            <svg class="w-12 h-12 text-dream/20 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.01691 21L5.01691 18C5.01691 16.8954 5.91234 16 7.01691 16H10.0169C10.5692 16 11.0169 15.5523 11.0169 15V9C11.0169 8.44772 10.5692 8 10.0169 8H6.01691C5.46462 8 5.01691 8.44772 5.01691 9V11C5.01691 11.5523 4.56919 12 4.01691 12H3.01691V5H13.0169V15C13.0169 18.3137 10.3306 21 7.01691 21H5.01691Z" /></svg>
+                            <p class="font-display text-2xl md:text-3xl text-starlight-50 italic mb-8 leading-relaxed" x-text="item.text"></p>
+                            <div class="flex flex-col items-center">
+                                <span class="font-bold text-white tracking-wide" x-text="item.author"></span>
+                                <span class="text-dream text-sm uppercase tracking-widest mt-1" x-text="item.role"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex justify-center gap-4 mt-8">
+                    <template x-for="(item, index) in testimonials" :key="index">
+                        <button @click="active = index"
+                                class="w-3 h-3 rounded-full transition-all duration-300"
+                                :class="active === index ? 'bg-dream w-8' : 'bg-white/20 hover:bg-white/50'">
+                        </button>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ / Accordion -->
+    <section class="py-24 bg-midnight-800/30">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="font-display text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+
+            <div class="space-y-4" x-data="{ selected: null }">
+                <div class="border border-white/10 rounded-lg bg-midnight-900 overflow-hidden">
+                    <button @click="selected !== 0 ? selected = 0 : selected = null" class="w-full flex items-center justify-between p-6 text-left focus:outline-none hover:bg-white/5 transition-colors">
+                        <span class="font-semibold text-lg text-white">How quickly will I see results?</span>
+                        <svg class="w-5 h-5 text-dream transform transition-transform duration-300" :class="selected === 0 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div x-show="selected === 0" x-collapse>
+                        <div class="p-6 pt-0 text-starlight-200 leading-relaxed border-t border-white/5 mt-2">
+                            Most users report improved sleep onset within 3-5 days. Full circadian realignment typically takes 14 days of consistent use.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-white/10 rounded-lg bg-midnight-900 overflow-hidden">
+                    <button @click="selected !== 1 ? selected = 1 : selected = null" class="w-full flex items-center justify-between p-6 text-left focus:outline-none hover:bg-white/5 transition-colors">
+                        <span class="font-semibold text-lg text-white">Is it safe for children?</span>
+                        <svg class="w-5 h-5 text-dream transform transition-transform duration-300" :class="selected === 1 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div x-show="selected === 1" x-collapse>
+                        <div class="p-6 pt-0 text-starlight-200 leading-relaxed border-t border-white/5 mt-2">
+                            Yes, {{COMPANY_NAME}} uses non-invasive light and sound therapy. We have a specific 'Junior Mode' with softer parameters designed for developing circadian rhythms.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-white/10 rounded-lg bg-midnight-900 overflow-hidden">
+                    <button @click="selected !== 2 ? selected = 2 : selected = null" class="w-full flex items-center justify-between p-6 text-left focus:outline-none hover:bg-white/5 transition-colors">
+                        <span class="font-semibold text-lg text-white">Does it integrate with smart homes?</span>
+                        <svg class="w-5 h-5 text-dream transform transition-transform duration-300" :class="selected === 2 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div x-show="selected === 2" x-collapse>
+                        <div class="p-6 pt-0 text-starlight-200 leading-relaxed border-t border-white/5 mt-2">
+                            Absolutely. We support Apple HomeKit, Google Home, and Alexa. You can synchronize your entire home's lighting to our sleep schedules.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / CTA -->
+    <footer class="bg-midnight-900 pt-24 pb-12 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-dream to-bio flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </div>
+                        <span class="font-display text-2xl font-bold text-white">{{COMPANY_NAME}}</span>
+                    </a>
+                    <p class="text-starlight-200 text-sm leading-relaxed max-w-xs">
+                        Pioneering the future of sleep through science, technology, and design. Reclaim your night.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-6">Product</h4>
+                    <ul class="space-y-4 text-sm text-starlight-200">
+                        <li><a href="#" class="hover:text-dream transition-colors">The Hub</a></li>
+                        <li><a href="#" class="hover:text-dream transition-colors">The App</a></li>
+                        <li><a href="#" class="hover:text-dream transition-colors">Accessories</a></li>
+                        <li><a href="#" class="hover:text-dream transition-colors">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-sm text-starlight-200">
+                        <li><a href="#" class="hover:text-dream transition-colors">Our Science</a></li>
+                        <li><a href="#" class="hover:text-dream transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-dream transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-dream transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-6">Stay Rested</h4>
+                    <p class="text-xs text-starlight-200 mb-4">Subscribe for sleep tips and product updates.</p>
+                    <form class="flex gap-2">
+                        <input type="email" placeholder="Email address" class="bg-midnight-800 border border-white/10 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-dream w-full">
+                        <button class="bg-dream hover:bg-dream-dark text-white px-4 py-2 rounded transition-colors">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-starlight-200/50">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

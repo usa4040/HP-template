@@ -1312,6 +1312,19 @@
         "Technical",
         "Dark"
       ]
+    },
+    {
+      "id": "102",
+      "name": "Nocturnal Rhythm",
+      "category": "Sleep Technology",
+      "style": "Circadian Design",
+      "path": "catalog/template_102_sleep_tech_circadian",
+      "description": "Dark mode, bio-tech, calm",
+      "tags": [
+        "Dark Mode",
+        "Glassmorphism",
+        "Alpine.js"
+      ]
     }
   ]
 }
