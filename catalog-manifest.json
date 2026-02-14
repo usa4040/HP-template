@@ -1325,6 +1325,19 @@
         "Glassmorphism",
         "Alpine.js"
       ]
+    },
+    {
+      "id": "103",
+      "name": "Magma Core Energy",
+      "category": "Geothermal",
+      "style": "Magmatic",
+      "path": "catalog/template_103_geothermal_magmatic",
+      "description": "Dark volcanic aesthetic with glowing heat gradients.",
+      "tags": [
+        "Energy",
+        "Dark",
+        "Heat"
+      ]
     }
   ]
 }
