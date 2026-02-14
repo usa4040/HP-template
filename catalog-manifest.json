@@ -1273,6 +1273,19 @@
         "Vintage",
         "Entertainment"
       ]
+    },
+    {
+      "id": "099",
+      "name": "Aethelgard Bionics",
+      "category": "Bionics",
+      "style": "Neo-Lab",
+      "path": "catalog/template_099_bionics_neolab",
+      "description": "Sterile high-tech white & chrome",
+      "tags": [
+        "Clean",
+        "Future",
+        "Medical"
+      ]
     }
   ]
 }
