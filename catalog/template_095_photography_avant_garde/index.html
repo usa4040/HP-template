@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Avant-Garde Photography</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        neutral: {
+                            950: '#0a0a0a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .blend-difference { mix-blend-mode: difference; }
+        .cursor-dot {
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+        .cursor-dot.hovered {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: 1px solid white;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #404040;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #737373;
+        }
+    </style>
+</head>
+<body class="bg-neutral-950 text-neutral-50 antialiased selection:bg-white selection:text-black" x-data="{ cursorX: 0, cursorY: 0, isHovering: false }" @mousemove="cursorX = $event.clientX; cursorY = $event.clientY">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"
+         :class="{ 'hovered': isHovering }"
+         :style="`left: ${cursorX}px; top: ${cursorY}px`"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-exclusion" x-data="{ mobileMenuOpen: false }">
+        <a href="#" class="font-display font-bold text-2xl tracking-tighter hover:tracking-widest transition-all duration-300" @mouseenter="isHovering = true" @mouseleave="isHovering = false">LUMINA.</a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-12 text-sm uppercase tracking-widest font-medium">
+            <a href="#work" class="hover:text-neutral-400 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">Work</a>
+            <a href="#about" class="hover:text-neutral-400 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">Studio</a>
+            <a href="#services" class="hover:text-neutral-400 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">Services</a>
+            <a href="#contact" class="hover:text-neutral-400 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">Contact</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden z-50" @click="mobileMenuOpen = !mobileMenuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-x-full"
+             x-transition:enter-end="opacity-100 translate-x-0"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100 translate-x-0"
+             x-transition:leave-end="opacity-0 translate-x-full"
+             class="fixed inset-0 bg-neutral-950 z-40 flex flex-col justify-center items-center space-y-8 md:hidden">
+             <a href="#work" class="font-display text-4xl font-bold" @click="mobileMenuOpen = false">Work</a>
+             <a href="#about" class="font-display text-4xl font-bold" @click="mobileMenuOpen = false">Studio</a>
+             <a href="#services" class="font-display text-4xl font-bold" @click="mobileMenuOpen = false">Services</a>
+             <a href="#contact" class="font-display text-4xl font-bold" @click="mobileMenuOpen = false">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Parallax Effect -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=2070&auto=format&fit=crop"
+                 alt="Hero Background"
+                 class="w-full h-full object-cover opacity-40 scale-105 animate-fade-in grayscale">
+            <div class="absolute inset-0 bg-gradient-to-b from-neutral-950/20 via-neutral-950/50 to-neutral-950"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4">
+            <h1 class="font-display text-6xl md:text-9xl font-extrabold uppercase leading-none tracking-tighter mix-blend-overlay opacity-0 animate-slide-up" style="animation-delay: 0.2s;">
+                {{COMPANY_NAME}}
+            </h1>
+            <p class="font-sans text-neutral-400 mt-6 text-sm md:text-lg uppercase tracking-[0.2em] opacity-0 animate-slide-up" style="animation-delay: 0.5s;">
+                Avant-Garde Photography & Art Direction
+            </p>
+            <div class="mt-12 opacity-0 animate-slide-up" style="animation-delay: 0.8s;">
+                <a href="#work" class="inline-block border border-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                    View Portfolio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Manifesto / About -->
+    <section id="about" class="py-24 md:py-32 px-6 md:px-12 bg-neutral-950 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1 relative">
+                 <!-- Decorative elements -->
+                 <div class="absolute -top-10 -left-10 w-40 h-40 border border-neutral-800 rounded-full opacity-50"></div>
+                 <div class="relative z-10">
+                    <p class="font-display text-4xl md:text-6xl font-bold leading-tight">
+                        "We don't just take pictures. We capture <span class="text-neutral-500">souls</span> and freeze <span class="text-neutral-500">time</span>."
+                    </p>
+                    <p class="font-sans text-neutral-400 mt-8 leading-relaxed max-w-md">
+                        {{COMPANY_NAME}} is a collective of visionary artists dedicated to the avant-garde. We challenge the conventional, embrace the shadows, and illuminate the raw beauty of the world. Our work is not for the faint of heart; it is for those who dare to see differently.
+                    </p>
+                    <div class="mt-10">
+                        <span class="block text-xs text-neutral-600 uppercase tracking-widest mb-2">Established</span>
+                        <span class="font-display text-xl">2024</span>
+                    </div>
+                 </div>
+            </div>
+            <div class="order-1 md:order-2 h-[500px] relative overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop"
+                     alt="Portrait"
+                     class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-110">
+            </div>
+        </div>
+    </section>
+
+    <!-- Work / Gallery -->
+    <section id="work" class="py-24 bg-neutral-900 text-neutral-50">
+        <div class="px-6 md:px-12 mb-16 flex justify-between items-end">
+            <div>
+                <h2 class="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight">Selected Works</h2>
+            </div>
+            <div class="hidden md:block text-right">
+                <p class="text-neutral-500 text-sm uppercase tracking-widest">Curated Collection</p>
+                <p class="text-neutral-500 text-sm">Vol. 01 — 2024</p>
+            </div>
+        </div>
+
+        <!-- Masonry Grid -->
+        <div class="columns-1 md:columns-2 lg:columns-3 gap-8 px-6 md:px-12 space-y-8">
+
+            <!-- Item 1 -->
+            <div class="break-inside-avoid relative group overflow-hidden cursor-none" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop" alt="Fashion 1" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="font-display text-2xl uppercase tracking-widest">Ethereal</span>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="break-inside-avoid relative group overflow-hidden cursor-none" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=1000&auto=format&fit=crop" alt="Architecture" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="font-display text-2xl uppercase tracking-widest">Structure</span>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="break-inside-avoid relative group overflow-hidden cursor-none" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1000&auto=format&fit=crop" alt="Portrait" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="font-display text-2xl uppercase tracking-widest">Gaze</span>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="break-inside-avoid relative group overflow-hidden cursor-none" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1000&auto=format&fit=crop" alt="Fashion 2" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="font-display text-2xl uppercase tracking-widest">Vogue</span>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="break-inside-avoid relative group overflow-hidden cursor-none" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1000&auto=format&fit=crop" alt="Landscape" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="font-display text-2xl uppercase tracking-widest">Silence</span>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="break-inside-avoid relative group overflow-hidden cursor-none" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop" alt="Editorial" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="font-display text-2xl uppercase tracking-widest">Noir</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-neutral-950 border-t border-neutral-900">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="font-display text-4xl mb-12 text-center uppercase tracking-widest">Expertise</h2>
+
+            <div class="space-y-0 divide-y divide-neutral-800">
+                <!-- Service 1 -->
+                <div class="group relative py-8 flex justify-between items-center cursor-pointer transition-colors hover:bg-neutral-900 px-4" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                    <h3 class="font-display text-2xl md:text-3xl text-neutral-400 group-hover:text-white transition-colors">Editorial Photography</h3>
+                    <span class="text-neutral-600 group-hover:text-white transition-colors">01</span>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group relative py-8 flex justify-between items-center cursor-pointer transition-colors hover:bg-neutral-900 px-4" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                    <h3 class="font-display text-2xl md:text-3xl text-neutral-400 group-hover:text-white transition-colors">Art Direction</h3>
+                    <span class="text-neutral-600 group-hover:text-white transition-colors">02</span>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group relative py-8 flex justify-between items-center cursor-pointer transition-colors hover:bg-neutral-900 px-4" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                    <h3 class="font-display text-2xl md:text-3xl text-neutral-400 group-hover:text-white transition-colors">Brand Campaigns</h3>
+                    <span class="text-neutral-600 group-hover:text-white transition-colors">03</span>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="group relative py-8 flex justify-between items-center cursor-pointer transition-colors hover:bg-neutral-900 px-4" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                    <h3 class="font-display text-2xl md:text-3xl text-neutral-400 group-hover:text-white transition-colors">Architectural</h3>
+                    <span class="text-neutral-600 group-hover:text-white transition-colors">04</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <section id="contact" class="bg-neutral-50 text-neutral-950 py-24 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start">
+            <div class="mb-12 md:mb-0">
+                <h2 class="font-display text-6xl md:text-8xl font-black uppercase leading-none tracking-tighter mb-8">
+                    Let's<br>Create.
+                </h2>
+                <a href="mailto:{{EMAIL}}" class="text-xl md:text-2xl border-b-2 border-neutral-950 pb-1 hover:text-neutral-600 hover:border-neutral-600 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                    {{EMAIL}}
+                </a>
+                <p class="mt-4 text-lg">{{PHONE}}</p>
+            </div>
+
+            <div class="flex flex-col space-y-8 text-right">
+                <div class="flex flex-col space-y-2">
+                    <span class="text-xs uppercase tracking-widest font-bold">Socials</span>
+                    <a href="#" class="hover:underline">Instagram</a>
+                    <a href="#" class="hover:underline">Behance</a>
+                    <a href="#" class="hover:underline">LinkedIn</a>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <span class="text-xs uppercase tracking-widest font-bold">Studio</span>
+                    <p class="max-w-xs">
+                        123 Avant-Garde Ave,<br>
+                        Creative District, NY 10012
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-24 border-t border-neutral-300 pt-8 flex justify-between text-xs uppercase tracking-widest text-neutral-500">
+            <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+            <p>Design by Jules</p>
+        </div>
+    </section>
+
+</body>
+</html>

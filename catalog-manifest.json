@@ -1221,6 +1221,19 @@
         "Retro",
         "Warm"
       ]
+    },
+    {
+      "id": "095",
+      "name": "Lumina Studio",
+      "category": "Photography",
+      "style": "Avant-Garde",
+      "path": "catalog/template_095_photography_avant_garde",
+      "description": "Bold, artistic photography portfolio.",
+      "tags": [
+        "Artistic",
+        "Dark",
+        "Portfolio"
+      ]
     }
   ]
 }
