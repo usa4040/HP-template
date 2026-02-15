@@ -1520,6 +1520,19 @@
         "Bright",
         "Glass"
       ]
+    },
+    {
+      "id": "118",
+      "name": "Terra Data",
+      "category": "Geospatial Intelligence",
+      "style": "Topographic Tech",
+      "path": "catalog/template_118_geospatial_topographic",
+      "description": "Data-driven contour maps",
+      "tags": [
+        "Mapping",
+        "Tech",
+        "Dark"
+      ]
     }
   ]
 }

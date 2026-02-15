@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Geospatial Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            950: '#020617', // Deep void
+                            900: '#0f172a',
+                            800: '#1e293b',
+                        },
+                        cyan: {
+                            400: '#22d3ee', // Data stream
+                            500: '#06b6d4',
+                        },
+                        emerald: {
+                            400: '#34d399', // Land mass
+                        },
+                        amber: {
+                            500: '#f59e0b', // Elevation peak / Alert
+                        }
+                    },
+                    animation: {
+                        'scan': 'scan 4s linear infinite',
+                        'drift': 'drift 20s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' },
+                        },
+                        drift: {
+                            '0%': { backgroundPosition: '0 0' },
+                            '100%': { backgroundPosition: '50px 50px' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .contour-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q 25 25 50 50 T 100 50' stroke='%231e293b' fill='none' stroke-width='1'/%3E%3Cpath d='M0 70 Q 25 45 50 70 T 100 70' stroke='%231e293b' fill='none' stroke-width='1'/%3E%3Cpath d='M0 30 Q 25 5 50 30 T 100 30' stroke='%231e293b' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 100px 100px;
+        }
+        .grid-overlay {
+            background-image: linear-gradient(rgba(30, 41, 59, 0.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(30, 41, 59, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-300 font-sans antialiased selection:bg-cyan-400 selection:text-slate-950 relative overflow-x-hidden" x-data="{ mobileMenu: false, scanned: false }">
+
+    <!-- Background Layers -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute inset-0 contour-bg opacity-30 animate-drift"></div>
+        <div class="absolute inset-0 grid-overlay"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/90"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="fixed w-full z-50 top-0 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3 group cursor-pointer">
+                    <div class="w-10 h-10 border border-cyan-400/50 flex items-center justify-center relative overflow-hidden bg-slate-900 group-hover:border-cyan-400 transition-colors">
+                        <div class="absolute inset-0 bg-cyan-400/10 scale-0 group-hover:scale-100 transition-transform"></div>
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25M12 11l-2.5-1.25M12 11v11M2 7v10l10 5 10-5V7"></path></svg>
+                    </div>
+                    <div>
+                        <span class="block text-white font-bold tracking-wider text-lg leading-none font-mono uppercase">{{COMPANY_NAME}}</span>
+                        <span class="text-xs text-slate-500 font-mono tracking-widest block mt-1">LAT: 34.0522 / LON: -118.2437</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#services" class="text-slate-400 hover:text-cyan-400 text-sm font-mono tracking-widest uppercase transition-colors relative group">
+                        <span class="absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                        Capabilities
+                    </a>
+                    <a href="#data" class="text-slate-400 hover:text-cyan-400 text-sm font-mono tracking-widest uppercase transition-colors relative group">
+                        <span class="absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                        Data Streams
+                    </a>
+                    <a href="#contact" class="px-6 py-2 border border-slate-700 hover:border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 font-mono text-sm tracking-widest uppercase transition-all duration-300">
+                        Access Portal
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenu = !mobileMenu" class="md:hidden text-slate-400 hover:text-cyan-400 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="md:hidden absolute w-full bg-slate-950 border-b border-slate-800">
+            <div class="px-4 pt-2 pb-6 space-y-4 font-mono text-sm tracking-widest">
+                <a href="#services" class="block text-slate-400 hover:text-cyan-400 py-2 border-l-2 border-transparent hover:border-cyan-400 pl-4 transition-all">CAPABILITIES</a>
+                <a href="#data" class="block text-slate-400 hover:text-cyan-400 py-2 border-l-2 border-transparent hover:border-cyan-400 pl-4 transition-all">DATA STREAMS</a>
+                <a href="#contact" class="block text-cyan-400 hover:text-white py-2 pl-4">ACCESS PORTAL -></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+                <!-- Content -->
+                <div class="space-y-8" x-intersect="scanned = true">
+                    <div class="inline-flex items-center space-x-2 border border-slate-800 bg-slate-900/50 px-3 py-1 backdrop-blur-sm">
+                        <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                        <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">System Online // v4.0.2</span>
+                    </div>
+
+                    <h1 class="text-5xl lg:text-7xl font-bold text-white tracking-tight leading-none">
+                        MAPPING THE <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">UNSEEN WORLD</span>
+                    </h1>
+
+                    <p class="text-lg text-slate-400 max-w-xl font-light leading-relaxed border-l border-slate-800 pl-6">
+                        {{COMPANY_NAME}} delivers high-precision geospatial intelligence. We convert satellite imagery and Lidar data into actionable insights for global enterprises.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#contact" class="px-8 py-4 bg-cyan-400 text-slate-950 font-mono font-bold tracking-widest uppercase hover:bg-white transition-colors duration-300 text-center flex items-center justify-center group">
+                            Initialize Scan
+                            <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                        <a href="#services" class="px-8 py-4 border border-slate-700 text-slate-300 font-mono tracking-widest uppercase hover:border-cyan-400 hover:text-cyan-400 transition-colors duration-300 text-center">
+                            View Documentation
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Visual -->
+                <div class="relative h-[400px] lg:h-[500px] w-full border border-slate-800 bg-slate-900/30 backdrop-blur-sm overflow-hidden group">
+                    <!-- Scanner Line -->
+                    <div class="absolute inset-x-0 h-[2px] bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.8)] z-20 animate-scan"></div>
+
+                    <!-- Map Content -->
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+                         alt="Satellite View"
+                         class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity scale-110 group-hover:scale-100 transition-transform duration-[20s]">
+
+                    <!-- SVG Overlay -->
+                    <svg class="absolute inset-0 w-full h-full z-10 opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0 50 Q 50 20 100 50" stroke="#22d3ee" stroke-width="0.2" fill="none" class="animate-pulse"/>
+                        <path d="M0 60 Q 50 30 100 60" stroke="#22d3ee" stroke-width="0.2" fill="none" class="animate-pulse" style="animation-delay: 1s"/>
+                        <circle cx="50" cy="50" r="20" stroke="#f59e0b" stroke-width="0.2" fill="none" stroke-dasharray="2 2" class="animate-spin-slow"/>
+                    </svg>
+
+                    <!-- Data Points -->
+                    <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400 rounded-full animate-ping"></div>
+                    <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400 rounded-full"></div>
+                    <div class="absolute top-2 left-2 bg-black/50 p-1 text-[10px] font-mono text-cyan-400 border border-cyan-400/30">
+                        REL: 89% <br> ALT: 4500m
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-slate-800 border border-slate-800">
+                <div class="bg-slate-950 p-6 group hover:bg-slate-900 transition-colors">
+                    <div class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-2 group-hover:text-cyan-400 transition-colors">Coverage</div>
+                    <div class="text-3xl font-bold text-white font-mono">98.4<span class="text-emerald-400">%</span></div>
+                </div>
+                <div class="bg-slate-950 p-6 group hover:bg-slate-900 transition-colors">
+                    <div class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-2 group-hover:text-cyan-400 transition-colors">Resolution</div>
+                    <div class="text-3xl font-bold text-white font-mono">0.5<span class="text-sm align-top text-slate-500">m</span></div>
+                </div>
+                <div class="bg-slate-950 p-6 group hover:bg-slate-900 transition-colors">
+                    <div class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-2 group-hover:text-cyan-400 transition-colors">Latency</div>
+                    <div class="text-3xl font-bold text-white font-mono">&lt;200<span class="text-sm align-top text-slate-500">ms</span></div>
+                </div>
+                <div class="bg-slate-950 p-6 group hover:bg-slate-900 transition-colors">
+                    <div class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-2 group-hover:text-cyan-400 transition-colors">Clients</div>
+                    <div class="text-3xl font-bold text-white font-mono">500<span class="text-emerald-400">+</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative z-10 border-t border-slate-800 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-slate-800 pb-8">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">CORE CAPABILITIES</h2>
+                    <p class="text-slate-400 max-w-md font-light">Advanced data acquisition and processing for complex environments.</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <a href="#" class="text-cyan-400 font-mono text-sm tracking-widest hover:text-white transition-colors flex items-center">
+                        FULL CATALOG
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative bg-slate-900 border border-slate-800 p-8 hover:border-cyan-400 transition-colors duration-300">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                    </div>
+                    <div class="text-cyan-400 font-mono text-xs tracking-widest mb-4">01 // AERIAL</div>
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">Lidar Scanning</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        High-density point clouds capturing sub-centimeter topographical details for urban planning and forestry.
+                    </p>
+                    <ul class="text-xs font-mono text-slate-500 space-y-2 border-t border-slate-800 pt-4">
+                        <li class="flex items-center"><span class="w-1 h-1 bg-emerald-400 mr-2"></span> 3D Terrain Modeling</li>
+                        <li class="flex items-center"><span class="w-1 h-1 bg-emerald-400 mr-2"></span> Vegetation Analysis</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-slate-900 border border-slate-800 p-8 hover:border-amber-500 transition-colors duration-300">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-12 h-12 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div class="text-amber-500 font-mono text-xs tracking-widest mb-4">02 // THERMAL</div>
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-amber-500 transition-colors">Infrared Analysis</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Detect heat signatures and energy inefficiencies across vast infrastructure networks with multi-spectral imaging.
+                    </p>
+                    <ul class="text-xs font-mono text-slate-500 space-y-2 border-t border-slate-800 pt-4">
+                        <li class="flex items-center"><span class="w-1 h-1 bg-amber-500 mr-2"></span> Energy Leak Detection</li>
+                        <li class="flex items-center"><span class="w-1 h-1 bg-amber-500 mr-2"></span> Resource Monitoring</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-slate-900 border border-slate-800 p-8 hover:border-emerald-400 transition-colors duration-300">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-12 h-12 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div class="text-emerald-400 font-mono text-xs tracking-widest mb-4">03 // GLOBAL</div>
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors">Satellite Telemetry</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Real-time orbital data integration providing macro-scale environmental monitoring and change detection.
+                    </p>
+                    <ul class="text-xs font-mono text-slate-500 space-y-2 border-t border-slate-800 pt-4">
+                        <li class="flex items-center"><span class="w-1 h-1 bg-cyan-400 mr-2"></span> Weather Pattern Tracking</li>
+                        <li class="flex items-center"><span class="w-1 h-1 bg-cyan-400 mr-2"></span> Urban Expansion Data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Interactive Section -->
+    <section id="data" class="py-24 relative z-10 bg-slate-900 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Left: Interactive UI -->
+                <div class="relative bg-slate-950 border border-slate-800 p-1" x-data="{ activeTab: 'topo' }">
+                    <!-- Tab Headers -->
+                    <div class="flex border-b border-slate-800">
+                        <button @click="activeTab = 'topo'" :class="{'bg-cyan-400/10 text-cyan-400 border-cyan-400': activeTab === 'topo', 'text-slate-500 border-transparent': activeTab !== 'topo'}" class="flex-1 py-3 text-xs font-mono tracking-widest uppercase border-b-2 transition-colors">Topography</button>
+                        <button @click="activeTab = 'heat'" :class="{'bg-amber-500/10 text-amber-500 border-amber-500': activeTab === 'heat', 'text-slate-500 border-transparent': activeTab !== 'heat'}" class="flex-1 py-3 text-xs font-mono tracking-widest uppercase border-b-2 transition-colors">Heat Map</button>
+                        <button @click="activeTab = 'hydro'" :class="{'bg-emerald-400/10 text-emerald-400 border-emerald-400': activeTab === 'hydro', 'text-slate-500 border-transparent': activeTab !== 'hydro'}" class="flex-1 py-3 text-xs font-mono tracking-widest uppercase border-b-2 transition-colors">Hydrology</button>
+                    </div>
+
+                    <!-- Display Area -->
+                    <div class="aspect-video relative overflow-hidden bg-slate-900">
+                        <!-- Topo View -->
+                        <div x-show="activeTab === 'topo'" class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1574786392508-b114093f6b95?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-luminosity">
+                            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <path d="M0 80 Q 50 60 100 80" stroke="#22d3ee" stroke-width="0.5" fill="none"/>
+                                <path d="M0 70 Q 50 50 100 70" stroke="#22d3ee" stroke-width="0.5" fill="none"/>
+                            </svg>
+                        </div>
+                         <!-- Heat View -->
+                         <div x-show="activeTab === 'heat'" class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-color-dodge grayscale">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/30 to-red-500/30 mix-blend-overlay"></div>
+                        </div>
+                        <!-- Hydro View -->
+                        <div x-show="activeTab === 'hydro'" class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1548102268-30113c544e36?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-luminosity">
+                             <div class="absolute inset-0 bg-gradient-to-t from-emerald-400/20 to-transparent"></div>
+                        </div>
+
+                        <!-- Data Overlays -->
+                        <div class="absolute bottom-4 left-4 bg-black/70 backdrop-blur px-3 py-2 border border-slate-700">
+                            <div class="text-[10px] font-mono text-cyan-400">COORD: 34.0522° N, 118.2437° W</div>
+                            <div class="text-[10px] font-mono text-slate-400">BUFFERING DATA... <span class="animate-pulse">|||</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Text -->
+                <div class="flex flex-col justify-center">
+                    <h2 class="text-3xl font-bold text-white mb-6">INTELLIGENT LAYERING</h2>
+                    <p class="text-slate-400 leading-relaxed mb-8 font-light">
+                        Our proprietary layering technology allows users to toggle between different data spectrums instantly. From geological stability to urban heat islands, {{COMPANY_NAME}} provides a multi-dimensional view of any coordinate on Earth.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center text-cyan-400 mr-4 shrink-0 font-mono text-xs">01</div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm mb-1 uppercase tracking-wide">Real-time Sync</h4>
+                                <p class="text-slate-500 text-sm">Data updated every 15 minutes via LEO satellite constellations.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center text-emerald-400 mr-4 shrink-0 font-mono text-xs">02</div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm mb-1 uppercase tracking-wide">API Integration</h4>
+                                <p class="text-slate-500 text-sm">Seamlessly integrate geospatial datasets into your enterprise software.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 pt-16 pb-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="text-2xl font-bold text-white font-mono tracking-tighter mb-4">{{COMPANY_NAME}}</div>
+                    <p class="text-slate-500 text-sm max-w-sm mb-6">
+                        Pioneering the future of geospatial intelligence. We map the world so you can build the future.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-400 transition-colors">
+                            <span class="sr-only">Twitter</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                        </a>
+                        <a href="#" class="w-8 h-8 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-400 transition-colors">
+                            <span class="sr-only">LinkedIn</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-mono text-sm tracking-widest uppercase mb-6">Sectors</h4>
+                    <ul class="space-y-3 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Urban Planning</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Agriculture</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Logistics</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Defense</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-mono text-sm tracking-widest uppercase mb-6">Company</h4>
+                    <ul class="space-y-3 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs font-mono text-slate-600">
+                <div>&copy; 2024 {{COMPANY_NAME}}. ALL RIGHTS RESERVED.</div>
+                <div class="mt-4 md:mt-0">SYSTEM STATUS: <span class="text-emerald-400">OPERATIONAL</span></div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
