@@ -1494,6 +1494,19 @@
         "Glow",
         "Industrial"
       ]
+    },
+    {
+      "id": "116",
+      "name": "Sterling Capital",
+      "category": "Investment Banking",
+      "style": "Neo-Traditional",
+      "path": "catalog/template_116_investment_banking_neo_traditional",
+      "description": "Timeless authority meets modern agility.",
+      "tags": [
+        "Finance",
+        "Corporate",
+        "Trust"
+      ]
     }
   ]
 }

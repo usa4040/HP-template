@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Premier Investment Banking</title>
+    <meta name="description" content="Global investment banking and asset management for the modern era. {{COMPANY_NAME}} combines traditional values with innovative financial strategies.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'sterling': {
+                            900: '#0f172a', /* Deep Navy */
+                            800: '#1e293b',
+                            700: '#334155',
+                            100: '#f1f5f9', /* Platinum */
+                            50: '#f8fafc',
+                        },
+                        'gold': {
+                            DEFAULT: '#C5A059',
+                            light: '#D4B87E',
+                            dark: '#A38446',
+                        }
+                    },
+                    boxShadow: {
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                        'gold': '0 0 15px rgba(197, 160, 89, 0.3)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'scroll': 'scroll 40s linear infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-sterling-50 text-sterling-900 font-sans antialiased selection:bg-gold selection:text-white" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav :class="scrolled ? 'bg-white shadow-md py-4' : 'bg-transparent py-6 text-white'" class="fixed w-full z-50 transition-all duration-500 top-0 left-0 border-b border-white/10">
+        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-serif text-2xl tracking-wide font-bold flex items-center gap-3 group">
+                <div class="w-10 h-10 border-2 flex items-center justify-center transition-colors duration-300" :class="scrolled ? 'border-sterling-900 text-sterling-900' : 'border-white text-white'">
+                    <span class="text-xl">S</span>
+                </div>
+                <span :class="scrolled ? 'text-sterling-900' : 'text-white'">{{COMPANY_NAME}}</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-10">
+                <a href="#expertise" class="text-xs uppercase tracking-[0.2em] hover:text-gold transition-colors duration-300" :class="scrolled ? 'text-sterling-700' : 'text-white/80'">Expertise</a>
+                <a href="#philosophy" class="text-xs uppercase tracking-[0.2em] hover:text-gold transition-colors duration-300" :class="scrolled ? 'text-sterling-700' : 'text-white/80'">Philosophy</a>
+                <a href="#insights" class="text-xs uppercase tracking-[0.2em] hover:text-gold transition-colors duration-300" :class="scrolled ? 'text-sterling-700' : 'text-white/80'">Insights</a>
+                <a href="#contact" class="px-6 py-2 border transition-all duration-300 text-xs font-bold uppercase tracking-widest hover:bg-gold hover:border-gold hover:text-white" :class="scrolled ? 'border-sterling-900 text-sterling-900' : 'border-white text-white'">
+                    Client Portal
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden focus:outline-none">
+                <svg class="w-8 h-8 transition-colors" :class="scrolled ? 'text-sterling-900' : 'text-white'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-x-full"
+             x-transition:enter-end="opacity-100 translate-x-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-x-0"
+             x-transition:leave-end="opacity-0 translate-x-full"
+             class="absolute top-0 right-0 w-full h-screen bg-sterling-900 z-50 flex flex-col items-center justify-center space-y-8 lg:hidden">
+
+            <button @click="mobileMenuOpen = false" class="absolute top-6 right-6 text-white/50 hover:text-white">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <a @click="mobileMenuOpen = false" href="#expertise" class="font-serif text-3xl text-white hover:text-gold italic transition-colors">Expertise</a>
+            <a @click="mobileMenuOpen = false" href="#philosophy" class="font-serif text-3xl text-white hover:text-gold italic transition-colors">Philosophy</a>
+            <a @click="mobileMenuOpen = false" href="#insights" class="font-serif text-3xl text-white hover:text-gold italic transition-colors">Insights</a>
+            <a @click="mobileMenuOpen = false" href="#contact" class="px-8 py-3 border border-white text-white hover:bg-gold hover:border-gold hover:text-white transition-all uppercase tracking-widest text-sm">Client Portal</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2070&q=80" alt="Financial District" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-sterling-900/60 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-sterling-900 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 text-center">
+            <div class="inline-block mb-6 px-4 py-1 border border-white/30 backdrop-blur-sm rounded-full animate-fade-in-up" style="animation-delay: 0.1s;">
+                <span class="text-white/80 text-xs uppercase tracking-[0.3em]">Established 1984</span>
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white leading-tight mb-8 animate-fade-in-up" style="animation-delay: 0.3s;">
+                Preserving Legacy.<br>
+                <span class="text-gold italic">Engineering Growth.</span>
+            </h1>
+            <p class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed animate-fade-in-up" style="animation-delay: 0.5s;">
+                We provide bespoke financial strategies for institutions and ultra-high-net-worth individuals, navigating complex markets with disciplined precision.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 animate-fade-in-up" style="animation-delay: 0.7s;">
+                <a href="#contact" class="px-10 py-4 bg-gold text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-sterling-900 transition-all duration-300 min-w-[200px]">
+                    Partner With Us
+                </a>
+                <a href="#expertise" class="px-10 py-4 border border-white/30 text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-sterling-900 transition-all duration-300 backdrop-blur-sm min-w-[200px]">
+                    Explore Services
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Line -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 h-24 w-[1px] bg-gradient-to-b from-transparent via-white/50 to-white"></div>
+    </header>
+
+    <!-- Market Ticker -->
+    <div class="bg-sterling-900 text-white py-3 border-y border-white/10 overflow-hidden relative z-20">
+        <div class="flex animate-scroll whitespace-nowrap hover:[animation-play-state:paused]">
+            <!-- Ticker Items (Duplicated for seamless loop) -->
+            <template x-for="i in 2">
+                <div class="flex items-center">
+                    <div class="flex items-center space-x-12 px-6">
+                        <span class="text-xs font-mono tracking-widest text-gray-400">MARKET DATA <span class="text-gold">●</span> LIVE</span>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">S&P 500</span> <span class="text-green-400 text-xs">▲ 1.24%</span></div>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">NASDAQ</span> <span class="text-green-400 text-xs">▲ 0.89%</span></div>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">DOW JONES</span> <span class="text-red-400 text-xs">▼ 0.12%</span></div>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">FTSE 100</span> <span class="text-green-400 text-xs">▲ 0.45%</span></div>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">NIKKEI 225</span> <span class="text-green-400 text-xs">▲ 1.05%</span></div>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">GOLD</span> <span class="text-gold text-xs">▲ 0.30%</span></div>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">CRUDE OIL</span> <span class="text-red-400 text-xs">▼ 0.50%</span></div>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">BTC</span> <span class="text-green-400 text-xs">▲ 2.15%</span></div>
+                        <div class="flex items-center gap-2"><span class="font-bold text-sm">EUR/USD</span> <span class="text-gray-400 text-xs">0.00%</span></div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-gray-100" x-data="{ shown: false }" x-intersect.once="shown = true">
+                <div class="p-6">
+                    <p class="text-gold text-xs font-bold uppercase tracking-[0.2em] mb-4">Assets Under Management</p>
+                    <h3 class="font-serif text-5xl md:text-6xl text-sterling-900 mb-2">
+                        $<span x-text="shown ? '42' : '0'" class="transition-all duration-1000 ease-out">42</span>B+
+                    </h3>
+                    <p class="text-gray-500 font-light italic">Global diversification</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gold text-xs font-bold uppercase tracking-[0.2em] mb-4">Years of Excellence</p>
+                    <h3 class="font-serif text-5xl md:text-6xl text-sterling-900 mb-2">
+                        <span x-text="shown ? '40' : '0'" class="transition-all duration-1000 ease-out">40</span>
+                    </h3>
+                    <p class="text-gray-500 font-light italic">Established 1984</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gold text-xs font-bold uppercase tracking-[0.2em] mb-4">Countries Served</p>
+                    <h3 class="font-serif text-5xl md:text-6xl text-sterling-900 mb-2">
+                        <span x-text="shown ? '24' : '0'" class="transition-all duration-1000 ease-out">24</span>
+                    </h3>
+                    <p class="text-gray-500 font-light italic">Cross-border expertise</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy / About -->
+    <section id="philosophy" class="py-24 bg-sterling-50 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-gold"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-gold"></div>
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1932&q=80" alt="Executive Meeting" class="w-full h-auto shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+                <div>
+                    <h4 class="text-gold font-bold text-xs uppercase tracking-[0.3em] mb-6">Our Philosophy</h4>
+                    <h2 class="font-serif text-4xl md:text-5xl text-sterling-900 leading-tight mb-8">
+                        The discipline to see <br> <span class="italic text-sterling-700">beyond the horizon.</span>
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed mb-6 font-light text-lg">
+                        In a world of volatility, true wealth requires a steady hand. At {{COMPANY_NAME}}, we believe in the power of long-term strategic thinking combined with rigorous analytical depth.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-10 font-light text-lg">
+                        Our approach is rooted in capital preservation, while identifying asymmetric opportunities for growth that others overlook. We are not just bankers; we are stewards of your legacy.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-sterling-900 border-b border-sterling-900 pb-1 text-xs font-bold uppercase tracking-widest hover:text-gold hover:border-gold transition-colors">
+                        Read Chairman's Letter
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-24 bg-sterling-900 text-white relative">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-sterling-800/50"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="mb-20 max-w-3xl">
+                <h4 class="text-gold font-bold text-xs uppercase tracking-[0.3em] mb-6">Core Competencies</h4>
+                <h2 class="font-serif text-4xl md:text-6xl leading-tight">
+                    Comprehensive financial solutions for a complex world.
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group bg-sterling-800 p-10 border border-white/5 hover:border-gold/50 transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-0 bg-gold group-hover:h-full transition-all duration-500"></div>
+                    <div class="mb-8 text-gold opacity-50 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-4 group-hover:text-gold transition-colors">Private Wealth</h3>
+                    <p class="text-gray-400 font-light leading-relaxed mb-8">
+                        Holistic wealth management strategies designed to protect assets and transfer legacy across generations.
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>Estate Planning</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>Tax Optimization</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>Philanthropy</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-sterling-800 p-10 border border-white/5 hover:border-gold/50 transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-0 bg-gold group-hover:h-full transition-all duration-500"></div>
+                    <div class="mb-8 text-gold opacity-50 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-4 group-hover:text-gold transition-colors">Investment Banking</h3>
+                    <p class="text-gray-400 font-light leading-relaxed mb-8">
+                        Strategic advisory for mergers, acquisitions, and capital raising. We navigate the deal so you can focus on the vision.
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>M&A Advisory</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>Capital Markets</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>Restructuring</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-sterling-800 p-10 border border-white/5 hover:border-gold/50 transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-0 bg-gold group-hover:h-full transition-all duration-500"></div>
+                    <div class="mb-8 text-gold opacity-50 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-4 group-hover:text-gold transition-colors">Asset Management</h3>
+                    <p class="text-gray-400 font-light leading-relaxed mb-8">
+                        Institutional-grade investment strategies utilizing rigorous quantitative and qualitative analysis.
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>Equities & Fixed Income</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>Alternative Investments</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-gold rounded-full mr-3"></span>ESG Portfolios</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Insights -->
+    <section id="insights" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <h4 class="text-gold font-bold text-xs uppercase tracking-[0.3em] mb-4">Market Intelligence</h4>
+                    <h2 class="font-serif text-4xl text-sterling-900">Latest Insights</h2>
+                </div>
+                <a href="#" class="hidden md:block px-8 py-3 border border-sterling-200 text-sterling-900 text-xs font-bold uppercase tracking-widest hover:border-sterling-900 transition-colors">
+                    View All Research
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Insight 1 -->
+                <article class="group cursor-pointer">
+                    <div class="overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=2069&q=80" alt="Market Graph" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <p class="text-xs text-gold font-bold uppercase tracking-widest mb-3">Global Markets</p>
+                    <h3 class="font-serif text-2xl text-sterling-900 mb-3 group-hover:text-gold transition-colors">Navigating the Interest Rate Pivot</h3>
+                    <p class="text-gray-500 font-light mb-4 line-clamp-3">
+                        As central banks signal a shift in monetary policy, we analyze the implications for fixed income and equity valuations across developed markets.
+                    </p>
+                    <span class="text-xs text-sterling-900 font-bold uppercase tracking-widest border-b border-transparent group-hover:border-sterling-900 transition-all">Read Report</span>
+                </article>
+
+                <!-- Insight 2 -->
+                <article class="group cursor-pointer">
+                    <div class="overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2070&q=80" alt="Planning" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <p class="text-xs text-gold font-bold uppercase tracking-widest mb-3">Wealth Strategy</p>
+                    <h3 class="font-serif text-2xl text-sterling-900 mb-3 group-hover:text-gold transition-colors">The Great Wealth Transfer</h3>
+                    <p class="text-gray-500 font-light mb-4 line-clamp-3">
+                        Preparing the next generation for stewardship. A comprehensive guide to governance, education, and structure for family offices.
+                    </p>
+                    <span class="text-xs text-sterling-900 font-bold uppercase tracking-widest border-b border-transparent group-hover:border-sterling-900 transition-all">Read Report</span>
+                </article>
+
+                <!-- Insight 3 -->
+                <article class="group cursor-pointer">
+                    <div class="overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1965&q=80" alt="Tech" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <p class="text-xs text-gold font-bold uppercase tracking-widest mb-3">Sector Focus</p>
+                    <h3 class="font-serif text-2xl text-sterling-900 mb-3 group-hover:text-gold transition-colors">AI in Fintech: A Rational View</h3>
+                    <p class="text-gray-500 font-light mb-4 line-clamp-3">
+                        Beyond the hype: identifying tangible value creation and risk vectors in the rapid adoption of artificial intelligence in financial services.
+                    </p>
+                    <span class="text-xs text-sterling-900 font-bold uppercase tracking-widest border-b border-transparent group-hover:border-sterling-900 transition-all">Read Report</span>
+                </article>
+            </div>
+
+            <div class="mt-12 text-center md:hidden">
+                 <a href="#" class="inline-block px-8 py-3 border border-sterling-200 text-sterling-900 text-xs font-bold uppercase tracking-widest hover:border-sterling-900 transition-colors">
+                    View All Research
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="py-24 bg-sterling-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-sterling-800 to-transparent opacity-30"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-5xl mx-auto bg-white shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <!-- Contact Info -->
+                <div class="w-full md:w-5/12 bg-sterling-100 p-12 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-serif text-3xl text-sterling-900 mb-8">Contact Us</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">Headquarters</p>
+                                <p class="text-sterling-900">100 Financial District Blvd,<br>New York, NY 10005</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">Phone</p>
+                                <p class="text-sterling-900">+1 (212) 555-0199</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">Email</p>
+                                <p class="text-sterling-900">clients@{{COMPANY_NAME}}.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12">
+                        <p class="text-xs text-gray-400 italic">"Trust is the currency of our business."</p>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="w-full md:w-7/12 p-12 bg-white">
+                    <h3 class="font-serif text-2xl text-sterling-900 mb-6">Request a Consultation</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">First Name</label>
+                                <input type="text" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-gold transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Last Name</label>
+                                <input type="text" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-gold transition-colors">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
+                            <input type="email" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-gold transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Area of Interest</label>
+                            <select class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-gold transition-colors bg-transparent">
+                                <option>Wealth Management</option>
+                                <option>Investment Banking</option>
+                                <option>Institutional Sales</option>
+                            </select>
+                        </div>
+                        <div class="pt-4">
+                            <button class="px-8 py-3 bg-sterling-900 text-white font-bold text-xs uppercase tracking-widest hover:bg-gold transition-colors w-full md:w-auto">
+                                Submit Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-sterling-900 text-white pt-20 pb-10 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="font-serif text-2xl font-bold flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 border border-white flex items-center justify-center">
+                            <span class="text-sm">S</span>
+                        </div>
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Services</h4>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><a href="#" class="hover:text-gold transition-colors">Private Wealth</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Investment Banking</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Asset Management</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Research</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Company</h4>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><a href="#" class="hover:text-gold transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Leadership</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><a href="#" class="hover:text-gold transition-colors">Terms of Use</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Regulatory Disclosures</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Form CRS</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-10 text-xs text-gray-500 space-y-4">
+                <p>
+                    Investment products: Are not FDIC Insured • Are not Bank Guaranteed • May Lose Value
+                </p>
+                <p>
+                    {{COMPANY_NAME}} is a registered trademark. © 2024 {{COMPANY_NAME}} & Co. All rights reserved. Member SIPC. NYSE: SCAP.
+                </p>
+                <p class="leading-relaxed opacity-70">
+                    Past performance is not indicative of future results. The information provided on this website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Investing involves risk, including the possible loss of principal. Please consult with your financial advisor before making any investment decisions.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
