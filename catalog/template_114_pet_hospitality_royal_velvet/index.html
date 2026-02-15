@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Royal Feline Hospitality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        royal: {
+                            950: '#0f050a',
+                            900: '#1a0b14', // Deep velvet base
+                            800: '#2e1424', // Lighter velvet
+                            700: '#451e36',
+                        },
+                        gold: {
+                            100: '#fcf9e3',
+                            200: '#f8f0c2',
+                            300: '#f0df91',
+                            400: '#e6c85e',
+                            500: '#d4af37', // Standard Gold
+                            600: '#aa8926',
+                            700: '#80631c',
+                        },
+                        cream: '#f5f5f0',
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'velvet-pattern': "url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop')", // Abstract dark texture
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .gold-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .text-gradient-gold {
+            background: linear-gradient(to right, #f8f0c2, #d4af37, #f8f0c2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 4s linear infinite;
+        }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+    </style>
+</head>
+<body class="bg-royal-900 text-cream font-sans antialiased selection:bg-gold-500 selection:text-royal-900 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)"
+         :class="{'bg-royal-900/95 backdrop-blur-md border-b border-gold-500/30': scrolled, 'bg-transparent': !scrolled}"
+         class="fixed w-full z-50 transition-all duration-300 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl md:text-3xl font-bold tracking-wider text-gold-400">
+                <span class="text-gold-200">⚜</span> {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#suites" class="text-gold-100 hover:text-gold-400 transition tracking-wide text-sm uppercase">Suites</a>
+                <a href="#services" class="text-gold-100 hover:text-gold-400 transition tracking-wide text-sm uppercase">Services</a>
+                <a href="#gallery" class="text-gold-100 hover:text-gold-400 transition tracking-wide text-sm uppercase">Gallery</a>
+                <a href="#booking" class="px-6 py-2 border border-gold-500 text-gold-400 hover:bg-gold-500 hover:text-royal-900 transition duration-300 rounded-sm uppercase text-xs tracking-widest font-bold">
+                    Book Stay
+                </a>
+            </div>
+
+            <!-- Mobile Button -->
+            <button @click="open = !open" class="md:hidden text-gold-400 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-collapse @click.away="open = false" class="md:hidden bg-royal-900 border-b border-gold-500/30">
+            <div class="flex flex-col p-6 space-y-4 text-center">
+                <a href="#suites" @click="open = false" class="text-gold-100 hover:text-gold-400 py-2 border-b border-royal-700">Suites</a>
+                <a href="#services" @click="open = false" class="text-gold-100 hover:text-gold-400 py-2 border-b border-royal-700">Services</a>
+                <a href="#gallery" @click="open = false" class="text-gold-100 hover:text-gold-400 py-2 border-b border-royal-700">Gallery</a>
+                <a href="#booking" @click="open = false" class="text-gold-400 font-bold py-2">Book Stay</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2043&auto=format&fit=crop" alt="Majestic Cat" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-b from-royal-900/70 via-royal-900/40 to-royal-900"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p class="text-gold-300 tracking-[0.3em] uppercase text-sm md:text-base mb-4 opacity-0 transition-opacity duration-1000 delay-300" :class="{'opacity-100': show}">
+                Exclusively for the Feline Elite
+            </p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-gradient-gold mb-6 opacity-0 transition-all duration-1000 transform translate-y-10" :class="{'opacity-100 translate-y-0': show}">
+                Royal Treatment<br>Awaits
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 font-light mb-10 max-w-2xl mx-auto opacity-0 transition-all duration-1000 delay-500" :class="{'opacity-100': show}">
+                Experience the world's finest luxury hotel dedicated entirely to the comfort, dignity, and delight of your beloved cat.
+            </p>
+            <div class="opacity-0 transition-all duration-1000 delay-700" :class="{'opacity-100': show}">
+                <a href="#booking" class="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-serif font-medium tracking-tighter text-white bg-royal-800 rounded-sm border border-gold-500/50 shadow-lg hover:shadow-gold-500/20 transition duration-300 ease-out">
+                    <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-gold-600 rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+                    <span class="relative text-gold-200 group-hover:text-white transition-colors duration-300 text-lg">Reserve a Suite</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    <section class="py-20 md:py-32 bg-royal-900 relative">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-2 bg-gradient-to-r from-gold-600 to-royal-700 rounded-sm opacity-30 blur-lg group-hover:opacity-50 transition duration-500"></div>
+                <img src="https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?q=80&w=1935&auto=format&fit=crop" alt="Cat lounging" class="relative rounded-sm shadow-2xl border border-gold-500/20 w-full h-[500px] object-cover filter sepia-[0.2] contrast-125">
+                <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-royal-800 border border-gold-500/30 p-6 flex flex-col justify-center items-center text-center shadow-xl hidden md:flex">
+                    <span class="font-serif text-4xl text-gold-400 font-bold block mb-1">5★</span>
+                    <span class="text-xs uppercase tracking-widest text-slate-400">Hospitality Rating</span>
+                </div>
+            </div>
+            <div class="md:pl-10">
+                <h2 class="font-serif text-4xl md:text-5xl text-gold-100 mb-6 leading-tight">Where Every Guest<br>Is Royalty.</h2>
+                <div class="w-20 h-1 bg-gold-500 mb-8"></div>
+                <p class="text-slate-300 leading-relaxed mb-6 font-light text-lg">
+                    At {{COMPANY_NAME}}, we understand that cats are not merely pets; they are sovereign rulers of the household. Our facility is designed to meet the exacting standards of the most discerning felines.
+                </p>
+                <p class="text-slate-300 leading-relaxed mb-8 font-light text-lg">
+                    From climate-controlled suites draped in velvet to a gourmet menu prepared by veterinary nutritionists, every detail is curated to ensure stress-free opulence.
+                </p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center text-gold-200">
+                        <span class="text-gold-500 mr-3">✦</span> 24/7 Veterinary Supervision
+                    </li>
+                    <li class="flex items-center text-gold-200">
+                        <span class="text-gold-500 mr-3">✦</span> Individual Climate Control
+                    </li>
+                    <li class="flex items-center text-gold-200">
+                        <span class="text-gold-500 mr-3">✦</span> Soundproofed Relaxation Zones
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suites Carousel -->
+    <section id="suites" class="py-20 bg-royal-800 relative border-t border-b border-gold-500/10">
+        <div class="container mx-auto px-6 mb-12 text-center">
+            <span class="text-gold-500 uppercase tracking-[0.2em] text-sm">Accommodations</span>
+            <h2 class="font-serif text-4xl md:text-5xl text-white mt-2">The Royal Chambers</h2>
+        </div>
+
+        <div x-data="{
+            active: 0,
+            slides: [
+                {
+                    title: 'The Viscount Suite',
+                    desc: 'A cozy yet elegant retreat featuring a plush window perch, orthopedic bedding, and soothing ambient music.',
+                    price: '$85 / Night',
+                    img: 'https://images.unsplash.com/photo-1513245543132-31f507417b26?q=80&w=1935&auto=format&fit=crop'
+                },
+                {
+                    title: 'The Duchess Penthouse',
+                    desc: 'Spacious multi-level living with a private scratching post tower, filtered water fountain, and bird-watching TV.',
+                    price: '$140 / Night',
+                    img: 'https://images.unsplash.com/photo-1535241556843-adbd92c4e67d?q=80&w=2148&auto=format&fit=crop'
+                },
+                {
+                    title: 'The Imperial Estate',
+                    desc: 'Our masterpiece. An entire room dedicated to one guest, featuring a queen-sized human bed, aquarium view, and personal butler.',
+                    price: '$250 / Night',
+                    img: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=2070&auto=format&fit=crop'
+                }
+            ]
+        }" class="relative max-w-6xl mx-auto px-6">
+
+            <!-- Carousel Container -->
+            <div class="relative overflow-hidden rounded-sm shadow-2xl border border-gold-500/20 bg-royal-900 aspect-[16/9] md:aspect-[21/9]">
+                <template x-for="(slide, index) in slides" :key="index">
+                    <div x-show="active === index"
+                         x-transition:enter="transition transform duration-700 ease-out"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:leave="transition transform duration-300 ease-in"
+                         x-transition:leave-start="opacity-100 scale-100"
+                         x-transition:leave-end="opacity-0 scale-95"
+                         class="absolute inset-0 w-full h-full flex flex-col md:flex-row">
+
+                        <!-- Image Side -->
+                        <div class="w-full md:w-3/5 h-64 md:h-full relative overflow-hidden">
+                            <img :src="slide.img" class="w-full h-full object-cover transition duration-1000 hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-royal-900 md:hidden"></div>
+                        </div>
+
+                        <!-- Text Side -->
+                        <div class="w-full md:w-2/5 p-8 md:p-12 flex flex-col justify-center bg-royal-900/90 backdrop-blur-sm md:bg-royal-900 border-l border-gold-500/10">
+                            <h3 x-text="slide.title" class="font-serif text-3xl text-gold-200 mb-4"></h3>
+                            <p x-text="slide.desc" class="text-slate-400 font-light leading-relaxed mb-6"></p>
+                            <div class="mt-auto">
+                                <p class="text-gold-400 font-serif text-xl italic mb-4" x-text="slide.price"></p>
+                                <button class="px-6 py-2 border border-slate-600 text-slate-300 hover:border-gold-500 hover:text-gold-400 transition uppercase text-xs tracking-widest">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex justify-center mt-8 space-x-4">
+                <template x-for="(slide, index) in slides" :key="index">
+                    <button @click="active = index"
+                            :class="{'bg-gold-500 w-8': active === index, 'bg-royal-700 w-2 hover:bg-gold-500/50': active !== index}"
+                            class="h-2 rounded-full transition-all duration-300"></button>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section id="services" class="py-20 bg-royal-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-gold-500 uppercase tracking-[0.2em] text-sm">Amenities</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-white mt-2">Curated Experiences</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="p-8 border border-royal-800 bg-royal-950/50 hover:border-gold-500/30 transition duration-300 group rounded-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <svg class="w-24 h-24 text-gold-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.22-7.52-1.72 5.91-5.91-8.48 3.69 7.38 1.63-4.8 5.53z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-gold-200 mb-4 relative z-10">Gourmet Dining</h3>
+                    <p class="text-slate-400 font-light relative z-10">Chef-prepared meals featuring organic salmon, grass-fed beef, and catnip-infused glazes.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="p-8 border border-royal-800 bg-royal-950/50 hover:border-gold-500/30 transition duration-300 group rounded-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <svg class="w-24 h-24 text-gold-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-gold-200 mb-4 relative z-10">Spa Treatments</h3>
+                    <p class="text-slate-400 font-light relative z-10">From warm towel wraps to gentle brushing sessions and paw massages.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="p-8 border border-royal-800 bg-royal-950/50 hover:border-gold-500/30 transition duration-300 group rounded-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                         <svg class="w-24 h-24 text-gold-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-gold-200 mb-4 relative z-10">Live Connect</h3>
+                    <p class="text-slate-400 font-light relative z-10">24/7 HD webcam access to your suite so you can check on your royalty from anywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery (Masonry) -->
+    <section id="gallery" class="py-20 bg-royal-800">
+        <div class="container mx-auto px-6">
+            <div class="columns-1 md:columns-3 gap-6 space-y-6">
+                <div class="relative group overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?q=80&w=1780&auto=format&fit=crop" class="w-full h-auto object-cover transform transition duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gold-900/20 group-hover:bg-transparent transition"></div>
+                </div>
+                <div class="relative group overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?q=80&w=2069&auto=format&fit=crop" class="w-full h-auto object-cover transform transition duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+                <div class="relative group overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?q=80&w=2070&auto=format&fit=crop" class="w-full h-auto object-cover transform transition duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+                <div class="relative group overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=80&w=2070&auto=format&fit=crop" class="w-full h-auto object-cover transform transition duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+                <div class="relative group overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1529778873920-4da4926a7071?q=80&w=1887&auto=format&fit=crop" class="w-full h-auto object-cover transform transition duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+                <div class="relative group overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1935&auto=format&fit=crop" class="w-full h-auto object-cover transform transition duration-700 group-hover:scale-110 grayscale hover:grayscale-0">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-24 bg-royal-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-felt.png')] opacity-20"></div>
+        <div class="container mx-auto px-6 relative z-10 max-w-4xl">
+            <div class="border border-gold-500/30 p-8 md:p-12 bg-royal-950/80 backdrop-blur-md shadow-2xl rounded-sm">
+                <div class="text-center mb-10">
+                    <h2 class="font-serif text-4xl text-gold-200">Reserve a Stay</h2>
+                    <p class="text-slate-400 mt-2 font-light">Allow us to prepare the palace for your arrival.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gold-500 text-xs uppercase tracking-widest mb-2">Guest Name (Cat)</label>
+                            <input type="text" class="w-full bg-royal-900 border border-royal-700 text-gold-100 p-3 focus:outline-none focus:border-gold-500 transition rounded-sm placeholder-slate-600" placeholder="e.g. Sir Fluffington">
+                        </div>
+                        <div>
+                            <label class="block text-gold-500 text-xs uppercase tracking-widest mb-2">Owner Name</label>
+                            <input type="text" class="w-full bg-royal-900 border border-royal-700 text-gold-100 p-3 focus:outline-none focus:border-gold-500 transition rounded-sm placeholder-slate-600" placeholder="Your Name">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gold-500 text-xs uppercase tracking-widest mb-2">Check-in</label>
+                            <input type="date" class="w-full bg-royal-900 border border-royal-700 text-slate-300 p-3 focus:outline-none focus:border-gold-500 transition rounded-sm">
+                        </div>
+                        <div>
+                            <label class="block text-gold-500 text-xs uppercase tracking-widest mb-2">Suite Preference</label>
+                            <select class="w-full bg-royal-900 border border-royal-700 text-slate-300 p-3 focus:outline-none focus:border-gold-500 transition rounded-sm">
+                                <option>The Viscount Suite</option>
+                                <option>The Duchess Penthouse</option>
+                                <option>The Imperial Estate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gold-500 text-xs uppercase tracking-widest mb-2">Special Requests</label>
+                        <textarea class="w-full bg-royal-900 border border-royal-700 text-gold-100 p-3 focus:outline-none focus:border-gold-500 transition rounded-sm placeholder-slate-600 h-32" placeholder="Dietary needs, favorite toys, or regal titles to be used..."></textarea>
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <button type="button" class="px-10 py-4 bg-gold-600 text-royal-900 font-serif font-bold text-lg tracking-wide hover:bg-gold-500 transition duration-300 shadow-lg shadow-gold-500/20 rounded-sm w-full md:w-auto">
+                            Confirm Reservation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-royal-950 border-t border-gold-900/50 pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-1">
+                    <a href="#" class="font-serif text-3xl font-bold text-gold-400 block mb-6">
+                        <span class="text-gold-200">⚜</span> {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Setting the gold standard in feline hospitality. Where luxury meets purrfection.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-gold-200 font-serif text-lg mb-6">Contact</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm font-light">
+                        <li>123 Velvet Lane, Beverly Hills</li>
+                        <li>{{PHONE}}</li>
+                        <li>concierge@{{COMPANY_NAME}}.com</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-gold-200 font-serif text-lg mb-6">Menu</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm font-light">
+                        <li><a href="#" class="hover:text-gold-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-gold-400 transition">Accommodations</a></li>
+                        <li><a href="#" class="hover:text-gold-400 transition">Spa Services</a></li>
+                        <li><a href="#" class="hover:text-gold-400 transition">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-gold-200 font-serif text-lg mb-6">Newsletter</h4>
+                    <div class="flex">
+                        <input type="email" placeholder="Email Address" class="bg-royal-900 border border-royal-800 text-slate-300 px-4 py-2 w-full text-sm focus:outline-none focus:border-gold-600">
+                        <button class="bg-gold-600 text-royal-900 px-4 py-2 hover:bg-gold-500 transition">
+                            →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-royal-900 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-600 text-xs">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-gold-500 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-gold-500 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

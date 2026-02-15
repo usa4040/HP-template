@@ -1468,6 +1468,19 @@
         "Nature",
         "Sustainable"
       ]
+    },
+    {
+      "id": "114",
+      "name": "Purrfect Palace",
+      "category": "Pet Hospitality",
+      "style": "Royal Velvet",
+      "path": "catalog/template_114_pet_hospitality_royal_velvet",
+      "description": "Gold & velvet feline luxury.",
+      "tags": [
+        "Luxury",
+        "Cat",
+        "Velvet"
+      ]
     }
   ]
 }
