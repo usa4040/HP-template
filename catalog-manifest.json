@@ -1416,6 +1416,19 @@
         "Tactical",
         "Secure"
       ]
+    },
+    {
+      "id": "110",
+      "name": "Sahara Sanctuary",
+      "category": "Desert Resort",
+      "style": "Mirage",
+      "path": "catalog/template_110_desert_resort_mirage",
+      "description": "Warm oasis with heat haze.",
+      "tags": [
+        "Travel",
+        "Luxury",
+        "Warm"
+      ]
     }
   ]
 }
