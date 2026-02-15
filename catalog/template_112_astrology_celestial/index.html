@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Celestial Guidance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#0f0c29',
+                        mystic: {
+                            100: '#e0c3fc',
+                            500: '#8e44ad',
+                            900: '#2c0448',
+                        },
+                        starlight: '#fdf6e3',
+                        gold: '#ffd700',
+                    },
+                    fontFamily: {
+                        display: ['"Cinzel Decorative"', 'serif'],
+                        body: ['"Lato"', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 60s linear infinite',
+                        'twinkle': 'twinkle 4s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        twinkle: {
+                            '0%, 100%': { opacity: 0.2, transform: 'scale(0.8)' },
+                            '50%': { opacity: 1, transform: 'scale(1.2)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        .star-bg {
+            background-image:
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-starlight font-body selection:bg-mystic-500 selection:text-white overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrollAtTop: true }" @scroll.window="scrollAtTop = (window.pageYOffset < 20)">
+
+    <!-- Background Stars -->
+    <div class="fixed inset-0 pointer-events-none star-bg opacity-30 z-0"></div>
+
+    <!-- Navigation -->
+    <nav :class="{ 'bg-slate-950/90 shadow-lg': !scrollAtTop, 'bg-transparent': scrollAtTop }" class="fixed w-full z-50 transition-all duration-300 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <svg class="h-8 w-8 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <span class="font-display text-2xl font-bold tracking-wider text-amber-100">{{COMPANY_NAME}}</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#horoscope" class="text-sm uppercase tracking-widest hover:text-amber-200 transition-colors">Horoscope</a>
+                    <a href="#services" class="text-sm uppercase tracking-widest hover:text-amber-200 transition-colors">Readings</a>
+                    <a href="#about" class="text-sm uppercase tracking-widest hover:text-amber-200 transition-colors">The Oracle</a>
+                    <a href="#contact" class="px-6 py-2 border border-amber-200/50 text-amber-200 hover:bg-amber-200 hover:text-slate-900 transition-all duration-300 text-sm uppercase tracking-widest">Book Now</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-amber-100 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden glass absolute w-full border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 bg-slate-900/95 backdrop-blur-xl">
+                <a href="#horoscope" @click="mobileMenuOpen = false" class="block px-3 py-4 text-center text-sm uppercase tracking-widest hover:text-amber-200">Horoscope</a>
+                <a href="#services" @click="mobileMenuOpen = false" class="block px-3 py-4 text-center text-sm uppercase tracking-widest hover:text-amber-200">Readings</a>
+                <a href="#about" @click="mobileMenuOpen = false" class="block px-3 py-4 text-center text-sm uppercase tracking-widest hover:text-amber-200">The Oracle</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block px-3 py-4 text-center text-amber-200 font-bold border border-amber-200/30 mt-4">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Radial Gradient Background -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-mystic-900/40 via-slate-950 to-slate-950 z-0"></div>
+
+        <!-- Zodiac Wheel Animation -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
+             <svg class="w-[800px] h-[800px] animate-spin-slow text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.2">
+                <circle cx="50" cy="50" r="48" stroke-dasharray="2 2" />
+                <circle cx="50" cy="50" r="35" stroke-dasharray="1 3" />
+                <path d="M50 2 L50 98 M2 50 L98 50 M16 16 L84 84 M84 16 L16 84" stroke-opacity="0.5" />
+                <!-- Zodiac Symbols (Abstract representations) -->
+                <circle cx="50" cy="5" r="1.5" fill="currentColor" />
+                <circle cx="95" cy="50" r="1.5" fill="currentColor" />
+                <circle cx="50" cy="95" r="1.5" fill="currentColor" />
+                <circle cx="5" cy="50" r="1.5" fill="currentColor" />
+             </svg>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center space-y-8">
+            <div class="inline-block animate-float">
+                <span class="text-amber-200 uppercase tracking-[0.3em] text-xs font-bold border-b border-amber-200/30 pb-2">Align Your Destiny</span>
+            </div>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl leading-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-amber-100 to-amber-500/50 drop-shadow-2xl">
+                Celestial<br/><span class="text-amber-200/90 italic">Wisdom</span>
+            </h1>
+            <p class="font-body text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-light">
+                Unlock the secrets written in the stars. {{COMPANY_NAME}} offers profound astrological insights and tarot guidance to illuminate your path.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6 pt-8">
+                <a href="#services" class="group relative px-8 py-4 bg-amber-200/10 border border-amber-200/50 hover:bg-amber-200 hover:text-slate-900 transition-all duration-500">
+                    <span class="font-display uppercase tracking-widest text-sm relative z-10">Explore Services</span>
+                    <div class="absolute inset-0 bg-amber-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                </a>
+                <a href="#horoscope" class="px-8 py-4 border border-white/10 text-white hover:border-white/50 transition-all duration-300">
+                    <span class="font-display uppercase tracking-widest text-sm">Daily Insight</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Insight Section -->
+    <section id="horoscope" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl text-amber-100 mb-4">Cosmic Currents</h2>
+                <div class="w-24 h-px bg-gradient-to-r from-transparent via-amber-200 to-transparent mx-auto"></div>
+                <p class="mt-4 text-slate-400 font-light">Today's planetary alignment energies</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Sun Card -->
+                <div class="glass p-8 hover:bg-white/5 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <svg class="w-24 h-24 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <circle cx="12" cy="12" r="5" stroke-width="1.5" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2V4M12 20V22M2 12H4M20 12H22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl text-amber-200 mb-2">Solar Energy</h3>
+                    <p class="text-xs uppercase tracking-widest text-slate-500 mb-6">Vitality & Purpose</p>
+                    <p class="text-slate-300 leading-relaxed font-light">
+                        The Sun enters a powerful trine with Mars today, igniting ambition and courage. It is an auspicious time to launch new ventures or assert your boundaries.
+                    </p>
+                </div>
+
+                <!-- Moon Card -->
+                <div class="glass p-8 hover:bg-white/5 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <svg class="w-24 h-24 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl text-blue-200 mb-2">Lunar Phase</h3>
+                    <p class="text-xs uppercase tracking-widest text-slate-500 mb-6">Waxing Gibbous</p>
+                    <p class="text-slate-300 leading-relaxed font-light">
+                        Emotions are heightened as we approach the full moon. Focus on refinement and adjustments. Trust your intuition over pure logic this evening.
+                    </p>
+                </div>
+
+                <!-- Rising Card -->
+                <div class="glass p-8 hover:bg-white/5 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <svg class="w-24 h-24 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl text-purple-300 mb-2">Ascendant Focus</h3>
+                    <p class="text-xs uppercase tracking-widest text-slate-500 mb-6">First Impressions</p>
+                    <p class="text-slate-300 leading-relaxed font-light">
+                        Mercury's influence brings clarity to communication. Speak your truth with kindness. Networking and social interactions are favored under this transit.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-24 bg-slate-950 relative overflow-hidden">
+        <!-- Abstract Decoration -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2 space-y-8">
+                    <h2 class="font-display text-4xl lg:text-5xl text-white">Mystical Services</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed font-light">
+                        Our readings go beyond simple prediction; they are tools for self-discovery and empowerment. Whether through the ancient archetypes of Tarot or the mathematical precision of Astrology, {{COMPANY_NAME}} provides clarity.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="mt-1 w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.5)]"></div>
+                            <div>
+                                <h4 class="font-display text-xl text-amber-100">Natal Chart Interpretation</h4>
+                                <p class="text-slate-400 text-sm mt-1">A deep dive into your soul's blueprint based on your exact time of birth.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="mt-1 w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(192,132,252,0.5)]"></div>
+                            <div>
+                                <h4 class="font-display text-xl text-amber-100">Tarot Divination</h4>
+                                <p class="text-slate-400 text-sm mt-1">Insightful guidance on specific questions, relationships, and career paths.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="mt-1 w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div>
+                            <div>
+                                <h4 class="font-display text-xl text-amber-100">Synastry & Compatibility</h4>
+                                <p class="text-slate-400 text-sm mt-1">Understanding the cosmic dynamics between you and your partner.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="inline-block border-b border-amber-200 text-amber-200 pb-1 hover:text-white hover:border-white transition-colors uppercase tracking-widest text-sm mt-4">View Full Menu</a>
+                </div>
+
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-2xl rounded-full opacity-50"></div>
+                    <div class="grid grid-cols-2 gap-4 relative">
+                        <img src="https://images.unsplash.com/photo-1620052087057-bfd8235f5874?q=80&w=800&auto=format&fit=crop" alt="Tarot Cards" class="w-full h-64 object-cover rounded-sm opacity-80 hover:opacity-100 transition-opacity duration-500 transform translate-y-8">
+                        <img src="https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?q=80&w=800&auto=format&fit=crop" alt="Crystals" class="w-full h-64 object-cover rounded-sm opacity-80 hover:opacity-100 transition-opacity duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About The Oracle -->
+    <section id="about" class="py-24 relative">
+        <div class="absolute inset-0 bg-slate-900/50 skew-y-3 transform origin-bottom-left z-0"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <div class="w-32 h-32 mx-auto rounded-full p-1 bg-gradient-to-tr from-amber-200 to-purple-500 mb-8">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" alt="The Mystic" class="w-full h-full object-cover rounded-full border-4 border-slate-950">
+            </div>
+            <h2 class="font-display text-3xl text-white mb-2">The Oracle</h2>
+            <p class="text-amber-200/60 uppercase tracking-widest text-xs mb-8">Certified Astrologer & Intuit</p>
+            <p class="text-xl text-slate-300 font-light leading-relaxed italic">
+                "The stars do not compel, they incline. My mission is to help you understand the energies at play so you can navigate life with intention and grace."
+            </p>
+            <div class="mt-8 flex justify-center gap-4">
+                <span class="px-3 py-1 bg-white/5 text-xs tracking-widest uppercase text-slate-400 rounded-full border border-white/10">15+ Years Experience</span>
+                <span class="px-3 py-1 bg-white/5 text-xs tracking-widest uppercase text-slate-400 rounded-full border border-white/10">Certified ISAR</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+             <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-900/20 rounded-full blur-3xl"></div>
+             <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-900/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-3xl mx-auto px-4 relative z-10">
+            <div class="glass p-8 md:p-12 rounded-sm border border-white/10">
+                <div class="text-center mb-10">
+                    <h2 class="font-display text-3xl md:text-4xl text-white mb-4">Book a Reading</h2>
+                    <p class="text-slate-400 font-light">Begin your journey to self-discovery. Limited slots available for this lunar cycle.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-slate-500">Full Name</label>
+                            <input type="text" class="w-full bg-slate-900/50 border border-white/10 p-3 text-white focus:outline-none focus:border-amber-200/50 transition-colors" placeholder="Enter your name">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-slate-500">Birth Date</label>
+                            <input type="date" class="w-full bg-slate-900/50 border border-white/10 p-3 text-white focus:outline-none focus:border-amber-200/50 transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-slate-500">Reading Type</label>
+                        <select class="w-full bg-slate-900/50 border border-white/10 p-3 text-white focus:outline-none focus:border-amber-200/50 transition-colors">
+                            <option>Natal Chart Analysis (60 min)</option>
+                            <option>Solar Return (Year Ahead)</option>
+                            <option>Tarot Guidance (30 min)</option>
+                            <option>Relationship Synastry</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-slate-500">Message / Focus Area</label>
+                        <textarea rows="4" class="w-full bg-slate-900/50 border border-white/10 p-3 text-white focus:outline-none focus:border-amber-200/50 transition-colors" placeholder="What questions do you seek answers to?"></textarea>
+                    </div>
+
+                    <button type="button" class="w-full py-4 bg-gradient-to-r from-amber-200 to-amber-400 text-slate-900 font-bold uppercase tracking-widest hover:shadow-[0_0_20px_rgba(251,191,36,0.3)] transition-shadow duration-300">
+                        Request Appointment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-white/5 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div class="flex items-center gap-2 mb-6 opacity-70">
+                <svg class="h-6 w-6 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <span class="font-display text-xl text-amber-100">{{COMPANY_NAME}}</span>
+            </div>
+            <div class="flex space-x-6 mb-8 text-slate-400 text-sm">
+                <a href="#" class="hover:text-amber-200 transition-colors">Terms of Destiny</a>
+                <a href="#" class="hover:text-amber-200 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-amber-200 transition-colors">Instagram</a>
+            </div>
+            <p class="text-slate-600 text-xs">© 2024 {{COMPANY_NAME}}. All rights reserved. Guided by the stars.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1442,6 +1442,19 @@
         "Puzzle",
         "Brass"
       ]
+    },
+    {
+      "id": "112",
+      "name": "Lumina Mystica",
+      "category": "Astrology",
+      "style": "Celestial Mystique",
+      "path": "catalog/template_112_astrology_celestial",
+      "description": "Ethereal violet & gold theme.",
+      "tags": [
+        "Mystic",
+        "Gold",
+        "Dark"
+      ]
     }
   ]
 }
