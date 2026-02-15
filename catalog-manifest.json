@@ -1390,6 +1390,19 @@
         "Elegant",
         "Dark"
       ]
+    },
+    {
+      "id": "108",
+      "name": "AstroCore Mining",
+      "category": "Space Mining",
+      "style": "Orbital Industrial",
+      "path": "catalog/template_108_space_mining_industrial",
+      "description": "Heavy industry in zero-g with safety yellow accents.",
+      "tags": [
+        "Industrial",
+        "Sci-Fi",
+        "Dark"
+      ]
     }
   ]
 }
