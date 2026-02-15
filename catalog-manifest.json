@@ -1403,6 +1403,19 @@
         "Sci-Fi",
         "Dark"
       ]
+    },
+    {
+      "id": "109",
+      "name": "Vanguard Protection",
+      "category": "Private Security",
+      "style": "Tactical Elite",
+      "path": "catalog/template_109_private_security_tactical",
+      "description": "Elite tactical security theme.",
+      "tags": [
+        "Dark",
+        "Tactical",
+        "Secure"
+      ]
     }
   ]
 }
