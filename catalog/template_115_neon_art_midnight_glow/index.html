@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Custom Neon Art & Signage</title>
+    <meta name="description" content="Premium custom neon signs, art installations, and restoration services. Illuminate your brand with {{COMPANY_NAME}}.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Tilt+Neon&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        neon: ['Tilt Neon', 'cursive'],
+                    },
+                    colors: {
+                        neon: {
+                            pink: '#ff00ff',
+                            cyan: '#00ffff',
+                            yellow: '#ffff00',
+                            purple: '#bd00ff',
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                        }
+                    },
+                    boxShadow: {
+                        'neon-pink': '0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff',
+                        'neon-cyan': '0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff',
+                        'neon-yellow': '0 0 5px #ffff00, 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 40px #ffff00',
+                        'neon-purple': '0 0 5px #bd00ff, 0 0 10px #bd00ff, 0 0 20px #bd00ff, 0 0 40px #bd00ff',
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1f2937 1px, transparent 1px), linear-gradient(to bottom, #1f2937 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow:
+                    0 0 4px #fff,
+                    0 0 11px #fff,
+                    0 0 19px #fff,
+                    0 0 40px #ff00de,
+                    0 0 80px #ff00de,
+                    0 0 90px #ff00de,
+                    0 0 100px #ff00de,
+                    0 0 150px #ff00de;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+
+        .animate-flicker {
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        .text-neon-pink {
+            color: #fff;
+            text-shadow:
+                0 0 7px #fff,
+                0 0 10px #fff,
+                0 0 21px #fff,
+                0 0 42px #ff00de,
+                0 0 82px #ff00de,
+                0 0 92px #ff00de,
+                0 0 102px #ff00de,
+                0 0 151px #ff00de;
+        }
+
+        .text-neon-cyan {
+            color: #fff;
+            text-shadow:
+                0 0 7px #fff,
+                0 0 10px #fff,
+                0 0 21px #fff,
+                0 0 42px #00ffff,
+                0 0 82px #00ffff,
+                0 0 92px #00ffff,
+                0 0 102px #00ffff,
+                0 0 151px #00ffff;
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Glass effect utilities */
+        .glass {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-300 font-sans antialiased selection:bg-neon-pink selection:text-white overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav :class="scrolled ? 'glass py-4' : 'bg-transparent py-6'" class="fixed w-full z-50 transition-all duration-300 top-0 left-0">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-neon text-3xl font-bold tracking-wider text-white relative group">
+                <span class="group-hover:animate-pulse transition-all duration-300">{{COMPANY_NAME}}</span>
+                <div class="absolute -bottom-2 left-0 w-0 h-0.5 bg-neon-pink group-hover:w-full transition-all duration-300 shadow-neon-pink"></div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-sm uppercase tracking-widest hover:text-white transition-colors duration-300 hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]">About</a>
+                <a href="#services" class="text-sm uppercase tracking-widest hover:text-white transition-colors duration-300 hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]">Services</a>
+                <a href="#gallery" class="text-sm uppercase tracking-widest hover:text-white transition-colors duration-300 hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]">Gallery</a>
+                <a href="#process" class="text-sm uppercase tracking-widest hover:text-white transition-colors duration-300 hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]">Process</a>
+                <a href="#contact" class="px-6 py-2 border border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black hover:shadow-neon-cyan transition-all duration-300 font-semibold rounded-sm uppercase tracking-wider text-sm">
+                    Get Quote
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 -translate-y-full"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-full"
+             class="absolute top-0 left-0 w-full bg-dark-900 border-b border-gray-800 shadow-2xl z-40 pb-8 pt-24 px-6 md:hidden">
+            <div class="flex flex-col space-y-6 text-center">
+                <a @click="mobileMenuOpen = false" href="#about" class="text-xl font-neon text-white hover:text-neon-pink transition-colors">About</a>
+                <a @click="mobileMenuOpen = false" href="#services" class="text-xl font-neon text-white hover:text-neon-cyan transition-colors">Services</a>
+                <a @click="mobileMenuOpen = false" href="#gallery" class="text-xl font-neon text-white hover:text-neon-yellow transition-colors">Gallery</a>
+                <a @click="mobileMenuOpen = false" href="#process" class="text-xl font-neon text-white hover:text-neon-purple transition-colors">Process</a>
+                <a @click="mobileMenuOpen = false" href="#contact" class="px-6 py-3 border border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black hover:shadow-neon-cyan transition-all duration-300 inline-block mx-auto font-bold uppercase tracking-wider">
+                    Get Quote
+                </a>
+            </div>
+            <button @click="mobileMenuOpen = false" class="absolute top-6 right-6 text-gray-400 hover:text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=2940&auto=format&fit=crop" alt="Neon Sign Background" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDQwaDQwVjBIMHY0MHptMS0xaDM4VjFIMXYzOHoiIGZpbGw9IiMzMzMiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9nPjwvc3ZnPg==')] opacity-20"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-20">
+            <p class="text-neon-cyan font-bold tracking-[0.3em] uppercase mb-4 text-sm md:text-base animate-pulse">Established 2024</p>
+            <h1 class="font-neon text-6xl md:text-8xl lg:text-9xl font-bold leading-tight mb-6">
+                <span class="block text-white opacity-90 drop-shadow-2xl">LET THERE BE</span>
+                <span class="block text-neon-pink animate-flicker mt-2">LIGHT</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                We craft bespoke neon signage that transforms spaces. From classic gas-filled tubes to modern LED flex, {{COMPANY_NAME}} illuminates your vision.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                <a href="#gallery" class="px-8 py-4 bg-transparent border border-white/20 hover:border-neon-pink hover:text-neon-pink hover:shadow-neon-pink text-white font-bold uppercase tracking-wider transition-all duration-300 w-full md:w-auto text-center backdrop-blur-sm">
+                    View Gallery
+                </a>
+                <a href="#contact" class="px-8 py-4 bg-neon-cyan text-black font-bold uppercase tracking-wider hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] transition-all duration-300 w-full md:w-auto text-center shadow-neon-cyan">
+                    Start Project
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
+            <span class="text-xs uppercase tracking-widest text-gray-500 mb-2">Scroll</span>
+            <svg class="w-6 h-6 text-neon-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Marquee Section -->
+    <div class="bg-neon-pink py-3 overflow-hidden whitespace-nowrap relative border-y border-white/10">
+        <div class="absolute inset-0 bg-dark-900 opacity-90"></div>
+        <div class="relative flex items-center gap-12 animate-[marquee_20s_linear_infinite]">
+            <span class="text-white font-neon text-2xl uppercase tracking-widest mx-4">Custom Fabrication •</span>
+            <span class="text-transparent stroke-white font-neon text-2xl uppercase tracking-widest mx-4" style="-webkit-text-stroke: 1px rgba(255,0,255,1);">Restoration •</span>
+            <span class="text-white font-neon text-2xl uppercase tracking-widest mx-4">Installation •</span>
+            <span class="text-transparent stroke-white font-neon text-2xl uppercase tracking-widest mx-4" style="-webkit-text-stroke: 1px rgba(255,0,255,1);">Artistic Commission •</span>
+            <span class="text-white font-neon text-2xl uppercase tracking-widest mx-4">Event Rentals •</span>
+            <span class="text-transparent stroke-white font-neon text-2xl uppercase tracking-widest mx-4" style="-webkit-text-stroke: 1px rgba(255,0,255,1);">Commercial Signage •</span>
+            <!-- Duplicate for loop -->
+            <span class="text-white font-neon text-2xl uppercase tracking-widest mx-4">Custom Fabrication •</span>
+            <span class="text-transparent stroke-white font-neon text-2xl uppercase tracking-widest mx-4" style="-webkit-text-stroke: 1px rgba(255,0,255,1);">Restoration •</span>
+            <span class="text-white font-neon text-2xl uppercase tracking-widest mx-4">Installation •</span>
+            <span class="text-transparent stroke-white font-neon text-2xl uppercase tracking-widest mx-4" style="-webkit-text-stroke: 1px rgba(255,0,255,1);">Artistic Commission •</span>
+            <span class="text-white font-neon text-2xl uppercase tracking-widest mx-4">Event Rentals •</span>
+            <span class="text-transparent stroke-white font-neon text-2xl uppercase tracking-widest mx-4" style="-webkit-text-stroke: 1px rgba(255,0,255,1);">Commercial Signage •</span>
+        </div>
+    </div>
+
+    <style>
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+
+    <!-- Services Grid -->
+    <section id="services" class="py-24 bg-dark-800 relative">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="font-neon text-4xl md:text-6xl text-white mb-4">Our Services</h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-neon-cyan to-neon-purple mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group relative bg-dark-700 p-8 border border-white/5 hover:border-neon-cyan/50 transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-neon-cyan transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    <div class="mb-6 bg-dark-900 w-16 h-16 rounded-full flex items-center justify-center border border-white/10 group-hover:border-neon-cyan group-hover:shadow-neon-cyan transition-all duration-300">
+                        <svg class="w-8 h-8 text-white group-hover:text-neon-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-neon text-white mb-4 group-hover:text-neon-cyan transition-colors">Custom Fabrication</h3>
+                    <p class="text-gray-400 mb-6 leading-relaxed">From initial sketch to final glass bending, we create one-of-a-kind neon pieces tailored to your brand identity.</p>
+                    <a href="#contact" class="inline-flex items-center text-sm font-bold uppercase tracking-widest text-white group-hover:text-neon-cyan transition-colors">
+                        Learn More <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group relative bg-dark-700 p-8 border border-white/5 hover:border-neon-pink/50 transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-neon-pink transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    <div class="mb-6 bg-dark-900 w-16 h-16 rounded-full flex items-center justify-center border border-white/10 group-hover:border-neon-pink group-hover:shadow-neon-pink transition-all duration-300">
+                        <svg class="w-8 h-8 text-white group-hover:text-neon-pink transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-neon text-white mb-4 group-hover:text-neon-pink transition-colors">Restoration & Repair</h3>
+                    <p class="text-gray-400 mb-6 leading-relaxed">We breathe new life into vintage signs, repairing broken tubes and restoring transformers to their original glory.</p>
+                    <a href="#contact" class="inline-flex items-center text-sm font-bold uppercase tracking-widest text-white group-hover:text-neon-pink transition-colors">
+                        Learn More <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group relative bg-dark-700 p-8 border border-white/5 hover:border-neon-yellow/50 transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-neon-yellow transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    <div class="mb-6 bg-dark-900 w-16 h-16 rounded-full flex items-center justify-center border border-white/10 group-hover:border-neon-yellow group-hover:shadow-neon-yellow transition-all duration-300">
+                        <svg class="w-8 h-8 text-white group-hover:text-neon-yellow transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-neon text-white mb-4 group-hover:text-neon-yellow transition-colors">Art Installations</h3>
+                    <p class="text-gray-400 mb-6 leading-relaxed">Collaborating with artists and designers to create large-scale light installations for events, galleries, and public spaces.</p>
+                    <a href="#contact" class="inline-flex items-center text-sm font-bold uppercase tracking-widest text-white group-hover:text-neon-yellow transition-colors">
+                        Learn More <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Masonry) -->
+    <section id="gallery" class="py-24 bg-dark-900 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <h2 class="font-neon text-4xl md:text-6xl text-white mb-4">Featured Works</h2>
+                    <p class="text-gray-400 max-w-md">A curated selection of our finest light works, illuminating the darkness.</p>
+                </div>
+                <div class="hidden md:block">
+                    <button class="px-6 py-3 border border-gray-700 text-white hover:border-neon-purple hover:text-neon-purple transition-all duration-300 uppercase tracking-widest text-xs font-bold">
+                        View All Projects
+                    </button>
+                </div>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+                <!-- Item 1 -->
+                <div class="break-inside-avoid group relative overflow-hidden rounded-sm cursor-pointer">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                        <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-white font-neon text-2xl mb-2">Midnight Bar</h3>
+                            <p class="text-neon-pink text-xs uppercase tracking-widest">Hospitality</p>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1555679427-1f6dfcce943b?q=80&w=1000&auto=format&fit=crop" alt="Neon Sign 1" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-neon-pink/50 blur-sm"></div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="break-inside-avoid group relative overflow-hidden rounded-sm cursor-pointer">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                        <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-white font-neon text-2xl mb-2">Retro Cinema</h3>
+                            <p class="text-neon-cyan text-xs uppercase tracking-widest">Entertainment</p>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1517373859600-681b9e28741e?q=80&w=1000&auto=format&fit=crop" alt="Neon Sign 2" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <!-- Item 3 -->
+                <div class="break-inside-avoid group relative overflow-hidden rounded-sm cursor-pointer">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                        <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-white font-neon text-2xl mb-2">Tokyo Nights</h3>
+                            <p class="text-neon-purple text-xs uppercase tracking-widest">Art Installation</p>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1495069781661-d6a06660a927?q=80&w=1000&auto=format&fit=crop" alt="Neon Sign 3" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <!-- Item 4 -->
+                <div class="break-inside-avoid group relative overflow-hidden rounded-sm cursor-pointer">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                        <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-white font-neon text-2xl mb-2">Open 24/7</h3>
+                            <p class="text-neon-yellow text-xs uppercase tracking-widest">Retail</p>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=1000&auto=format&fit=crop" alt="Neon Sign 4" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <!-- Item 5 -->
+                <div class="break-inside-avoid group relative overflow-hidden rounded-sm cursor-pointer">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                        <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-white font-neon text-2xl mb-2">Cyber Punk</h3>
+                            <p class="text-neon-cyan text-xs uppercase tracking-widest">Custom</p>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1581337204873-ef36aa186caa?q=80&w=1000&auto=format&fit=crop" alt="Neon Sign 5" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <!-- Item 6 -->
+                <div class="break-inside-avoid group relative overflow-hidden rounded-sm cursor-pointer">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                        <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-white font-neon text-2xl mb-2">Love & Light</h3>
+                            <p class="text-neon-pink text-xs uppercase tracking-widest">Wedding</p>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1520263118674-c6a49b519632?q=80&w=1000&auto=format&fit=crop" alt="Neon Sign 6" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+            </div>
+
+            <div class="mt-12 text-center md:hidden">
+                 <button class="px-6 py-3 border border-gray-700 text-white hover:border-neon-purple hover:text-neon-purple transition-all duration-300 uppercase tracking-widest text-xs font-bold w-full">
+                    View All Projects
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Process -->
+    <section id="process" class="py-24 bg-dark-800 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <p class="text-neon-cyan text-sm uppercase tracking-[0.3em] font-bold mb-3">How We Work</p>
+                <h2 class="font-neon text-4xl md:text-5xl text-white">The Fabrication Process</h2>
+            </div>
+
+            <div class="relative">
+                <!-- Line -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-800 -translate-y-1/2 z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="text-center group">
+                        <div class="w-20 h-20 mx-auto bg-dark-900 rounded-full border-2 border-gray-700 flex items-center justify-center mb-6 group-hover:border-neon-pink group-hover:shadow-neon-pink transition-all duration-300 relative">
+                            <span class="text-2xl font-bold text-gray-500 group-hover:text-white">01</span>
+                            <div class="absolute inset-0 rounded-full bg-neon-pink/20 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                        </div>
+                        <h3 class="text-xl text-white font-bold mb-2 uppercase tracking-wide">Design</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">We digitize your concept and create vector blueprints for bending.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="text-center group">
+                        <div class="w-20 h-20 mx-auto bg-dark-900 rounded-full border-2 border-gray-700 flex items-center justify-center mb-6 group-hover:border-neon-cyan group-hover:shadow-neon-cyan transition-all duration-300 relative">
+                            <span class="text-2xl font-bold text-gray-500 group-hover:text-white">02</span>
+                             <div class="absolute inset-0 rounded-full bg-neon-cyan/20 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                        </div>
+                        <h3 class="text-xl text-white font-bold mb-2 uppercase tracking-wide">Bending</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Glass tubes are heated to 1200°F and hand-shaped by master benders.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="text-center group">
+                        <div class="w-20 h-20 mx-auto bg-dark-900 rounded-full border-2 border-gray-700 flex items-center justify-center mb-6 group-hover:border-neon-yellow group-hover:shadow-neon-yellow transition-all duration-300 relative">
+                            <span class="text-2xl font-bold text-gray-500 group-hover:text-white">03</span>
+                             <div class="absolute inset-0 rounded-full bg-neon-yellow/20 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                        </div>
+                        <h3 class="text-xl text-white font-bold mb-2 uppercase tracking-wide">Pumping</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Air is removed and replaced with noble gases (Neon or Argon) to create light.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="text-center group">
+                        <div class="w-20 h-20 mx-auto bg-dark-900 rounded-full border-2 border-gray-700 flex items-center justify-center mb-6 group-hover:border-neon-purple group-hover:shadow-neon-purple transition-all duration-300 relative">
+                            <span class="text-2xl font-bold text-gray-500 group-hover:text-white">04</span>
+                             <div class="absolute inset-0 rounded-full bg-neon-purple/20 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                        </div>
+                        <h3 class="text-xl text-white font-bold mb-2 uppercase tracking-wide">Installation</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">The sign is mounted, wired, and tested for brilliance and longevity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-dark-900 relative overflow-hidden">
+        <!-- Glow effects -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-neon-purple/10 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-neon-cyan/10 rounded-full blur-[100px]"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto bg-dark-800/80 backdrop-blur-md border border-white/10 p-8 md:p-12 shadow-2xl relative">
+                <!-- Decorative Border Lines -->
+                <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-neon-pink via-neon-cyan to-neon-purple"></div>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-neon-purple via-neon-cyan to-neon-pink"></div>
+
+                <div class="text-center mb-10">
+                    <h2 class="font-neon text-4xl text-white mb-4">Illuminate Your Brand</h2>
+                    <p class="text-gray-400">Tell us about your project. We'll bring the light.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative group">
+                            <input type="text" class="w-full bg-dark-900 border border-gray-700 text-white p-4 focus:outline-none focus:border-neon-cyan focus:shadow-[0_0_10px_rgba(0,255,255,0.2)] transition-all duration-300 placeholder-transparent peer" id="name" placeholder="Name">
+                            <label for="name" class="absolute left-4 top-4 text-gray-500 transition-all duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-focus:-translate-y-7 peer-focus:text-xs peer-focus:text-neon-cyan peer-focus:bg-dark-800 px-1 pointer-events-none bg-dark-800">Your Name</label>
+                        </div>
+                        <div class="relative group">
+                            <input type="email" class="w-full bg-dark-900 border border-gray-700 text-white p-4 focus:outline-none focus:border-neon-pink focus:shadow-[0_0_10px_rgba(255,0,255,0.2)] transition-all duration-300 placeholder-transparent peer" id="email" placeholder="Email">
+                            <label for="email" class="absolute left-4 top-4 text-gray-500 transition-all duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-focus:-translate-y-7 peer-focus:text-xs peer-focus:text-neon-pink peer-focus:bg-dark-800 px-1 pointer-events-none bg-dark-800">Email Address</label>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <select class="w-full bg-dark-900 border border-gray-700 text-white p-4 focus:outline-none focus:border-neon-yellow focus:shadow-[0_0_10px_rgba(255,255,0,0.2)] transition-all duration-300 text-gray-400">
+                            <option>Select Service Type</option>
+                            <option>Custom Neon Sign</option>
+                            <option>Business Signage</option>
+                            <option>Art Installation</option>
+                            <option>Repair/Restoration</option>
+                        </select>
+                    </div>
+
+                    <div class="relative group">
+                        <textarea class="w-full bg-dark-900 border border-gray-700 text-white p-4 h-32 focus:outline-none focus:border-neon-purple focus:shadow-[0_0_10px_rgba(189,0,255,0.2)] transition-all duration-300 placeholder-transparent peer" id="message" placeholder="Message"></textarea>
+                        <label for="message" class="absolute left-4 top-4 text-gray-500 transition-all duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-focus:-translate-y-7 peer-focus:text-xs peer-focus:text-neon-purple peer-focus:bg-dark-800 px-1 pointer-events-none bg-dark-800">Tell us about your vision...</label>
+                    </div>
+
+                    <button type="button" class="w-full py-4 bg-gradient-to-r from-neon-pink to-neon-purple text-white font-bold uppercase tracking-widest hover:shadow-[0_0_20px_rgba(255,0,255,0.4)] hover:brightness-110 transition-all duration-300 transform hover:-translate-y-1">
+                        Get A Free Quote
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-900 text-center md:text-left">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="font-neon text-2xl font-bold text-white mb-6 inline-block tracking-wider">{{COMPANY_NAME}}</a>
+                    <p class="text-gray-500 max-w-sm">Illuminating the dark since 2024. Hand-crafted neon solutions for businesses, artists, and dreamers.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest mb-6 text-sm">Links</h4>
+                    <ul class="space-y-4 text-gray-500 text-sm">
+                        <li><a href="#" class="hover:text-neon-cyan transition-colors">Home</a></li>
+                        <li><a href="#" class="hover:text-neon-cyan transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-neon-cyan transition-colors">Services</a></li>
+                        <li><a href="#" class="hover:text-neon-cyan transition-colors">Portfolio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest mb-6 text-sm">Connect</h4>
+                    <ul class="space-y-4 text-gray-500 text-sm">
+                        <li><a href="#" class="hover:text-neon-pink transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-neon-pink transition-colors">Behance</a></li>
+                        <li><a href="#" class="hover:text-neon-pink transition-colors">Pinterest</a></li>
+                        <li><a href="#" class="hover:text-neon-pink transition-colors">Email Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-600 text-xs">© 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <p class="text-gray-700 text-xs mt-4 md:mt-0 font-mono">DESIGNED IN THE DARK</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

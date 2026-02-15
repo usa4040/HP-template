@@ -1481,6 +1481,19 @@
         "Cat",
         "Velvet"
       ]
+    },
+    {
+      "id": "115",
+      "name": "Neon Pulse Studio",
+      "category": "Neon Art",
+      "style": "Midnight Glow",
+      "path": "catalog/template_115_neon_art_midnight_glow",
+      "description": "Dark glowing neon aesthetic.",
+      "tags": [
+        "Neon",
+        "Glow",
+        "Industrial"
+      ]
     }
   ]
 }
