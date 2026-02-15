@@ -1507,6 +1507,19 @@
         "Corporate",
         "Trust"
       ]
+    },
+    {
+      "id": "117",
+      "name": "Helios Harvest",
+      "category": "Urban Farming",
+      "style": "Solar Punk",
+      "path": "catalog/template_117_urban_farming_solarpunk",
+      "description": "Optimistic green tech future.",
+      "tags": [
+        "Sustainable",
+        "Bright",
+        "Glass"
+      ]
     }
   ]
 }
