@@ -1455,6 +1455,19 @@
         "Gold",
         "Dark"
       ]
+    },
+    {
+      "id": "113",
+      "name": "Concrete & Canopy",
+      "category": "Sustainable Architecture",
+      "style": "Biophilic Brutalism",
+      "path": "catalog/template_113_sustainable_architecture_biophilic_brutalism",
+      "description": "Raw concrete meets nature.",
+      "tags": [
+        "Brutalist",
+        "Nature",
+        "Sustainable"
+      ]
     }
   ]
 }
