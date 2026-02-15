@@ -1429,6 +1429,19 @@
         "Luxury",
         "Warm"
       ]
+    },
+    {
+      "id": "111",
+      "name": "The Clockwork Vault",
+      "category": "Escape Room",
+      "style": "Steampunk",
+      "path": "catalog/template_111_escape_room_steampunk",
+      "description": "Mechanical Victorian mystery.",
+      "tags": [
+        "Steam",
+        "Puzzle",
+        "Brass"
+      ]
     }
   ]
 }
