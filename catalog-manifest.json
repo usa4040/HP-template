@@ -1663,6 +1663,19 @@
         "Blue",
         "Infrastructure"
       ]
+    },
+    {
+      "id": "129",
+      "name": "Terra Veritas",
+      "category": "Archaeology",
+      "style": "Stratigraphic",
+      "path": "catalog/template_129_archaeology_stratigraphic",
+      "description": "Layered earth tones & Cinzel",
+      "tags": [
+        "Layered Gradient",
+        "Map Texture",
+        "Field Notes"
+      ]
     }
   ]
 }
