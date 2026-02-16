@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Pure Agave Spirit</title>
+    <meta name="description" content="Hand-harvested, small-batch tequila from the highlands of Jalisco.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,200;300;400;600;700&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Fraunces', 'serif'],
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        limestone: '#F5F5F0',
+                        stone: {
+                            850: '#2D2A26',
+                            900: '#1C1917',
+                        },
+                        agave: {
+                            light: '#4B7F72',
+                            DEFAULT: '#2C5E50',
+                            dark: '#1A3C32',
+                        },
+                        clay: '#C76D49',
+                        sand: '#E6DCC8',
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?q=80&w=2940&auto=format&fit=crop')",
+                        'texture': "url('https://www.transparenttextures.com/patterns/concrete-wall.png')",
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'slow-pan': 'panImage 30s linear infinite alternate',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        panImage: {
+                            '0%': { transform: 'scale(1.1) translate(0, 0)' },
+                            '100%': { transform: 'scale(1.1) translate(-2%, -2%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .clip-text-image {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: url('https://images.unsplash.com/photo-1566806963289-53b928509706?q=80&w=2940&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-limestone text-stone-900 overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-500 ease-in-out border-b border-transparent"
+         :class="{ 'bg-limestone/90 backdrop-blur-md py-4 border-stone-200': scrolled, 'bg-transparent py-8 text-white': !scrolled }">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl tracking-widest uppercase z-50 relative transition-colors duration-300" :class="{ 'text-stone-900': scrolled || mobileMenuOpen, 'text-white': !scrolled && !mobileMenuOpen }">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-12 font-sans tracking-wide text-sm font-medium">
+                <a href="#story" class="hover:text-clay transition-colors duration-300">Our Story</a>
+                <a href="#process" class="hover:text-clay transition-colors duration-300">Process</a>
+                <a href="#collection" class="hover:text-clay transition-colors duration-300">Collection</a>
+                <a href="#cocktails" class="hover:text-clay transition-colors duration-300">Cocktails</a>
+            </div>
+
+            <div class="hidden md:block">
+                <a href="#shop" class="px-6 py-2 border border-current rounded-full hover:bg-white hover:text-stone-900 transition-all duration-300 text-sm tracking-widest uppercase">Shop Now</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden z-50 relative focus:outline-none">
+                <div class="w-6 h-0.5 bg-current transition-all duration-300 mb-1.5" :class="{ 'bg-stone-900 rotate-45 translate-y-2': mobileMenuOpen, 'bg-white': !scrolled && !mobileMenuOpen, 'bg-stone-900': scrolled }"></div>
+                <div class="w-6 h-0.5 bg-current transition-all duration-300 mb-1.5" :class="{ 'opacity-0': mobileMenuOpen, 'bg-white': !scrolled && !mobileMenuOpen, 'bg-stone-900': scrolled }"></div>
+                <div class="w-6 h-0.5 bg-current transition-all duration-300" :class="{ 'bg-stone-900 -rotate-45 -translate-y-2': mobileMenuOpen, 'bg-white': !scrolled && !mobileMenuOpen, 'bg-stone-900': scrolled }"></div>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-x-full"
+             x-transition:enter-end="opacity-100 translate-x-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-x-0"
+             x-transition:leave-end="opacity-0 translate-x-full"
+             class="fixed inset-0 bg-limestone z-40 flex flex-col justify-center items-center h-screen w-screen md:hidden">
+            <div class="flex flex-col space-y-8 text-center font-serif text-3xl text-stone-900">
+                <a href="#story" @click="mobileMenuOpen = false" class="hover:text-agave transition-colors">Our Story</a>
+                <a href="#process" @click="mobileMenuOpen = false" class="hover:text-agave transition-colors">Process</a>
+                <a href="#collection" @click="mobileMenuOpen = false" class="hover:text-agave transition-colors">Collection</a>
+                <a href="#cocktails" @click="mobileMenuOpen = false" class="hover:text-agave transition-colors">Cocktails</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen overflow-hidden flex items-center justify-center">
+        <div class="absolute inset-0 z-0">
+            <div class="w-full h-full bg-hero-pattern bg-cover bg-center animate-slow-pan"></div>
+            <div class="absolute inset-0 bg-black/30"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-limestone"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto"
+             x-data
+             x-intersect="$el.classList.add('opacity-100', 'translate-y-0')"
+             class="opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+            <p class="font-sans text-stone-200 tracking-[0.3em] uppercase text-sm mb-6">Jalisco, Mexico</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-9xl text-white mb-8 leading-tight">
+                Spirit of<br>the <span class="italic font-light text-clay">Earth</span>
+            </h1>
+            <p class="font-sans text-stone-200 text-lg md:text-xl max-w-xl mx-auto mb-10 font-light">
+                100% Blue Weber Agave. Harvested by hand. Distilled with patience.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#collection" class="px-8 py-4 bg-white text-stone-900 rounded-none hover:bg-stone-200 transition-colors duration-300 font-sans tracking-widest uppercase text-xs font-bold">Discover The Range</a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/70">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <!-- Marquee -->
+    <div class="bg-agave-dark text-stone-300 overflow-hidden py-4 border-y border-stone-700">
+        <div class="flex whitespace-nowrap animate-marquee">
+            <span class="mx-8 font-serif italic text-2xl">100% Blue Weber Agave</span>
+            <span class="mx-8 font-sans text-sm tracking-widest uppercase flex items-center">● Highland Grown</span>
+            <span class="mx-8 font-serif italic text-2xl">Small Batch</span>
+            <span class="mx-8 font-sans text-sm tracking-widest uppercase flex items-center">● Double Distilled</span>
+            <span class="mx-8 font-serif italic text-2xl">Additive Free</span>
+            <span class="mx-8 font-sans text-sm tracking-widest uppercase flex items-center">● Family Owned</span>
+            <!-- Duplicate for loop -->
+            <span class="mx-8 font-serif italic text-2xl">100% Blue Weber Agave</span>
+            <span class="mx-8 font-sans text-sm tracking-widest uppercase flex items-center">● Highland Grown</span>
+            <span class="mx-8 font-serif italic text-2xl">Small Batch</span>
+            <span class="mx-8 font-sans text-sm tracking-widest uppercase flex items-center">● Double Distilled</span>
+            <span class="mx-8 font-serif italic text-2xl">Additive Free</span>
+            <span class="mx-8 font-sans text-sm tracking-widest uppercase flex items-center">● Family Owned</span>
+        </div>
+    </div>
+    <style>
+        .animate-marquee { animation: marquee 20s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
+
+    <!-- Our Story -->
+    <section id="story" class="py-24 md:py-32 px-6 bg-limestone">
+        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative group overflow-hidden"
+                 x-data x-intersect.threshold.20="$el.classList.add('opacity-100', 'translate-y-0')"
+                 class="opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                <img src="https://images.unsplash.com/photo-1541544181051-e466989eb2ad?q=80&w=2070&auto=format&fit=crop" alt="Agave Field" class="w-full h-[600px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000">
+                <div class="absolute top-4 right-4 bg-white p-4 max-w-[200px]">
+                    <p class="font-serif italic text-2xl text-stone-900 leading-none">"Time is our most important ingredient."</p>
+                </div>
+            </div>
+            <div class="md:pl-10"
+                 x-data x-intersect.threshold.20="$el.classList.add('opacity-100', 'translate-x-0')"
+                 class="opacity-0 translate-x-20 transition-all duration-1000 ease-out delay-300">
+                <h2 class="font-sans text-agave tracking-widest uppercase text-sm font-bold mb-4">The Origin</h2>
+                <h3 class="font-serif text-5xl md:text-6xl text-stone-900 mb-8 leading-none">Born in the <br><span class="text-clay italic">Highlands</span></h3>
+                <p class="font-sans text-stone-600 text-lg mb-6 leading-relaxed">
+                    At 7,000 feet above sea level, the red clay soil of Los Altos de Jalisco produces agave with higher sugar content and richer flavor notes. {{COMPANY_NAME}} is the result of three generations of jimadores who understand the land's rhythm.
+                </p>
+                <p class="font-sans text-stone-600 text-lg mb-10 leading-relaxed">
+                    We wait 7 to 9 years for each piña to reach peak maturity before harvesting by hand. No diffusers, no additives—just pure, unadulterated agave spirit.
+                </p>
+                <a href="#process" class="inline-block border-b border-stone-900 pb-1 font-serif text-xl italic hover:text-clay hover:border-clay transition-colors">Read our full manifesto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Grid -->
+    <section id="process" class="py-24 bg-stone-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="font-serif text-4xl md:text-5xl text-stone-900">From Earth to Bottle</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-limestone p-8 md:p-12 hover:-translate-y-2 transition-transform duration-500 shadow-xl shadow-stone-300/20"
+                     x-data x-intersect.threshold.20="$el.classList.add('opacity-100', 'translate-y-0')"
+                     class="opacity-0 translate-y-10 transition-all duration-700 ease-out">
+                    <span class="block font-serif text-6xl text-stone-200 mb-6">01</span>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-4">The Harvest</h4>
+                    <p class="font-sans text-stone-600">Our jimadores hand-select only the ripest piñas, shaving them close to the heart to remove bitterness.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-limestone p-8 md:p-12 hover:-translate-y-2 transition-transform duration-500 shadow-xl shadow-stone-300/20"
+                     x-data x-intersect.threshold.20="$el.classList.add('opacity-100', 'translate-y-0')"
+                     class="opacity-0 translate-y-10 transition-all duration-700 ease-out delay-200">
+                    <span class="block font-serif text-6xl text-stone-200 mb-6">02</span>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-4">Slow Roasting</h4>
+                    <p class="font-sans text-stone-600">Cooked in traditional brick ovens for 72 hours to convert starches into fermentable sugars, unlocking deep caramel notes.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-limestone p-8 md:p-12 hover:-translate-y-2 transition-transform duration-500 shadow-xl shadow-stone-300/20"
+                     x-data x-intersect.threshold.20="$el.classList.add('opacity-100', 'translate-y-0')"
+                     class="opacity-0 translate-y-10 transition-all duration-700 ease-out delay-400">
+                    <span class="block font-serif text-6xl text-stone-200 mb-6">03</span>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-4">Double Distillation</h4>
+                    <p class="font-sans text-stone-600">Distilled twice in copper pot stills to refine the spirit while preserving the bright, herbal character of the agave.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection -->
+    <section id="collection" class="py-24 bg-stone-900 text-limestone">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-stone-800 pb-8">
+                <div>
+                    <h2 class="font-sans text-clay tracking-widest uppercase text-sm font-bold mb-4">The Collection</h2>
+                    <h3 class="font-serif text-5xl text-white">Select Your Spirit</h3>
+                </div>
+                <p class="font-sans text-stone-400 mt-6 md:mt-0 max-w-md text-right">Each expression of {{COMPANY_NAME}} offers a unique journey through the terroir of Jalisco.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Blanco -->
+                <div class="group cursor-pointer">
+                    <div class="relative bg-stone-800 aspect-[3/4] overflow-hidden mb-8">
+                        <img src="https://images.unsplash.com/photo-1516535794938-606387ce567e?q=80&w=1974&auto=format&fit=crop" alt="Blanco Bottle" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute inset-0 border border-white/10 m-4 group-hover:m-2 transition-all duration-500"></div>
+                        <span class="absolute top-8 left-8 bg-white text-stone-900 px-3 py-1 font-sans text-xs uppercase tracking-widest font-bold">Unaged</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-serif text-3xl mb-2 text-white">Blanco</h4>
+                        <p class="font-sans text-stone-400 text-sm tracking-wide mb-4">Bright • Citrus • Mineral</p>
+                        <p class="font-serif italic text-clay">$55.00</p>
+                    </div>
+                </div>
+
+                <!-- Reposado -->
+                <div class="group cursor-pointer mt-12 md:mt-0">
+                    <div class="relative bg-stone-800 aspect-[3/4] overflow-hidden mb-8">
+                        <img src="https://images.unsplash.com/photo-1613253272027-6f030206191c?q=80&w=1974&auto=format&fit=crop" alt="Reposado Bottle" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute inset-0 border border-white/10 m-4 group-hover:m-2 transition-all duration-500"></div>
+                        <span class="absolute top-8 left-8 bg-white text-stone-900 px-3 py-1 font-sans text-xs uppercase tracking-widest font-bold">Aged 6 Months</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-serif text-3xl mb-2 text-white">Reposado</h4>
+                        <p class="font-sans text-stone-400 text-sm tracking-wide mb-4">Vanilla • Oak • Spices</p>
+                        <p class="font-serif italic text-clay">$75.00</p>
+                    </div>
+                </div>
+
+                <!-- Añejo -->
+                <div class="group cursor-pointer md:mt-24">
+                    <div class="relative bg-stone-800 aspect-[3/4] overflow-hidden mb-8">
+                        <img src="https://images.unsplash.com/photo-1629249767357-1941214c772c?q=80&w=1974&auto=format&fit=crop" alt="Añejo Bottle" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute inset-0 border border-white/10 m-4 group-hover:m-2 transition-all duration-500"></div>
+                        <span class="absolute top-8 left-8 bg-white text-stone-900 px-3 py-1 font-sans text-xs uppercase tracking-widest font-bold">Aged 18 Months</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-serif text-3xl mb-2 text-white">Añejo</h4>
+                        <p class="font-sans text-stone-400 text-sm tracking-wide mb-4">Caramel • Chocolate • Smoke</p>
+                        <p class="font-serif italic text-clay">$95.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cocktails Parallax -->
+    <section id="cocktails" class="py-24 bg-limestone overflow-hidden">
+        <div class="container mx-auto px-6">
+            <h2 class="font-serif text-5xl md:text-7xl text-stone-200 mb-12 relative z-10 select-none -ml-4 md:-ml-12">Signature Serves</h2>
+
+            <div class="grid md:grid-cols-2 gap-12 md:gap-24 relative z-20">
+                <!-- Recipe 1 -->
+                <div class="flex flex-col md:flex-row gap-8 items-center"
+                     x-data x-intersect.threshold.20="$el.classList.add('opacity-100', 'translate-y-0')"
+                     class="opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    <div class="w-full md:w-1/2 overflow-hidden aspect-square">
+                        <img src="https://images.unsplash.com/photo-1536935338788-843bb6303668?q=80&w=1974&auto=format&fit=crop" alt="Paloma" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <span class="font-sans text-clay tracking-widest text-xs uppercase font-bold">The Classic</span>
+                        <h3 class="font-serif text-4xl text-stone-900 mt-2 mb-4">Perfect Paloma</h3>
+                        <ul class="font-sans text-stone-600 space-y-2 mb-6">
+                            <li class="flex items-center"><span class="w-2 h-2 bg-agave rounded-full mr-3"></span>2 oz {{COMPANY_NAME}} Blanco</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-agave rounded-full mr-3"></span>0.5 oz Fresh Lime Juice</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-agave rounded-full mr-3"></span>Top with Grapefruit Soda</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-agave rounded-full mr-3"></span>Salt Rim</li>
+                        </ul>
+                        <a href="#" class="text-sm font-bold uppercase tracking-widest hover:text-clay transition-colors">View Recipe -></a>
+                    </div>
+                </div>
+
+                <!-- Recipe 2 -->
+                <div class="flex flex-col md:flex-row-reverse gap-8 items-center mt-12 md:mt-24"
+                     x-data x-intersect.threshold.20="$el.classList.add('opacity-100', 'translate-y-0')"
+                     class="opacity-0 translate-y-20 transition-all duration-1000 ease-out delay-200">
+                    <div class="w-full md:w-1/2 overflow-hidden aspect-square">
+                        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" alt="Old Fashioned" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2 text-left md:text-right">
+                        <span class="font-sans text-clay tracking-widest text-xs uppercase font-bold">The Sophisticate</span>
+                        <h3 class="font-serif text-4xl text-stone-900 mt-2 mb-4">Oaxacan Old Fashioned</h3>
+                        <ul class="font-sans text-stone-600 space-y-2 mb-6 inline-block text-left">
+                            <li class="flex items-center"><span class="w-2 h-2 bg-agave rounded-full mr-3"></span>2 oz {{COMPANY_NAME}} Reposado</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-agave rounded-full mr-3"></span>1 tsp Agave Nectar</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-agave rounded-full mr-3"></span>2 Dashes Angostura Bitters</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-agave rounded-full mr-3"></span>Orange Peel Garnish</li>
+                        </ul>
+                        <div class="block">
+                            <a href="#" class="text-sm font-bold uppercase tracking-widest hover:text-clay transition-colors">View Recipe -></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-16 border-t border-stone-800">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="font-serif text-2xl tracking-widest uppercase text-white mb-6 block">{{COMPANY_NAME}}</a>
+                    <p class="font-sans text-sm leading-relaxed">
+                        Crafted with patience.<br>Enjoyed with respect.<br>
+                        Jalisco, Mexico.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-white font-sans uppercase tracking-widest text-xs font-bold mb-6">Shop</h5>
+                    <ul class="space-y-4 font-sans text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">All Products</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Merchandise</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Gift Sets</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-sans uppercase tracking-widest text-xs font-bold mb-6">Distillery</h5>
+                    <ul class="space-y-4 font-sans text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Our Process</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Visit Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-sans uppercase tracking-widest text-xs font-bold mb-6">Newsletter</h5>
+                    <p class="text-xs mb-4">Join our community for limited releases.</p>
+                    <form class="flex border-b border-stone-700 pb-2">
+                        <input type="email" placeholder="Email Address" class="bg-transparent w-full focus:outline-none text-white placeholder-stone-600 text-sm">
+                        <button type="submit" class="text-xs uppercase tracking-widest text-clay hover:text-white transition-colors">Join</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-stone-800 text-xs tracking-wide">
+                <div class="mb-4 md:mb-0">
+                    &copy; 2024 {{COMPANY_NAME}}. Please drink responsibly.
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-white transition-colors">Facebook</a>
+                    <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

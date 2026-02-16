@@ -1598,6 +1598,19 @@
         "Bold",
         "Narrative"
       ]
+    },
+    {
+      "id": "124",
+      "name": "Sol de Agave",
+      "category": "Spirits",
+      "style": "Agave Minimal",
+      "path": "catalog/template_124_spirits_agave_minimal",
+      "description": "Sun-drenched agave minimalism.",
+      "tags": [
+        "Minimal",
+        "Organic",
+        "Premium"
+      ]
     }
   ]
 }
