@@ -1650,6 +1650,19 @@
         "Science",
         "Luxury"
       ]
+    },
+    {
+      "id": "128",
+      "name": "Core Systems",
+      "category": "Data Infrastructure",
+      "style": "Cold Aisle",
+      "path": "catalog/template_128_data_infrastructure_cold_aisle",
+      "description": "High-tech server environment.",
+      "tags": [
+        "Tech",
+        "Blue",
+        "Infrastructure"
+      ]
     }
   ]
 }
