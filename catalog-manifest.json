@@ -1702,6 +1702,19 @@
         "Technical",
         "Public Sector"
       ]
+    },
+    {
+      "id": "132",
+      "name": "Helix Health",
+      "category": "Genomic Medicine",
+      "style": "Helix Minimal",
+      "path": "catalog/template_132_genomic_medicine_helix_minimal",
+      "description": "Clean DNA-focused design with scientific gradients.",
+      "tags": [
+        "Medical",
+        "Science",
+        "Modern"
+      ]
     }
   ]
 }
