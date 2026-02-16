@@ -1624,6 +1624,19 @@
         "Ice",
         "Tech"
       ]
+    },
+    {
+      "id": "126",
+      "name": "Aurum Acoustics",
+      "category": "High-Fidelity Audio",
+      "style": "Vacuum Tube",
+      "path": "catalog/template_126_hifi_audio_vacuum_tube",
+      "description": "Warm glow & wood accents.",
+      "tags": [
+        "Luxury",
+        "Analog",
+        "Warm"
+      ]
     }
   ]
 }

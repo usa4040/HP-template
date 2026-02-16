@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | High-Fidelity Audio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neutral: {
+                            850: '#1f1f1f',
+                            950: '#0a0a0a',
+                        },
+                        amber: {
+                            450: '#fbbf24',
+                            550: '#d97706',
+                        },
+                        wood: {
+                            800: '#3e2723',
+                            900: '#261612',
+                        },
+                        gold: {
+                            400: '#d4af37',
+                            500: '#c5a028',
+                            600: '#aa8820',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Forum', 'serif'],
+                        body: ['Quattrocento Sans', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'wood-pattern': "url('https://www.transparenttextures.com/patterns/wood-pattern.png')",
+                        'noise': "url('https://www.transparenttextures.com/patterns/stardust.png')",
+                    },
+                    boxShadow: {
+                        'tube-glow': '0 0 30px -5px rgba(251, 191, 36, 0.3)',
+                        'tube-glow-strong': '0 0 50px -10px rgba(251, 191, 36, 0.6)',
+                    },
+                    animation: {
+                        'flicker': 'flicker 3s infinite alternate',
+                        'vu-needle': 'vu-needle 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        flicker: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.95' },
+                        },
+                        'vu-needle': {
+                            '0%': { transform: 'rotate(-45deg)' },
+                            '20%': { transform: 'rotate(-30deg)' },
+                            '40%': { transform: 'rotate(-10deg)' },
+                            '60%': { transform: 'rotate(-25deg)' },
+                            '80%': { transform: 'rotate(5deg)' },
+                            '100%': { transform: 'rotate(-15deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-glow {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        .wood-texture {
+            background-color: #261612;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%233e2723' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        .glass-panel {
+            background: rgba(38, 22, 18, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-neutral-950 text-amber-50 font-body antialiased selection:bg-amber-900 selection:text-amber-50">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-500 border-b border-gold-500/20 backdrop-blur-md"
+         :class="scrolled ? 'bg-neutral-950/95 shadow-xl' : 'bg-wood-900/60'"
+         x-data="{ scrolled: false, mobileMenuOpen: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center relative z-50">
+            <a href="#" class="text-2xl font-display tracking-widest text-gold-400 hover:text-gold-300 transition-colors uppercase">
+                <i class="fa-solid fa-compact-disc fa-spin-pulse mr-2 text-sm align-middle opacity-80" style="--fa-animation-duration: 3s;"></i>
+                {{COMPANY_NAME}}
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase text-neutral-400">
+                <a href="#philosophy" class="hover:text-gold-400 transition-colors">Philosophy</a>
+                <a href="#collection" class="hover:text-gold-400 transition-colors">Collection</a>
+                <a href="#technology" class="hover:text-gold-400 transition-colors">Technology</a>
+                <a href="#contact" class="hover:text-gold-400 transition-colors">Listening Room</a>
+            </div>
+            <button class="md:hidden text-gold-400 focus:outline-none" @click="mobileMenuOpen = !mobileMenuOpen">
+                <i class="fa-solid" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-5"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-5"
+             class="absolute top-full left-0 w-full bg-neutral-900 border-b border-gold-500/20 shadow-2xl md:hidden flex flex-col items-center py-8 space-y-6 z-40">
+            <a href="#philosophy" @click="mobileMenuOpen = false" class="text-neutral-300 hover:text-gold-400 text-lg uppercase tracking-widest transition-colors">Philosophy</a>
+            <a href="#collection" @click="mobileMenuOpen = false" class="text-neutral-300 hover:text-gold-400 text-lg uppercase tracking-widest transition-colors">Collection</a>
+            <a href="#technology" @click="mobileMenuOpen = false" class="text-neutral-300 hover:text-gold-400 text-lg uppercase tracking-widest transition-colors">Technology</a>
+            <a href="#contact" @click="mobileMenuOpen = false" class="text-neutral-300 hover:text-gold-400 text-lg uppercase tracking-widest transition-colors">Listening Room</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1563351982-c2e7b51b3a6c?q=80&w=2070&auto=format&fit=crop" alt="Vacuum Tube Glow" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-b from-neutral-950/80 via-neutral-950/40 to-neutral-950"></div>
+            <!-- Vignette -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-neutral-950/60 to-neutral-950"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <p class="text-gold-500 tracking-[0.3em] uppercase text-sm mb-6 animate-fade-in-up">The Warmth of Pure Sound</p>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 text-glow animate-flicker">
+                Analog <span class="text-gold-400">Resonance</span>
+            </h1>
+            <p class="text-neutral-300 text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto leading-relaxed">
+                Hand-crafted vacuum tube amplifiers designed to reveal the soul of your music. Experience audio in its most organic form.
+            </p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                <a href="#collection" class="group relative px-8 py-3 bg-transparent border border-gold-500 text-gold-400 hover:bg-gold-500/10 transition-all duration-300 uppercase tracking-widest text-sm">
+                    <span class="relative z-10">View Collection</span>
+                    <div class="absolute inset-0 bg-gold-500/10 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
+                </a>
+                <a href="#contact" class="px-8 py-3 bg-wood-900 text-neutral-300 hover:bg-wood-800 transition-all duration-300 uppercase tracking-widest text-sm border border-wood-800">
+                    Book Audition
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gold-500/50">
+            <i class="fa-solid fa-chevron-down text-xl"></i>
+        </div>
+    </header>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-24 bg-neutral-950 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2 relative">
+                    <div class="absolute -inset-4 border border-gold-500/20 rounded-sm transform translate-x-4 translate-y-4"></div>
+                    <img src="https://images.unsplash.com/photo-1769367542930-8e73dff5760e?q=80&w=2069&auto=format&fit=crop" alt="Internal Components" class="relative z-10 w-full rounded-sm shadow-2xl filter sepia-[0.3] contrast-125">
+                    <!-- Glowing Accent -->
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-amber-500/20 blur-[80px] rounded-full z-0"></div>
+                </div>
+                <div class="md:w-1/2 space-y-8">
+                    <h2 class="font-display text-4xl md:text-5xl text-white">
+                        <span class="text-gold-500 block text-lg font-body tracking-widest uppercase mb-2">Our Philosophy</span>
+                        Precision Meets Passion
+                    </h2>
+                    <p class="text-neutral-400 leading-loose">
+                        At {{COMPANY_NAME}}, we believe that specifications are just the beginning. The true measure of an amplifier is its ability to evoke emotion. We reject the cold sterility of modern digital amplification in favor of the rich, harmonic distortion that only thermionic valves can provide.
+                    </p>
+                    <p class="text-neutral-400 leading-loose">
+                        Every chassis is milled from solid aircraft-grade aluminum and finished with sustainably sourced hardwood panels. Each circuit is point-to-point wired by hand, ensuring the shortest signal path and purest tone.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8 pt-6 border-t border-neutral-800">
+                        <div>
+                            <h4 class="font-display text-3xl text-gold-400 mb-1">0.05%</h4>
+                            <p class="text-xs uppercase tracking-widest text-neutral-500">Total Harmonic Distortion</p>
+                        </div>
+                        <div>
+                            <h4 class="font-display text-3xl text-gold-400 mb-1">20Hz-20kHz</h4>
+                            <p class="text-xs uppercase tracking-widest text-neutral-500">Frequency Response</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Collection -->
+    <section id="collection" class="py-24 bg-wood-900 wood-texture relative border-y border-wood-800">
+        <div class="absolute inset-0 bg-neutral-950/80"></div> <!-- Overlay for darkening texture -->
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-4xl md:text-5xl mb-4">The Master Collection</h2>
+                <div class="w-24 h-1 bg-gold-600 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Product Card 1 -->
+                <div class="group bg-neutral-900 border border-neutral-800 hover:border-gold-500/50 transition-all duration-500 overflow-hidden relative">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=2066&auto=format&fit=crop" alt="Speaker" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent opacity-90"></div>
+                        <div class="absolute bottom-4 left-4">
+                             <span class="px-2 py-1 bg-gold-500/20 text-gold-400 text-xs tracking-widest uppercase border border-gold-500/30">Flagship</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-display text-2xl mb-2 group-hover:text-gold-400 transition-colors">Opus One Monoblock</h3>
+                        <p class="text-neutral-500 text-sm mb-6 leading-relaxed">Class A single-ended triode amplifier delivering 30 watts of pure sonic bliss.</p>
+                        <div class="flex justify-between items-center border-t border-neutral-800 pt-4">
+                            <span class="text-gold-500 font-display text-xl">$12,500</span>
+                            <a href="#" class="text-xs uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">Details <i class="fa-solid fa-arrow-right ml-1 text-gold-500"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="group bg-neutral-900 border border-neutral-800 hover:border-gold-500/50 transition-all duration-500 overflow-hidden relative">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1616681255209-368a2cd3e643?q=80&w=2070&auto=format&fit=crop" alt="Turntable" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent opacity-90"></div>
+                        <div class="absolute bottom-4 left-4">
+                             <span class="px-2 py-1 bg-neutral-800/80 text-neutral-300 text-xs tracking-widest uppercase border border-neutral-700">Source</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-display text-2xl mb-2 group-hover:text-gold-400 transition-colors">Chronos Turntable</h3>
+                        <p class="text-neutral-500 text-sm mb-6 leading-relaxed">Precision-machined brass platter with a magnetic levitation bearing system.</p>
+                        <div class="flex justify-between items-center border-t border-neutral-800 pt-4">
+                            <span class="text-gold-500 font-display text-xl">$8,200</span>
+                            <a href="#" class="text-xs uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">Details <i class="fa-solid fa-arrow-right ml-1 text-gold-500"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="group bg-neutral-900 border border-neutral-800 hover:border-gold-500/50 transition-all duration-500 overflow-hidden relative">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1534088568595-a066f410bcda?q=80&w=2070&auto=format&fit=crop" alt="Aether Clouds" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent opacity-90"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-display text-2xl mb-2 group-hover:text-gold-400 transition-colors">Aether Pre-Amp</h3>
+                        <p class="text-neutral-500 text-sm mb-6 leading-relaxed">Dual-chassis reference preamplifier with separate power supply unit.</p>
+                        <div class="flex justify-between items-center border-t border-neutral-800 pt-4">
+                            <span class="text-gold-500 font-display text-xl">$9,800</span>
+                            <a href="#" class="text-xs uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">Details <i class="fa-solid fa-arrow-right ml-1 text-gold-500"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Interlude / VU Meter Concept -->
+    <section class="py-20 bg-neutral-950 flex flex-col items-center justify-center overflow-hidden relative">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/10 via-neutral-950 to-neutral-950"></div>
+
+        <!-- VU Meter Graphic (CSS Art) -->
+        <div class="relative w-80 h-48 bg-neutral-900 border-4 border-neutral-800 rounded-t-full overflow-hidden shadow-tube-glow mb-8">
+            <!-- Scale -->
+            <div class="absolute bottom-4 left-10 right-10 flex justify-between text-xs text-neutral-500 font-mono">
+                <span>-20</span>
+                <span>-10</span>
+                <span>-5</span>
+                <span>0</span>
+                <span class="text-red-500">+3</span>
+            </div>
+            <!-- Needle -->
+            <div class="absolute bottom-2 left-1/2 w-1 h-36 bg-red-600 origin-bottom shadow-md animate-vu-needle transform -translate-x-1/2 rounded-full z-10"></div>
+            <!-- Pivot -->
+            <div class="absolute bottom-0 left-1/2 w-6 h-6 bg-neutral-800 rounded-full transform -translate-x-1/2 translate-y-1/2 border-2 border-neutral-600 z-20"></div>
+            <!-- Glass Reflection -->
+            <div class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white/10 to-transparent rounded-t-full"></div>
+        </div>
+
+        <h3 class="font-display text-2xl text-amber-500/80 tracking-widest uppercase">Signal Purity</h3>
+    </section>
+
+    <!-- Technical Specs Table -->
+    <section id="technology" class="py-24 bg-neutral-900 relative">
+         <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="font-display text-4xl text-center mb-16 text-neutral-200">Technical Specifications</h2>
+
+            <div class="border border-neutral-700 bg-neutral-950/50 backdrop-blur-sm p-8 md:p-12 relative">
+                <!-- Decorative Screws -->
+                <div class="absolute top-4 left-4 w-3 h-3 rounded-full bg-neutral-700 border border-neutral-800 shadow-inner flex items-center justify-center"><div class="w-1.5 h-px bg-neutral-900 transform rotate-45"></div></div>
+                <div class="absolute top-4 right-4 w-3 h-3 rounded-full bg-neutral-700 border border-neutral-800 shadow-inner flex items-center justify-center"><div class="w-1.5 h-px bg-neutral-900 transform rotate-45"></div></div>
+                <div class="absolute bottom-4 left-4 w-3 h-3 rounded-full bg-neutral-700 border border-neutral-800 shadow-inner flex items-center justify-center"><div class="w-1.5 h-px bg-neutral-900 transform rotate-45"></div></div>
+                <div class="absolute bottom-4 right-4 w-3 h-3 rounded-full bg-neutral-700 border border-neutral-800 shadow-inner flex items-center justify-center"><div class="w-1.5 h-px bg-neutral-900 transform rotate-45"></div></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-x-12">
+                    <div class="flex justify-between border-b border-neutral-800 pb-2">
+                        <span class="text-neutral-500 uppercase tracking-widest text-xs">Model</span>
+                        <span class="font-mono text-gold-400">AA-126-TUBE</span>
+                    </div>
+                    <div class="flex justify-between border-b border-neutral-800 pb-2">
+                        <span class="text-neutral-500 uppercase tracking-widest text-xs">Output Power</span>
+                        <span class="font-mono text-neutral-300">30W / Channel</span>
+                    </div>
+                    <div class="flex justify-between border-b border-neutral-800 pb-2">
+                        <span class="text-neutral-500 uppercase tracking-widest text-xs">Tube Complement</span>
+                        <span class="font-mono text-neutral-300">4x EL34, 2x 12AX7</span>
+                    </div>
+                    <div class="flex justify-between border-b border-neutral-800 pb-2">
+                        <span class="text-neutral-500 uppercase tracking-widest text-xs">Inputs</span>
+                        <span class="font-mono text-neutral-300">3x RCA, 1x Phono</span>
+                    </div>
+                    <div class="flex justify-between border-b border-neutral-800 pb-2">
+                        <span class="text-neutral-500 uppercase tracking-widest text-xs">Weight</span>
+                        <span class="font-mono text-neutral-300">28.5 kg</span>
+                    </div>
+                    <div class="flex justify-between border-b border-neutral-800 pb-2">
+                        <span class="text-neutral-500 uppercase tracking-widest text-xs">Dimensions</span>
+                        <span class="font-mono text-neutral-300">420 x 380 x 210 mm</span>
+                    </div>
+                    <div class="flex justify-between border-b border-neutral-800 pb-2">
+                        <span class="text-neutral-500 uppercase tracking-widest text-xs">Finish</span>
+                        <span class="font-mono text-neutral-300">Walnut / Brushed Brass</span>
+                    </div>
+                    <div class="flex justify-between border-b border-neutral-800 pb-2">
+                        <span class="text-neutral-500 uppercase tracking-widest text-xs">Warranty</span>
+                        <span class="font-mono text-neutral-300">5 Year Limited</span>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-neutral-950">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="font-display text-4xl mb-6">Experience <span class="text-gold-500">True Fidelity</span></h2>
+                    <p class="text-neutral-400 mb-8 leading-relaxed">
+                        We invite you to our listening room to experience the difference firsthand. Bring your favorite records and rediscover the music you love.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-wood-900 border border-wood-800 flex items-center justify-center text-gold-500 flex-shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium uppercase tracking-wide text-sm mb-1">Showroom</h4>
+                                <p class="text-neutral-500 text-sm">126 Resonance Blvd, Audio District<br>New York, NY 10012</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-wood-900 border border-wood-800 flex items-center justify-center text-gold-500 flex-shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium uppercase tracking-wide text-sm mb-1">Contact</h4>
+                                <p class="text-neutral-500 text-sm">+1 (555) 123-4567<br>hello@aurumacoustics.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="space-y-6 p-8 border border-neutral-800 bg-neutral-900/50">
+                    <h3 class="font-display text-2xl text-center mb-6 text-neutral-300">Request Audition</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2 md:col-span-1">
+                            <label class="block text-xs uppercase tracking-widest text-neutral-500 mb-2">Name</label>
+                            <input type="text" class="w-full bg-neutral-950 border border-neutral-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors placeholder-neutral-700" placeholder="John Doe">
+                        </div>
+                        <div class="col-span-2 md:col-span-1">
+                            <label class="block text-xs uppercase tracking-widest text-neutral-500 mb-2">Email</label>
+                            <input type="email" class="w-full bg-neutral-950 border border-neutral-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors placeholder-neutral-700" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-neutral-500 mb-2">Preferred Date</label>
+                        <input type="date" class="w-full bg-neutral-950 border border-neutral-700 text-neutral-400 px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-neutral-500 mb-2">Message</label>
+                        <textarea class="w-full bg-neutral-950 border border-neutral-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors placeholder-neutral-700 h-32" placeholder="I am interested in the Opus One..."></textarea>
+                    </div>
+                    <button type="button" class="w-full bg-gold-600 text-black font-medium py-4 uppercase tracking-widest hover:bg-gold-500 transition-colors">
+                        Send Request
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-neutral-950 border-t border-neutral-800 pt-16 pb-8">
+        <div class="container mx-auto px-6 text-center">
+            <a href="#" class="text-2xl font-display tracking-widest text-gold-400 uppercase inline-block mb-8">
+                <i class="fa-solid fa-compact-disc mr-2"></i>
+                {{COMPANY_NAME}}
+            </a>
+
+            <div class="flex justify-center space-x-8 text-neutral-500 text-sm tracking-widest uppercase mb-12">
+                <a href="#" class="hover:text-gold-400 transition-colors">Instagram</a>
+                <a href="#" class="hover:text-gold-400 transition-colors">Twitter</a>
+                <a href="#" class="hover:text-gold-400 transition-colors">YouTube</a>
+            </div>
+
+            <p class="text-neutral-700 text-xs">
+                &copy; 2024 {{COMPANY_NAME}}. All Rights Reserved. <br>
+                Designed for those who listen.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
