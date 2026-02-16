@@ -1546,6 +1546,19 @@
         "Floating",
         "Dreamy"
       ]
+    },
+    {
+      "id": "120",
+      "name": "Glyphic Foundry",
+      "category": "Type Foundry",
+      "style": "Neo-Grotesque",
+      "path": "catalog/template_120_type_foundry_neo_grotesque",
+      "description": "High-impact type showcase.",
+      "tags": [
+        "Typography",
+        "Bold",
+        "Interactive"
+      ]
     }
   ]
 }

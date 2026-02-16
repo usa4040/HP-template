@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glyphic Foundry | Neo-Grotesque Typography</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ink': '#050505',
+                        'paper': '#f4f4f0',
+                        'acid': '#ccff00',
+                        'acid-hover': '#b3e600',
+                    },
+                    fontFamily: {
+                        'display': ['"Space Grotesk"', 'sans-serif'],
+                        'body': ['"Inter"', 'sans-serif'],
+                    },
+                    animation: {
+                        'marquee': 'marquee 20s linear infinite',
+                        'marquee-reverse': 'marquee-reverse 20s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        'marquee-reverse': {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide scrollbar for cleaner look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Custom selection color */
+        ::selection {
+            background-color: #ccff00;
+            color: #050505;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #ccff00;
+            cursor: pointer;
+            margin-top: -8px;
+            border: 2px solid #050505;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #333;
+        }
+    </style>
+</head>
+<body class="bg-ink text-paper font-body antialiased selection:bg-acid selection:text-ink">
+
+    <!-- Sticky Header -->
+    <header class="fixed w-full top-0 z-50 bg-ink/90 backdrop-blur-md border-b border-paper/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="text-2xl font-display font-bold tracking-tighter hover:text-acid transition-colors cursor-pointer">
+                {{COMPANY_NAME}}
+            </div>
+            <nav class="hidden md:flex gap-8 text-sm font-semibold tracking-wide uppercase">
+                <a href="#fonts" class="hover:text-acid transition-colors">Fonts</a>
+                <a href="#tester" class="hover:text-acid transition-colors">Type Tester</a>
+                <a href="#glyphs" class="hover:text-acid transition-colors">Glyphs</a>
+                <a href="#pricing" class="hover:text-acid transition-colors">Licensing</a>
+            </nav>
+            <button class="bg-paper text-ink px-6 py-2 rounded-full font-bold text-sm hover:bg-acid transition-colors flex items-center gap-2">
+                <span>CART</span>
+                <span class="bg-ink text-paper text-xs px-2 py-0.5 rounded-full">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Marquee -->
+    <div class="pt-32 pb-12 overflow-hidden border-b border-paper/10 bg-ink" id="fonts">
+        <div class="flex whitespace-nowrap overflow-hidden">
+            <div class="flex animate-marquee shrink-0">
+                <span class="text-[12rem] leading-none font-display font-bold uppercase mx-4 text-paper/90">New Release &mdash;</span>
+                <span class="text-[12rem] leading-none font-display font-bold uppercase mx-4 text-acid">Glyphic Grotesk &mdash;</span>
+                <span class="text-[12rem] leading-none font-display font-bold uppercase mx-4 text-paper/90">Variable Weight &mdash;</span>
+            </div>
+            <div class="flex animate-marquee shrink-0" aria-hidden="true">
+                <span class="text-[12rem] leading-none font-display font-bold uppercase mx-4 text-paper/90">New Release &mdash;</span>
+                <span class="text-[12rem] leading-none font-display font-bold uppercase mx-4 text-acid">Glyphic Grotesk &mdash;</span>
+                <span class="text-[12rem] leading-none font-display font-bold uppercase mx-4 text-paper/90">Variable Weight &mdash;</span>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-8 flex flex-col md:flex-row justify-between items-end">
+            <div class="max-w-xl">
+                <p class="text-xl md:text-2xl font-light text-gray-400">
+                    A neo-grotesque typeface designed for high-impact displays and editorial precision.
+                    Engineered for legibility at any scale.
+                </p>
+            </div>
+            <div class="mt-8 md:mt-0 flex gap-4">
+                <div class="text-right">
+                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">Styles</p>
+                    <p class="font-display text-2xl font-bold">18 Weights</p>
+                </div>
+                <div class="text-right border-l border-gray-700 pl-4">
+                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">Format</p>
+                    <p class="font-display text-2xl font-bold">OTF, WOFF2</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Type Tester Section -->
+    <section id="tester" class="py-24 border-b border-paper/10 bg-ink" x-data="{
+        text: 'The quick brown fox jumps over the lazy dog.',
+        size: 96,
+        weight: 400,
+        alignment: 'left',
+        lineHeight: 1.1
+    }">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <h2 class="text-4xl font-display font-bold text-paper">Interactive Tester</h2>
+                <div class="flex gap-4 mt-6 md:mt-0 bg-gray-900 p-2 rounded-lg border border-gray-800">
+                    <button @click="alignment = 'left'" :class="alignment === 'left' ? 'text-acid' : 'text-gray-500'" class="p-2 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="17" y1="18" x2="3" y2="18"></line></svg></button>
+                    <button @click="alignment = 'center'" :class="alignment === 'center' ? 'text-acid' : 'text-gray-500'" class="p-2 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg></button>
+                    <button @click="alignment = 'right'" :class="alignment === 'right' ? 'text-acid' : 'text-gray-500'" class="p-2 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg></button>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 p-6 border border-gray-800 rounded-xl bg-gray-900/50">
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-4">Size: <span x-text="size + 'px'" class="text-acid ml-2"></span></label>
+                    <input type="range" min="12" max="200" x-model="size" class="w-full">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-4">Weight: <span x-text="weight" class="text-acid ml-2"></span></label>
+                    <input type="range" min="300" max="700" step="100" x-model="weight" class="w-full">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-4">Line Height: <span x-text="lineHeight" class="text-acid ml-2"></span></label>
+                    <input type="range" min="0.8" max="2.0" step="0.1" x-model="lineHeight" class="w-full">
+                </div>
+            </div>
+
+            <!-- Display Area -->
+            <div class="min-h-[400px] border border-gray-800 rounded-xl p-8 overflow-hidden bg-paper text-ink transition-all duration-300 relative">
+                <textarea
+                    x-model="text"
+                    class="w-full h-full bg-transparent border-none outline-none resize-none font-display block"
+                    :style="`font-size: ${size}px; font-weight: ${weight}; text-align: ${alignment}; line-height: ${lineHeight};`"
+                    spellcheck="false"
+                ></textarea>
+                <div class="absolute bottom-4 right-4 text-xs text-ink/50 font-mono pointer-events-none">Editable Area</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Set / Bento Grid -->
+    <section id="glyphs" class="py-24 border-b border-paper/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-display font-bold mb-12">Character Map</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-gray-800 border border-gray-800">
+                <!-- Vowels Highlighted -->
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    A
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0041</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    B
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0042</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    C
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0043</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    D
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0044</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    E
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0045</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    F
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0046</span>
+                </div>
+                <!-- Row 2 -->
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    G
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0047</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    H
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0048</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    I
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0049</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    J
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">004A</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    K
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">004B</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    L
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">004C</span>
+                </div>
+                 <!-- Row 3 -->
+                 <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    M
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">004D</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    N
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">004E</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    O
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">004F</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    P
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0050</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    Q
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0051</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    R
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0052</span>
+                </div>
+                 <!-- Symbols -->
+                 <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    &
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0026</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    @
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0040</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    ?
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">003F</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    !
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0021</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    #
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0023</span>
+                </div>
+                <div class="aspect-square bg-ink hover:bg-acid hover:text-ink transition-colors flex items-center justify-center text-4xl font-display border border-gray-900 group relative">
+                    %
+                    <span class="absolute top-2 left-2 text-[10px] text-gray-600 group-hover:text-ink font-mono">0025</span>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-center">
+                <button class="text-sm font-mono border border-gray-700 px-6 py-3 hover:bg-paper hover:text-ink transition-all uppercase tracking-widest">
+                    View Full Glyph Set
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Context Use -->
+    <section class="py-24 bg-paper text-ink overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-6xl md:text-8xl font-display font-bold leading-none mb-8">
+                    Made for <br><span class="text-acid bg-ink px-2">Bold</span> Ideas.
+                </h2>
+                <p class="text-lg md:text-xl font-light mb-8 max-w-md">
+                    From towering billboards to 12px interface text, Glyphic Grotesk maintains its structural integrity and distinct personality.
+                </p>
+                <ul class="space-y-4 font-mono text-sm uppercase tracking-wide">
+                    <li class="flex items-center gap-4 border-b border-gray-300 pb-2">
+                        <span class="w-4 h-4 bg-ink"></span> Editorial Design
+                    </li>
+                    <li class="flex items-center gap-4 border-b border-gray-300 pb-2">
+                        <span class="w-4 h-4 bg-ink"></span> App Interfaces
+                    </li>
+                    <li class="flex items-center gap-4 border-b border-gray-300 pb-2">
+                        <span class="w-4 h-4 bg-ink"></span> Large Scale Print
+                    </li>
+                    <li class="flex items-center gap-4 border-b border-gray-300 pb-2">
+                        <span class="w-4 h-4 bg-ink"></span> Brand Identity
+                    </li>
+                </ul>
+            </div>
+            <div class="relative">
+                <div class="aspect-[3/4] bg-ink w-full relative group overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Abstract Architecture" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700 mix-blend-overlay">
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <h3 class="text-paper font-display text-9xl font-bold mix-blend-difference rotate-90 md:rotate-0">TYPE</h3>
+                    </div>
+                    <div class="absolute bottom-4 left-4 text-paper/80 font-mono text-xs">
+                        Specimen 01
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-24 border-b border-paper/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-display font-bold mb-12 text-center">Licensing Options</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Standard -->
+                <div class="border border-gray-800 p-8 hover:border-acid transition-colors group bg-gray-900/30">
+                    <div class="mb-4">
+                        <h3 class="text-xl font-bold font-display uppercase">Desktop</h3>
+                        <p class="text-gray-500 text-sm mt-1">For print & graphic design</p>
+                    </div>
+                    <div class="text-4xl font-bold font-display mb-8 text-paper">$45<span class="text-sm font-normal text-gray-500">/weight</span></div>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-8 font-mono">
+                        <li class="flex gap-2"><span>✓</span> 1-5 Computers</li>
+                        <li class="flex gap-2"><span>✓</span> Print & Social Media</li>
+                        <li class="flex gap-2"><span>✓</span> Logos (Static)</li>
+                        <li class="flex gap-2 opacity-50"><span>×</span> Web Usage</li>
+                        <li class="flex gap-2 opacity-50"><span>×</span> App Embedding</li>
+                    </ul>
+                    <button class="w-full py-4 border border-gray-600 hover:bg-acid hover:border-acid hover:text-ink transition-all font-bold uppercase tracking-widest text-sm">
+                        Select
+                    </button>
+                </div>
+
+                <!-- Web -->
+                <div class="border border-acid p-8 bg-acid/5 relative transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 bg-acid text-ink text-xs font-bold px-3 py-1 uppercase tracking-widest">Popular</div>
+                    <div class="mb-4">
+                        <h3 class="text-xl font-bold font-display uppercase text-acid">Web License</h3>
+                        <p class="text-gray-500 text-sm mt-1">For websites & digital ads</p>
+                    </div>
+                    <div class="text-4xl font-bold font-display mb-8 text-paper">$65<span class="text-sm font-normal text-gray-500">/domain</span></div>
+                    <ul class="space-y-3 text-sm text-gray-300 mb-8 font-mono">
+                        <li class="flex gap-2 text-white"><span>✓</span> 100k Monthly Views</li>
+                        <li class="flex gap-2 text-white"><span>✓</span> Unlimited Subdomains</li>
+                        <li class="flex gap-2 text-white"><span>✓</span> Self-Hosted WOFF2</li>
+                        <li class="flex gap-2 opacity-50"><span>×</span> App Embedding</li>
+                    </ul>
+                    <button class="w-full py-4 bg-acid text-ink hover:bg-white hover:text-black transition-all font-bold uppercase tracking-widest text-sm">
+                        Select
+                    </button>
+                </div>
+
+                <!-- App -->
+                <div class="border border-gray-800 p-8 hover:border-acid transition-colors group bg-gray-900/30">
+                    <div class="mb-4">
+                        <h3 class="text-xl font-bold font-display uppercase">App & Epub</h3>
+                        <p class="text-gray-500 text-sm mt-1">For mobile apps & software</p>
+                    </div>
+                    <div class="text-4xl font-bold font-display mb-8 text-paper">$120<span class="text-sm font-normal text-gray-500">/app</span></div>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-8 font-mono">
+                        <li class="flex gap-2"><span>✓</span> Unlimited Downloads</li>
+                        <li class="flex gap-2"><span>✓</span> iOS & Android</li>
+                        <li class="flex gap-2"><span>✓</span> E-books / PDFs</li>
+                        <li class="flex gap-2"><span>✓</span> Embedding allowed</li>
+                    </ul>
+                    <button class="w-full py-4 border border-gray-600 hover:bg-acid hover:border-acid hover:text-ink transition-all font-bold uppercase tracking-widest text-sm">
+                        Select
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ink text-paper py-24 border-t border-paper/10 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none flex justify-center items-center">
+            <span class="text-[20vw] font-display font-bold leading-none">TYPE</span>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+                <div>
+                    <h2 class="text-2xl font-display font-bold mb-6">{{COMPANY_NAME}}</h2>
+                    <p class="max-w-xs text-gray-500 font-light">
+                        Crafting distinct typography for the modern web. Based in Berlin & Tokyo.
+                    </p>
+                </div>
+                <div class="flex gap-8 mt-8 md:mt-0 font-mono text-sm uppercase text-gray-400">
+                    <a href="#" class="hover:text-acid transition-colors">Twitter</a>
+                    <a href="#" class="hover:text-acid transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-acid transition-colors">Behance</a>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between text-xs text-gray-600 font-mono uppercase tracking-wide">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-paper transition-colors">EULA</a>
+                    <a href="#" class="hover:text-paper transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-paper transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
