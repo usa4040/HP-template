@@ -1637,6 +1637,19 @@
         "Analog",
         "Warm"
       ]
+    },
+    {
+      "id": "127",
+      "name": "Aeterna",
+      "category": "Art Conservation",
+      "style": "Renaissance Tech",
+      "path": "catalog/template_127_art_conservation_renaissance_tech",
+      "description": "Scientific art restoration.",
+      "tags": [
+        "Heritage",
+        "Science",
+        "Luxury"
+      ]
     }
   ]
 }
