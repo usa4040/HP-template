@@ -1611,6 +1611,19 @@
         "Organic",
         "Premium"
       ]
+    },
+    {
+      "id": "125",
+      "name": "CryoGenics",
+      "category": "Cryotherapy",
+      "style": "Sub-Zero",
+      "path": "catalog/template_125_cryotherapy_sub_zero",
+      "description": "Futuristic cold therapy aesthetic.",
+      "tags": [
+        "Wellness",
+        "Ice",
+        "Tech"
+      ]
     }
   ]
 }
