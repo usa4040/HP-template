@@ -1585,6 +1585,19 @@
         "Playful",
         "Warm"
       ]
+    },
+    {
+      "id": "123",
+      "name": "The Truth Protocol",
+      "category": "Journalism",
+      "style": "Redacted Noir",
+      "path": "catalog/template_123_journalism_redacted",
+      "description": "Redacted document style.",
+      "tags": [
+        "Noir",
+        "Bold",
+        "Narrative"
+      ]
     }
   ]
 }
