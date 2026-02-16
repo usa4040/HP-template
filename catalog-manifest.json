@@ -1533,6 +1533,19 @@
         "Tech",
         "Dark"
       ]
+    },
+    {
+      "id": "119",
+      "name": "AeroDream Voyages",
+      "category": "Hot Air Balloon",
+      "style": "Aero-Pastel",
+      "path": "catalog/template_119_hot_air_balloon_aero_pastel",
+      "description": "Dreamy pastel floating effects",
+      "tags": [
+        "Pastel",
+        "Floating",
+        "Dreamy"
+      ]
     }
   ]
 }
