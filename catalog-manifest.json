@@ -1676,6 +1676,19 @@
         "Map Texture",
         "Field Notes"
       ]
+    },
+    {
+      "id": "130",
+      "name": "Cerebral Flow",
+      "category": "Neuro-Enhancement",
+      "style": "Synaptic Flow",
+      "path": "catalog/template_130_neuro_enhancement_synaptic_flow",
+      "description": "Organic neural visuals",
+      "tags": [
+        "Wellness",
+        "Gradient",
+        "Future"
+      ]
     }
   ]
 }
