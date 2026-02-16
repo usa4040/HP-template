@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Advanced Cryotherapy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Michroma', 'sans-serif'],
+                        body: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        ice: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                        neon: {
+                            cyan: '#00ffff',
+                            silver: '#e2e8f0',
+                        }
+                    },
+                    backgroundImage: {
+                        'frost-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%)',
+                        'sub-zero': 'linear-gradient(to bottom, #f8fafc, #f1f5f9)',
+                    },
+                    animation: {
+                        'mist': 'mist 20s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        mist: {
+                            '0%': { transform: 'translateX(0) translateY(0)' },
+                            '50%': { transform: 'translateX(-20px) translateY(-10px)' },
+                            '100%': { transform: 'translateX(0) translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+    </style>
+</head>
+<body class="font-body text-slate-800 bg-sub-zero antialiased selection:bg-ice-200 selection:text-ice-900 overflow-x-hidden">
+
+    <!-- Mist Background Effect -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-30 overflow-hidden">
+        <div class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-[url('https://images.unsplash.com/photo-1518112166137-170d4d038234?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center blur-3xl animate-mist"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-card border-b border-white/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-ice-400 rounded-sm rotate-45 flex items-center justify-center shadow-lg shadow-ice-400/50">
+                        <div class="w-4 h-4 bg-white rotate-45"></div>
+                    </div>
+                    <span class="font-display text-xl tracking-wider text-slate-900 uppercase">{{COMPANY_NAME}}</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#technology" class="font-display text-sm text-slate-600 hover:text-ice-600 tracking-widest transition-colors duration-300">TECHNOLOGY</a>
+                    <a href="#benefits" class="font-display text-sm text-slate-600 hover:text-ice-600 tracking-widest transition-colors duration-300">BENEFITS</a>
+                    <a href="#experience" class="font-display text-sm text-slate-600 hover:text-ice-600 tracking-widest transition-colors duration-300">EXPERIENCE</a>
+                    <a href="#pricing" class="font-display text-sm text-slate-600 hover:text-ice-600 tracking-widest transition-colors duration-300">PRICING</a>
+                </div>
+                <div>
+                    <a href="#book" class="hidden md:inline-flex items-center justify-center px-6 py-2 border border-ice-400 text-sm font-display font-medium text-ice-600 bg-white/50 hover:bg-ice-400 hover:text-white transition-all duration-300 uppercase tracking-widest shadow-lg hover:shadow-ice-400/30">
+                        Book Session
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+             <img src="https://images.unsplash.com/photo-1519451431206-8d1976a26df3?q=80&w=2525&auto=format&fit=crop" alt="Abstract Ice Background" class="w-full h-full object-cover opacity-20 grayscale brightness-125">
+             <div class="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="font-display text-5xl md:text-7xl lg:text-9xl font-bold text-slate-900 tracking-tighter mb-6 leading-tight">
+                SUB<span class="text-ice-400 text-glow">ZERO</span><br>
+                RECOVERY
+            </h1>
+            <p class="font-body text-xl md:text-2xl text-slate-500 max-w-2xl mx-auto mb-10 tracking-wide">
+                Unlock peak performance at -110°C. <br class="hidden md:block">The ultimate cryotherapy experience for body and mind.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="#book" class="group relative px-8 py-4 bg-slate-900 text-white font-display text-sm tracking-widest uppercase overflow-hidden transition-all hover:bg-ice-600 shadow-xl hover:shadow-ice-500/40">
+                    <span class="relative z-10 group-hover:tracking-[0.2em] transition-all duration-300">Initialize Freeze</span>
+                    <div class="absolute inset-0 h-full w-full scale-0 rounded-full transition-all duration-300 group-hover:scale-100 group-hover:bg-ice-600/20"></div>
+                </a>
+                <a href="#technology" class="px-8 py-4 border border-slate-300 text-slate-600 font-display text-sm tracking-widest uppercase hover:border-ice-400 hover:text-ice-600 transition-colors bg-white/40 backdrop-blur-sm">
+                    Explore Tech
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-[1px] h-16 bg-gradient-to-b from-transparent via-slate-400 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-white/50 backdrop-blur-sm border-y border-white/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <div class="font-display text-5xl font-bold text-slate-900 mb-2">-110°C</div>
+                    <div class="font-body text-ice-600 uppercase tracking-widest text-sm font-semibold">Temperature</div>
+                </div>
+                <div class="p-6 border-l border-r border-slate-200/50">
+                    <div class="font-display text-5xl font-bold text-slate-900 mb-2">3 MIN</div>
+                    <div class="font-body text-ice-600 uppercase tracking-widest text-sm font-semibold">Session Duration</div>
+                </div>
+                <div class="p-6">
+                    <div class="font-display text-5xl font-bold text-slate-900 mb-2">100%</div>
+                    <div class="font-body text-ice-600 uppercase tracking-widest text-sm font-semibold">Natural Recovery</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-slate-900 mb-4 uppercase">Cryo<span class="text-ice-500">Genic</span> Core</h2>
+                <div class="w-24 h-1 bg-ice-400 mx-auto"></div>
+                <p class="mt-4 text-slate-500 font-body text-lg max-w-2xl mx-auto">Powered by liquid nitrogen technology, engineered for precision thermal shock.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-ice-300 to-ice-500 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative glass-card p-2 rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Cryo Chamber Tech" class="w-full h-auto rounded grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+                </div>
+                <div class="space-y-8">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-white rounded shadow-md flex items-center justify-center text-ice-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl text-slate-900 mb-2 uppercase">Thermal Shock Response</h3>
+                            <p class="font-body text-slate-500 leading-relaxed">Rapid cooling triggers the body's natural healing mechanisms, flooding the system with anti-inflammatory proteins.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-white rounded shadow-md flex items-center justify-center text-ice-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl text-slate-900 mb-2 uppercase">Nitrogen Vapor System</h3>
+                            <p class="font-body text-slate-500 leading-relaxed">Our proprietary vapor distribution ensures an even, safe, and effective temperature drop without direct nitrogen contact.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-white rounded shadow-md flex items-center justify-center text-ice-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl text-slate-900 mb-2 uppercase">Metabolic Reset</h3>
+                            <p class="font-body text-slate-500 leading-relaxed">Stimulates metabolism and boosts endorphin release, providing energy and mental clarity that lasts for hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Grid -->
+    <section id="benefits" class="py-24 bg-slate-100 relative">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-ice-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-ice-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-slate-900 mb-4 uppercase">Optimal <span class="text-ice-600">Results</span></h2>
+                <div class="w-24 h-1 bg-ice-600 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-12 h-12 mb-6 bg-slate-900 text-white flex items-center justify-center rounded-sm group-hover:bg-ice-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-lg text-slate-900 mb-3 uppercase">Pain Relief</h3>
+                    <p class="font-body text-slate-600 text-sm leading-relaxed">Reduces inflammation and chronic pain instantly through systemic cooling.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-12 h-12 mb-6 bg-slate-900 text-white flex items-center justify-center rounded-sm group-hover:bg-ice-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-lg text-slate-900 mb-3 uppercase">Energy Boost</h3>
+                    <p class="font-body text-slate-600 text-sm leading-relaxed">Norepinephrine release provides a surge of energy and focus.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-12 h-12 mb-6 bg-slate-900 text-white flex items-center justify-center rounded-sm group-hover:bg-ice-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-lg text-slate-900 mb-3 uppercase">Anti-Aging</h3>
+                    <p class="font-body text-slate-600 text-sm leading-relaxed">Boosts collagen production, improving skin elasticity and tone.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-12 h-12 mb-6 bg-slate-900 text-white flex items-center justify-center rounded-sm group-hover:bg-ice-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-lg text-slate-900 mb-3 uppercase">Fat Loss</h3>
+                    <p class="font-body text-slate-600 text-sm leading-relaxed">Accelerates metabolism, burning up to 800 calories per session.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section (Parallax/Fixed) -->
+    <section id="experience" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+             <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2832&auto=format&fit=crop" alt="Ice Crystals" class="w-full h-full object-cover opacity-10">
+             <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-transparent to-slate-900"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1579684385180-84f9324d35cc?q=80&w=2070&auto=format&fit=crop" alt="Cryo Experience" class="rounded shadow-2xl shadow-ice-500/20 grayscale hover:grayscale-0 transition-all duration-700">
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="font-display text-4xl font-bold mb-6 tracking-wide">The <span class="text-ice-400">Cold</span> Standard</h2>
+                <p class="font-body text-lg text-slate-300 mb-8 leading-relaxed">
+                    Step into our state-of-the-art cryo chambers. As the temperature drops, your potential rises. Our certified technicians guide you through every second of the 3-minute journey to revitalization.
+                </p>
+                <ul class="space-y-4 font-body text-slate-300">
+                    <li class="flex items-center gap-3">
+                        <span class="w-2 h-2 bg-ice-400 rounded-full"></span>
+                        Pre-session consultation & vitals check
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="w-2 h-2 bg-ice-400 rounded-full"></span>
+                        Protective gear provided (gloves, socks, mask)
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="w-2 h-2 bg-ice-400 rounded-full"></span>
+                        Post-session warm-up lounge access
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-slate-900 mb-4 uppercase">Session <span class="text-ice-600">Plans</span></h2>
+                <div class="w-24 h-1 bg-ice-600 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Basic -->
+                <div class="glass-card p-8 flex flex-col">
+                    <div class="mb-4">
+                        <h3 class="font-display text-xl text-slate-500 uppercase">Single Freeze</h3>
+                        <div class="flex items-baseline mt-4">
+                            <span class="text-4xl font-bold font-display text-slate-900">$65</span>
+                            <span class="ml-1 text-slate-500">/session</span>
+                        </div>
+                    </div>
+                    <ul class="font-body text-slate-600 space-y-4 mb-8 flex-1">
+                        <li class="flex items-center">✓ 1 Cryo Session</li>
+                        <li class="flex items-center">✓ Normatec Compression</li>
+                        <li class="flex items-center opacity-50">✕ Infrared Sauna</li>
+                    </ul>
+                    <a href="#book" class="w-full block text-center py-3 border border-slate-300 text-slate-600 font-display text-sm tracking-widest uppercase hover:bg-slate-50 transition-colors">Select</a>
+                </div>
+
+                <!-- Pro -->
+                <div class="glass-card p-8 flex flex-col relative overflow-hidden ring-2 ring-ice-400 transform md:-translate-y-4 shadow-xl">
+                    <div class="absolute top-0 right-0 bg-ice-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-widest">Popular</div>
+                    <div class="mb-4">
+                        <h3 class="font-display text-xl text-ice-600 uppercase">Cryo Pass</h3>
+                        <div class="flex items-baseline mt-4">
+                            <span class="text-4xl font-bold font-display text-slate-900">$249</span>
+                            <span class="ml-1 text-slate-500">/month</span>
+                        </div>
+                    </div>
+                    <ul class="font-body text-slate-600 space-y-4 mb-8 flex-1">
+                        <li class="flex items-center">✓ Unlimited Cryo Sessions</li>
+                        <li class="flex items-center">✓ Unlimited Compression</li>
+                        <li class="flex items-center">✓ 2 Sauna Sessions</li>
+                    </ul>
+                    <a href="#book" class="w-full block text-center py-3 bg-slate-900 text-white font-display text-sm tracking-widest uppercase hover:bg-ice-600 transition-colors shadow-lg">Subscribe</a>
+                </div>
+
+                <!-- Ultimate -->
+                <div class="glass-card p-8 flex flex-col">
+                    <div class="mb-4">
+                        <h3 class="font-display text-xl text-slate-500 uppercase">Recovery Pro</h3>
+                        <div class="flex items-baseline mt-4">
+                            <span class="text-4xl font-bold font-display text-slate-900">$399</span>
+                            <span class="ml-1 text-slate-500">/month</span>
+                        </div>
+                    </div>
+                    <ul class="font-body text-slate-600 space-y-4 mb-8 flex-1">
+                        <li class="flex items-center">✓ All Access Pass</li>
+                        <li class="flex items-center">✓ Guest Passes (2/mo)</li>
+                        <li class="flex items-center">✓ Nutrient IV Drip (1/mo)</li>
+                    </ul>
+                    <a href="#book" class="w-full block text-center py-3 border border-slate-300 text-slate-600 font-display text-sm tracking-widest uppercase hover:bg-slate-50 transition-colors">Select</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white pt-20 pb-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                         <div class="w-6 h-6 bg-ice-500 rounded-sm rotate-45"></div>
+                         <span class="font-display text-2xl tracking-wider uppercase">{{COMPANY_NAME}}</span>
+                    </div>
+                    <p class="font-body text-slate-400 max-w-sm mb-6">
+                        Pioneering the future of recovery and wellness through advanced cryotherapy technology. Freeze time, optimize performance.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display text-sm tracking-widest uppercase text-slate-500 mb-6">Contact</h4>
+                    <ul class="space-y-4 font-body text-slate-300">
+                        <li>123 Frost Avenue, Ice City</li>
+                        <li>contact@{{COMPANY_NAME}}.com</li>
+                        <li>+1 (555) 000-0000</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display text-sm tracking-widest uppercase text-slate-500 mb-6">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors">Twitter</a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors">Instagram</a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 font-body">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-slate-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
