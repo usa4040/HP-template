@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Archaeological Services</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        surface: '#FDFBF7',    // Light parchment
+                        topsoil: '#C8B6A6',    // Sandy loam
+                        subsoil: '#8D7B68',    // Deep earth
+                        clay: '#A47E5D',       // Terracotta hint
+                        bedrock: '#2C241B',    // Darkest stone
+                        accent: '#D4AF37',     // Gold leaf/Artifact
+                        bone: '#F4F1EA',       // Bone white
+                    },
+                    fontFamily: {
+                        display: ['Cinzel', 'serif'],
+                        body: ['Lato', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'noise': "url('https://www.transparenttextures.com/patterns/stardust.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2C241B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F4F1EA;
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Stratigraphic Layer Borders */
+        .layer-border-top {
+            position: relative;
+        }
+        .layer-border-top::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                45deg,
+                #D4AF37,
+                #D4AF37 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="bg-surface text-bedrock font-body antialiased selection:bg-accent selection:text-bedrock">
+
+    <!-- Navigation (Sticky) -->
+    <nav x-data="{ scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 50)"
+         :class="scrolled ? 'bg-bedrock/90 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'"
+         class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-white/10">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-display text-2xl font-bold tracking-widest uppercase transition-colors duration-300"
+               :class="scrolled ? 'text-accent' : 'text-bedrock'">
+                {{COMPANY_NAME}}
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-bold tracking-widest uppercase">
+                <a href="#methodology" class="hover:text-accent transition-colors duration-300" :class="scrolled ? 'text-bone' : 'text-bedrock'">Methodology</a>
+                <a href="#services" class="hover:text-accent transition-colors duration-300" :class="scrolled ? 'text-bone' : 'text-bedrock'">Services</a>
+                <a href="#projects" class="hover:text-accent transition-colors duration-300" :class="scrolled ? 'text-bone' : 'text-bedrock'">Discoveries</a>
+                <a href="#contact" class="hover:text-accent transition-colors duration-300" :class="scrolled ? 'text-bone' : 'text-bedrock'">Contact</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden focus:outline-none" :class="scrolled ? 'text-bone' : 'text-bedrock'">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Layer 1: Surface (Hero) -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden bg-surface">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1599930113854-d6d7fd521f10?q=80&w=2000&auto=format&fit=crop"
+                 alt="Excavation Site"
+                 class="w-full h-full object-cover opacity-20 sepia grayscale mix-blend-multiply">
+        </div>
+
+        <!-- Depth Marker -->
+        <div class="absolute right-8 top-1/2 transform -translate-y-1/2 hidden lg:flex flex-col items-center space-y-4 opacity-50 z-10">
+            <div class="h-24 w-px bg-bedrock"></div>
+            <span class="font-mono text-xs rotate-90 whitespace-nowrap tracking-widest">LEVEL 01: SURFACE</span>
+            <div class="h-24 w-px bg-bedrock"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center"
+             x-data
+             x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')">
+            <div class="opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+                <p class="font-mono text-sm tracking-[0.3em] uppercase mb-4 text-subsoil">Stratum I: The Present</p>
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-bedrock leading-tight">
+                    Unearthing the <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-subsoil to-bedrock">Narrative of Time</span>
+                </h1>
+                <p class="font-body text-xl text-subsoil max-w-2xl mx-auto mb-12 font-light">
+                    Precision archaeological services for construction, research, and preservation. We reveal the layers beneath.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <a href="#projects" class="group relative px-8 py-4 bg-bedrock text-surface font-bold tracking-widest uppercase overflow-hidden border border-bedrock hover:text-accent transition-colors duration-300">
+                        <span class="relative z-10">View Discoveries</span>
+                        <div class="absolute inset-0 bg-subsoil transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 origin-left"></div>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 border border-bedrock text-bedrock font-bold tracking-widest uppercase hover:bg-bedrock hover:text-surface transition-colors duration-300">
+                        Start Survey
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-bedrock opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <!-- Layer 2: Topsoil (About/Methodology) -->
+    <section id="methodology" class="relative py-24 bg-topsoil text-bedrock layer-border-top overflow-hidden">
+         <!-- Depth Marker -->
+         <div class="absolute right-8 top-1/2 transform -translate-y-1/2 hidden lg:flex flex-col items-center space-y-4 opacity-30 z-10">
+            <div class="h-24 w-px bg-bedrock"></div>
+            <span class="font-mono text-xs rotate-90 whitespace-nowrap tracking-widest">LEVEL 02: TOPSOIL</span>
+            <div class="h-24 w-px bg-bedrock"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-x-0')" class="opacity-0 -translate-x-10 transition-all duration-1000">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-8">Our Methodology</h2>
+                    <div class="space-y-8 font-body">
+                        <div class="flex items-start group">
+                            <span class="font-display text-5xl font-bold text-surface opacity-50 mr-6 group-hover:text-bedrock transition-colors duration-300">01</span>
+                            <div>
+                                <h3 class="font-display text-xl font-bold mb-2 uppercase tracking-wide">Survey & Mapping</h3>
+                                <p class="text-bedrock/80 leading-relaxed">Using LiDAR and GPR technology to map potential sites without disturbing the ground.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start group">
+                            <span class="font-display text-5xl font-bold text-surface opacity-50 mr-6 group-hover:text-bedrock transition-colors duration-300">02</span>
+                            <div>
+                                <h3 class="font-display text-xl font-bold mb-2 uppercase tracking-wide">Excavation</h3>
+                                <p class="text-bedrock/80 leading-relaxed">Systematic removal of strata, documenting every artifact in its original context.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start group">
+                            <span class="font-display text-5xl font-bold text-surface opacity-50 mr-6 group-hover:text-bedrock transition-colors duration-300">03</span>
+                            <div>
+                                <h3 class="font-display text-xl font-bold mb-2 uppercase tracking-wide">Preservation</h3>
+                                <p class="text-bedrock/80 leading-relaxed">Stabilizing finds in our field lab for transport and permanent curation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-10 transition-all duration-1000 delay-300">
+                    <!-- Image Grid imitating field notes -->
+                    <div class="relative z-10 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1616870028243-7f2a1b94548d?q=80&w=1200&auto=format&fit=crop" alt="Field Notes" class="shadow-2xl grayscale hover:grayscale-0 transition-all duration-500 border-8 border-surface p-2 bg-surface">
+                        <div class="absolute -bottom-6 -right-6 bg-bedrock text-surface font-mono text-xs px-4 py-2 tracking-widest">
+                            FIG 2.4: FIELD JOURNAL
+                        </div>
+                    </div>
+                    <!-- Decorative Element -->
+                    <div class="absolute -top-10 -left-10 w-full h-full border-2 border-bedrock opacity-20 z-0"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Layer 3: Subsoil (Services) -->
+    <section id="services" class="relative py-24 bg-subsoil text-surface layer-border-top">
+         <!-- Depth Marker -->
+         <div class="absolute right-8 top-1/2 transform -translate-y-1/2 hidden lg:flex flex-col items-center space-y-4 opacity-30 z-10">
+            <div class="h-24 w-px bg-surface"></div>
+            <span class="font-mono text-xs rotate-90 whitespace-nowrap tracking-widest">LEVEL 03: SUBSOIL</span>
+            <div class="h-24 w-px bg-surface"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span class="font-mono text-accent tracking-widest uppercase text-sm">Capabilities</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Field Operations</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-bedrock/20 border border-surface/10 p-8 hover:bg-bedrock/40 transition-colors duration-300 group" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-10 transition-all duration-500">
+                    <div class="w-12 h-12 mb-6 text-accent group-hover:scale-110 transition-transform duration-300">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-4 text-accent">Geophysical Survey</h3>
+                    <p class="text-surface/80 font-light leading-relaxed">Non-invasive site assessment using magnetometer and resistivity surveys to detect subsurface features.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-bedrock/20 border border-surface/10 p-8 hover:bg-bedrock/40 transition-colors duration-300 group" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-10 transition-all duration-500 delay-100">
+                    <div class="w-12 h-12 mb-6 text-accent group-hover:scale-110 transition-transform duration-300">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-4 text-accent">Rescue Excavation</h3>
+                    <p class="text-surface/80 font-light leading-relaxed">Rapid deployment teams for construction sites requiring immediate heritage mitigation and recording.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-bedrock/20 border border-surface/10 p-8 hover:bg-bedrock/40 transition-colors duration-300 group" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-10 transition-all duration-500 delay-200">
+                    <div class="w-12 h-12 mb-6 text-accent group-hover:scale-110 transition-transform duration-300">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-4 text-accent">Lab Analysis</h3>
+                    <p class="text-surface/80 font-light leading-relaxed">Detailed artifact processing, carbon dating coordination, and report generation for stakeholders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Layer 4: Bedrock (Projects) -->
+    <section id="projects" class="relative py-24 bg-bedrock text-bone layer-border-top">
+         <!-- Depth Marker -->
+         <div class="absolute right-8 top-1/2 transform -translate-y-1/2 hidden lg:flex flex-col items-center space-y-4 opacity-30 z-10">
+            <div class="h-24 w-px bg-accent"></div>
+            <span class="font-mono text-xs rotate-90 whitespace-nowrap tracking-widest text-accent">LEVEL 04: BEDROCK</span>
+            <div class="h-24 w-px bg-accent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <span class="font-mono text-accent tracking-widest uppercase text-sm">Archive</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2 text-surface">Recent Discoveries</h2>
+                </div>
+                <a href="#" class="hidden md:inline-block text-accent hover:text-white transition-colors duration-300 font-mono text-sm tracking-widest border-b border-accent pb-1">VIEW FULL ARCHIVE</a>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="group relative overflow-hidden bg-black aspect-[3/4]" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-10 transition-all duration-500">
+                    <img src="https://images.unsplash.com/photo-1590924968415-3221b2289c09?q=80&w=800&auto=format&fit=crop" alt="Roman Pottery" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <span class="text-accent font-mono text-xs tracking-widest mb-2 block">SITE: AQUILEA</span>
+                        <h3 class="font-display text-2xl text-white mb-2">Roman Amphora</h3>
+                        <p class="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Dated 2nd Century AD. Found in strata IV.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group relative overflow-hidden bg-black aspect-[3/4] lg:mt-12" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-10 transition-all duration-500 delay-100">
+                    <img src="https://images.unsplash.com/photo-1565017997818-45d6174a7429?q=80&w=800&auto=format&fit=crop" alt="Stone Carving" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <span class="text-accent font-mono text-xs tracking-widest mb-2 block">SITE: NEOLITHIC 04</span>
+                        <h3 class="font-display text-2xl text-white mb-2">Relief Fragment</h3>
+                        <p class="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Limestone carving depicting ceremonial rites.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group relative overflow-hidden bg-black aspect-[3/4]" x-data x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')" class="opacity-0 translate-y-10 transition-all duration-500 delay-200">
+                    <img src="https://images.unsplash.com/photo-1594950892976-921eb815668d?q=80&w=800&auto=format&fit=crop" alt="Excavation Tools" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <span class="text-accent font-mono text-xs tracking-widest mb-2 block">SITE: INDUSTRIAL 19</span>
+                        <h3 class="font-display text-2xl text-white mb-2">Industrial Era Tooling</h3>
+                        <p class="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Evidence of early 19th-century manufacturing.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center md:hidden">
+                 <a href="#" class="inline-block text-accent hover:text-white transition-colors duration-300 font-mono text-sm tracking-widest border-b border-accent pb-1">VIEW FULL ARCHIVE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Layer 5: Core (Contact) -->
+    <footer id="contact" class="bg-black text-surface py-24 border-t border-white/10 relative overflow-hidden">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 z-0 opacity-10"
+             style="background-image: linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px); background-size: 40px 40px;">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="font-display text-4xl font-bold mb-6">Commission a Survey</h2>
+                    <p class="text-gray-400 max-w-md mb-8 leading-relaxed">
+                        We provide comprehensive archaeological services for developers, government bodies, and private landowners. Ensure your project proceeds with respect for the past.
+                    </p>
+                    <div class="space-y-4">
+                        <p class="flex items-center text-accent font-mono text-sm tracking-wider">
+                            <span class="w-24 opacity-50 text-white">EMAIL</span> {{CONTACT_EMAIL}}
+                        </p>
+                        <p class="flex items-center text-accent font-mono text-sm tracking-wider">
+                            <span class="w-24 opacity-50 text-white">OFFICE</span> London • Cairo • Athens
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-bedrock p-8 border border-white/10">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block font-mono text-xs text-accent mb-2 uppercase tracking-widest">Name</label>
+                                <input type="text" class="w-full bg-black/50 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-accent transition-colors duration-300 placeholder-white/20" placeholder="Dr. Jones">
+                            </div>
+                            <div>
+                                <label class="block font-mono text-xs text-accent mb-2 uppercase tracking-widest">Organization</label>
+                                <input type="text" class="w-full bg-black/50 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-accent transition-colors duration-300 placeholder-white/20" placeholder="University of...">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-accent mb-2 uppercase tracking-widest">Inquiry Type</label>
+                            <select class="w-full bg-black/50 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-accent transition-colors duration-300">
+                                <option>Preliminary Site Survey</option>
+                                <option>Rescue Excavation</option>
+                                <option>Laboratory Analysis</option>
+                                <option>Consultation</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-accent mb-2 uppercase tracking-widest">Project Details</label>
+                            <textarea class="w-full bg-black/50 border border-white/20 text-white px-4 py-3 h-32 focus:outline-none focus:border-accent transition-colors duration-300 placeholder-white/20" placeholder="Location, estimated timeline, historical context..."></textarea>
+                        </div>
+                        <button type="button" class="w-full bg-accent text-bedrock font-bold py-4 uppercase tracking-widest hover:bg-white transition-colors duration-300">
+                            Submit Inquiry
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs font-mono text-gray-500 uppercase tracking-widest">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-accent transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-accent transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
