@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Grid | Urban Planning & Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Public Sans"', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace'],
+                    },
+                    colors: {
+                        'zone-res': '#fef3c7', // amber-100
+                        'zone-com': '#ffe4e6', // rose-100
+                        'zone-ind': '#ecfccb', // lime-100
+                        'zone-pub': '#ccfbf1', // teal-100
+                        'paper': '#f8fafc',    // slate-50
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .grid-bg {
+            background-size: 40px 40px;
+        }
+        .hatch-pattern {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 10px);
+        }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-paper text-slate-800 font-sans antialiased selection:bg-slate-900 selection:text-white relative overflow-x-hidden">
+
+    <!-- Grid Background Layer -->
+    <div class="fixed inset-0 grid-bg bg-grid-pattern opacity-40 pointer-events-none z-0"></div>
+
+    <!-- Navigation -->
+    <header class="fixed w-full z-50 bg-paper/90 backdrop-blur-sm border-b border-slate-300" x-data="{ open: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 border-2 border-slate-900 grid grid-cols-2 gap-0.5 p-0.5 bg-white">
+                        <div class="bg-slate-900"></div>
+                        <div class="bg-slate-300"></div>
+                        <div class="bg-slate-300"></div>
+                        <div class="bg-slate-900"></div>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight uppercase">Civic Grid</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#master-plan" class="text-sm font-mono font-medium text-slate-600 hover:text-slate-900 hover:underline decoration-2 underline-offset-4">01. MASTER PLAN</a>
+                    <a href="#zoning" class="text-sm font-mono font-medium text-slate-600 hover:text-slate-900 hover:underline decoration-2 underline-offset-4">02. ZONING</a>
+                    <a href="#projects" class="text-sm font-mono font-medium text-slate-600 hover:text-slate-900 hover:underline decoration-2 underline-offset-4">03. PROJECTS</a>
+                    <a href="#contact" class="text-sm font-mono font-medium text-slate-600 hover:text-slate-900 hover:underline decoration-2 underline-offset-4">04. CONTACT</a>
+                </nav>
+
+                <!-- Mobile Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="open = !open" class="text-slate-900 hover:text-slate-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-cloak class="md:hidden border-t border-slate-300 bg-paper absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#master-plan" class="block px-3 py-2 border-l-4 border-transparent text-base font-mono font-medium hover:bg-slate-100 hover:border-slate-900">01. MASTER PLAN</a>
+                <a href="#zoning" class="block px-3 py-2 border-l-4 border-transparent text-base font-mono font-medium hover:bg-slate-100 hover:border-slate-900">02. ZONING</a>
+                <a href="#projects" class="block px-3 py-2 border-l-4 border-transparent text-base font-mono font-medium hover:bg-slate-100 hover:border-slate-900">03. PROJECTS</a>
+                <a href="#contact" class="block px-3 py-2 border-l-4 border-transparent text-base font-mono font-medium hover:bg-slate-100 hover:border-slate-900">04. CONTACT</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Marquee -->
+    <div class="fixed bottom-0 left-0 w-full z-40 bg-slate-900 text-white border-t border-slate-700 py-2 overflow-hidden">
+        <div class="whitespace-nowrap flex animate-marquee font-mono text-xs tracking-wider">
+            <span class="mx-4">POPULATION: 2,450,000</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">ZONE DENSITY: HIGH</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">GREEN SPACE: 34%</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">TRANSIT SCORE: 92/100</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">AIR QUALITY: GOOD</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">PROJECTS ACTIVE: 14</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">POPULATION: 2,450,000</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">ZONE DENSITY: HIGH</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">GREEN SPACE: 34%</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">TRANSIT SCORE: 92/100</span>
+            <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">AIR QUALITY: GOOD</span>
+             <span class="mx-4 text-slate-500">|</span>
+            <span class="mx-4">PROJECTS ACTIVE: 14</span>
+        </div>
+    </div>
+    <script>
+        tailwind.config.theme.extend.animation = {
+            marquee: 'marquee 25s linear infinite',
+        }
+        tailwind.config.theme.extend.keyframes = {
+            marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-50%)' },
+            }
+        }
+    </script>
+
+    <!-- Hero Section -->
+    <section id="master-plan" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-x border-slate-300 bg-white/50 min-h-screen flex flex-col justify-center">
+        <div class="relative z-10">
+            <div class="inline-block border border-slate-900 px-3 py-1 mb-6 bg-white">
+                <span class="font-mono text-xs font-bold tracking-widest text-slate-900">EST. {{YEAR}} // SECTOR 7G</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-slate-900 mb-6 leading-none">
+                BUILDING THE<br>
+                FUTURE <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 to-slate-500">METROPOLIS</span>
+            </h1>
+            <p class="max-w-2xl text-lg md:text-xl text-slate-600 mb-10 font-light leading-relaxed">
+                {{COMPANY_NAME}} specializes in sustainable urban development, civic infrastructure, and strategic zoning. We design the blueprints for tomorrow's communities.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#projects" class="inline-flex items-center justify-center px-8 py-4 border-2 border-slate-900 text-sm font-bold tracking-widest uppercase hover:bg-slate-900 hover:text-white transition-colors duration-200">
+                    View Master Plan
+                </a>
+                <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 border border-slate-300 bg-white text-sm font-bold tracking-widest uppercase hover:bg-slate-100 transition-colors duration-200">
+                    Consultation
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative Map Graphic -->
+        <div class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/4 w-1/2 h-full hidden lg:block opacity-20 pointer-events-none">
+             <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <path d="M50 50 H 350 V 350 H 50 V 50" stroke="currentColor" stroke-width="2"/>
+                <path d="M150 50 V 350" stroke="currentColor" stroke-width="1"/>
+                <path d="M250 50 V 350" stroke="currentColor" stroke-width="1"/>
+                <path d="M50 150 H 350" stroke="currentColor" stroke-width="1"/>
+                <path d="M50 250 H 350" stroke="currentColor" stroke-width="1"/>
+                <rect x="60" y="60" width="80" height="80" fill="currentColor" opacity="0.5"/>
+                <rect x="260" y="260" width="80" height="80" fill="currentColor" opacity="0.5"/>
+                <circle cx="200" cy="200" r="30" stroke="currentColor" stroke-width="2"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services / Zoning Section -->
+    <section id="zoning" class="border-t border-slate-300 bg-paper">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 min-h-[600px] border-x border-slate-300">
+            <!-- Sidebar Header -->
+            <div class="md:col-span-3 border-b md:border-b-0 md:border-r border-slate-300 p-8 lg:p-12 bg-white">
+                <h2 class="text-3xl font-bold mb-4 tracking-tight">ZONING<br>DISTRICTS</h2>
+                <div class="w-12 h-1 bg-slate-900 mb-6"></div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-8">
+                    Strategic allocation of urban space to maximize efficiency, livability, and economic growth.
+                </p>
+                <ul class="space-y-4 font-mono text-xs">
+                    <li class="flex items-center gap-3">
+                        <span class="w-3 h-3 bg-zone-res border border-slate-400"></span> RESIDENTIAL (R-1)
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="w-3 h-3 bg-zone-com border border-slate-400"></span> COMMERCIAL (C-2)
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="w-3 h-3 bg-zone-ind border border-slate-400"></span> INDUSTRIAL (I-3)
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Card 1: Residential -->
+                <div class="group relative border-b md:border-b-0 md:border-r border-slate-300 bg-white hover:bg-zone-res transition-colors duration-300 p-8 flex flex-col justify-between hatch-pattern">
+                    <div class="absolute top-4 right-4 font-mono text-xs text-slate-400 group-hover:text-slate-600">ZONE: R-1</div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold mb-2 group-hover:translate-x-1 transition-transform">Living Spaces</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">High-density sustainable housing units integrated with green belts and pedestrian access.</p>
+                    </div>
+                    <div class="mt-8 pt-8 border-t border-slate-200 group-hover:border-slate-400/50">
+                        <a href="#" class="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                            Explore
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Commercial -->
+                <div class="group relative border-b md:border-b-0 lg:border-r border-slate-300 bg-white hover:bg-zone-com transition-colors duration-300 p-8 flex flex-col justify-between hatch-pattern">
+                    <div class="absolute top-4 right-4 font-mono text-xs text-slate-400 group-hover:text-slate-600">ZONE: C-2</div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold mb-2 group-hover:translate-x-1 transition-transform">Commercial Hubs</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Mixed-use developments fostering local economy, retail, and office environments.</p>
+                    </div>
+                    <div class="mt-8 pt-8 border-t border-slate-200 group-hover:border-slate-400/50">
+                        <a href="#" class="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                            Explore
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Public -->
+                <div class="group relative border-b md:border-b-0 border-slate-300 bg-white hover:bg-zone-pub transition-colors duration-300 p-8 flex flex-col justify-between hatch-pattern">
+                    <div class="absolute top-4 right-4 font-mono text-xs text-slate-400 group-hover:text-slate-600">ZONE: P-4</div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold mb-2 group-hover:translate-x-1 transition-transform">Civic & Parks</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Public infrastructure, libraries, and recreational green spaces for community health.</p>
+                    </div>
+                    <div class="mt-8 pt-8 border-t border-slate-200 group-hover:border-slate-400/50">
+                        <a href="#" class="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                            Explore
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects / Timeline Section -->
+    <section id="projects" class="py-20 border-t border-slate-300 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+                <!-- Sticky Header -->
+                <div class="lg:sticky lg:top-32 h-fit">
+                    <h2 class="text-4xl font-extrabold tracking-tighter mb-6">INFRASTRUCTURE<br>MILESTONES</h2>
+                    <p class="text-slate-600 mb-8 max-w-md">Tracking the development of key civic engineering projects across the metropolitan area.</p>
+
+                    <div class="border border-slate-900 p-6 bg-paper relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-2 bg-slate-900 text-white font-mono text-xs">STATUS: ACTIVE</div>
+                        <h3 class="font-mono text-sm font-bold mb-2">CURRENT PHASE</h3>
+                        <div class="text-5xl font-bold text-slate-900 mb-2">04</div>
+                        <p class="text-xs font-mono text-slate-500 uppercase">Revitalization of Downtown Transit Hub</p>
+                        <div class="w-full bg-slate-200 h-1 mt-4">
+                            <div class="bg-slate-900 h-1 w-[75%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline List -->
+                <div class="relative border-l border-slate-300 pl-8 md:pl-12 space-y-16">
+                    <!-- Item 1 -->
+                    <div class="relative">
+                        <div class="absolute -left-[49px] md:-left-[65px] top-2 w-4 h-4 border-2 border-slate-900 bg-white rounded-full"></div>
+                        <span class="font-mono text-xs text-slate-500 mb-2 block">Q3 {{YEAR}}</span>
+                        <h3 class="text-2xl font-bold mb-3">Greenway Expansion</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Adding 50km of protected bicycle lanes and pedestrian walkways connecting the northern suburbs to the city center.</p>
+                        <img src="https://images.unsplash.com/photo-1596237563267-845d1b66e51e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Greenway" class="w-full h-48 object-cover grayscale border border-slate-200 hover:grayscale-0 transition-all duration-500">
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative">
+                        <div class="absolute -left-[49px] md:-left-[65px] top-2 w-4 h-4 border-2 border-slate-900 bg-white rounded-full"></div>
+                        <span class="font-mono text-xs text-slate-500 mb-2 block">Q1 {{YEAR}}</span>
+                        <h3 class="text-2xl font-bold mb-3">Smart Grid Integration</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Upgrading municipal power infrastructure with AI-driven load balancing and renewable energy storage systems.</p>
+                        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Power Grid" class="w-full h-48 object-cover grayscale border border-slate-200 hover:grayscale-0 transition-all duration-500">
+                    </div>
+
+                     <!-- Item 3 -->
+                     <div class="relative">
+                        <div class="absolute -left-[49px] md:-left-[65px] top-2 w-4 h-4 border-2 border-slate-900 bg-white rounded-full"></div>
+                        <span class="font-mono text-xs text-slate-500 mb-2 block">Q4 {{YEAR}}</span>
+                        <h3 class="text-2xl font-bold mb-3">Waterfront Redevelopment</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Converting industrial docklands into mixed-use cultural and residential districts.</p>
+                        <img src="https://images.unsplash.com/photo-1545638531-978d3886518a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Waterfront" class="w-full h-48 object-cover grayscale border border-slate-200 hover:grayscale-0 transition-all duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map CTA Section -->
+    <section class="border-y border-slate-300 bg-paper py-24 relative overflow-hidden">
+        <div class="absolute inset-0 grid-bg bg-grid-pattern opacity-60"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-8">READY TO SHAPE THE SKYLINE?</h2>
+            <p class="text-slate-600 mb-10 max-w-lg mx-auto">Join our upcoming town hall meeting or submit your proposal for the District 9 expansion project.</p>
+            <form class="max-w-md mx-auto flex flex-col gap-4">
+                <input type="email" placeholder="Enter your email address" class="w-full px-4 py-3 bg-white border border-slate-300 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 placeholder:text-slate-400 font-mono text-sm">
+                <button type="submit" class="w-full px-8 py-3 bg-slate-900 text-white font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors">Subscribe for Updates</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-white pt-16 pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-6 h-6 border border-slate-900 grid grid-cols-2 gap-px p-px bg-slate-900">
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                        </div>
+                        <span class="font-bold text-lg tracking-tight uppercase">Civic Grid</span>
+                    </div>
+                    <p class="text-slate-500 text-sm max-w-xs">
+                        &copy; {{YEAR}} {{COMPANY_NAME}}.<br>
+                        Authorized by the Department of Urban Planning.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-mono text-xs font-bold uppercase text-slate-400 mb-6">Departments</h4>
+                    <ul class="space-y-3 text-sm font-medium text-slate-700">
+                        <li><a href="#" class="hover:text-slate-900 hover:underline">Zoning & Permits</a></li>
+                        <li><a href="#" class="hover:text-slate-900 hover:underline">Transportation</a></li>
+                        <li><a href="#" class="hover:text-slate-900 hover:underline">Environmental</a></li>
+                        <li><a href="#" class="hover:text-slate-900 hover:underline">Public Works</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-mono text-xs font-bold uppercase text-slate-400 mb-6">Connect</h4>
+                    <ul class="space-y-3 text-sm font-medium text-slate-700">
+                        <li><a href="#" class="hover:text-slate-900 hover:underline">Twitter / X</a></li>
+                        <li><a href="#" class="hover:text-slate-900 hover:underline">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-slate-900 hover:underline">Instagram</a></li>
+                        <li><a href="#" class="hover:text-slate-900 hover:underline">City Portal</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 font-mono">
+                <p>SYSTEM STATUS: OPERATIONAL</p>
+                <p class="mt-2 md:mt-0">LAST UPDATE: {{YEAR}}-10-24</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
