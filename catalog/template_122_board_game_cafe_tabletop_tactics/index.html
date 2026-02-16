@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Board Game Cafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        felt: {
+                            800: '#166534', // Emerald 800ish
+                            900: '#14532d',
+                        },
+                        wood: {
+                            700: '#b45309', // Amber 700
+                            800: '#92400e',
+                        },
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            800: '#292524',
+                        },
+                        meeple: {
+                            600: '#dc2626', // Red 600
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Carter One"', 'cursive'],
+                        body: ['"Nunito"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1610890716171-6b1c9f2c9a99?q=80&w=2070&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for game list */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f5f5f4;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #b45309;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-stone-800 font-body antialiased selection:bg-meeple-600 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-stone-100/95 backdrop-blur-sm border-b-4 border-wood-700 shadow-lg" x-data="{ isOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-10 h-10 bg-meeple-600 rounded-lg transform rotate-3 flex items-center justify-center text-white shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+                        </svg>
+                    </div>
+                    <span class="font-display text-2xl text-wood-800">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#hero" class="text-stone-800 hover:text-wood-700 font-bold transition-colors">Home</a>
+                    <a href="#library" class="text-stone-800 hover:text-wood-700 font-bold transition-colors">Library</a>
+                    <a href="#menu" class="text-stone-800 hover:text-wood-700 font-bold transition-colors">Menu</a>
+                    <a href="#events" class="text-stone-800 hover:text-wood-700 font-bold transition-colors">Events</a>
+                    <a href="#reserve" class="bg-wood-700 text-white px-6 py-2 rounded-full font-bold hover:bg-wood-800 transition-transform transform hover:scale-105 shadow-md">Book a Table</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="isOpen = !isOpen" class="text-stone-800 hover:text-wood-700 focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path x-show="isOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="isOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="md:hidden bg-stone-50 border-t border-stone-200 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#hero" class="block px-3 py-2 text-stone-800 font-bold hover:bg-stone-200 rounded-md">Home</a>
+                <a href="#library" class="block px-3 py-2 text-stone-800 font-bold hover:bg-stone-200 rounded-md">Library</a>
+                <a href="#menu" class="block px-3 py-2 text-stone-800 font-bold hover:bg-stone-200 rounded-md">Menu</a>
+                <a href="#events" class="block px-3 py-2 text-stone-800 font-bold hover:bg-stone-200 rounded-md">Events</a>
+                <a href="#reserve" class="block w-full text-center mt-4 bg-wood-700 text-white px-4 py-3 rounded-full font-bold hover:bg-wood-800 shadow-md">Book a Table</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative pt-20 h-screen min-h-[600px] flex items-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-felt-900/80"></div>
+
+        <!-- Content -->
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center text-white z-10">
+            <div class="inline-block mb-4 px-4 py-1 bg-meeple-600 rounded-full text-sm font-bold uppercase tracking-wide transform -rotate-2 shadow-lg animate-bounce">
+                Open Late Every Night!
+            </div>
+            <h1 class="text-5xl md:text-7xl font-display mb-6 drop-shadow-lg leading-tight">
+                Roll the Dice,<br>Change Your Night
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 text-stone-200 max-w-2xl mx-auto font-light">
+                Over 500 board games, locally roasted coffee, and craft beers.
+                Your next adventure starts at {{COMPANY_NAME}}.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#reserve" class="px-8 py-4 bg-wood-700 hover:bg-wood-800 text-white font-display text-xl rounded-xl shadow-[0_4px_0_rgb(146,64,14)] hover:shadow-[0_2px_0_rgb(146,64,14)] hover:translate-y-[2px] transition-all transform duration-150">
+                    Join the Table
+                </a>
+                <a href="#library" class="px-8 py-4 bg-white hover:bg-stone-100 text-wood-800 font-display text-xl rounded-xl shadow-[0_4px_0_rgb(214,211,209)] hover:shadow-[0_2px_0_rgb(214,211,209)] hover:translate-y-[2px] transition-all transform duration-150 border-2 border-stone-200">
+                    Browse Games
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative Dice Elements -->
+        <div class="absolute bottom-10 left-10 w-24 h-24 bg-white/10 rounded-xl transform rotate-12 backdrop-blur-sm hidden lg:flex items-center justify-center border-2 border-white/20">
+            <div class="w-4 h-4 bg-white rounded-full"></div>
+        </div>
+        <div class="absolute top-32 right-10 w-16 h-16 bg-meeple-600/80 rounded-lg transform -rotate-12 backdrop-blur-sm hidden lg:flex items-center justify-center shadow-xl">
+             <div class="grid grid-cols-2 gap-2">
+                 <div class="w-2 h-2 bg-white rounded-full"></div>
+                 <div class="w-2 h-2 bg-white rounded-full"></div>
+                 <div class="w-2 h-2 bg-white rounded-full"></div>
+                 <div class="w-2 h-2 bg-white rounded-full"></div>
+             </div>
+        </div>
+    </section>
+
+    <!-- Game Library Section -->
+    <section id="library" class="py-24 bg-stone-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display text-wood-800 mb-4">The Library</h2>
+                <div class="w-24 h-2 bg-meeple-600 mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-stone-600 max-w-2xl mx-auto">From quick party games to epic 4-hour strategy campaigns. Our Game Masters can help you pick the perfect title.</p>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Category 1 -->
+                <div class="group relative bg-white rounded-2xl shadow-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 border-b-4 border-emerald-600">
+                    <div class="h-48 bg-emerald-100 flex items-center justify-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1632501641765-e568d28b0015?q=80&w=800&auto=format&fit=crop" alt="Strategy Games" class="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="text-2xl font-display text-emerald-800 mb-2">Heavy Strategy</h3>
+                        <p class="text-stone-600">Build empires, manage resources, and outwit your friends.</p>
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="group relative bg-white rounded-2xl shadow-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 border-b-4 border-amber-600">
+                    <div class="h-48 bg-amber-100 flex items-center justify-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1596726887566-51d08e5e7992?q=80&w=800&auto=format&fit=crop" alt="Party Games" class="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="text-2xl font-display text-wood-800 mb-2">Party & Social</h3>
+                        <p class="text-stone-600">Laugh until it hurts with fast-paced, high-energy fun.</p>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="group relative bg-white rounded-2xl shadow-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 border-b-4 border-indigo-600">
+                    <div class="h-48 bg-indigo-100 flex items-center justify-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1606167668584-78701c57f13d?q=80&w=800&auto=format&fit=crop" alt="Classic Games" class="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="text-2xl font-display text-indigo-800 mb-2">Modern Classics</h3>
+                        <p class="text-stone-600">Ticket to Ride, Catan, and the gateways to the hobby.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="#" class="inline-flex items-center text-wood-700 font-bold hover:text-wood-900 text-lg group">
+                    View Full Catalogue
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 bg-wood-800 text-stone-100 relative overflow-hidden">
+        <!-- Texture overlay -->
+        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl md:text-5xl font-display text-amber-400 mb-6">Brain Food</h2>
+                    <p class="text-lg text-stone-300 mb-8 leading-relaxed">
+                        Strategy is hungry work. We serve locally roasted espresso, craft beers on tap, and a menu of snacks designed to be eaten with one hand while you roll dice with the other.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Menu Item -->
+                        <div class="flex justify-between border-b border-stone-600 pb-2">
+                            <div>
+                                <h4 class="font-bold text-xl text-stone-100">The Critical Hit Burger</h4>
+                                <p class="text-stone-400 text-sm">Double beef, bacon jam, smoked gouda.</p>
+                            </div>
+                            <span class="font-display text-amber-400 text-xl">$16</span>
+                        </div>
+                        <!-- Menu Item -->
+                        <div class="flex justify-between border-b border-stone-600 pb-2">
+                            <div>
+                                <h4 class="font-bold text-xl text-stone-100">Meeple Mac & Cheese</h4>
+                                <p class="text-stone-400 text-sm">Three cheeses, truffle oil, breadcrumbs.</p>
+                            </div>
+                            <span class="font-display text-amber-400 text-xl">$12</span>
+                        </div>
+                        <!-- Menu Item -->
+                        <div class="flex justify-between border-b border-stone-600 pb-2">
+                            <div>
+                                <h4 class="font-bold text-xl text-stone-100">Potion of Stamina</h4>
+                                <p class="text-stone-400 text-sm">Cold brew coffee, vanilla cream, cinnamon.</p>
+                            </div>
+                            <span class="font-display text-amber-400 text-xl">$6</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <a href="#" class="px-6 py-3 border-2 border-amber-400 text-amber-400 font-bold rounded-full hover:bg-amber-400 hover:text-wood-900 transition-colors">
+                            See Full Menu
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 relative">
+                    <div class="absolute inset-0 bg-amber-400 rounded-2xl transform rotate-3 translate-x-2 translate-y-2"></div>
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=900&auto=format&fit=crop" alt="Coffee and Games" class="relative rounded-2xl shadow-2xl w-full object-cover h-[500px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-24 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-meeple-600 font-bold uppercase tracking-widest text-sm">Community</span>
+                <h2 class="text-4xl md:text-5xl font-display text-stone-800 mt-2">Upcoming Campaigns</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Event Card 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-stone-200 hover:border-wood-700 transition-colors group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-stone-100 text-stone-600 px-3 py-1 rounded text-sm font-bold border border-stone-300">
+                            Wed, Oct 12
+                        </div>
+                        <span class="text-emerald-700 font-bold text-sm">Weekly</span>
+                    </div>
+                    <h3 class="text-2xl font-display text-stone-800 mb-2 group-hover:text-wood-700 transition-colors">D&D Adventurers League</h3>
+                    <p class="text-stone-600 mb-4">Open tables for beginners and veterans alike. Character sheets provided.</p>
+                    <a href="#" class="text-wood-700 font-bold hover:underline">Register &rarr;</a>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-stone-200 hover:border-wood-700 transition-colors group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-stone-100 text-stone-600 px-3 py-1 rounded text-sm font-bold border border-stone-300">
+                            Sat, Oct 15
+                        </div>
+                        <span class="text-meeple-600 font-bold text-sm">Tournament</span>
+                    </div>
+                    <h3 class="text-2xl font-display text-stone-800 mb-2 group-hover:text-wood-700 transition-colors">Catan Championship</h3>
+                    <p class="text-stone-600 mb-4">Trade wood for sheep and victory. Prizes include store credit and bragging rights.</p>
+                    <a href="#" class="text-wood-700 font-bold hover:underline">Register &rarr;</a>
+                </div>
+
+                <!-- Event Card 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-stone-200 hover:border-wood-700 transition-colors group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-stone-100 text-stone-600 px-3 py-1 rounded text-sm font-bold border border-stone-300">
+                            Sun, Oct 16
+                        </div>
+                        <span class="text-amber-700 font-bold text-sm">Workshop</span>
+                    </div>
+                    <h3 class="text-2xl font-display text-stone-800 mb-2 group-hover:text-wood-700 transition-colors">Miniature Painting 101</h3>
+                    <p class="text-stone-600 mb-4">Learn to base, shade, and highlight your army. Paints and minis included.</p>
+                    <a href="#" class="text-wood-700 font-bold hover:underline">Register &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership CTA -->
+    <section class="py-20 bg-emerald-800 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/felt.png')] opacity-30"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 text-white">
+            <h2 class="text-4xl md:text-5xl font-display mb-6">Join the Guild</h2>
+            <p class="text-xl text-emerald-100 mb-8">
+                Become a member for unlimited play, 10% off food & drink, and early access to events.
+            </p>
+            <form class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+                <input type="email" placeholder="Enter your email" class="px-6 py-4 rounded-full text-stone-800 focus:outline-none focus:ring-4 focus:ring-amber-400 flex-grow shadow-lg">
+                <button type="button" class="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-wood-900 font-display text-xl rounded-full shadow-[0_4px_0_rgb(180,83,9)] hover:shadow-[0_2px_0_rgb(180,83,9)] hover:translate-y-[2px] transition-all transform duration-150">
+                    Sign Up
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-12 border-t-8 border-wood-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="font-display text-2xl text-stone-100 mb-4 block">{{COMPANY_NAME}}</span>
+                    <p class="max-w-sm">
+                        A place to disconnect and reconnect. Good games, good food, and great company.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-stone-100 mb-4">Hours</h4>
+                    <ul class="space-y-2">
+                        <li>Mon-Thu: 2pm - 10pm</li>
+                        <li>Fri: 2pm - Midnight</li>
+                        <li>Sat: 10am - Midnight</li>
+                        <li>Sun: 10am - 10pm</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-stone-100 mb-4">Location</h4>
+                    <address class="not-italic">
+                        123 Meeple Lane<br>
+                        Tabletop City, TC 90210<br>
+                        <a href="tel:+1234567890" class="hover:text-amber-500 transition-colors">(555) 123-4567</a>
+                    </address>
+                </div>
+            </div>
+            <div class="border-t border-stone-800 mt-12 pt-8 text-center text-sm">
+                &copy; 2023 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

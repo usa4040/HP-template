@@ -1572,6 +1572,19 @@
         "Travel",
         "Classic"
       ]
+    },
+    {
+      "id": "122",
+      "name": "Hex & Hop",
+      "category": "Board Game Cafe",
+      "style": "Tabletop Tactics",
+      "path": "catalog/template_122_board_game_cafe_tabletop_tactics",
+      "description": "Cozy gaming & wood textures.",
+      "tags": [
+        "Social",
+        "Playful",
+        "Warm"
+      ]
     }
   ]
 }
