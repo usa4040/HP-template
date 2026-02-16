@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | The Velvet Express</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            850: '#064e3b', // Custom deep green
+                            950: '#022c22', // Even deeper
+                        },
+                        amber: {
+                            450: '#d97706', // Gold-ish
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Bodoni Moda"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'pattern': "url('https://www.transparenttextures.com/patterns/black-linen.png')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gold-gradient {
+            background: linear-gradient(to right, #fbbf24, #d97706, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+        .luxury-border {
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-emerald-950 text-stone-200 font-sans antialiased selection:bg-amber-900 selection:text-amber-100 relative">
+
+    <!-- Texture Overlay -->
+    <div class="fixed inset-0 opacity-10 pointer-events-none z-0" style="background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');"></div>
+
+    <!-- Navigation -->
+    <nav x-data="{ open: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 50)"
+         :class="scrolled ? 'bg-emerald-950/95 backdrop-blur-md border-b border-amber-900/30 py-4' : 'bg-transparent py-6'"
+         class="fixed w-full z-50 transition-all duration-500 ease-out">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl md:text-3xl font-serif font-bold tracking-wider text-amber-100 flex items-center gap-3">
+                <i class="fa-solid fa-train-subway text-amber-500"></i>
+                <span class="uppercase">{{COMPANY_NAME}}</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium">
+                <a href="#experience" class="hover:text-amber-400 transition-colors duration-300">The Experience</a>
+                <a href="#destinations" class="hover:text-amber-400 transition-colors duration-300">Destinations</a>
+                <a href="#dining" class="hover:text-amber-400 transition-colors duration-300">Dining</a>
+                <a href="#suites" class="hover:text-amber-400 transition-colors duration-300">Suites</a>
+                <a href="#book" class="px-6 py-2 border border-amber-500 text-amber-400 hover:bg-amber-500 hover:text-emerald-950 transition-all duration-300 rounded-sm">
+                    Book Passage
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="open = !open" class="md:hidden text-amber-100 focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="md:hidden absolute top-full left-0 w-full bg-emerald-950 border-b border-amber-900/30 py-4 shadow-xl">
+            <div class="flex flex-col space-y-4 px-6 text-center text-sm tracking-widest uppercase">
+                <a href="#experience" @click="open = false" class="block hover:text-amber-400 py-2">The Experience</a>
+                <a href="#destinations" @click="open = false" class="block hover:text-amber-400 py-2">Destinations</a>
+                <a href="#dining" @click="open = false" class="block hover:text-amber-400 py-2">Dining</a>
+                <a href="#suites" @click="open = false" class="block hover:text-amber-400 py-2">Suites</a>
+                <a href="#book" @click="open = false" class="block py-2 text-amber-400 font-bold border border-amber-500/30 mx-10">Book Passage</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Parallax Effect -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&q=80" alt="Train crossing mountains" class="w-full h-full object-cover opacity-60 scale-105 animate-[pulse_20s_ease-in-out_infinite]">
+            <div class="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-transparent to-emerald-950"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <p class="text-amber-400 tracking-[0.3em] uppercase text-sm md:text-base mb-6 opacity-0 translate-y-4 transition-all duration-1000 delay-300" :class="show ? '!opacity-100 !translate-y-0' : ''">
+                Est. 1924 &mdash; The Continental Line
+            </p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-medium text-stone-100 mb-8 leading-tight opacity-0 translate-y-8 transition-all duration-1000 delay-500" :class="show ? '!opacity-100 !translate-y-0' : ''">
+                A Journey <br> <span class="text-serif italic text-amber-200">Beyond Time</span>
+            </h1>
+            <p class="text-stone-300 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed opacity-0 translate-y-8 transition-all duration-1000 delay-700" :class="show ? '!opacity-100 !translate-y-0' : ''">
+                Experience the romance of rail travel reimagined for the modern connoisseur. Across continents, in unparalleled luxury.
+            </p>
+            <div class="opacity-0 translate-y-8 transition-all duration-1000 delay-1000" :class="show ? '!opacity-100 !translate-y-0' : ''">
+                <a href="#book" class="inline-block px-10 py-4 bg-amber-600 text-emerald-950 font-medium tracking-widest uppercase hover:bg-amber-500 transition-all duration-300 shadow-[0_0_20px_rgba(217,119,6,0.3)] hover:shadow-[0_0_30px_rgba(217,119,6,0.5)]">
+                    Begin Your Voyage
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-amber-400/50 text-xl"></i>
+        </div>
+    </header>
+
+    <!-- Intro Section -->
+    <section id="experience" class="py-24 md:py-32 relative bg-emerald-950 z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -top-4 -left-4 w-full h-full border border-amber-500/30"></div>
+                        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80" alt="Luxury Interior" class="w-full h-auto shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
+                    </div>
+                </div>
+                <div class="lg:w-1/2 space-y-8">
+                    <h2 class="text-4xl md:text-5xl font-serif text-amber-100 leading-tight">
+                        The Return of <br><span class="italic text-amber-500">Grand Touring</span>
+                    </h2>
+                    <p class="text-stone-300 leading-relaxed font-light text-lg">
+                        {{COMPANY_NAME}} is not merely a mode of transport; it is a destination in itself. We have meticulously restored the elegance of the golden age of rail, infusing it with contemporary comforts and world-class service.
+                    </p>
+                    <p class="text-stone-300 leading-relaxed font-light text-lg">
+                        From the moment you step onto the platform, you are transported to a world where time slows down, and the journey becomes the reward.
+                    </p>
+                    <div class="pt-4 flex gap-8">
+                        <div class="text-center">
+                            <span class="block text-3xl font-serif text-amber-500 mb-1">5</span>
+                            <span class="text-xs uppercase tracking-widest text-stone-400">Continents</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="block text-3xl font-serif text-amber-500 mb-1">24</span>
+                            <span class="text-xs uppercase tracking-widest text-stone-400">Suites</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="block text-3xl font-serif text-amber-500 mb-1">3</span>
+                            <span class="text-xs uppercase tracking-widest text-stone-400">Michelin Stars</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities / Features -->
+    <section class="py-24 bg-emerald-900/30 border-y border-amber-900/30 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Onboard Amenities</span>
+                <h2 class="text-4xl font-serif text-stone-100 mt-4">Unparalleled Luxury</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group bg-emerald-950 p-8 border border-amber-900/20 hover:border-amber-500/40 transition-all duration-500 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-emerald-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-amber-900/30 transition-colors">
+                        <i class="fa-solid fa-utensils text-2xl text-amber-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif text-amber-100 mb-4">Gourmet Dining</h3>
+                    <p class="text-stone-400 font-light leading-relaxed">
+                        Savor seasonal menus crafted by world-renowned chefs, paired with an extensive selection of vintage wines in our dedicated dining car.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-emerald-950 p-8 border border-amber-900/20 hover:border-amber-500/40 transition-all duration-500 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-emerald-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-amber-900/30 transition-colors">
+                        <i class="fa-solid fa-bed text-2xl text-amber-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif text-amber-100 mb-4">Private Suites</h3>
+                    <p class="text-stone-400 font-light leading-relaxed">
+                        Retire to your sanctuary featuring plush bedding, en-suite marble bathrooms, and panoramic windows offering uninterrupted views.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-emerald-950 p-8 border border-amber-900/20 hover:border-amber-500/40 transition-all duration-500 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-emerald-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-amber-900/30 transition-colors">
+                        <i class="fa-solid fa-martini-glass-citrus text-2xl text-amber-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif text-amber-100 mb-4">The Bar Car</h3>
+                    <p class="text-stone-400 font-light leading-relaxed">
+                        A social hub evoking the jazz age. Enjoy handcrafted cocktails and live piano music as the landscape glides by.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Showcase (Parallax Strip) -->
+    <div class="h-96 bg-fixed bg-center bg-cover relative" style="background-image: url('https://images.unsplash.com/photo-1517371900-b6bc6a5b7861?auto=format&fit=crop&q=80');">
+        <div class="absolute inset-0 bg-emerald-950/60 flex items-center justify-center">
+            <blockquote class="text-center px-6 max-w-4xl">
+                <p class="text-3xl md:text-5xl font-serif italic text-amber-100 leading-tight">"To travel by train is to see nature's tapestry unfold before your very eyes."</p>
+                <footer class="mt-8 text-amber-400 tracking-widest uppercase text-sm">&mdash; Agatha Christie</footer>
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- Destinations -->
+    <section id="destinations" class="py-24 z-10 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <span class="text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Our Routes</span>
+                    <h2 class="text-4xl font-serif text-stone-100 mt-4">Iconic Destinations</h2>
+                </div>
+                <div class="flex gap-4 mt-6 md:mt-0">
+                    <button class="w-12 h-12 border border-amber-500/30 rounded-full flex items-center justify-center text-amber-400 hover:bg-amber-500 hover:text-emerald-950 transition-colors">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button class="w-12 h-12 border border-amber-500/30 rounded-full flex items-center justify-center text-amber-400 hover:bg-amber-500 hover:text-emerald-950 transition-colors">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Horizontal Scroll Container -->
+            <div class="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory hide-scrollbar">
+
+                <!-- Dest 1 -->
+                <div class="min-w-[300px] md:min-w-[400px] snap-center group relative overflow-hidden">
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Swiss Alps">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent flex flex-col justify-end p-8">
+                        <span class="text-amber-400 uppercase text-xs tracking-widest mb-2">3 Days / 2 Nights</span>
+                        <h3 class="text-3xl font-serif text-white mb-2">The Alpine Crossing</h3>
+                        <p class="text-stone-300 text-sm font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Zurich &bull; Innsbruck &bull; Vienna</p>
+                    </div>
+                </div>
+
+                <!-- Dest 2 -->
+                <div class="min-w-[300px] md:min-w-[400px] snap-center group relative overflow-hidden">
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Highlands">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent flex flex-col justify-end p-8">
+                        <span class="text-amber-400 uppercase text-xs tracking-widest mb-2">4 Days / 3 Nights</span>
+                        <h3 class="text-3xl font-serif text-white mb-2">Highland Royal</h3>
+                        <p class="text-stone-300 text-sm font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Edinburgh &bull; Inverness &bull; Skye</p>
+                    </div>
+                </div>
+
+                <!-- Dest 3 -->
+                <div class="min-w-[300px] md:min-w-[400px] snap-center group relative overflow-hidden">
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?auto=format&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Orient">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent flex flex-col justify-end p-8">
+                        <span class="text-amber-400 uppercase text-xs tracking-widest mb-2">6 Days / 5 Nights</span>
+                        <h3 class="text-3xl font-serif text-white mb-2">The Grand Orient</h3>
+                        <p class="text-stone-300 text-sm font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Paris &bull; Venice &bull; Istanbul</p>
+                    </div>
+                </div>
+
+                <!-- Dest 4 -->
+                <div class="min-w-[300px] md:min-w-[400px] snap-center group relative overflow-hidden">
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542296332-2e44a99cfef9?auto=format&fit=crop&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Coast">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent flex flex-col justify-end p-8">
+                        <span class="text-amber-400 uppercase text-xs tracking-widest mb-2">5 Days / 4 Nights</span>
+                        <h3 class="text-3xl font-serif text-white mb-2">Pacific Coastliner</h3>
+                        <p class="text-stone-300 text-sm font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Vancouver &bull; Seattle &bull; San Francisco</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking / Ticket Section -->
+    <section id="book" class="py-24 bg-emerald-900/30 relative">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="bg-[#F5F5DC] text-emerald-950 p-8 md:p-12 relative shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                <!-- Decorative Ticket Corners -->
+                <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-emerald-950"></div>
+                <div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-emerald-950"></div>
+                <div class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-emerald-950"></div>
+                <div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-emerald-950"></div>
+
+                <!-- Ticket Content -->
+                <div class="border-2 border-dashed border-emerald-950/30 p-8 md:p-12 h-full">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-12 border-b-2 border-emerald-950 pb-8">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-4xl font-serif font-bold uppercase tracking-widest">{{COMPANY_NAME}}</h3>
+                            <p class="text-emerald-800 uppercase tracking-widest text-sm mt-2">First Class Passage</p>
+                        </div>
+                        <div class="mt-6 md:mt-0">
+                            <i class="fa-solid fa-qrcode text-6xl text-emerald-950 opacity-80"></i>
+                        </div>
+                    </div>
+
+                    <form class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="block text-xs uppercase tracking-widest font-bold text-emerald-800">Passenger Name</label>
+                            <input type="text" class="w-full bg-transparent border-b border-emerald-950 focus:border-amber-600 outline-none py-2 text-xl font-serif placeholder-emerald-950/30" placeholder="e.g. Hercule Poirot">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs uppercase tracking-widest font-bold text-emerald-800">Email Address</label>
+                            <input type="email" class="w-full bg-transparent border-b border-emerald-950 focus:border-amber-600 outline-none py-2 text-xl font-serif placeholder-emerald-950/30" placeholder="contact@example.com">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs uppercase tracking-widest font-bold text-emerald-800">Route Selection</label>
+                            <select class="w-full bg-transparent border-b border-emerald-950 focus:border-amber-600 outline-none py-2 text-xl font-serif">
+                                <option>The Alpine Crossing</option>
+                                <option>Highland Royal</option>
+                                <option>The Grand Orient</option>
+                                <option>Pacific Coastliner</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs uppercase tracking-widest font-bold text-emerald-800">Cabin Class</label>
+                            <select class="w-full bg-transparent border-b border-emerald-950 focus:border-amber-600 outline-none py-2 text-xl font-serif">
+                                <option>Pullman Suite</option>
+                                <option>Grand Suite</option>
+                                <option>Presidential Car</option>
+                            </select>
+                        </div>
+
+                        <div class="md:col-span-2 mt-8 text-center">
+                            <button class="bg-emerald-950 text-amber-100 px-12 py-4 uppercase tracking-[0.2em] hover:bg-emerald-800 transition-all duration-300 font-medium">
+                                Reserve Ticket
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-950 border-t border-amber-900/30 pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+                <div class="max-w-md">
+                    <a href="#" class="text-2xl font-serif font-bold tracking-wider text-amber-100 flex items-center gap-3 mb-6">
+                        <i class="fa-solid fa-train-subway text-amber-500"></i>
+                        <span class="uppercase">{{COMPANY_NAME}}</span>
+                    </a>
+                    <p class="text-stone-400 font-light leading-relaxed">
+                        Redefining the art of travel. Join us for a voyage where the destination is merely an excuse for the journey.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-12 text-sm uppercase tracking-widest">
+                    <div class="space-y-4">
+                        <h4 class="text-amber-500 font-bold mb-4">Company</h4>
+                        <a href="#" class="block text-stone-400 hover:text-amber-100">About Us</a>
+                        <a href="#" class="block text-stone-400 hover:text-amber-100">Fleet</a>
+                        <a href="#" class="block text-stone-400 hover:text-amber-100">Careers</a>
+                        <a href="#" class="block text-stone-400 hover:text-amber-100">Press</a>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="text-amber-500 font-bold mb-4">Support</h4>
+                        <a href="#" class="block text-stone-400 hover:text-amber-100">Contact</a>
+                        <a href="#" class="block text-stone-400 hover:text-amber-100">FAQ</a>
+                        <a href="#" class="block text-stone-400 hover:text-amber-100">Terms</a>
+                        <a href="#" class="block text-stone-400 hover:text-amber-100">Privacy</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-amber-900/20 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500 uppercase tracking-widest">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0 text-lg">
+                    <a href="#" class="hover:text-amber-500"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-amber-500"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-amber-500"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

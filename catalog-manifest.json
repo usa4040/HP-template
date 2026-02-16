@@ -1559,6 +1559,19 @@
         "Bold",
         "Interactive"
       ]
+    },
+    {
+      "id": "121",
+      "name": "Velvet Express",
+      "category": "Luxury Rail",
+      "style": "Continental",
+      "path": "catalog/template_121_luxury_rail_continental",
+      "description": "Opulent Golden Age travel.",
+      "tags": [
+        "Luxury",
+        "Travel",
+        "Classic"
+      ]
     }
   ]
 }
