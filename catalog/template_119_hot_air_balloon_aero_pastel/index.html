@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroDream Voyages | Hot Air Balloon Tours</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600&family=Philosopher:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Mulish', 'sans-serif'],
+                        serif: ['Philosopher', 'serif'],
+                    },
+                    colors: {
+                        sky: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        dream: {
+                            pink: '#fce7f3',
+                            cream: '#fffbeb',
+                            lavender: '#f3e8ff',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'drift': 'drift 20s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        drift: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-sky-200 via-dream-pink to-white min-h-screen font-sans text-slate-600 antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" x-data="{ scrolled: false, mobileOpen: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+        <div :class="scrolled ? 'glass shadow-sm' : 'bg-transparent'" class="transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="font-serif text-2xl font-bold text-slate-800 tracking-wide">
+                            AeroDream<span class="text-sky-500">.</span>
+                        </span>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#experience" class="text-slate-600 hover:text-sky-600 transition-colors font-medium">Experience</a>
+                        <a href="#gallery" class="text-slate-600 hover:text-sky-600 transition-colors font-medium">Gallery</a>
+                        <a href="#packages" class="text-slate-600 hover:text-sky-600 transition-colors font-medium">Packages</a>
+                        <a href="#contact" class="px-5 py-2 rounded-full bg-sky-500 text-white font-medium hover:bg-sky-600 transition-all shadow-lg hover:shadow-sky-200 hover:-translate-y-0.5">Book Flight</a>
+                    </div>
+                    <div class="md:hidden flex items-center">
+                        <button @click="mobileOpen = !mobileOpen" class="text-slate-600 focus:outline-none">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="mobileOpen" @click.away="mobileOpen = false" class="md:hidden glass absolute w-full border-t border-white/30">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-sky-50 hover:text-sky-600">Experience</a>
+                <a href="#gallery" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-sky-50 hover:text-sky-600">Gallery</a>
+                <a href="#packages" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-sky-50 hover:text-sky-600">Packages</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-sky-600 font-bold">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=2574&auto=format&fit=crop" alt="Hot Air Balloons" class="w-full h-full object-cover opacity-90">
+            <div class="absolute inset-0 bg-gradient-to-b from-sky-200/30 via-transparent to-white/90"></div>
+        </div>
+
+        <!-- Floating Elements (Decorative Clouds) -->
+        <div class="absolute top-1/4 left-10 w-32 h-12 bg-white/60 rounded-full blur-xl animate-float-delayed z-0"></div>
+        <div class="absolute bottom-1/3 right-20 w-48 h-16 bg-white/50 rounded-full blur-2xl animate-float z-0"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-800 mb-6 leading-tight drop-shadow-sm">
+                Touch the <span class="text-sky-600 italic">Sky</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-slate-700 mb-10 max-w-2xl mx-auto font-light leading-relaxed glass px-6 py-4 rounded-2xl">
+                Experience the world from a new perspective with {{COMPANY_NAME}}. Drift silently above breathtaking landscapes in our premium hot air balloons.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#packages" class="px-8 py-4 rounded-full bg-sky-500 text-white font-semibold text-lg hover:bg-sky-600 transition-all shadow-xl hover:shadow-sky-300 hover:-translate-y-1 transform">
+                    View Flights
+                </a>
+                <a href="#experience" class="px-8 py-4 rounded-full glass text-slate-700 font-semibold text-lg hover:bg-white/80 transition-all hover:-translate-y-1 transform">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sky-500 font-bold tracking-wider uppercase text-sm">Why Choose Us</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-slate-800 mt-2 mb-4">The Gentle Giant of the Skies</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Our flights offer a serene escape from the everyday, combining safety, luxury, and awe-inspiring views.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center mb-6 text-sky-600 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-slate-800 mb-3">Sunrise Magic</h3>
+                    <p class="text-slate-600 leading-relaxed">Watch the world wake up as you ascend with the rising sun. Golden hour photography opportunities like no other.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group relative mt-0 md:-mt-8">
+                    <div class="absolute -top-6 -right-6 w-24 h-24 bg-dream-pink rounded-full blur-2xl opacity-50"></div>
+                    <div class="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mb-6 text-pink-500 group-hover:bg-pink-400 group-hover:text-white transition-colors relative z-10">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-slate-800 mb-3 relative z-10">Romantic Escapes</h3>
+                    <p class="text-slate-600 leading-relaxed relative z-10">Perfect for proposals, anniversaries, or simply sharing a magical moment with someone special.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-6 text-amber-600 group-hover:bg-amber-400 group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-slate-800 mb-3">Certified Safety</h3>
+                    <p class="text-slate-600 leading-relaxed">Our pilots are FAA-certified experts with thousands of flight hours. Your safety is our absolute priority.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-white/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-pink-500 font-bold tracking-wider uppercase text-sm">Gallery</span>
+                    <h2 class="font-serif text-4xl text-slate-800 mt-2">Views from Above</h2>
+                </div>
+                <a href="#" class="text-sky-600 hover:text-sky-700 font-medium mt-4 md:mt-0 flex items-center gap-2 group">
+                    View Full Gallery
+                    <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[600px]">
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1526485741279-5633b4971c26?q=80&w=2672&auto=format&fit=crop" alt="Cappadocia" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
+                        <p class="text-white font-serif text-xl">Dawn Patrol</p>
+                    </div>
+                </div>
+                <div class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1495573467614-278077b960c1?q=80&w=2670&auto=format&fit=crop" alt="Balloon Close up" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="md:col-span-1 md:row-span-2 relative group overflow-hidden rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1540890664962-d2b52750800b?q=80&w=2574&auto=format&fit=crop" alt="Blue Sky" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1605648916319-cf082f7524a1?q=80&w=2670&auto=format&fit=crop" alt="Sunset" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="py-24 relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-sky-100 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-dream-pink rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-slate-800 mb-4">Flight Packages</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Choose your perfect journey. All flights include a commemorative certificate and post-flight refreshments.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Standard -->
+                <div class="bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white shadow-lg hover:shadow-xl transition-all">
+                    <h3 class="font-serif text-2xl text-slate-800">Classic Flight</h3>
+                    <p class="text-slate-500 text-sm mb-6">Shared basket experience</p>
+                    <div class="text-4xl font-bold text-slate-800 mb-6">$250<span class="text-lg font-normal text-slate-500">/person</span></div>
+                    <ul class="space-y-4 mb-8 text-slate-600">
+                        <li class="flex items-center"><span class="text-sky-500 mr-2">✓</span> 45-60 min flight</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2">✓</span> Sunrise departure</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2">✓</span> Post-flight toast</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2">✓</span> Insurance included</li>
+                    </ul>
+                    <a href="#contact" class="block w-full py-3 rounded-xl border-2 border-slate-200 text-slate-600 text-center font-bold hover:border-sky-500 hover:text-sky-600 transition-colors">Select Plan</a>
+                </div>
+
+                <!-- Premium (Highlighted) -->
+                <div class="bg-white/80 backdrop-blur-lg rounded-3xl p-10 border-2 border-sky-200 shadow-2xl relative transform md:-translate-y-4 animate-float">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-500 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wide">Most Popular</div>
+                    <h3 class="font-serif text-3xl text-slate-800">Private Sky</h3>
+                    <p class="text-slate-500 text-sm mb-6">Exclusive basket for two</p>
+                    <div class="text-5xl font-bold text-slate-800 mb-6">$800<span class="text-lg font-normal text-slate-500">/couple</span></div>
+                    <ul class="space-y-4 mb-8 text-slate-600">
+                        <li class="flex items-center"><span class="text-pink-500 mr-2">✓</span> All Classic features</li>
+                        <li class="flex items-center"><span class="text-pink-500 mr-2">✓</span> Private basket guaranteed</li>
+                        <li class="flex items-center"><span class="text-pink-500 mr-2">✓</span> Premium champagne</li>
+                        <li class="flex items-center"><span class="text-pink-500 mr-2">✓</span> In-flight photos included</li>
+                    </ul>
+                    <a href="#contact" class="block w-full py-4 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 text-white text-center font-bold shadow-lg hover:shadow-sky-300 transition-shadow">Book Private Flight</a>
+                </div>
+
+                <!-- Group -->
+                <div class="bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white shadow-lg hover:shadow-xl transition-all">
+                    <h3 class="font-serif text-2xl text-slate-800">Group Adventure</h3>
+                    <p class="text-slate-500 text-sm mb-6">Perfect for families & teams</p>
+                    <div class="text-4xl font-bold text-slate-800 mb-6">$220<span class="text-lg font-normal text-slate-500">/person</span></div>
+                    <ul class="space-y-4 mb-8 text-slate-600">
+                        <li class="flex items-center"><span class="text-sky-500 mr-2">✓</span> Min 4 people</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2">✓</span> Private group basket</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2">✓</span> Extended flight time</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2">✓</span> Breakfast box included</li>
+                    </ul>
+                    <a href="#contact" class="block w-full py-3 rounded-xl border-2 border-slate-200 text-slate-600 text-center font-bold hover:border-sky-500 hover:text-sky-600 transition-colors">Get Group Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-sky-50/50">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <svg class="w-12 h-12 text-sky-300 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H11.983C10.8784 16 9.98297 16.8954 9.98297 18L9.98297 21L7.98297 21V18C7.98297 15.7909 9.77383 14 11.983 14H12.017C14.2261 14 16.017 15.7909 16.017 18V21H14.017ZM12 4C7.58172 4 4 7.58172 4 12H20C20 7.58172 16.4183 4 12 4Z"></path></svg>
+            <h2 class="font-serif text-3xl italic text-slate-700 mb-8">"Floating above the clouds with {{COMPANY_NAME}} was a dream come true. The silence, the colors, the feeling of weightlessness—it was pure magic."</h2>
+            <div class="flex items-center justify-center space-x-4">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Reviewer" class="w-12 h-12 rounded-full border-2 border-white shadow-md">
+                <div class="text-left">
+                    <p class="font-bold text-slate-800">Sarah Jenkins</p>
+                    <p class="text-sm text-slate-500">Private Flight, Oct 2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-3xl mx-auto px-4 glass rounded-3xl p-8 md:p-12 shadow-2xl">
+            <div class="text-center mb-10">
+                <h2 class="font-serif text-4xl text-slate-800 mb-4">Ready for Takeoff?</h2>
+                <p class="text-slate-600">Book your flight or ask us any questions. We're here to help you fly.</p>
+            </div>
+
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all bg-white/50" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all bg-white/50" placeholder="john@example.com">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Preferred Date</label>
+                    <input type="date" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all bg-white/50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Message</label>
+                    <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all bg-white/50" placeholder="Tell us about your special occasion..."></textarea>
+                </div>
+                <button type="button" class="w-full py-4 rounded-xl bg-slate-800 text-white font-bold hover:bg-slate-700 transition-colors shadow-lg">Send Request</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="font-serif text-2xl font-bold text-white tracking-wide">
+                        AeroDream<span class="text-sky-500">.</span>
+                    </span>
+                    <p class="mt-4 max-w-xs text-slate-400">Elevating experiences since 2010. Fully licensed and insured for your peace of mind.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Explore</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#experience" class="hover:text-white transition-colors">Our Experience</a></li>
+                        <li><a href="#gallery" class="hover:text-white transition-colors">Gallery</a></li>
+                        <li><a href="#packages" class="hover:text-white transition-colors">Packages</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li>1-800-FLY-HIGH</li>
+                        <li>hello@aerodream.com</li>
+                        <li>123 Cloud Avenue, Sky City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
