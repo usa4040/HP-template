@@ -1689,6 +1689,19 @@
         "Gradient",
         "Future"
       ]
+    },
+    {
+      "id": "131",
+      "name": "Civic Grid",
+      "category": "Urban Planning",
+      "style": "Civic Blueprint",
+      "path": "catalog/template_131_urban_planning_civic_blueprint",
+      "description": "Technical city-planning aesthetic with zoning colors.",
+      "tags": [
+        "Grid",
+        "Technical",
+        "Public Sector"
+      ]
     }
   ]
 }
