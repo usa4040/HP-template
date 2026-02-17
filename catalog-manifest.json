@@ -1767,6 +1767,19 @@
         "Mobility",
         "Tech"
       ]
+    },
+    {
+      "id": "137",
+      "name": "Volt Modular",
+      "category": "Music Technology",
+      "style": "Voltage Control",
+      "path": "catalog/template_137_music_tech_voltage_control",
+      "description": "Modular synth interface",
+      "tags": [
+        "Industrial",
+        "Interactive",
+        "Tactile"
+      ]
     }
   ]
 }

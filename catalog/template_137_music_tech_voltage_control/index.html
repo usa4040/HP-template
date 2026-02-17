@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt Modular | Sonic Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background-color: #171717; /* neutral-900 */
+            color: #d4d4d4; /* neutral-300 */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23262626' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Teko', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Screw Head Effect */
+        .screw {
+            width: 12px;
+            height: 12px;
+            background: #525252;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5), 1px 1px 1px rgba(255,255,255,0.1);
+        }
+        .screw::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 2px;
+            background: #262626;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        .screw-tl { top: 8px; left: 8px; }
+        .screw-tr { top: 8px; right: 8px; }
+        .screw-bl { bottom: 8px; left: 8px; }
+        .screw-br { bottom: 8px; right: 8px; }
+
+        /* Patch Cable Animation */
+        .cable-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: cable-draw 2s ease-out forwards;
+        }
+        @keyframes cable-draw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Knob Control */
+        .knob-container {
+            position: relative;
+            display: inline-block;
+        }
+        .knob {
+            transition: transform 0.1s ease-out;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.5);
+        }
+        .knob-indicator {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            width: 4px;
+            height: 40%;
+            background: #fff;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* LED Pulse */
+        @keyframes led-pulse {
+            0%, 100% { opacity: 0.4; box-shadow: 0 0 5px currentColor; }
+            50% { opacity: 1; box-shadow: 0 0 15px currentColor, 0 0 5px #fff; }
+        }
+        .led-pulse {
+            animation: led-pulse 2s infinite;
+        }
+
+        .faceplate {
+            background: linear-gradient(135deg, #262626 0%, #171717 100%);
+            border: 1px solid #404040;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.5), inset 1px 1px 0 rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden relative" x-data="{ mobileMenu: false, powerOn: true }">
+
+    <!-- Patch Cables Background -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-30 hidden lg:block">
+        <svg class="w-full h-full" preserveAspectRatio="none">
+            <!-- Cable 1: Hero to Modules -->
+            <path d="M 200,500 C 300,800 100,800 150,1100" stroke="#ef4444" stroke-width="4" fill="none" class="cable-path" style="animation-delay: 0.5s; stroke-linecap: round; filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.5));" />
+            <!-- Cable 2: Modules to Contact -->
+            <path d="M 900,1200 C 1000,1500 800,1800 1100,2200" stroke="#22c55e" stroke-width="4" fill="none" class="cable-path" style="animation-delay: 1s; stroke-linecap: round; filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.5));" />
+            <!-- Cable 3: Crossing -->
+            <path d="M 1200,300 C 1000,600 1400,900 1300,1200" stroke="#3b82f6" stroke-width="4" fill="none" class="cable-path" style="animation-delay: 1.5s; stroke-linecap: round; filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.5));" />
+        </svg>
+    </div>
+
+    <!-- Master Switch Overlay (Optional interaction) -->
+    <div x-show="!powerOn" class="fixed inset-0 z-50 bg-neutral-950 flex items-center justify-center flex-col gap-4 transition-opacity duration-500" x-transition:leave="opacity-0">
+        <h1 class="text-6xl text-neutral-700 tracking-widest">OFFLINE</h1>
+        <button @click="powerOn = true" class="px-8 py-3 border-2 border-neutral-700 text-neutral-500 hover:text-green-500 hover:border-green-500 transition-colors uppercase font-bold tracking-widest text-xl">
+            Power On
+        </button>
+    </div>
+
+    <!-- Navigation Rack -->
+    <nav class="sticky top-0 z-40 bg-neutral-900/90 backdrop-blur-md border-b-4 border-neutral-800 shadow-xl" x-cloak>
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo Module -->
+            <div class="flex items-center gap-3">
+                <div class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]" :class="{ 'animate-pulse': powerOn }"></div>
+                <div class="text-2xl font-bold tracking-wider text-neutral-100 uppercase" style="font-family: 'Teko', sans-serif;">
+                    {{COMPANY_NAME}}<span class="text-neutral-500 text-sm ml-2 font-mono align-super">V2.0</span>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-mono text-sm tracking-tight text-neutral-400">
+                <a href="#modules" class="hover:text-green-400 transition-colors uppercase decoration-green-500/30 underline-offset-4 hover:underline">Modules</a>
+                <a href="#shop" class="hover:text-blue-400 transition-colors uppercase decoration-blue-500/30 underline-offset-4 hover:underline">Hardware</a>
+                <a href="#about" class="hover:text-amber-400 transition-colors uppercase decoration-amber-500/30 underline-offset-4 hover:underline">Manual</a>
+                <a href="#contact" class="px-4 py-1 border border-neutral-600 rounded text-neutral-300 hover:bg-neutral-800 hover:border-green-400 hover:text-green-400 transition-all uppercase">
+                    Patch In
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-neutral-300 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" @click.away="mobileMenu = false" class="md:hidden bg-neutral-900 border-b border-neutral-800" x-transition>
+            <div class="px-4 py-4 flex flex-col gap-4 font-mono text-neutral-400">
+                <a href="#modules" class="block hover:text-green-400 uppercase">Modules</a>
+                <a href="#shop" class="block hover:text-blue-400 uppercase">Hardware</a>
+                <a href="#about" class="block hover:text-amber-400 uppercase">Manual</a>
+                <a href="#contact" class="block text-green-400 uppercase font-bold">> Patch In</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+
+        <!-- Hero Section: Master Oscillator -->
+        <section class="container mx-auto px-4 py-16 lg:py-24">
+            <div class="faceplate relative p-8 lg:p-12 rounded-sm max-w-6xl mx-auto overflow-hidden group">
+                <!-- Screws -->
+                <div class="screw screw-tl"></div><div class="screw screw-tr"></div><div class="screw screw-bl"></div><div class="screw screw-br"></div>
+
+                <div class="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+                    <div>
+                        <div class="inline-block px-2 py-1 bg-neutral-950 border border-neutral-700 text-xs text-green-500 font-mono mb-4">
+                            SIGNAL PATH: ACTIVE
+                        </div>
+                        <h1 class="text-6xl lg:text-8xl font-bold text-neutral-100 leading-none mb-6 tracking-tight">
+                            SONIC <span class="text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-500 group-hover:from-green-400 group-hover:to-blue-500 transition-all duration-700">ARCHITECTS</span>
+                        </h1>
+                        <p class="text-neutral-400 font-mono text-lg mb-8 max-w-md leading-relaxed border-l-2 border-green-500/30 pl-4">
+                            Precision-engineered voltage controlled modules for the modern sound designer. Craft your signal. Shape your reality.
+                        </p>
+
+                        <div class="flex flex-wrap gap-6 items-center">
+                            <a href="#shop" class="relative overflow-hidden px-8 py-3 bg-neutral-300 text-neutral-900 font-bold uppercase tracking-widest hover:bg-white transition-colors">
+                                Explore Units
+                                <div class="absolute inset-0 bg-white/20 translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-500"></div>
+                            </a>
+                            <div class="flex items-center gap-2 font-mono text-sm text-neutral-500">
+                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                SYSTEM ONLINE
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visualizer / Synth UI -->
+                    <div class="relative flex justify-center items-center h-full min-h-[300px]" x-data="{ knob1: 0, knob2: 0, knob3: 0 }" x-init="knob1 = Math.random()*180; knob2 = Math.random()*180; knob3 = Math.random()*180">
+                        <!-- Background Grid -->
+                        <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(#404040 1px, transparent 1px), linear-gradient(90deg, #404040 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+                        <!-- Oscilloscope Line (SVG) -->
+                        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 500 300" preserveAspectRatio="none">
+                            <path d="M0,150 Q125,50 250,150 T500,150" fill="none" stroke="#22c55e" stroke-width="2" class="opacity-50 blur-sm animate-pulse" />
+                            <path d="M0,150 Q125,50 250,150 T500,150" fill="none" stroke="#22c55e" stroke-width="1" />
+                        </svg>
+
+                        <!-- Interactive Knobs -->
+                        <div class="grid grid-cols-3 gap-8 relative z-20">
+                            <!-- Knob 1 -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="w-20 h-20 rounded-full bg-neutral-800 border-2 border-neutral-600 relative shadow-xl cursor-pointer hover:border-green-400 transition-colors knob"
+                                     :style="`transform: rotate(${knob1}deg)`"
+                                     @click="knob1 = (knob1 + 45) % 360">
+                                    <div class="knob-indicator"></div>
+                                </div>
+                                <span class="text-xs text-neutral-500 uppercase tracking-widest">Freq</span>
+                            </div>
+                            <!-- Knob 2 -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="w-20 h-20 rounded-full bg-neutral-800 border-2 border-neutral-600 relative shadow-xl cursor-pointer hover:border-blue-400 transition-colors knob"
+                                     :style="`transform: rotate(${knob2}deg)`"
+                                     @click="knob2 = (knob2 + 45) % 360">
+                                    <div class="knob-indicator"></div>
+                                </div>
+                                <span class="text-xs text-neutral-500 uppercase tracking-widest">Res</span>
+                            </div>
+                            <!-- Knob 3 -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="w-20 h-20 rounded-full bg-neutral-800 border-2 border-neutral-600 relative shadow-xl cursor-pointer hover:border-amber-400 transition-colors knob"
+                                     :style="`transform: rotate(${knob3}deg)`"
+                                     @click="knob3 = (knob3 + 45) % 360">
+                                    <div class="knob-indicator"></div>
+                                </div>
+                                <span class="text-xs text-neutral-500 uppercase tracking-widest">Drive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modules Grid -->
+        <section id="modules" class="container mx-auto px-4 py-16">
+            <div class="flex items-end justify-between mb-12 border-b border-neutral-800 pb-4">
+                <h2 class="text-4xl lg:text-5xl font-bold text-neutral-200">
+                    <span class="text-green-500">M</span>ODULES
+                </h2>
+                <div class="font-mono text-xs text-neutral-500 uppercase">Input / Output</div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Module 1 -->
+                <div class="faceplate relative p-6 h-80 flex flex-col justify-between group hover:border-neutral-500 transition-colors">
+                    <div class="screw screw-tl"></div><div class="screw screw-tr"></div><div class="screw screw-bl"></div><div class="screw screw-br"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl text-neutral-300">VCO-1</h3>
+                            <div class="w-2 h-2 rounded-full bg-red-500 led-pulse"></div>
+                        </div>
+                        <p class="font-mono text-sm text-neutral-500 leading-relaxed">
+                            Analog voltage controlled oscillator with simultaneous triangle, saw, and square wave outputs.
+                        </p>
+                    </div>
+                    <!-- UI Elements -->
+                    <div class="mt-8 flex justify-between items-end">
+                        <div class="w-12 h-12 rounded-full border border-neutral-600 bg-neutral-800 group-hover:border-red-400 transition-colors relative">
+                            <div class="absolute top-1 left-1/2 w-1 h-4 bg-white -translate-x-1/2 rounded-full"></div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="w-full h-1 bg-neutral-700 rounded overflow-hidden">
+                                <div class="h-full w-2/3 bg-red-500"></div>
+                            </div>
+                            <div class="font-mono text-xs text-right text-red-400">PULSE WIDTH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="faceplate relative p-6 h-80 flex flex-col justify-between group hover:border-neutral-500 transition-colors">
+                    <div class="screw screw-tl"></div><div class="screw screw-tr"></div><div class="screw screw-bl"></div><div class="screw screw-br"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl text-neutral-300">VCF-LP</h3>
+                            <div class="w-2 h-2 rounded-full bg-green-500 led-pulse" style="animation-delay: 0.3s"></div>
+                        </div>
+                        <p class="font-mono text-sm text-neutral-500 leading-relaxed">
+                            4-pole low pass ladder filter with self-oscillation capabilities and drive circuit.
+                        </p>
+                    </div>
+                    <div class="mt-8 flex justify-center gap-4">
+                         <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 rounded-full border border-neutral-600 bg-neutral-800 group-hover:border-green-400 transition-colors relative shadow-lg">
+                                <div class="absolute top-1 left-1/2 w-1 h-6 bg-white -translate-x-1/2 rounded-full"></div>
+                            </div>
+                            <span class="text-xs font-mono mt-2 text-neutral-500">CUTOFF</span>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="faceplate relative p-6 h-80 flex flex-col justify-between group hover:border-neutral-500 transition-colors">
+                    <div class="screw screw-tl"></div><div class="screw screw-tr"></div><div class="screw screw-bl"></div><div class="screw screw-br"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl text-neutral-300">ADSR-X</h3>
+                            <div class="w-2 h-2 rounded-full bg-blue-500 led-pulse" style="animation-delay: 0.7s"></div>
+                        </div>
+                        <p class="font-mono text-sm text-neutral-500 leading-relaxed">
+                            Snappy envelope generator with loop mode and inverted output options.
+                        </p>
+                    </div>
+                    <!-- Sliders -->
+                    <div class="grid grid-cols-4 gap-2 mt-4 h-24 items-end">
+                        <div class="w-full bg-neutral-800 rounded-sm relative h-20 group-hover:bg-neutral-700 transition-colors">
+                            <div class="absolute bottom-2 left-0 right-0 h-1 bg-blue-500 mx-1"></div>
+                        </div>
+                        <div class="w-full bg-neutral-800 rounded-sm relative h-20 group-hover:bg-neutral-700 transition-colors">
+                             <div class="absolute bottom-8 left-0 right-0 h-1 bg-blue-500 mx-1"></div>
+                        </div>
+                        <div class="w-full bg-neutral-800 rounded-sm relative h-20 group-hover:bg-neutral-700 transition-colors">
+                             <div class="absolute bottom-12 left-0 right-0 h-1 bg-blue-500 mx-1"></div>
+                        </div>
+                        <div class="w-full bg-neutral-800 rounded-sm relative h-20 group-hover:bg-neutral-700 transition-colors">
+                             <div class="absolute bottom-4 left-0 right-0 h-1 bg-blue-500 mx-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature / Tech Specs -->
+        <section id="about" class="bg-neutral-900 border-y border-neutral-800 relative py-20 overflow-hidden">
+            <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div>
+                        <h2 class="text-4xl lg:text-5xl font-bold text-neutral-200 mb-8">
+                            TECHNICAL <span class="text-blue-500">SPECS</span>
+                        </h2>
+                        <div class="space-y-6 font-mono text-sm">
+                            <div class="flex border-b border-neutral-800 pb-2">
+                                <span class="w-32 text-neutral-500">VOLTAGE</span>
+                                <span class="text-neutral-300">+/- 12V DC (Standard Eurorack)</span>
+                            </div>
+                            <div class="flex border-b border-neutral-800 pb-2">
+                                <span class="w-32 text-neutral-500">DEPTH</span>
+                                <span class="text-neutral-300">SKiff Friendly (Max 35mm)</span>
+                            </div>
+                            <div class="flex border-b border-neutral-800 pb-2">
+                                <span class="w-32 text-neutral-500">SIGNAL</span>
+                                <span class="text-neutral-300">10Vpp Audio, 5V CV</span>
+                            </div>
+                            <div class="flex border-b border-neutral-800 pb-2">
+                                <span class="w-32 text-neutral-500">DAC</span>
+                                <span class="text-neutral-300">24-bit / 96kHz High Resolution</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-4 bg-neutral-950 border border-neutral-800 font-mono text-xs text-green-400">
+                            > CALIBRATION CHECK... OK<br>
+                            > TUNING... STABLE<br>
+                            > READY FOR PATCHING_
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <!-- Graphic of a wave -->
+                        <div class="aspect-video bg-neutral-950 border border-neutral-800 rounded-lg flex items-center justify-center relative overflow-hidden group">
+                             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center opacity-20 grayscale group-hover:grayscale-0 transition-all duration-700 mix-blend-overlay"></div>
+                             <div class="w-full h-32 flex items-center gap-1 justify-center px-8">
+                                <template x-for="i in 20">
+                                    <div class="flex-1 bg-green-500/50 rounded-sm transition-all duration-300" :style="`height: ${Math.random() * 100}%; animation: equalizer 1s infinite alternate; animation-delay: ${i * 0.05}s`"></div>
+                                </template>
+                             </div>
+                        </div>
+                        <style>
+                            @keyframes equalizer {
+                                0% { height: 10%; background-color: #22c55e; }
+                                100% { height: 90%; background-color: #3b82f6; }
+                            }
+                        </style>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop / Grid -->
+        <section id="shop" class="container mx-auto px-4 py-20">
+            <h2 class="text-4xl lg:text-5xl font-bold text-center text-neutral-200 mb-16">
+                HARDWARE <span class="text-amber-500">CATALOG</span>
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="group">
+                    <div class="relative aspect-square bg-neutral-800 border-2 border-neutral-700 rounded-sm overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1598460517852-5a3d76b17c2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Synth Module" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                        <div class="absolute top-2 right-2 bg-black/80 text-white text-xs font-bold px-2 py-1 font-mono">$299</div>
+                    </div>
+                    <h3 class="text-xl text-neutral-200 group-hover:text-green-400 transition-colors">Nebula Reverb</h3>
+                    <p class="text-sm text-neutral-500 font-mono">Stereo DSP Processor</p>
+                    <button class="mt-4 w-full py-2 border border-neutral-600 text-neutral-400 hover:bg-neutral-800 hover:text-white hover:border-white transition-all text-sm uppercase font-bold tracking-wider">
+                        Add to Rack
+                    </button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group">
+                    <div class="relative aspect-square bg-neutral-800 border-2 border-neutral-700 rounded-sm overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1593108630768-a477383a7364?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Synth Module" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                        <div class="absolute top-2 right-2 bg-black/80 text-white text-xs font-bold px-2 py-1 font-mono">$189</div>
+                    </div>
+                    <h3 class="text-xl text-neutral-200 group-hover:text-blue-400 transition-colors">Pulse Sequencer</h3>
+                    <p class="text-sm text-neutral-500 font-mono">8-Step CV Generator</p>
+                    <button class="mt-4 w-full py-2 border border-neutral-600 text-neutral-400 hover:bg-neutral-800 hover:text-white hover:border-white transition-all text-sm uppercase font-bold tracking-wider">
+                        Add to Rack
+                    </button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group">
+                    <div class="relative aspect-square bg-neutral-800 border-2 border-neutral-700 rounded-sm overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1616016206107-1b4e201b17d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Synth Module" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                        <div class="absolute top-2 right-2 bg-black/80 text-white text-xs font-bold px-2 py-1 font-mono">$349</div>
+                    </div>
+                    <h3 class="text-xl text-neutral-200 group-hover:text-amber-400 transition-colors">Quantum Folding</h3>
+                    <p class="text-sm text-neutral-500 font-mono">Wavefolder & Distortion</p>
+                    <button class="mt-4 w-full py-2 border border-neutral-600 text-neutral-400 hover:bg-neutral-800 hover:text-white hover:border-white transition-all text-sm uppercase font-bold tracking-wider">
+                        Add to Rack
+                    </button>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group">
+                    <div class="relative aspect-square bg-neutral-800 border-2 border-neutral-700 rounded-sm overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1621252179027-94459d27d3ee?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Synth Module" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                        <div class="absolute top-2 right-2 bg-black/80 text-white text-xs font-bold px-2 py-1 font-mono">$129</div>
+                    </div>
+                    <h3 class="text-xl text-neutral-200 group-hover:text-purple-400 transition-colors">Logic Gates</h3>
+                    <p class="text-sm text-neutral-500 font-mono">Boolean Logic Util</p>
+                    <button class="mt-4 w-full py-2 border border-neutral-600 text-neutral-400 hover:bg-neutral-800 hover:text-white hover:border-white transition-all text-sm uppercase font-bold tracking-wider">
+                        Add to Rack
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact / Patch In -->
+        <section id="contact" class="container mx-auto px-4 py-24 mb-12">
+            <div class="faceplate p-8 max-w-2xl mx-auto relative rounded-sm">
+                <div class="screw screw-tl"></div><div class="screw screw-tr"></div><div class="screw screw-bl"></div><div class="screw screw-br"></div>
+
+                <h2 class="text-4xl font-bold text-center mb-2">PATCH IN</h2>
+                <p class="text-center font-mono text-neutral-500 text-sm mb-8">Establish connection with our engineering team.</p>
+
+                <form class="space-y-6">
+                    <div>
+                        <label class="block font-mono text-xs text-neutral-400 mb-2 uppercase">Input Source (Name)</label>
+                        <input type="text" class="w-full bg-neutral-900 border border-neutral-700 p-3 text-neutral-200 focus:outline-none focus:border-green-500 font-mono placeholder-neutral-700" placeholder="ENTER_NAME">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-neutral-400 mb-2 uppercase">Carrier Signal (Email)</label>
+                        <input type="email" class="w-full bg-neutral-900 border border-neutral-700 p-3 text-neutral-200 focus:outline-none focus:border-green-500 font-mono placeholder-neutral-700" placeholder="ENTER_EMAIL">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-neutral-400 mb-2 uppercase">Modulation (Message)</label>
+                        <textarea rows="4" class="w-full bg-neutral-900 border border-neutral-700 p-3 text-neutral-200 focus:outline-none focus:border-green-500 font-mono placeholder-neutral-700" placeholder="ENTER_DATA..."></textarea>
+                    </div>
+                    <button type="button" class="w-full py-4 bg-neutral-800 border-2 border-neutral-600 text-neutral-300 hover:border-green-500 hover:text-green-500 hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all uppercase font-bold tracking-widest text-lg">
+                        SEND SIGNAL
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t-4 border-neutral-800 py-12">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <div class="text-2xl font-bold font-teko uppercase text-neutral-400">{{COMPANY_NAME}}</div>
+                <div class="font-mono text-xs text-neutral-600">© 2024 ANALOG SYSTEMS LTD.</div>
+            </div>
+            <div class="flex gap-6 font-mono text-xs text-neutral-500 uppercase">
+                <a href="#" class="hover:text-white">Terms</a>
+                <a href="#" class="hover:text-white">Privacy</a>
+                <a href="#" class="hover:text-white">Manuals</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
