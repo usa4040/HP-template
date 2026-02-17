@@ -59,9 +59,20 @@
                             </div>
                         </div>
                         <div class="p-6 pt-0 mt-auto">
-                            <a href="${indexPath}" target="_blank" class="block w-full text-center bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
-                                プレビューを開く
-                            </a>
+                            ${template.languages && template.languages.length > 1 ? `
+                                <div class="grid grid-cols-2 gap-2">
+                                    <a href="${template.path}/index.html" target="_blank" class="text-center bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
+                                        English
+                                    </a>
+                                    <a href="${template.path}/index_ja.html" target="_blank" class="text-center bg-gray-700 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
+                                        日本語
+                                    </a>
+                                </div>
+                            ` : `
+                                <a href="${indexPath}" target="_blank" class="block w-full text-center bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
+                                    プレビューを開く
+                                </a>
+                            `}
                         </div>
                     `;
                     gallery.appendChild(card);
