@@ -1793,6 +1793,19 @@
         "Red",
         "Minimalist"
       ]
+    },
+    {
+      "id": "139",
+      "name": "Nomad Haven",
+      "category": "Coliving",
+      "style": "Tropical Tech",
+      "path": "catalog/template_139_coliving_tropical_tech",
+      "description": "Vibrant community-focused coliving theme.",
+      "tags": [
+        "Tropical",
+        "Remote Work",
+        "Community"
+      ]
     }
   ]
 }
