@@ -1,8 +1,12 @@
 name: Auto Merge Jules PRs
 
+# 一時停止中
+# on:
+#   pull_request:
+#     types: [opened, synchronize]
+
 on:
-  pull_request:
-    types: [opened, synchronize]
+  workflow_dispatch:
 
 jobs:
   auto-merge:
