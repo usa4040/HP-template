@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{COMPANY_NAME}} - Retro Cafe</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -17,8 +17,8 @@
                         'retro-dark': '#2c241b',
                     },
                     fontFamily: {
-                        'serif': ['"Merriweather"', 'serif'],
-                        'display': ['"Playfair Display"', 'serif'],
+                        'serif': ['"Merriweather"', '"Noto Serif JP"', 'serif'],
+                        'display': ['"Playfair Display"', '"Noto Serif JP"', 'serif'],
                     }
                 }
             }
@@ -29,6 +29,7 @@
             background-color: #fdfbf7;
             background-image: radial-gradient(#d4a373 0.5px, transparent 0.5px);
             background-size: 20px 20px;
+            font-feature-settings: "palt";
         }
     </style>
 </head>
@@ -45,7 +46,7 @@
                 <a href="#menu" class="hover:text-retro-accent transition-colors">Menu</a>
                 <a href="#location" class="hover:text-retro-accent transition-colors">Location</a>
                 <a href="#contact" class="px-6 py-2 border-2 border-retro-brown hover:bg-retro-brown hover:text-retro-cream transition-colors">Reserve</a>
-                <a href="index_ja.html" class="text-xs opacity-60 hover:opacity-100 transition-opacity border-l border-retro-brown/30 pl-4">JP</a>
+                <a href="index.html" class="text-xs opacity-60 hover:opacity-100 transition-opacity border-l border-retro-brown/30 pl-4">EN</a>
             </nav>
             <button id="mobile-menu-btn" class="md:hidden text-retro-dark">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
@@ -62,8 +63,8 @@
                 <a href="#location" class="hover:text-retro-accent transition-colors py-2">Location</a>
                 <a href="#contact" class="px-6 py-2 border-2 border-retro-brown hover:bg-retro-brown hover:text-retro-cream transition-colors mx-auto w-fit">Reserve</a>
                 <div class="flex justify-center gap-4 pt-4 border-t border-retro-brown/10">
-                    <span class="text-xs font-bold">EN</span>
-                    <a href="index_ja.html" class="text-xs opacity-60 hover:opacity-100 transition-opacity">JP</a>
+                    <a href="index.html" class="text-xs opacity-60 hover:opacity-100 transition-opacity">EN</a>
+                    <span class="text-xs font-bold">JP</span>
                 </div>
             </nav>
         </div>
@@ -80,11 +81,12 @@
         <div class="absolute inset-0 bg-[#2c241b] opacity-10 pattern-dots"></div>
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
             <span class="block font-display text-retro-accent text-xl md:text-2xl mb-4 italic">Est. 1985</span>
-            <h2 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-retro-dark mb-8 leading-tight">
-                Taste the <br/> Nostalgia
+            <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-retro-dark mb-8 leading-tight">
+                懐かしさに<br>包まれて
             </h2>
             <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed opacity-80">
-                A timeless space where coffee aroma meets vintage soul. <br/> Slow down and savor the moment at {{COMPANY_NAME}}.
+                コーヒーの香りと、時を超えた温もりが交わる場所。<br>
+                {{COMPANY_NAME}}で、大切なひとときをゆっくりと。
             </p>
             <div class="flex flex-col md:flex-row gap-4 justify-center">
                 <a href="#menu" class="px-8 py-4 bg-retro-brown text-retro-cream font-bold uppercase tracking-widest hover:bg-retro-dark transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
@@ -102,7 +104,6 @@
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="relative">
                 <div class="aspect-[4/5] bg-retro-cream/10 border-4 border-retro-cream/20 rounded-lg overflow-hidden">
-                    <!-- Placeholder for image -->
                     <div class="w-full h-full bg-stone-700 flex items-center justify-center text-retro-cream/20 font-display text-4xl">
                         Image
                     </div>
@@ -112,16 +113,16 @@
                 </div>
             </div>
             <div>
-                <h3 class="font-display text-4xl md:text-5xl mb-8">Crafting Memories, <br> One Cup at a Time</h3>
+                <h3 class="font-display text-3xl md:text-4xl mb-8 leading-tight">一杯の記憶を、<br>大切なあなたへ</h3>
                 <p class="text-lg opacity-80 mb-6 leading-relaxed">
-                    At {{COMPANY_NAME}}, we believe in the magic of the old days. Our beans are roasted with traditional methods, and our pastries are baked fresh every morning using grandma's secret recipes.
+                    {{COMPANY_NAME}}では、古き良き時代の魔法を信じています。豆は伝統的な方法で焙煎し、スイーツは毎朝おばあちゃんの秘密のレシピで焼き上げています。
                 </p>
                 <p class="text-lg opacity-80 mb-8 leading-relaxed">
-                    Whether you're looking for a quiet corner to read a book or a lively table to catch up with friends, our doors are always open to welcome you home.
+                    本を読みたい静かな時間も、友人と語らいたい賑やかな時間も、私たちのドアはいつでも開いています。あなたをお待ちしています。
                 </p>
                 <div class="flex gap-4 items-center">
                     <span class="w-12 h-px bg-retro-accent"></span>
-                    <span class="font-display text-2xl italic text-retro-accent">The Founder</span>
+                    <span class="font-display text-2xl italic text-retro-accent">オーナー</span>
                 </div>
             </div>
         </div>
@@ -130,7 +131,7 @@
     <!-- Menu Highlights -->
     <section id="menu" class="py-24 px-4 md:px-8">
         <div class="max-w-4xl mx-auto text-center mb-16">
-            <h3 class="font-display text-4xl md:text-5xl text-retro-dark mb-4">Daily Specials</h3>
+            <h3 class="font-display text-4xl md:text-5xl text-retro-dark mb-4">本日のおすすめ</h3>
             <div class="w-24 h-1 bg-retro-accent mx-auto"></div>
         </div>
 
@@ -142,10 +143,10 @@
                 </div>
                 <div class="flex-grow pt-2">
                     <div class="flex justify-between items-baseline border-b border-retro-brown/20 pb-2 mb-2 border-dashed">
-                        <h4 class="font-display text-xl font-bold text-retro-dark">Classic Espresso</h4>
-                        <span class="font-bold text-retro-accent">$4.50</span>
+                        <h4 class="font-display text-xl font-bold text-retro-dark">クラシックエスプレッソ</h4>
+                        <span class="font-bold text-retro-accent">¥500</span>
                     </div>
-                    <p class="text-sm opacity-70 italic">Rich, dark, and full of character.</p>
+                    <p class="text-sm opacity-70 italic">濃厚で深みのある、コクのある一杯。</p>
                 </div>
             </div>
 
@@ -156,10 +157,10 @@
                 </div>
                 <div class="flex-grow pt-2">
                     <div class="flex justify-between items-baseline border-b border-retro-brown/20 pb-2 mb-2 border-dashed">
-                        <h4 class="font-display text-xl font-bold text-retro-dark">Vintage Velvet Cake</h4>
-                        <span class="font-bold text-retro-accent">$8.00</span>
+                        <h4 class="font-display text-xl font-bold text-retro-dark">ヴィンテージベルベットケーキ</h4>
+                        <span class="font-bold text-retro-accent">¥880</span>
                     </div>
-                    <p class="text-sm opacity-70 italic">A slice of heaven with cream cheese frosting.</p>
+                    <p class="text-sm opacity-70 italic">クリームチーズフロスティングの極上スイーツ。</p>
                 </div>
             </div>
 
@@ -170,10 +171,10 @@
                 </div>
                 <div class="flex-grow pt-2">
                     <div class="flex justify-between items-baseline border-b border-retro-brown/20 pb-2 mb-2 border-dashed">
-                        <h4 class="font-display text-xl font-bold text-retro-dark">Butter Croissant</h4>
-                        <span class="font-bold text-retro-accent">$5.00</span>
+                        <h4 class="font-display text-xl font-bold text-retro-dark">バタークロワッサン</h4>
+                        <span class="font-bold text-retro-accent">¥550</span>
                     </div>
-                    <p class="text-sm opacity-70 italic">Flaky, buttery, and baked to perfection.</p>
+                    <p class="text-sm opacity-70 italic">サクサク、バター香る焼きたて。</p>
                 </div>
             </div>
 
@@ -184,16 +185,16 @@
                 </div>
                 <div class="flex-grow pt-2">
                     <div class="flex justify-between items-baseline border-b border-retro-brown/20 pb-2 mb-2 border-dashed">
-                        <h4 class="font-display text-xl font-bold text-retro-dark">Morning Pancakes</h4>
-                        <span class="font-bold text-retro-accent">$12.00</span>
+                        <h4 class="font-display text-xl font-bold text-retro-dark">モーニングパンケーキ</h4>
+                        <span class="font-bold text-retro-accent">¥1,320</span>
                     </div>
-                    <p class="text-sm opacity-70 italic">Served with maple syrup and fresh berries.</p>
+                    <p class="text-sm opacity-70 italic">メープルシロップとフレッシュベリーを添えて。</p>
                 </div>
             </div>
         </div>
 
         <div class="text-center mt-16">
-            <a href="#" class="inline-block border-b-2 border-retro-dark pb-1 text-retro-dark font-bold hover:text-retro-accent hover:border-retro-accent transition-colors">View Full Menu</a>
+            <a href="#" class="inline-block border-b-2 border-retro-dark pb-1 text-retro-dark font-bold hover:text-retro-accent hover:border-retro-accent transition-colors">メニューを全て見る</a>
         </div>
     </section>
 
@@ -203,7 +204,7 @@
             <div>
                 <h4 class="font-display text-2xl mb-6">{{COMPANY_NAME}}</h4>
                 <p class="opacity-70 mb-6 leading-relaxed">
-                    Bringing the charm of the past to your present cup. Join us for a moment of tranquility.
+                    過去の魅力を今の一杯に込めて。静寂のひとときをあなたと共に。
                 </p>
                 <div class="flex gap-4">
                     <a href="#" class="w-10 h-10 rounded-full border border-retro-cream/30 flex items-center justify-center hover:bg-retro-accent hover:border-retro-accent hover:text-retro-dark transition-all">FB</a>
@@ -213,31 +214,31 @@
             </div>
 
             <div>
-                <h4 class="font-display text-xl mb-6 text-retro-accent">Opening Hours</h4>
+                <h4 class="font-display text-xl mb-6 text-retro-accent">営業時間</h4>
                 <ul class="space-y-3 opacity-80">
                     <li class="flex justify-between max-w-xs border-b border-white/10 pb-2">
-                        <span>Mon - Fri</span>
-                        <span>7:00 AM - 8:00 PM</span>
+                        <span>月〜金</span>
+                        <span>7:00 - 20:00</span>
                     </li>
                     <li class="flex justify-between max-w-xs border-b border-white/10 pb-2">
-                        <span>Saturday</span>
-                        <span>8:00 AM - 9:00 PM</span>
+                        <span>土曜</span>
+                        <span>8:00 - 21:00</span>
                     </li>
                     <li class="flex justify-between max-w-xs border-b border-white/10 pb-2">
-                        <span>Sunday</span>
-                        <span>9:00 AM - 6:00 PM</span>
+                        <span>日祝</span>
+                        <span>9:00 - 18:00</span>
                     </li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="font-display text-xl mb-6 text-retro-accent">Find Us</h4>
+                <h4 class="font-display text-xl mb-6 text-retro-accent">アクセス</h4>
                 <p class="opacity-80 mb-4">
-                    123 Vintage Lane, <br>
-                    Retro City, RC 54321
+                    〒150-0002<br>
+                    東京都渋谷区渋谷1-2-3
                 </p>
                 <p class="opacity-80 mb-8">
-                    (555) 123-4567 <br>
+                    TEL: 03-1234-5678<br>
                     hello@retrocafe.com
                 </p>
                 <p class="text-sm opacity-50">

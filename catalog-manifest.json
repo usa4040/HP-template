@@ -39,7 +39,8 @@
         "Vintage",
         "Classic",
         "Serif"
-      ]
+      ],
+      "languages": ["en", "ja"]
     },
     {
       "id": "004",
