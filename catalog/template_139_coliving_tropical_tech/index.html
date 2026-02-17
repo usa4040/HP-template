@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomad Haven | {{COMPANY_NAME}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Outfit:wght@300;500;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coral: {
+                            400: '#ff8787',
+                            500: '#ff6b6b',
+                            600: '#fa5252',
+                        },
+                        teal: {
+                            400: '#63e6be',
+                            500: '#4ecdc4',
+                            600: '#20c997',
+                        },
+                        cream: '#f7f9f9',
+                        dark: '#2d3436',
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1596263576786-981c201889c3?q=80&w=2070&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .blob {
+            position: absolute;
+            filter: blur(40px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 10s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-cream text-dark font-sans antialiased selection:bg-teal-500 selection:text-white" x-data="{ mobileMenuOpen: false, speedTest: 0 }">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-coral-500 to-teal-500 flex items-center justify-center text-white font-bold font-display">N</div>
+                    <span class="font-display font-bold text-2xl tracking-tight text-gray-900">{{COMPANY_NAME}}</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#locations" class="text-gray-600 hover:text-coral-500 font-semibold transition-colors">Locations</a>
+                    <a href="#amenities" class="text-gray-600 hover:text-coral-500 font-semibold transition-colors">Amenities</a>
+                    <a href="#community" class="text-gray-600 hover:text-coral-500 font-semibold transition-colors">Community</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-coral-500 font-semibold transition-colors">Pricing</a>
+                    <a href="#book" class="px-6 py-2.5 bg-dark text-white rounded-full font-bold hover:bg-coral-500 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Book Now</a>
+                </div>
+
+                <!-- Mobile Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-600 hover:text-dark focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" x-show="!mobileMenuOpen"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" x-show="mobileMenuOpen" x-cloak/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition.origin.top class="md:hidden bg-white border-t border-gray-100 absolute w-full" x-cloak>
+            <div class="px-4 pt-4 pb-8 space-y-4">
+                <a href="#locations" class="block text-lg font-semibold text-gray-700 hover:text-coral-500">Locations</a>
+                <a href="#amenities" class="block text-lg font-semibold text-gray-700 hover:text-coral-500">Amenities</a>
+                <a href="#community" class="block text-lg font-semibold text-gray-700 hover:text-coral-500">Community</a>
+                <a href="#pricing" class="block text-lg font-semibold text-gray-700 hover:text-coral-500">Pricing</a>
+                <a href="#book" class="block w-full text-center px-6 py-3 bg-coral-500 text-white rounded-xl font-bold hover:bg-coral-600">Book Your Desk</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1536663815808-535e2280d2c2?q=80&w=2564&auto=format&fit=crop" alt="Tropical Workspace" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-coral-500/20 mix-blend-overlay"></div>
+            <div class="absolute inset-0 bg-white/10 backdrop-blur-[2px]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 bg-white/80 backdrop-blur-md rounded-full border border-white/50 shadow-sm animate-fade-in-up">
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                        </span>
+                        <span class="text-sm font-bold text-gray-800 tracking-wide uppercase">Live: Bali, Lisbon, Tulum</span>
+                    </div>
+
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold text-gray-900 leading-tight">
+                        Work Where <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-coral-500 to-teal-500">You Wander.</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-800 font-medium max-w-lg leading-relaxed bg-white/40 p-4 rounded-xl backdrop-blur-sm">
+                        The ultimate coliving experience for digital nomads. High-speed WiFi, ergonomic workspaces, and a community of creators.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#locations" class="px-8 py-4 bg-dark text-white rounded-full font-bold text-lg hover:bg-gray-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 text-center">
+                            Explore Locations
+                        </a>
+                        <button class="px-8 py-4 bg-white text-dark rounded-full font-bold text-lg hover:bg-gray-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 border border-gray-100 flex items-center justify-center gap-2 group">
+                            <span>View Amenities</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Glass Card Stats -->
+                <div class="hidden lg:block">
+                    <div class="glass-card rounded-3xl p-8 transform rotate-2 hover:rotate-0 transition-all duration-500 shadow-2xl max-w-md ml-auto">
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="flex -space-x-3">
+                                <img class="w-12 h-12 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Member">
+                                <img class="w-12 h-12 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Member">
+                                <img class="w-12 h-12 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Member">
+                                <div class="w-12 h-12 rounded-full border-2 border-white bg-teal-500 text-white flex items-center justify-center font-bold text-sm">+42</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-3xl font-display font-bold text-gray-900">100%</div>
+                                <div class="text-sm text-gray-600 font-semibold">Occupancy Rate</div>
+                            </div>
+                        </div>
+
+                        <!-- Speed Test Simulation -->
+                        <div class="bg-white/60 rounded-2xl p-6 mb-6" x-init="setTimeout(() => { speedTest = 940 }, 500)">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-gray-500 font-bold text-sm uppercase tracking-wider">Download Speed</span>
+                                <span class="text-3xl font-display font-bold text-teal-600" x-text="speedTest > 0 ? speedTest : '---'">---</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                                <div class="bg-teal-500 h-2 rounded-full transition-all duration-[2000ms] ease-out" :style="`width: ${speedTest > 0 ? '94%' : '0%'}`"></div>
+                            </div>
+                            <div class="mt-2 text-right text-xs font-bold text-teal-600">Mbps (Verified)</div>
+                        </div>
+
+                        <div class="flex items-center gap-4 text-sm font-semibold text-gray-700">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-coral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                24/7 Access
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-coral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Coffee Bar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
+            <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-teal-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 blob"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-coral-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 blob" style="animation-delay: 2s"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-coral-500 font-bold tracking-wider uppercase mb-3">The Stack</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">Designed for Productivity</h3>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">We understand what you need to get work done. No spotty WiFi, no uncomfortable chairs. Just pure focus.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Amenity 1 -->
+                <div class="group p-8 rounded-3xl bg-cream border border-gray-100 hover:border-teal-200 transition-all hover:shadow-xl hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Gigabit WiFi</h4>
+                    <p class="text-gray-600 leading-relaxed">Redundant fiber connections with mesh coverage. Never drop a call again.</p>
+                </div>
+
+                <!-- Amenity 2 -->
+                <div class="group p-8 rounded-3xl bg-cream border border-gray-100 hover:border-coral-200 transition-all hover:shadow-xl hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-coral-100 text-coral-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m8-10h2M12 5a7 7 0 017 7v9m-7-9v9m0 0v-9m0 9h2"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Ergo Setup</h4>
+                    <p class="text-gray-600 leading-relaxed">Herman Miller chairs and standing desks in every room and common area.</p>
+                </div>
+
+                <!-- Amenity 3 -->
+                <div class="group p-8 rounded-3xl bg-cream border border-gray-100 hover:border-teal-200 transition-all hover:shadow-xl hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Private Booths</h4>
+                    <p class="text-gray-600 leading-relaxed">Soundproof booths for your Zoom calls and deep work sessions.</p>
+                </div>
+
+                <!-- Amenity 4 -->
+                <div class="group p-8 rounded-3xl bg-cream border border-gray-100 hover:border-coral-200 transition-all hover:shadow-xl hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-coral-100 text-coral-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Community Events</h4>
+                    <p class="text-gray-600 leading-relaxed">Weekly masterminds, family dinners, and weekend surf trips.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section id="locations" class="py-24 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div>
+                    <h2 class="text-coral-500 font-bold tracking-wider uppercase mb-3">Destinations</h2>
+                    <h3 class="text-4xl md:text-5xl font-display font-bold text-gray-900">Find Your Paradise</h3>
+                </div>
+                <a href="#" class="text-teal-600 font-bold text-lg hover:text-teal-700 flex items-center gap-2 group">
+                    View All Locations
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Location Card 1 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2538&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Bali">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide text-dark">Most Popular</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="text-2xl font-display font-bold text-gray-900">Canggu, Bali</h4>
+                                <p class="text-gray-500">Indonesia</p>
+                            </div>
+                            <span class="text-coral-500 font-bold text-lg">$850<span class="text-sm text-gray-400">/mo</span></span>
+                        </div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="px-3 py-1 bg-teal-50 text-teal-700 rounded-lg text-xs font-bold">Surf</span>
+                            <span class="px-3 py-1 bg-orange-50 text-orange-700 rounded-lg text-xs font-bold">Yoga</span>
+                            <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-lg text-xs font-bold">Nightlife</span>
+                        </div>
+                        <button class="w-full py-3 border-2 border-gray-100 text-dark font-bold rounded-xl hover:border-teal-500 hover:text-teal-600 transition-colors">View Property</button>
+                    </div>
+                </div>
+
+                <!-- Location Card 2 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1767357354479-a2c45233c75a?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Lisbon">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide text-dark">Trending</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="text-2xl font-display font-bold text-gray-900">Lisbon, Portugal</h4>
+                                <p class="text-gray-500">Europe</p>
+                            </div>
+                            <span class="text-coral-500 font-bold text-lg">$1,200<span class="text-sm text-gray-400">/mo</span></span>
+                        </div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-bold">City</span>
+                            <span class="px-3 py-1 bg-red-50 text-red-700 rounded-lg text-xs font-bold">Food</span>
+                            <span class="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-lg text-xs font-bold">Culture</span>
+                        </div>
+                        <button class="w-full py-3 border-2 border-gray-100 text-dark font-bold rounded-xl hover:border-teal-500 hover:text-teal-600 transition-colors">View Property</button>
+                    </div>
+                </div>
+
+                <!-- Location Card 3 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1506158669146-619067262a00?q=80&w=2670&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Tulum">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="text-2xl font-display font-bold text-gray-900">Tulum, Mexico</h4>
+                                <p class="text-gray-500">North America</p>
+                            </div>
+                            <span class="text-coral-500 font-bold text-lg">$1,400<span class="text-sm text-gray-400">/mo</span></span>
+                        </div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="px-3 py-1 bg-green-50 text-green-700 rounded-lg text-xs font-bold">Jungle</span>
+                            <span class="px-3 py-1 bg-teal-50 text-teal-700 rounded-lg text-xs font-bold">Beach</span>
+                            <span class="px-3 py-1 bg-pink-50 text-pink-700 rounded-lg text-xs font-bold">Ruins</span>
+                        </div>
+                        <button class="w-full py-3 border-2 border-gray-100 text-dark font-bold rounded-xl hover:border-teal-500 hover:text-teal-600 transition-colors">View Property</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="py-24 bg-dark text-white relative overflow-hidden">
+        <!-- Abstract Shapes -->
+        <svg class="absolute top-0 left-0 w-64 h-64 text-gray-800 opacity-20 transform -translate-x-1/2 -translate-y-1/2" viewBox="0 0 200 200" fill="currentColor">
+            <path d="M45.7,-76.3C58.9,-69.3,69.1,-58.3,76.3,-45.9C83.5,-33.5,87.7,-19.7,86.6,-6.3C85.5,7.1,79.1,20.1,70.9,31.8C62.7,43.5,52.7,53.9,41.2,61.8C29.6,69.7,16.6,75.1,3.4,70.3C-9.8,65.5,-23.1,50.5,-35.6,39.6C-48.1,28.7,-59.7,21.9,-65.7,11.5C-71.7,1.1,-72.1,-12.9,-66.9,-25.7C-61.7,-38.5,-50.9,-50.1,-38.7,-57.5C-26.5,-64.9,-12.9,-68.1,1.5,-70.5C15.9,-72.9,32.5,-83.3,45.7,-76.3Z" transform="translate(100 100)" />
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-teal-400 font-bold tracking-wider uppercase mb-3">Community</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">Who's Here Now?</h3>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">Join a diverse mix of founders, creators, and developers. Connect, collaborate, and grow.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-800 p-8 rounded-3xl border border-gray-700 relative">
+                    <div class="absolute -top-6 left-8 w-12 h-12 bg-coral-500 rounded-full flex items-center justify-center text-3xl">❝</div>
+                    <p class="text-lg text-gray-300 mb-6 italic pt-4">"The internet speed is actually what they claim. I pushed 2GB of code while on a video call and it didn't skip a beat. Plus, the morning surf sessions are legendary."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full border-2 border-teal-500" alt="Sarah">
+                        <div>
+                            <div class="font-bold text-white">David Chen</div>
+                            <div class="text-sm text-teal-400">Full Stack Dev • Bali</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-800 p-8 rounded-3xl border border-gray-700 relative">
+                     <div class="absolute -top-6 left-8 w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center text-3xl">❝</div>
+                    <p class="text-lg text-gray-300 mb-6 italic pt-4">"I launched my startup from the Lisbon hub. The community here gave me feedback that was invaluable. It's not just a room, it's an incubator."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full border-2 border-coral-500" alt="Maria">
+                        <div>
+                            <div class="font-bold text-white">Maria Rodriguez</div>
+                            <div class="text-sm text-coral-400">UX Designer • Lisbon</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-800 p-8 rounded-3xl border border-gray-700 relative">
+                     <div class="absolute -top-6 left-8 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-3xl">❝</div>
+                    <p class="text-lg text-gray-300 mb-6 italic pt-4">"Tulum is magical. The balance between work and nature is perfect here. The coworking space is air-conditioned and super quiet."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full border-2 border-purple-500" alt="James">
+                        <div>
+                            <div class="font-bold text-white">James Wilson</div>
+                            <div class="text-sm text-purple-400">Copywriter • Tulum</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-coral-500 font-bold tracking-wider uppercase mb-3">Membership</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">Simple, Flexible Pricing</h3>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Plan 1 -->
+                <div class="p-8 rounded-3xl bg-cream border border-gray-100 text-center hover:shadow-xl transition-all">
+                    <h4 class="text-xl font-bold text-gray-600 mb-4">Day Pass</h4>
+                    <div class="text-5xl font-display font-bold text-gray-900 mb-2">$25</div>
+                    <div class="text-sm text-gray-500 mb-8">per day</div>
+                    <ul class="space-y-4 mb-8 text-left text-gray-600">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Hot Desk Access
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            High-Speed WiFi
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Free Coffee
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 bg-white border-2 border-dark text-dark font-bold rounded-xl hover:bg-dark hover:text-white transition-colors">Select Pass</button>
+                </div>
+
+                <!-- Plan 2 -->
+                <div class="p-8 rounded-3xl bg-dark text-white text-center transform md:-translate-y-4 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-coral-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wide">Best Value</div>
+                    <h4 class="text-xl font-bold text-gray-300 mb-4">Monthly</h4>
+                    <div class="text-5xl font-display font-bold text-white mb-2">$350</div>
+                    <div class="text-sm text-gray-400 mb-8">per month</div>
+                    <ul class="space-y-4 mb-8 text-left text-gray-300">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-coral-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            24/7 Access
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-coral-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Dedicated Locker
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-coral-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Community Events Access
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-coral-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Meeting Room Credits
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 bg-coral-500 text-white font-bold rounded-xl hover:bg-coral-600 transition-colors shadow-lg">Get Started</button>
+                </div>
+
+                <!-- Plan 3 -->
+                <div class="p-8 rounded-3xl bg-cream border border-gray-100 text-center hover:shadow-xl transition-all">
+                    <h4 class="text-xl font-bold text-gray-600 mb-4">Private Office</h4>
+                    <div class="text-5xl font-display font-bold text-gray-900 mb-2">$800</div>
+                    <div class="text-sm text-gray-500 mb-8">per month</div>
+                    <ul class="space-y-4 mb-8 text-left text-gray-600">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Private Lockable Office
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Priority Support
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Mail Handling
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 bg-white border-2 border-dark text-dark font-bold rounded-xl hover:bg-dark hover:text-white transition-colors">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-coral-500 to-teal-500 flex items-center justify-center text-white font-bold font-display">N</div>
+                        <span class="font-display font-bold text-2xl tracking-tight text-white">{{COMPANY_NAME}}</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Empowering digital nomads to live and work from the most beautiful places on earth.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 font-display">Locations</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#" class="hover:text-coral-500 transition-colors">Bali</a></li>
+                        <li><a href="#" class="hover:text-coral-500 transition-colors">Lisbon</a></li>
+                        <li><a href="#" class="hover:text-coral-500 transition-colors">Tulum</a></li>
+                        <li><a href="#" class="hover:text-coral-500 transition-colors">Medellin (Coming Soon)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 font-display">Company</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#" class="hover:text-coral-500 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-coral-500 transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-coral-500 transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-coral-500 transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 font-display">Stay Connected</h4>
+                    <p class="text-gray-400 mb-4">Get the latest updates on new locations.</p>
+                    <form class="flex gap-2">
+                        <input type="email" placeholder="Enter email" class="bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 w-full focus:outline-none focus:border-coral-500">
+                        <button type="button" class="bg-coral-500 text-white px-4 py-2 rounded-lg font-bold hover:bg-coral-600 transition-colors">Go</button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-16 pt-8 text-center text-gray-500 text-sm">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
