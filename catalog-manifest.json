@@ -1780,6 +1780,19 @@
         "Interactive",
         "Tactile"
       ]
+    },
+    {
+      "id": "138",
+      "name": "Deflector",
+      "category": "Crisis Management",
+      "style": "Urgent Minimalist",
+      "path": "catalog/template_138_crisis_management_urgent",
+      "description": "Reputation defense experts.",
+      "tags": [
+        "Bold",
+        "Red",
+        "Minimalist"
+      ]
     }
   ]
 }
