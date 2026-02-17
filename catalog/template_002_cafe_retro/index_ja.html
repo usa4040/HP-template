@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozy Retro Cafe - {{COMPANY_NAME}}</title>
+    <title>{{COMPANY_NAME}} - Cozy Retro Cafe</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -16,15 +16,18 @@
                         'retro-secondary': '#8c8070',
                     },
                     fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Lato"', 'sans-serif'],
+                        serif: ['"Playfair Display"', '"Noto Serif JP"', 'serif'],
+                        sans: ['"Lato"', '"Noto Sans JP"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap');
+        body {
+            font-feature-settings: "palt";
+        }
     </style>
 </head>
 <body class="bg-retro-cream text-retro-brown font-sans antialiased">
@@ -38,7 +41,7 @@
             <a href="#about" class="hover:text-retro-accent transition-colors duration-300">About</a>
             <a href="#menu" class="hover:text-retro-accent transition-colors duration-300">Menu</a>
             <a href="#access" class="hover:text-retro-accent transition-colors duration-300">Access</a>
-            <a href="index_ja.html" class="text-xs border-l border-retro-secondary/30 pl-4 hover:text-retro-accent transition-colors">JP</a>
+            <a href="index.html" class="text-xs border-l border-retro-secondary/30 pl-4 hover:text-retro-accent transition-colors">EN</a>
         </div>
         
         <!-- Mobile Menu Button -->
@@ -56,8 +59,8 @@
             <a href="#menu" class="text-sm uppercase tracking-widest font-bold text-retro-secondary hover:text-retro-accent transition-colors">Menu</a>
             <a href="#access" class="text-sm uppercase tracking-widest font-bold text-retro-secondary hover:text-retro-accent transition-colors">Access</a>
             <div class="flex justify-center space-x-4 pt-4 border-t border-retro-brown/10">
-                <span class="text-xs uppercase tracking-widest font-bold text-retro-brown">EN</span>
-                <a href="index_ja.html" class="text-xs uppercase tracking-widest font-bold text-retro-secondary hover:text-retro-accent">JP</a>
+                <a href="index.html" class="text-xs uppercase tracking-widest font-bold text-retro-secondary hover:text-retro-accent">EN</a>
+                <span class="text-xs uppercase tracking-widest font-bold text-retro-brown">JP</span>
             </div>
         </div>
     </div>
@@ -73,12 +76,13 @@
         <div class="absolute inset-0 opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper.png')]"></div>
         <div class="relative z-10">
             <p class="text-retro-accent font-serif italic text-xl mb-4">Since 1985</p>
-            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
-                Taste the Nostalgia<br>
-                <span class="text-3xl md:text-5xl font-normal text-retro-secondary">in every cup.</span>
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-8 leading-tight">
+                一杯のコーヒーに<br>懐かしさを
+                <span class="block text-2xl md:text-4xl font-normal text-retro-secondary mt-4">どこか優しい、特別な時間。</span>
             </h1>
             <p class="text-retro-brown/80 max-w-2xl mx-auto leading-relaxed mb-10 font-serif text-lg">
-                Relax in a warm atmosphere where time slows down. Enjoy our hand-dripped coffee and homemade pastries made with love.
+                温かな雰囲気の中で、時がゆっくり流れる空間。<br>
+                ハンドドリップのコーヒーと、愛情を込めて作る手作りスイーツをどうぞ。
             </p>
             <a href="#menu" class="inline-block border-2 border-retro-brown text-retro-brown hover:bg-retro-brown hover:text-retro-cream px-8 py-3 uppercase tracking-widest text-sm font-bold transition-all duration-300">
                 View Menu
@@ -91,19 +95,18 @@
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
             <div class="w-full md:w-1/2">
                 <div class="aspect-[4/3] bg-retro-secondary/20 rounded-lg overflow-hidden relative">
-                     <!-- Placeholder for an image -->
                      <div class="absolute inset-0 flex items-center justify-center text-retro-brown/40 font-serif italic">
-                        [Atmosphere Image]
+                        [お店の雰囲気]
                      </div>
                 </div>
             </div>
             <div class="w-full md:w-1/2">
-                <h2 class="text-3xl font-serif font-bold mb-6 text-retro-brown">Our Story</h2>
+                <h2 class="text-3xl font-serif font-bold mb-6 text-retro-brown">私たちの物語</h2>
                 <p class="text-retro-secondary leading-relaxed mb-6">
-                    {{COMPANY_NAME}} was founded with a simple mission: to bring back the charm of the old days. We believe in quality over quantity, silence over noise, and connection over distraction.
+                    {{COMPANY_NAME}}は、古き良き時代の魅力を取り戻したいという想いから始まりました。量より質、騒音より静寂、そして忙しさよりも人との繋がりを大切にしています。
                 </p>
                 <p class="text-retro-secondary leading-relaxed">
-                    Every piece of furniture in our cafe has a story, just like every customer who walks through our doors. Come sit with us, read a book, and enjoy the finest coffee in town.
+                    店内の家具一つ一つに物語があり、ドアをくぐるお客様一人ひとりにもそれぞれの物語があります。本を片手に、最高のコーヒーと共に、ゆっくりとした時間をお過ごしください。
                 </p>
             </div>
         </div>
@@ -124,20 +127,20 @@
                 <h3 class="text-xl font-serif font-bold mb-8 text-center text-retro-secondary uppercase tracking-widest">Coffee</h3>
                 <div class="space-y-6">
                     <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
-                        <span class="font-bold text-retro-brown">House Blend</span>
-                        <span class="text-retro-accent font-serif italic">$4.50</span>
+                        <span class="font-bold text-retro-brown">ハウスブレンド</span>
+                        <span class="text-retro-accent font-serif italic">¥550</span>
                     </div>
                     <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
-                        <span class="font-bold text-retro-brown">Espresso</span>
-                        <span class="text-retro-accent font-serif italic">$3.00</span>
+                        <span class="font-bold text-retro-brown">エスプレッソ</span>
+                        <span class="text-retro-accent font-serif italic">¥380</span>
                     </div>
                     <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
-                        <span class="font-bold text-retro-brown">Cappuccino</span>
-                        <span class="text-retro-accent font-serif italic">$4.80</span>
+                        <span class="font-bold text-retro-brown">カプチーノ</span>
+                        <span class="text-retro-accent font-serif italic">¥580</span>
                     </div>
                     <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
-                        <span class="font-bold text-retro-brown">Caramel Macchiato</span>
-                        <span class="text-retro-accent font-serif italic">$5.20</span>
+                        <span class="font-bold text-retro-brown">キャラメルマキアート</span>
+                        <span class="text-retro-accent font-serif italic">¥620</span>
                     </div>
                 </div>
             </div>
@@ -147,20 +150,20 @@
                 <h3 class="text-xl font-serif font-bold mb-8 text-center text-retro-secondary uppercase tracking-widest">Sweets</h3>
                 <div class="space-y-6">
                     <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
-                        <span class="font-bold text-retro-brown">Classic Cheesecake</span>
-                        <span class="text-retro-accent font-serif italic">$6.00</span>
+                        <span class="font-bold text-retro-brown">クラシックチーズケーキ</span>
+                        <span class="text-retro-accent font-serif italic">¥700</span>
                     </div>
                     <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
-                        <span class="font-bold text-retro-brown">Chocolate Tart</span>
-                        <span class="text-retro-accent font-serif italic">$5.50</span>
+                        <span class="font-bold text-retro-brown">チョコレートタルト</span>
+                        <span class="text-retro-accent font-serif italic">¥650</span>
                     </div>
                     <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
-                        <span class="font-bold text-retro-brown">Homemade Pudding</span>
-                        <span class="text-retro-accent font-serif italic">$4.50</span>
+                        <span class="font-bold text-retro-brown">手作りプリン</span>
+                        <span class="text-retro-accent font-serif italic">¥520</span>
                     </div>
                     <div class="flex justify-between items-baseline border-b border-retro-brown/10 pb-2 border-dotted">
-                        <span class="font-bold text-retro-brown">Scone & Jam</span>
-                        <span class="text-retro-accent font-serif italic">$3.80</span>
+                        <span class="font-bold text-retro-brown">スコーン＆ジャム</span>
+                        <span class="text-retro-accent font-serif italic">¥450</span>
                     </div>
                 </div>
             </div>
@@ -170,27 +173,27 @@
     <!-- Access Section -->
     <section id="access" class="bg-retro-brown text-retro-cream py-20 px-8">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-serif font-bold mb-10">Visit Us</h2>
+            <h2 class="text-3xl font-serif font-bold mb-10">お店へのアクセス</h2>
             <div class="flex flex-col md:flex-row justify-center gap-12 text-left">
                 <div class="flex-1">
                     <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Address</h4>
                     <p class="leading-relaxed opacity-80">
-                        123 Nostalgia Lane,<br>
-                        Old Town District,<br>
-                        Cityville, ST 12345
+                        〒150-0001<br>
+                        東京都渋谷区神宮前1-2-3<br>
+                        レトロビル 1F
                     </p>
                 </div>
                 <div class="flex-1">
                     <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Hours</h4>
                     <ul class="space-y-2 opacity-80">
-                        <li class="flex justify-between"><span>Mon - Fri:</span> <span>8:00 AM - 8:00 PM</span></li>
-                        <li class="flex justify-between"><span>Sat - Sun:</span> <span>9:00 AM - 9:00 PM</span></li>
+                        <li class="flex justify-between"><span>月〜金:</span> <span>8:00 - 20:00</span></li>
+                        <li class="flex justify-between"><span>土日祝:</span> <span>9:00 - 21:00</span></li>
                     </ul>
                 </div>
                 <div class="flex-1">
                     <h4 class="font-bold uppercase tracking-widest mb-4 text-retro-accent">Contact</h4>
                     <p class="leading-relaxed opacity-80">
-                        Phone: (555) 123-4567<br>
+                        TEL: 03-1234-5678<br>
                         Email: hello@{{COMPANY_NAME}}.com
                     </p>
                 </div>
