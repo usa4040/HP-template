@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Hyphae Horizon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        :root {
+            --color-loam: #1a1614;
+            --color-spore: #ccff00;
+            --color-biolum: #00ffcc;
+            --color-bone: #e8e4d9;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--color-loam);
+            color: var(--color-bone);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;
+        }
+
+        .text-spore { color: var(--color-spore); }
+        .bg-spore { background-color: var(--color-spore); }
+        .border-spore { border-color: var(--color-spore); }
+
+        .text-biolum { color: var(--color-biolum); }
+        .bg-biolum { background-color: var(--color-biolum); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c0a09;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #44403c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-spore);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Noise Texture */
+        .noise-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Mycelium Animation */
+        @keyframes grow {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .mycelium-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: grow 4s ease-out forwards;
+        }
+
+        /* Glow Effects */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
+        }
+
+        .glow-box:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.15);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        loam: '#1a1614',
+                        spore: '#ccff00',
+                        biolum: '#00ffcc',
+                        bone: '#e8e4d9',
+                        stone: '#a8a29e',
+                        deep: '#0c0a09',
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body x-data="{ mobileMenuOpen: false, scrolled: false }"
+      @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Noise Overlay -->
+    <div class="noise-bg"></div>
+
+    <!-- Navigation -->
+    <nav :class="scrolled ? 'bg-loam/90 backdrop-blur-md border-b border-white/5' : 'bg-transparent'"
+         class="fixed w-full z-40 transition-all duration-300 top-0 left-0">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-display font-bold tracking-tight text-bone flex items-center gap-2 group">
+                <span class="w-3 h-3 rounded-full bg-spore group-hover:animate-pulse"></span>
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+                <a href="#about" class="text-stone hover:text-spore transition-colors">Origins</a>
+                <a href="#services" class="text-stone hover:text-spore transition-colors">Solutions</a>
+                <a href="#network" class="text-stone hover:text-spore transition-colors">Network</a>
+                <a href="#contact" class="px-5 py-2 border border-stone/30 rounded-full hover:border-spore hover:text-spore transition-all duration-300">Connect</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-bone focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-x-full"
+             x-transition:enter-end="opacity-100 translate-x-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-x-0"
+             x-transition:leave-end="opacity-0 translate-x-full"
+             class="fixed inset-0 z-50 bg-loam flex flex-col items-center justify-center space-y-8 md:hidden">
+            <button @click="mobileMenuOpen = false" class="absolute top-6 right-6 text-stone hover:text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="#about" @click="mobileMenuOpen = false" class="text-2xl font-display font-bold hover:text-spore transition-colors">Origins</a>
+            <a href="#services" @click="mobileMenuOpen = false" class="text-2xl font-display font-bold hover:text-spore transition-colors">Solutions</a>
+            <a href="#network" @click="mobileMenuOpen = false" class="text-2xl font-display font-bold hover:text-spore transition-colors">Network</a>
+            <a href="#contact" @click="mobileMenuOpen = false" class="text-xl font-display text-spore">Connect</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- SVG Background Animation -->
+        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path class="mycelium-path" d="M50,100 C50,80 20,70 20,50 C20,30 40,20 50,0" stroke="#ccff00" stroke-width="0.2" fill="none" />
+                <path class="mycelium-path" d="M50,100 C50,85 80,75 80,55 C80,35 60,25 50,0" stroke="#ccff00" stroke-width="0.2" fill="none" style="animation-delay: 0.5s;" />
+                <path class="mycelium-path" d="M50,100 C40,90 10,80 10,60 C10,40 30,10 50,0" stroke="#00ffcc" stroke-width="0.1" fill="none" style="animation-delay: 1s;" />
+                <path class="mycelium-path" d="M50,100 C60,90 90,80 90,60 C90,40 70,10 50,0" stroke="#00ffcc" stroke-width="0.1" fill="none" style="animation-delay: 1.5s;" />
+                <circle cx="20" cy="50" r="0.5" fill="#ccff00" class="animate-pulse" />
+                <circle cx="80" cy="55" r="0.5" fill="#ccff00" class="animate-pulse" style="animation-delay: 0.7s;" />
+            </svg>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 text-center">
+            <div class="inline-block mb-4 px-3 py-1 rounded-full border border-spore/20 bg-spore/5 backdrop-blur-sm">
+                <span class="text-xs font-mono text-spore tracking-widest uppercase">Bio-Remediation &bull; Myco-Materials</span>
+            </div>
+            <h1 class="text-5xl md:text-8xl font-display font-bold leading-tight mb-6">
+                The Future is <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-spore to-biolum glow-text">Fungal.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-stone max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                {{COMPANY_NAME}} harnesses the ancient intelligence of mycelium to grow sustainable solutions for a decomposing world.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#services" class="px-8 py-4 bg-spore text-loam font-bold rounded-full hover:bg-white transition-all duration-300 transform hover:scale-105">
+                    Explore Solutions
+                </a>
+                <a href="#about" class="px-8 py-4 glass text-bone rounded-full hover:bg-white/10 transition-all duration-300 font-medium">
+                    Our Method
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-stone/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-20 border-y border-white/5 bg-deep/50 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-bone mb-2 group-hover:text-spore transition-colors">100%</div>
+                    <div class="text-sm text-stone font-mono uppercase tracking-widest">Biodegradable</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-bone mb-2 group-hover:text-biolum transition-colors">3x</div>
+                    <div class="text-sm text-stone font-mono uppercase tracking-widest">Strength/Weight</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-bone mb-2 group-hover:text-spore transition-colors">50+</div>
+                    <div class="text-sm text-stone font-mono uppercase tracking-widest">Patents</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-bone mb-2 group-hover:text-biolum transition-colors">0</div>
+                    <div class="text-sm text-stone font-mono uppercase tracking-widest">Carbon Footprint</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-spore/20 to-biolum/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div class="relative rounded-2xl overflow-hidden border border-white/10 aspect-[4/5]">
+                        <img src="https://images.unsplash.com/photo-1629193166946-4e5549048a90?q=80&w=1000&auto=format&fit=crop" alt="Mycelium network macro" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-80 hover:opacity-100 filter grayscale hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-loam via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-6 left-6">
+                            <span class="text-spore font-mono text-xs uppercase tracking-widest mb-2 block">Microscopic View</span>
+                            <h3 class="text-2xl font-display font-bold">Hyphal Growth</h3>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-biolum font-mono text-sm uppercase tracking-widest mb-4 block">// Origins</span>
+                    <h2 class="text-4xl md:text-6xl font-display font-bold mb-8 leading-tight">Grown, Not <br> Manufactured.</h2>
+                    <p class="text-stone text-lg mb-6 leading-relaxed">
+                        Traditional manufacturing takes, breaks, and wastes. At {{COMPANY_NAME}}, we collaborate with the planet's primary decomposers.
+                    </p>
+                    <p class="text-stone text-lg mb-8 leading-relaxed">
+                        Our proprietary fungal strains are trained to consume agricultural waste and weave it into high-performance structures, replacing plastics, styrofoam, and leather with organic, regenerative alternatives.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center text-bone">
+                            <span class="w-2 h-2 rounded-full bg-spore mr-4"></span>
+                            Self-Assembling Materials
+                        </li>
+                        <li class="flex items-center text-bone">
+                            <span class="w-2 h-2 rounded-full bg-biolum mr-4"></span>
+                            Carbon-Negative Production
+                        </li>
+                        <li class="flex items-center text-bone">
+                            <span class="w-2 h-2 rounded-full bg-spore mr-4"></span>
+                            Infinite Circularity
+                        </li>
+                    </ul>
+                    <a href="#" class="inline-flex items-center text-spore font-bold hover:text-white transition-colors group">
+                        Learn about our strains
+                        <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Solutions Section -->
+    <section id="services" class="py-24 bg-deep relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-spore font-mono text-sm uppercase tracking-widest">// Solutions</span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mt-4 mb-6">Bio-Engineered Applications</h2>
+                <p class="text-stone max-w-2xl mx-auto">Scalable fungal technologies for a post-plastic era.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass p-8 rounded-2xl glow-box transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-12 h-12 rounded-full bg-spore/10 flex items-center justify-center mb-6 group-hover:bg-spore/20 transition-colors">
+                        <svg class="w-6 h-6 text-spore" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">Myco-Packaging</h3>
+                    <p class="text-stone mb-6 leading-relaxed">
+                        Custom-molded protective packaging that is fire-resistant, shock-absorbing, and composts in 45 days.
+                    </p>
+                    <a href="#" class="text-sm font-bold text-white group-hover:text-spore transition-colors uppercase tracking-wider flex items-center">
+                        View Specs
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass p-8 rounded-2xl glow-box transition-all duration-300 group hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-radial from-biolum/20 to-transparent blur-xl"></div>
+                    <div class="w-12 h-12 rounded-full bg-biolum/10 flex items-center justify-center mb-6 group-hover:bg-biolum/20 transition-colors">
+                        <svg class="w-6 h-6 text-biolum" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">Soil Remediation</h3>
+                    <p class="text-stone mb-6 leading-relaxed">
+                        Deploying specialized fungi to extract toxins, heavy metals, and petrochemicals from contaminated industrial sites.
+                    </p>
+                    <a href="#" class="text-sm font-bold text-white group-hover:text-biolum transition-colors uppercase tracking-wider flex items-center">
+                        Case Studies
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass p-8 rounded-2xl glow-box transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-12 h-12 rounded-full bg-spore/10 flex items-center justify-center mb-6 group-hover:bg-spore/20 transition-colors">
+                        <svg class="w-6 h-6 text-spore" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">Alt-Textiles</h3>
+                    <p class="text-stone mb-6 leading-relaxed">
+                        Growing high-tensile, leather-like sheets for the fashion and automotive industries without animal agriculture.
+                    </p>
+                    <a href="#" class="text-sm font-bold text-white group-hover:text-spore transition-colors uppercase tracking-wider flex items-center">
+                        Material Library
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Network / Visual Section -->
+    <section id="network" class="py-32 relative overflow-hidden flex items-center justify-center">
+        <!-- Abstract Background -->
+        <div class="absolute inset-0 bg-black">
+            <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 50% 50%, #1a1614 0%, #000 100%);"></div>
+            <!-- Interactive-looking dots -->
+            <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-spore rounded-full animate-pulse blur-[1px]"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-3 h-3 bg-biolum rounded-full animate-pulse blur-[2px]" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 left-2/3 w-1 h-1 bg-white rounded-full animate-pulse" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="relative z-10 text-center max-w-4xl px-6">
+            <h2 class="text-4xl md:text-7xl font-display font-bold mb-8 leading-tight">
+                <span class="block text-stone/50 text-2xl md:text-4xl mb-4 font-light">Join the</span>
+                Underground Network
+            </h2>
+            <p class="text-xl text-stone mb-10">
+                Like the mycelium beneath our feet, we are connecting industries to create a resilient, regenerative ecosystem.
+            </p>
+            <div class="flex justify-center gap-4">
+                <div class="w-16 h-1 bg-gradient-to-r from-transparent via-spore to-transparent opacity-50"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative bg-deep">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="glass rounded-3xl p-8 md:p-16 border border-white/5 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-spore/5 rounded-full filter blur-[80px] -translate-y-1/2 translate-x-1/2"></div>
+
+                <div class="grid md:grid-cols-2 gap-12 relative z-10">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-display font-bold mb-6">Inoculate Your Business</h2>
+                        <p class="text-stone mb-8">
+                            Ready to transition to regenerative materials? Contact our spore lab to discuss prototypes and partnerships.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-6 h-6 text-spore mt-1 mr-4 flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-bone">Lab HQ</h4>
+                                    <p class="text-stone text-sm">888 Fungal Way, Forest Floor, OR 97204</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-6 h-6 text-spore mt-1 mr-4 flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-bone">Email</h4>
+                                    <p class="text-stone text-sm">spores@{{COMPANY_NAME}}.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-mono uppercase tracking-widest text-stone mb-2">Name</label>
+                            <input type="text" class="w-full bg-loam border border-stone/20 rounded-lg px-4 py-3 text-bone focus:outline-none focus:border-spore transition-colors" placeholder="Dr. Paul Stamets">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono uppercase tracking-widest text-stone mb-2">Email</label>
+                            <input type="email" class="w-full bg-loam border border-stone/20 rounded-lg px-4 py-3 text-bone focus:outline-none focus:border-spore transition-colors" placeholder="paul@fungi.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono uppercase tracking-widest text-stone mb-2">Message</label>
+                            <textarea rows="4" class="w-full bg-loam border border-stone/20 rounded-lg px-4 py-3 text-bone focus:outline-none focus:border-spore transition-colors" placeholder="I'm interested in bio-packaging..."></textarea>
+                        </div>
+                        <button type="button" class="w-full py-4 bg-spore text-loam font-bold rounded-lg hover:bg-white transition-all duration-300 transform hover:scale-[1.02]">
+                            Send Spores
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-loam py-12 border-t border-white/5 text-sm">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-stone">
+            <div class="mb-4 md:mb-0">
+                &copy; 2024 {{COMPANY_NAME}}. All rights reserved.
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-spore transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-spore transition-colors">Terms of Growth</a>
+                <a href="#" class="hover:text-spore transition-colors">Sustainability Report</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
