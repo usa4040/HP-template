@@ -1754,6 +1754,19 @@
         "Creative",
         "Layered"
       ]
+    },
+    {
+      "id": "136",
+      "name": "VoltNet",
+      "category": "EV Infrastructure",
+      "style": "Voltic Stream",
+      "path": "catalog/template_136_ev_infrastructure_voltic_stream",
+      "description": "Dark mode, neon energy flow.",
+      "tags": [
+        "Energy",
+        "Mobility",
+        "Tech"
+      ]
     }
   ]
 }
