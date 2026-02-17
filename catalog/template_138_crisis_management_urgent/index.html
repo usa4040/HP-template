@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Crisis Management Experts</title>
+    <meta name="description" content="High-stakes reputation defense and crisis management.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Public+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Public Sans', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        urgent: {
+                            DEFAULT: '#dc2626', // red-600
+                            dark: '#991b1b',    // red-800
+                        },
+                        onyx: '#0a0a0a',
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .clip-diagonal {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-onyx antialiased" x-data="{ mobileMenuOpen: false, urgency: 'low' }">
+
+    <!-- Emergency Banner (Top) -->
+    <div class="bg-urgent text-white text-xs font-bold font-display tracking-widest uppercase py-2 text-center">
+        <span class="animate-pulse mr-2">●</span> Active Crisis? Call Priority Line: <a href="tel:+" class="underline decoration-1 underline-offset-2 hover:text-black transition-colors">1-800-555-0199</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-display font-bold text-3xl tracking-tighter text-black uppercase">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-sm font-semibold uppercase tracking-wider text-gray-600 hover:text-urgent transition-colors">Services</a>
+                    <a href="#protocol" class="text-sm font-semibold uppercase tracking-wider text-gray-600 hover:text-urgent transition-colors">Protocol</a>
+                    <a href="#cases" class="text-sm font-semibold uppercase tracking-wider text-gray-600 hover:text-urgent transition-colors">Cases</a>
+                    <a href="#contact" class="bg-black text-white px-6 py-2.5 font-display font-bold uppercase tracking-wide hover:bg-urgent transition-colors text-sm">
+                        Initiate Response
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-black hover:text-urgent focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="md:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-200 shadow-xl" x-cloak>
+            <div class="px-4 pt-4 pb-6 space-y-4 flex flex-col items-center">
+                <a href="#services" @click="mobileMenuOpen = false" class="text-lg font-display font-bold uppercase text-black hover:text-urgent">Services</a>
+                <a href="#protocol" @click="mobileMenuOpen = false" class="text-lg font-display font-bold uppercase text-black hover:text-urgent">Protocol</a>
+                <a href="#cases" @click="mobileMenuOpen = false" class="text-lg font-display font-bold uppercase text-black hover:text-urgent">Cases</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="w-full text-center bg-urgent text-white px-6 py-3 font-display font-bold uppercase tracking-wide">
+                    Initiate Response
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-black text-white h-[85vh] flex items-center overflow-hidden clip-diagonal">
+        <!-- Abstract Background -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center grayscale mix-blend-overlay"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+            <div class="max-w-4xl">
+                <div class="inline-block border border-urgent/50 text-urgent px-3 py-1 mb-6 text-xs font-bold uppercase tracking-[0.2em]">
+                    Global Rapid Response Unit
+                </div>
+                <h1 class="text-6xl md:text-8xl font-display font-bold uppercase tracking-tight leading-[0.9] mb-8">
+                    Silence The <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-urgent to-red-400">Noise.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 font-light max-w-2xl leading-relaxed mb-10">
+                    When your reputation is on the line, hesitation is fatal. We provide absolute discretion and immediate narrative control.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="bg-urgent hover:bg-white hover:text-black text-white px-8 py-4 font-display font-bold uppercase tracking-wider text-lg transition-all duration-300 flex items-center justify-center border border-transparent hover:border-black">
+                        Engage Deflector
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                    <a href="#services" class="border border-white/30 hover:border-white text-white px-8 py-4 font-display font-bold uppercase tracking-wider text-lg transition-all duration-300 flex items-center justify-center">
+                        Our Capabilities
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Infinite Marquee Ticker -->
+    <div class="bg-gray-100 py-4 overflow-hidden border-b border-gray-200">
+        <div class="flex whitespace-nowrap overflow-hidden">
+            <div class="flex animate-marquee">
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Reputation Recovery</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Media Monitoring</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Litigation Support</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Social Listening</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Executive Protection</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+            </div>
+            <div class="flex animate-marquee" aria-hidden="true">
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Reputation Recovery</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Media Monitoring</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Litigation Support</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Social Listening</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-400 tracking-widest">Executive Protection</span>
+                <span class="mx-8 text-xl font-display font-bold uppercase text-gray-900 tracking-widest">///</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Capabilities / Services -->
+    <section id="services" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Section Header -->
+                <div class="lg:col-span-4">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold uppercase leading-none mb-6 text-black">
+                        Total<br>Information<br>Control
+                    </h2>
+                    <div class="h-1 w-20 bg-urgent mb-6"></div>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        We don't just manage crises; we engineer outcomes. Our team of former journalists, legal strategists, and intelligence officers work in the shadows to protect your light.
+                    </p>
+                    <a href="#contact" class="text-urgent font-bold uppercase tracking-wider text-sm hover:text-black transition-colors border-b-2 border-urgent pb-1 inline-block">
+                        View Case Studies
+                    </a>
+                </div>
+
+                <!-- Service Grid -->
+                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Service 1 -->
+                    <div class="border-l-2 border-gray-100 pl-8 hover:border-urgent transition-colors duration-300 group">
+                        <div class="text-4xl text-gray-200 font-display font-bold mb-4 group-hover:text-urgent/20 transition-colors">01</div>
+                        <h3 class="text-xl font-bold uppercase mb-3 font-display tracking-wide group-hover:text-urgent transition-colors">Rapid Response</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            Immediate deployment of PR assets to contain viral negativity within the first "Golden Hour" of a crisis.
+                        </p>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="border-l-2 border-gray-100 pl-8 hover:border-urgent transition-colors duration-300 group">
+                        <div class="text-4xl text-gray-200 font-display font-bold mb-4 group-hover:text-urgent/20 transition-colors">02</div>
+                        <h3 class="text-xl font-bold uppercase mb-3 font-display tracking-wide group-hover:text-urgent transition-colors">Digital Scrubbing</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            Systematic removal and suppression of defamatory content, mugshots, and sensitive personal data.
+                        </p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="border-l-2 border-gray-100 pl-8 hover:border-urgent transition-colors duration-300 group">
+                        <div class="text-4xl text-gray-200 font-display font-bold mb-4 group-hover:text-urgent/20 transition-colors">03</div>
+                        <h3 class="text-xl font-bold uppercase mb-3 font-display tracking-wide group-hover:text-urgent transition-colors">Litigation Comms</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            Strategic public messaging aligned with legal counsel to influence the court of public opinion without jeopardizing the case.
+                        </p>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="border-l-2 border-gray-100 pl-8 hover:border-urgent transition-colors duration-300 group">
+                        <div class="text-4xl text-gray-200 font-display font-bold mb-4 group-hover:text-urgent/20 transition-colors">04</div>
+                        <h3 class="text-xl font-bold uppercase mb-3 font-display tracking-wide group-hover:text-urgent transition-colors">Dark Web Monitoring</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            Proactive surveillance of hacker forums and data dump sites to anticipate leaks before they hit the mainstream.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protocol Section (Dark) -->
+    <section id="protocol" class="py-24 bg-onyx text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-urgent/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-display font-bold uppercase tracking-tight mb-4">The Protocol</h2>
+                <p class="text-gray-400 font-light max-w-2xl mx-auto">Our proprietary methodology ensures structure in chaos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="relative p-6 border border-white/10 hover:border-urgent transition-colors duration-300 bg-white/5">
+                    <div class="absolute -top-3 left-6 bg-onyx px-2 text-urgent font-display font-bold text-lg">PHASE 1</div>
+                    <div class="mt-4">
+                        <h3 class="text-2xl font-display font-bold uppercase mb-2">Assess</h3>
+                        <p class="text-gray-400 text-sm">Full-spectrum audit of the threat landscape. Identification of hostile actors and leak vectors.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative p-6 border border-white/10 hover:border-urgent transition-colors duration-300 bg-white/5">
+                    <div class="absolute -top-3 left-6 bg-onyx px-2 text-urgent font-display font-bold text-lg">PHASE 2</div>
+                    <div class="mt-4">
+                        <h3 class="text-2xl font-display font-bold uppercase mb-2">Contain</h3>
+                        <p class="text-gray-400 text-sm">Immediate stop-gap measures to halt information spread. Legal cease & desists deployed.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative p-6 border border-white/10 hover:border-urgent transition-colors duration-300 bg-white/5">
+                    <div class="absolute -top-3 left-6 bg-onyx px-2 text-urgent font-display font-bold text-lg">PHASE 3</div>
+                    <div class="mt-4">
+                        <h3 class="text-2xl font-display font-bold uppercase mb-2">Counter</h3>
+                        <p class="text-gray-400 text-sm">Strategic release of counter-narratives. Mobilization of third-party advocates.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative p-6 border border-white/10 hover:border-urgent transition-colors duration-300 bg-white/5">
+                    <div class="absolute -top-3 left-6 bg-onyx px-2 text-urgent font-display font-bold text-lg">PHASE 4</div>
+                    <div class="mt-4">
+                        <h3 class="text-2xl font-display font-bold uppercase mb-2">Restore</h3>
+                        <p class="text-gray-400 text-sm">Long-term SEO displacement. Rebuilding trust metrics and stakeholder confidence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urgent Contact -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-4 border-black p-8 md:p-12 relative shadow-2xl">
+                <!-- Badge -->
+                <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-urgent text-white px-6 py-2 font-display font-bold uppercase tracking-widest text-sm shadow-lg">
+                    Secure Channel
+                </div>
+
+                <div class="text-center mb-10 mt-4">
+                    <h2 class="text-4xl font-display font-bold uppercase mb-2">Initiate Response</h2>
+                    <p class="text-gray-500">All communications are encrypted and covered by NDA.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wide text-gray-700 mb-2">Full Name</label>
+                            <input type="text" class="w-full bg-gray-50 border border-gray-300 p-4 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors" placeholder="J. Doe">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wide text-gray-700 mb-2">Organization</label>
+                            <input type="text" class="w-full bg-gray-50 border border-gray-300 p-4 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors" placeholder="Company Ltd.">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wide text-gray-700 mb-2">Contact Email</label>
+                        <input type="email" class="w-full bg-gray-50 border border-gray-300 p-4 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors" placeholder="secure@email.com">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wide text-gray-700 mb-2">Nature of Crisis</label>
+                        <select class="w-full bg-gray-50 border border-gray-300 p-4 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors appearance-none">
+                            <option>Corporate Litigation</option>
+                            <option>Data Breach / Leak</option>
+                            <option>Executive Misconduct</option>
+                            <option>Social Media Attack</option>
+                            <option>Product Recall</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Urgency Slider using Alpine -->
+                    <div x-data="{ level: 1 }">
+                        <label class="block text-xs font-bold uppercase tracking-wide text-gray-700 mb-4 flex justify-between">
+                            <span>Urgency Level</span>
+                            <span class="text-urgent font-bold" x-text="level == 1 ? 'MONITORING' : (level == 2 ? 'ELEVATED' : 'CRITICAL')"></span>
+                        </label>
+                        <input type="range" min="1" max="3" step="1" x-model="level" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-urgent">
+                        <div class="flex justify-between text-xs text-gray-400 mt-2 font-display uppercase tracking-widest">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="button" class="w-full bg-black text-white font-display font-bold uppercase text-lg py-5 hover:bg-urgent hover:shadow-lg transition-all duration-300 tracking-wider">
+                            Request Immediate Callback
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="font-display font-bold text-2xl uppercase tracking-tighter mb-6">{{COMPANY_NAME}}</h3>
+                    <p class="text-gray-500 max-w-sm text-sm leading-relaxed">
+                        We operate globally, providing 24/7 reputation defense for Fortune 500s, HNWIs, and government entities. Silence is our currency.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold uppercase text-sm tracking-widest text-gray-400 mb-6">Headquarters</h4>
+                    <p class="text-gray-500 text-sm">
+                        1000 Connecticut Ave<br>
+                        Suite 400<br>
+                        Washington, DC 20036
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold uppercase text-sm tracking-widest text-gray-400 mb-6">Contact</h4>
+                    <p class="text-gray-500 text-sm mb-2">
+                        Emergency: <span class="text-white">1-800-555-0199</span>
+                    </p>
+                    <p class="text-gray-500 text-sm">
+                        Media: <span class="text-white">press@{{COMPANY_NAME}}.com</span>
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-mono">
+                <p>&copy; 2024 {{COMPANY_NAME}} Global. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Client Portal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
