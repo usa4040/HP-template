@@ -1728,6 +1728,19 @@
         "Travel",
         "Tech"
       ]
+    },
+    {
+      "id": "134",
+      "name": "V-Star Production",
+      "category": "Virtual Talent",
+      "style": "Virtual Pop",
+      "path": "catalog/template_134_virtual_talent_virtual_pop",
+      "description": "Cyber-pop virtual agency theme",
+      "tags": [
+        "Anime",
+        "Cyber",
+        "Pop"
+      ]
     }
   ]
 }
