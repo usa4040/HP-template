@@ -1845,6 +1845,19 @@
         "Industrial",
         "Technical"
       ]
+    },
+    {
+      "id": "143",
+      "name": "Hyphae Horizon",
+      "category": "Mycology",
+      "style": "Mycelial Network",
+      "path": "catalog/template_143_mycology_mycelium",
+      "description": "Dark bio-network visuals.",
+      "tags": [
+        "Organic",
+        "Biotech",
+        "Network"
+      ]
     }
   ]
 }
