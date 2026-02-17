@@ -1806,6 +1806,19 @@
         "Remote Work",
         "Community"
       ]
+    },
+    {
+      "id": "140",
+      "name": "Lumina Glassworks",
+      "category": "Glass Art",
+      "style": "Prismatic Minimal",
+      "path": "catalog/template_140_glass_art_prismatic",
+      "description": "Clean aesthetic with light refraction and caustic effects.",
+      "tags": [
+        "Artistic",
+        "Light",
+        "Glass"
+      ]
     }
   ]
 }

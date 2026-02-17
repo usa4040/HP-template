@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Glassworks | Prismatic Art</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;500;600;700&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        .font-bodoni { font-family: 'Bodoni Moda', serif; }
+        .font-mulish { font-family: 'Mulish', sans-serif; }
+
+        /* Custom Prism Gradient Animation */
+        @keyframes drift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 20px) rotate(5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        .animate-drift { animation: drift 10s infinite ease-in-out; }
+
+        /* Glass Shine Effect */
+        .glass-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.7s;
+        }
+        .glass-shine:hover::before {
+            left: 150%;
+        }
+
+        /* Iridescent Text Gradient */
+        .text-gradient-prism {
+            background: linear-gradient(135deg, #22d3ee, #e879f9, #facc15);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            900: '#0f172a',
+                        },
+                        prism: {
+                            cyan: '#a5f3fc',
+                            pink: '#fbcfe8',
+                            yellow: '#fde047',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-glass-50 text-glass-900 font-mulish antialiased selection:bg-cyan-200 selection:text-glass-900 overflow-x-hidden">
+
+    <!-- Background Ambient Light -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-prism-cyan/20 rounded-full blur-3xl animate-drift"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[35rem] h-[35rem] bg-prism-pink/20 rounded-full blur-3xl animate-drift" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-[-10%] left-[20%] w-[50rem] h-[50rem] bg-prism-yellow/10 rounded-full blur-3xl animate-drift" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav x-data="{ scrolled: false, mobileMenu: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 50)"
+         :class="{ 'bg-white/70 backdrop-blur-md shadow-sm': scrolled, 'bg-transparent': !scrolled }"
+         class="fixed w-full z-50 transition-all duration-300 border-b border-transparent"
+         :class="{ 'border-slate-200': scrolled }">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-bodoni text-3xl font-bold tracking-tight">
+                {{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-12 items-center">
+                <a href="#collection" class="text-sm uppercase tracking-widest hover:text-cyan-600 transition-colors">Collection</a>
+                <a href="#artist" class="text-sm uppercase tracking-widest hover:text-cyan-600 transition-colors">Artist</a>
+                <a href="#process" class="text-sm uppercase tracking-widest hover:text-cyan-600 transition-colors">Process</a>
+                <a href="#contact" class="px-6 py-2 border border-glass-900 text-sm uppercase tracking-widest hover:bg-glass-900 hover:text-white transition-all duration-300">Inquire</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenu"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="md:hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-lg border-b border-slate-200 shadow-xl py-8 px-6 flex flex-col space-y-6 z-40">
+            <a href="#collection" @click="mobileMenu = false" class="font-bodoni text-2xl">Collection</a>
+            <a href="#artist" @click="mobileMenu = false" class="font-bodoni text-2xl">Artist</a>
+            <a href="#process" @click="mobileMenu = false" class="font-bodoni text-2xl">Process</a>
+            <a href="#contact" @click="mobileMenu = false" class="font-bodoni text-2xl text-cyan-700">Inquire</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20 z-10 overflow-hidden">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center h-full">
+            <div class="space-y-8 relative z-10 opacity-0 translate-y-10 transition-all duration-1000 ease-out" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')">
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500">Prismatic Minimal</p>
+                <h1 class="font-bodoni text-6xl md:text-8xl leading-tight text-glass-900">
+                    Sculpting <br>
+                    <span class="italic text-gradient-prism relative inline-block">
+                        Light
+                        <!-- Underline decoration -->
+                        <svg class="absolute w-full h-3 bottom-1 left-0 text-cyan-200/50" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                        </svg>
+                    </span>
+                    <br> & Form.
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 font-light max-w-md leading-relaxed">
+                    Exploring the intersection of transparency, refraction, and color. Hand-blown glass art for modern spaces.
+                </p>
+                <div class="pt-4">
+                    <a href="#collection" class="group inline-flex items-center space-x-3 text-glass-900 border-b border-glass-900 pb-1 hover:text-cyan-700 hover:border-cyan-700 transition-colors">
+                        <span class="uppercase tracking-widest text-sm">View Collection</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image with Prismatic Overlay -->
+            <div class="relative h-[60vh] md:h-[80vh] w-full rounded-none md:rounded-tl-[100px] overflow-hidden glass-shine group shadow-2xl">
+                <!-- Image -->
+                <img src="https://images.unsplash.com/photo-1565193566173-0929d9956932?q=80&w=1200&auto=format&fit=crop"
+                     alt="Abstract Glass Art"
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+
+                <!-- Prismatic Overlay Gradient -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-pink-500/10 to-yellow-500/10 mix-blend-overlay"></div>
+                <!-- Glass Reflection -->
+                <div class="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-50"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Collection Grid (Masonry-style) -->
+    <section id="collection" class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <h2 class="font-bodoni text-4xl md:text-5xl mb-4">Selected Works</h2>
+                    <div class="h-1 w-20 bg-gradient-to-r from-cyan-300 to-pink-300"></div>
+                </div>
+                <p class="text-slate-500 max-w-xs text-right mt-6 md:mt-0 font-light">
+                    Each piece is unique, capturing light in unexpected ways through precise angles and fluid forms.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-slate-100 mb-4 glass-shine">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop"
+                             alt="Iridescent Sphere"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bodoni text-xl group-hover:text-cyan-700 transition-colors">Spectral Orb</h3>
+                        <span class="text-sm text-slate-500 font-light">01</span>
+                    </div>
+                    <p class="text-sm text-slate-400 mt-1">Blown Glass, 2023</p>
+                </div>
+
+                <!-- Item 2 (Offset top) -->
+                <div class="group cursor-pointer md:mt-16">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-slate-100 mb-4 glass-shine">
+                        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800&auto=format&fit=crop"
+                             alt="Textured Vase"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bodoni text-xl group-hover:text-cyan-700 transition-colors">Caustic Flow</h3>
+                        <span class="text-sm text-slate-500 font-light">02</span>
+                    </div>
+                    <p class="text-sm text-slate-400 mt-1">Cast Glass, 2023</p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[4/5] bg-slate-100 mb-4 glass-shine">
+                        <img src="https://images.unsplash.com/photo-1533038590840-1cde6e668a91?q=80&w=800&auto=format&fit=crop"
+                             alt="Prism Light"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bodoni text-xl group-hover:text-cyan-700 transition-colors">Diffraction V</h3>
+                        <span class="text-sm text-slate-500 font-light">03</span>
+                    </div>
+                    <p class="text-sm text-slate-400 mt-1">Optical Glass, 2024</p>
+                </div>
+
+                 <!-- Item 4 -->
+                 <div class="group cursor-pointer md:col-span-2 lg:col-span-1 lg:mt-16">
+                    <div class="relative overflow-hidden aspect-square bg-slate-100 mb-4 glass-shine">
+                        <img src="https://images.unsplash.com/photo-1615744455875-1a8c0d12e69b?q=80&w=800&auto=format&fit=crop"
+                             alt="Glass Shapes"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bodoni text-xl group-hover:text-cyan-700 transition-colors">Fragmented Memory</h3>
+                        <span class="text-sm text-slate-500 font-light">04</span>
+                    </div>
+                    <p class="text-sm text-slate-400 mt-1">Fused Glass, 2024</p>
+                </div>
+            </div>
+
+            <div class="mt-20 text-center">
+                <a href="#" class="inline-block px-8 py-3 border border-glass-900 font-bodoni uppercase tracking-widest hover:bg-glass-900 hover:text-white transition-all duration-300">
+                    View Full Archive
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artist Statement / About -->
+    <section id="artist" class="py-24 bg-white/50 relative overflow-hidden">
+        <!-- Decorative Glass Shards -->
+        <div class="absolute top-20 left-10 w-32 h-64 bg-gradient-to-b from-cyan-100/40 to-white/10 backdrop-blur-sm -skew-y-12 z-0 border border-white/40"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-t from-pink-100/40 to-white/10 backdrop-blur-sm rotate-12 z-0 rounded-full border border-white/40"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <!-- Image -->
+                <div class="md:col-span-5 relative">
+                    <div class="relative z-10 overflow-hidden rounded-t-[100px] shadow-2xl">
+                         <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=800&auto=format&fit=crop"
+                             alt="Artist working"
+                             class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                    </div>
+                    <!-- Background accent -->
+                    <div class="absolute top-10 -left-10 w-full h-full border border-glass-900/20 rounded-t-[100px] -z-10"></div>
+                </div>
+
+                <!-- Text -->
+                <div class="md:col-span-6 md:col-start-7 space-y-8">
+                    <h2 class="font-bodoni text-4xl md:text-5xl">The Alchemy of Silica</h2>
+                    <p class="text-slate-600 leading-relaxed font-light text-lg">
+                        At {{COMPANY_NAME}}, we believe glass is a living material. It holds memory, bends perception, and solidifies the ethereal nature of light itself.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed font-light">
+                        Our studio combines traditional Venetian blowing techniques with modern optical engineering. Every piece is an experiment in refraction—designed not just to be seen, but to change the way you see the space around it.
+                    </p>
+
+                    <div class="flex space-x-12 pt-4">
+                        <div>
+                            <span class="block text-3xl font-bodoni text-cyan-800">15+</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-500">Years Experience</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-bodoni text-pink-800">200+</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-500">Unique Pieces</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="py-24 container mx-auto px-6 z-10 relative">
+        <div class="text-center mb-16">
+            <h2 class="font-bodoni text-4xl mb-4">Our Process</h2>
+            <div class="h-px w-24 bg-slate-300 mx-auto"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="p-8 bg-white/60 backdrop-blur-sm border border-white/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-12 h-12 mb-6 flex items-center justify-center rounded-full bg-cyan-50 text-cyan-800 font-bodoni text-xl group-hover:bg-cyan-800 group-hover:text-white transition-colors">I</div>
+                <h3 class="font-bodoni text-2xl mb-3">Design & Optics</h3>
+                <p class="text-slate-500 font-light text-sm leading-relaxed">
+                    We begin with light simulations, calculating angles to maximize refraction and spectral dispersion within the glass volume.
+                </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="p-8 bg-white/60 backdrop-blur-sm border border-white/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-12 h-12 mb-6 flex items-center justify-center rounded-full bg-pink-50 text-pink-800 font-bodoni text-xl group-hover:bg-pink-800 group-hover:text-white transition-colors">II</div>
+                <h3 class="font-bodoni text-2xl mb-3">Molten Formation</h3>
+                <p class="text-slate-500 font-light text-sm leading-relaxed">
+                    At 2000°F, the silica is gathered and shaped. Timing is critical as the material transitions from fluid to solid state.
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="p-8 bg-white/60 backdrop-blur-sm border border-white/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-12 h-12 mb-6 flex items-center justify-center rounded-full bg-yellow-50 text-yellow-800 font-bodoni text-xl group-hover:bg-yellow-800 group-hover:text-white transition-colors">III</div>
+                <h3 class="font-bodoni text-2xl mb-3">Cold Working</h3>
+                <p class="text-slate-500 font-light text-sm leading-relaxed">
+                    Once annealed, the glass is cut, polished, and faceted to reveal its inner optical qualities and final form.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <!-- Full width background gradient -->
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-100 to-white -z-10"></div>
+
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="bg-white/80 backdrop-blur-xl p-8 md:p-16 border border-white shadow-2xl rounded-sm relative overflow-hidden">
+                <!-- Decorative Top Border -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-300 via-pink-300 to-yellow-300"></div>
+
+                <div class="text-center mb-12">
+                    <h2 class="font-bodoni text-4xl md:text-5xl mb-4">Commission a Piece</h2>
+                    <p class="text-slate-500 font-light">Let us bring light into your space.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-slate-500">Name</label>
+                            <input type="text" class="w-full bg-slate-50 border-b border-slate-200 p-3 focus:outline-none focus:border-cyan-500 transition-colors placeholder-slate-300" placeholder="Jane Doe">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-slate-500">Email</label>
+                            <input type="email" class="w-full bg-slate-50 border-b border-slate-200 p-3 focus:outline-none focus:border-cyan-500 transition-colors placeholder-slate-300" placeholder="jane@example.com">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-slate-500">Message</label>
+                        <textarea rows="4" class="w-full bg-slate-50 border-b border-slate-200 p-3 focus:outline-none focus:border-cyan-500 transition-colors placeholder-slate-300" placeholder="Tell us about your project..."></textarea>
+                    </div>
+                    <div class="text-center pt-6">
+                        <button type="button" class="px-10 py-4 bg-glass-900 text-white font-bodoni uppercase tracking-widest text-sm hover:bg-cyan-800 transition-colors shadow-lg hover:shadow-cyan-500/20">
+                            Send Inquiry
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-glass-900 text-white py-20 relative overflow-hidden">
+        <!-- Footer ambient light -->
+        <div class="absolute top-[-50%] left-[50%] w-[40rem] h-[40rem] bg-cyan-900/30 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-4 gap-12 border-b border-white/10 pb-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="font-bodoni text-3xl font-bold tracking-tight mb-6 block">
+                        {{COMPANY_NAME}}
+                    </a>
+                    <p class="text-slate-400 font-light max-w-sm">
+                        Sculpting the invisible. Prismatic glass art for collectors and architectural installations worldwide.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bodoni text-lg mb-6">Studio</h4>
+                    <ul class="space-y-3 text-slate-400 font-light text-sm">
+                        <li>123 Prism Lane</li>
+                        <li>Venice, CA 90210</li>
+                        <li>studio@luminaglass.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bodoni text-lg mb-6">Social</h4>
+                    <ul class="space-y-3 text-slate-400 font-light text-sm">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Pinterest</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Artsy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 uppercase tracking-widest">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
