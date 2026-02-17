@@ -1832,6 +1832,19 @@
         "Dark",
         "Technical"
       ]
+    },
+    {
+      "id": "142",
+      "name": "Ignis Systems",
+      "category": "Fire Tech",
+      "style": "Thermal Ops",
+      "path": "catalog/template_142_fire_tech_thermal_ops",
+      "description": "Dark industrial theme with ember effects & thermal gradients.",
+      "tags": [
+        "Dark",
+        "Industrial",
+        "Technical"
+      ]
     }
   ]
 }
