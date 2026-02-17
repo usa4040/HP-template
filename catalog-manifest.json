@@ -1819,6 +1819,19 @@
         "Light",
         "Glass"
       ]
+    },
+    {
+      "id": "141",
+      "name": "Silentium",
+      "category": "Acoustic Engineering",
+      "style": "Anechoic Minimal",
+      "path": "catalog/template_141_acoustic_engineering_anechoic",
+      "description": "Geometric foam patterns & sound absorption visuals.",
+      "tags": [
+        "Geometric",
+        "Dark",
+        "Technical"
+      ]
     }
   ]
 }
