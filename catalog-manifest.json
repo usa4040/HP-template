@@ -1741,6 +1741,19 @@
         "Cyber",
         "Pop"
       ]
+    },
+    {
+      "id": "135",
+      "name": "Fold & Form",
+      "category": "Packaging Design",
+      "style": "Papercraft",
+      "path": "catalog/template_135_packaging_papercraft",
+      "description": "Tactile papercraft aesthetic.",
+      "tags": [
+        "Tactile",
+        "Creative",
+        "Layered"
+      ]
     }
   ]
 }
