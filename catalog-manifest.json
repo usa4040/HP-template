@@ -12,7 +12,10 @@
         "Blue",
         "Clean"
       ],
-      "languages": ["en", "ja"]
+      "languages": [
+        "en",
+        "ja"
+      ]
     },
     {
       "id": "002",
@@ -26,7 +29,10 @@
         "Elegant",
         "Serif"
       ],
-      "languages": ["en", "ja"]
+      "languages": [
+        "en",
+        "ja"
+      ]
     },
     {
       "id": "003",
@@ -1859,6 +1865,19 @@
         "Organic",
         "Biotech",
         "Network"
+      ]
+    },
+    {
+      "id": "144",
+      "name": "Vision 2025",
+      "category": "Political Candidate",
+      "style": "Grassroots Modern",
+      "path": "catalog/template_144_political_candidate_grassroots_modern",
+      "description": "Action-oriented campaign site",
+      "tags": [
+        "Bold",
+        "Patriot",
+        "Community"
       ]
     }
   ]
