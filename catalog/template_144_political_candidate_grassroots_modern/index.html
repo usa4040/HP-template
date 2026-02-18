@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Vision for Tomorrow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        campaign: {
+                            blue: '#1e3a8a', // Blue-900
+                            red: '#dc2626', // Red-600
+                            slate: '#f8fafc', // Slate-50
+                            dark: '#0f172a', // Slate-900
+                            gold: '#f59e0b', // Amber-500
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        'crowd-pattern': "url('https://images.unsplash.com/photo-1532375810709-75b1da00537c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .clip-slant {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .clip-slant-reverse {
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+        }
+    </style>
+</head>
+<body class="font-sans text-campaign-dark bg-campaign-slate antialiased" x-data="{ mobileMenuOpen: false, donateModalOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Navigation -->
+    <nav :class="{ 'bg-white shadow-md py-2': scrolled, 'bg-transparent py-4': !scrolled }" class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="flex items-center gap-2">
+                        <div class="w-10 h-10 bg-campaign-red text-white flex items-center justify-center font-serif font-bold text-xl rounded-sm">V</div>
+                        <span :class="{ 'text-campaign-blue': scrolled, 'text-white': !scrolled }" class="font-serif font-bold text-2xl tracking-tight transition-colors">{{COMPANY_NAME}}</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#vision" :class="{ 'text-gray-700 hover:text-campaign-blue': scrolled, 'text-gray-200 hover:text-white': !scrolled }" class="text-sm font-semibold uppercase tracking-wider transition-colors">Vision</a>
+                    <a href="#issues" :class="{ 'text-gray-700 hover:text-campaign-blue': scrolled, 'text-gray-200 hover:text-white': !scrolled }" class="text-sm font-semibold uppercase tracking-wider transition-colors">Issues</a>
+                    <a href="#about" :class="{ 'text-gray-700 hover:text-campaign-blue': scrolled, 'text-gray-200 hover:text-white': !scrolled }" class="text-sm font-semibold uppercase tracking-wider transition-colors">Meet {{COMPANY_NAME}}</a>
+                    <button @click="donateModalOpen = true" class="bg-campaign-red hover:bg-red-700 text-white px-6 py-2 rounded-sm font-bold uppercase tracking-wide transition-transform hover:-translate-y-0.5 shadow-lg">
+                        Donate
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" :class="{ 'text-gray-800': scrolled, 'text-white': !scrolled }" class="focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="fixed inset-0 z-40 bg-campaign-blue bg-opacity-95 md:hidden flex flex-col justify-center items-center space-y-8" x-cloak>
+            <div class="absolute top-6 right-6">
+                <button @click="mobileMenuOpen = false" class="text-white">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <a href="#vision" @click="mobileMenuOpen = false" class="text-white text-2xl font-serif font-bold hover:text-campaign-gold">Vision</a>
+            <a href="#issues" @click="mobileMenuOpen = false" class="text-white text-2xl font-serif font-bold hover:text-campaign-gold">Issues</a>
+            <a href="#about" @click="mobileMenuOpen = false" class="text-white text-2xl font-serif font-bold hover:text-campaign-gold">Meet {{COMPANY_NAME}}</a>
+            <button @click="mobileMenuOpen = false; donateModalOpen = true" class="bg-campaign-red text-white px-8 py-3 rounded-sm font-bold text-xl shadow-lg">Donate Now</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden clip-slant">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center"></div>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-campaign-blue/90 via-campaign-blue/70 to-transparent"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left w-full pt-20">
+            <div class="md:w-2/3" x-data x-intersect="$el.classList.add('opacity-100', 'translate-y-0')">
+                <span class="inline-block py-1 px-3 bg-campaign-gold/20 text-campaign-gold border border-campaign-gold rounded-full text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-sm">
+                    Vision 2025
+                </span>
+                <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+                    A Future Built on <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">Shared Values</span>.
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8 font-light max-w-2xl opacity-0 translate-y-10 transition-all duration-1000 delay-300 ease-out">
+                    It's time for leadership that listens. Join our movement to bring integrity, action, and community back to the forefront.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start opacity-0 translate-y-10 transition-all duration-1000 delay-500 ease-out">
+                    <a href="#join" class="bg-campaign-red hover:bg-red-700 text-white px-8 py-4 rounded-sm font-bold uppercase tracking-wide transition-all hover:shadow-xl text-center">
+                        Join the Movement
+                    </a>
+                    <a href="#issues" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-campaign-blue px-8 py-4 rounded-sm font-bold uppercase tracking-wide transition-all hover:shadow-xl text-center">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="bg-white py-12 -mt-12 relative z-20 max-w-6xl mx-auto shadow-xl rounded-sm mx-4 md:mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
+            <div class="p-4">
+                <div class="text-4xl font-serif font-bold text-campaign-blue mb-2">15+</div>
+                <div class="text-sm text-gray-500 uppercase tracking-wide font-semibold">Years of Service</div>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl font-serif font-bold text-campaign-blue mb-2">5k+</div>
+                <div class="text-sm text-gray-500 uppercase tracking-wide font-semibold">Volunteers</div>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl font-serif font-bold text-campaign-blue mb-2">32</div>
+                <div class="text-sm text-gray-500 uppercase tracking-wide font-semibold">Bills Passed</div>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl font-serif font-bold text-campaign-blue mb-2">100%</div>
+                <div class="text-sm text-gray-500 uppercase tracking-wide font-semibold">Commitment</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="vision" class="py-24 bg-campaign-slate">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-campaign-red font-bold uppercase tracking-widest text-sm mb-4">Our Mission</h2>
+            <h3 class="text-4xl md:text-5xl font-serif font-bold text-campaign-blue mb-8 leading-snug">
+                "We are not defined by our differences, but by the strength of our common purpose."
+            </h3>
+            <p class="text-lg text-gray-600 leading-relaxed mb-12">
+                For too long, voices in our community have gone unheard. {{COMPANY_NAME}} believes in a government that works for everyone, not just the privileged few. By focusing on sustainable growth, educational equity, and healthcare access, we can build a foundation that lasts for generations.
+            </p>
+            <div class="w-24 h-1 bg-campaign-gold mx-auto"></div>
+        </div>
+    </section>
+
+    <!-- Issues Grid -->
+    <section id="issues" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-campaign-blue">Key Issues</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Real solutions for the problems we face every day.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group bg-slate-50 border border-slate-200 p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 rounded-sm overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-campaign-red transform -translate-x-2 group-hover:translate-x-0 transition-transform duration-300"></div>
+                    <div class="w-14 h-14 bg-blue-100 text-campaign-blue rounded-full flex items-center justify-center mb-6 group-hover:bg-campaign-blue group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 mb-4">Economic Growth</h3>
+                    <p class="text-gray-600 mb-6">Revitalizing local businesses and creating high-quality jobs through targeted investment and tax incentives for small owners.</p>
+                    <a href="#" class="text-campaign-red font-bold uppercase text-sm tracking-wide group-hover:underline">Read the plan &rarr;</a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-slate-50 border border-slate-200 p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 rounded-sm overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-campaign-gold transform -translate-x-2 group-hover:translate-x-0 transition-transform duration-300"></div>
+                    <div class="w-14 h-14 bg-amber-100 text-campaign-gold rounded-full flex items-center justify-center mb-6 group-hover:bg-campaign-gold group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 mb-4">Education First</h3>
+                    <p class="text-gray-600 mb-6">Fully funding our schools and ensuring every child has access to world-class education, regardless of their zip code.</p>
+                    <a href="#" class="text-campaign-gold font-bold uppercase text-sm tracking-wide group-hover:underline">Read the plan &rarr;</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-slate-50 border border-slate-200 p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 rounded-sm overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-green-600 transform -translate-x-2 group-hover:translate-x-0 transition-transform duration-300"></div>
+                    <div class="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 mb-4">Sustainability</h3>
+                    <p class="text-gray-600 mb-6">Leading the way in green energy adoption and protecting our natural resources for a cleaner, healthier future.</p>
+                    <a href="#" class="text-green-600 font-bold uppercase text-sm tracking-wide group-hover:underline">Read the plan &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Quote -->
+    <section class="relative py-32 bg-fixed bg-center bg-cover bg-crowd-pattern">
+        <div class="absolute inset-0 bg-campaign-blue/90"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <svg class="w-12 h-12 text-campaign-gold mx-auto mb-6 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
+            </svg>
+            <blockquote class="text-3xl md:text-4xl font-serif text-white leading-relaxed italic mb-8">
+                "Democracy is not a spectator sport. It requires all of us to stand up, speak out, and work together."
+            </blockquote>
+            <cite class="text-gray-300 font-bold uppercase tracking-widest not-italic">— {{COMPANY_NAME}}</cite>
+        </div>
+    </section>
+
+    <!-- Join Us Form -->
+    <section id="join" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-64 h-64 bg-campaign-red/5 rounded-full blur-3xl"></div>
+        <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-campaign-blue/5 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-campaign-dark rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <div class="md:w-1/2 p-12 bg-campaign-blue text-white flex flex-col justify-center">
+                    <h2 class="text-3xl font-serif font-bold mb-6">Join the Team</h2>
+                    <p class="text-blue-100 mb-8 text-lg">We can't do this without you. Sign up to receive updates, volunteer opportunities, and be the first to know about campaign events.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-6 h-6 text-campaign-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Exclusive Campaign Updates</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-6 h-6 text-campaign-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Volunteer Opportunities</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-6 h-6 text-campaign-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Invites to Town Halls</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 p-12 bg-white flex flex-col justify-center">
+                    <form @submit.prevent="alert('Thank you for joining the movement!')" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-bold text-gray-700 uppercase tracking-wide mb-2">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-campaign-blue focus:border-transparent outline-none transition-all" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-bold text-gray-700 uppercase tracking-wide mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-campaign-blue focus:border-transparent outline-none transition-all" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label for="zip" class="block text-sm font-bold text-gray-700 uppercase tracking-wide mb-2">Zip Code</label>
+                            <input type="text" id="zip" class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-campaign-blue focus:border-transparent outline-none transition-all" placeholder="12345">
+                        </div>
+                        <button type="submit" class="w-full bg-campaign-red hover:bg-red-700 text-white font-bold uppercase tracking-wide py-4 rounded-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            Count Me In
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-campaign-dark text-gray-400 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-campaign-red text-white flex items-center justify-center font-serif font-bold rounded-sm">V</div>
+                        <span class="text-white font-serif font-bold text-xl">{{COMPANY_NAME}}</span>
+                    </a>
+                    <p class="mb-6 max-w-sm">Building a stronger community through integrity, transparency, and hard work. Join us in making a difference today.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-campaign-gold transition-colors">
+                            <span class="sr-only">Facebook</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-campaign-gold transition-colors">
+                            <span class="sr-only">Twitter</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold uppercase tracking-widest mb-4">Action</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Volunteer</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Donate</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Host an Event</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Store</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold uppercase tracking-widest mb-4">Learn</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Meet {{COMPANY_NAME}}</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Key Issues</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">News</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-xs uppercase tracking-widest">
+                <div class="border border-gray-700 inline-block px-4 py-2 mb-4">
+                    Paid for by Friends of {{COMPANY_NAME}}
+                </div>
+                <p>&copy; 2025 {{COMPANY_NAME}} for Council. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Donation Modal -->
+    <div x-show="donateModalOpen" class="fixed inset-0 z-50 flex items-center justify-center px-4" x-cloak>
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="donateModalOpen = false" x-transition.opacity></div>
+
+        <!-- Modal Content -->
+        <div class="bg-white rounded-sm shadow-2xl w-full max-w-lg relative z-10 overflow-hidden" x-transition.scale>
+            <div class="bg-campaign-blue p-6 text-white flex justify-between items-center">
+                <h3 class="font-serif font-bold text-xl">Support the Campaign</h3>
+                <button @click="donateModalOpen = false" class="text-white/80 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-600 mb-6 text-center">Your contribution helps us reach more voters and spread our message of hope.</p>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <button class="border-2 border-campaign-blue/10 hover:border-campaign-blue hover:bg-blue-50 py-4 font-bold text-campaign-blue rounded-sm transition-all">$10</button>
+                    <button class="border-2 border-campaign-blue/10 hover:border-campaign-blue hover:bg-blue-50 py-4 font-bold text-campaign-blue rounded-sm transition-all">$25</button>
+                    <button class="border-2 border-campaign-blue/10 hover:border-campaign-blue hover:bg-blue-50 py-4 font-bold text-campaign-blue rounded-sm transition-all bg-blue-50 border-campaign-blue shadow-inner">$50</button>
+                    <button class="border-2 border-campaign-blue/10 hover:border-campaign-blue hover:bg-blue-50 py-4 font-bold text-campaign-blue rounded-sm transition-all">$100</button>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Custom Amount</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 text-gray-500">$</span>
+                        <input type="number" class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-sm outline-none focus:border-campaign-blue focus:ring-1 focus:ring-campaign-blue" placeholder="Other amount">
+                    </div>
+                </div>
+                <button class="w-full bg-campaign-red hover:bg-red-700 text-white font-bold uppercase tracking-wide py-4 rounded-sm shadow-lg transition-all" @click="donateModalOpen = false; alert('Thank you for your donation!')">
+                    Donate Securely
+                </button>
+                <p class="text-center text-xs text-gray-400 mt-4">Transactions are secure and encrypted.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
