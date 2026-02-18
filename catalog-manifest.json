@@ -59,7 +59,8 @@
         "Professional",
         "Blue",
         "JP Support"
-      ]
+      ],
+      "languages": ["en", "ja"]
     },
     {
       "id": "005",

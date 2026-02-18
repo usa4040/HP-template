@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{COMPANY_NAME}} - Trusted Medical Care</title>
+    <title>{{COMPANY_NAME}} - 信頼と安心の医療</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Noto Sans JP', sans-serif;
         }
     </style>
 </head>
@@ -22,13 +22,14 @@
                     <span class="text-2xl font-bold text-blue-600">{{COMPANY_NAME}}</span>
                 </div>
                 <nav class="hidden md:flex space-x-8 items-center">
-                    <a href="#home" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    <a href="#about" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
-                    <a href="#services" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Services</a>
-                    <a href="#access" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Access</a>
-                    <a href="index.html" class="text-gray-400 hover:text-gray-600 text-xs border-l border-gray-300 pl-4">JP</a>
+                    <a href="#home" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">ホーム</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">当院について</a>
+                    <a href="#services" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">診療案内</a>
+                    <a href="#access" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">アクセス</a>
+                    <a href="index.html" class="text-gray-400 hover:text-gray-600 text-xs border-l border-gray-300 pl-4">EN</a>
                 </nav>
                 <div class="md:hidden">
+                    <!-- Mobile menu button -->
                     <button type="button" id="mobile-menu-button" class="text-gray-400 hover:text-gray-500 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -41,13 +42,13 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Home</a>
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">About</a>
-                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Services</a>
-                <a href="#access" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Access</a>
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">ホーム</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">当院について</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">診療案内</a>
+                <a href="#access" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">アクセス</a>
                 <div class="flex space-x-4 px-3 py-2 border-t border-gray-200 mt-2">
-                    <span class="text-sm font-bold text-gray-900">EN</span>
-                    <a href="index.html" class="text-sm text-gray-400 hover:text-gray-600">JP</a>
+                    <a href="index.html" class="text-sm text-gray-400 hover:text-gray-600">EN</a>
+                    <span class="text-sm font-bold text-gray-900">JP</span>
                 </div>
             </div>
         </div>
@@ -59,18 +60,18 @@
             <div class="lg:grid lg:grid-cols-12 lg:gap-8">
                 <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left flex flex-col justify-center">
                     <h1>
-                        <span class="block text-sm font-semibold uppercase tracking-wide text-blue-600 sm:text-base lg:text-sm xl:text-base">Trusted Local Healthcare</span>
+                        <span class="block text-sm font-semibold uppercase tracking-wide text-blue-600 sm:text-base lg:text-sm xl:text-base">安心の地域医療</span>
                         <span class="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl">
-                            <span class="block text-gray-900">Your Health,</span>
-                            <span class="block text-blue-600">Our Priority</span>
+                            <span class="block text-gray-900">あなたの健康を</span>
+                            <span class="block text-blue-600">私たちが見守ります</span>
                         </span>
                     </h1>
                     <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                        {{COMPANY_NAME}} is committed to providing personalized, attentive care to every patient. Our experienced staff and state-of-the-art facilities support your healthy lifestyle.
+                        {{COMPANY_NAME}}は、患者様一人ひとりに寄り添った丁寧な診療を心がけています。最新の設備と経験豊富なスタッフが、あなたの健やかな毎日をサポートします。
                     </p>
                     <div class="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
                         <a href="#access" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition duration-150 ease-in-out">
-                            Book Appointment
+                            ご予約・お問い合わせ
                         </a>
                     </div>
                 </div>
@@ -87,12 +88,12 @@
     <section id="about" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
-                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">About Us</h2>
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">当院について</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Building Trust with Every Patient
+                    患者様との信頼関係を第一に
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    We don't just treat illnesses—we alleviate your concerns and help you achieve both physical and mental wellness.
+                    私たちは、単に病気を治すだけでなく、患者様の不安を取り除き、心身ともに健康になっていただくことを目指しています。
                 </p>
             </div>
 
@@ -101,42 +102,45 @@
                     <div class="relative">
                         <dt>
                             <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                <!-- Heroicon name: outline/user-group -->
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Expert Medical Care</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">専門医による診療</p>
                         </dt>
                         <dd class="mt-2 ml-16 text-base text-gray-500">
-                            Our experienced specialists provide accurate diagnoses and treatments based on the latest medical knowledge.
+                            経験豊富な専門医が、最新の知見に基づいた適切な診断と治療を提供いたします。
                         </dd>
                     </div>
 
                     <div class="relative">
                         <dt>
                             <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                <!-- Heroicon name: outline/heart -->
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                 </svg>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Compassionate Care</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">心のこもったケア</p>
                         </dt>
                         <dd class="mt-2 ml-16 text-base text-gray-500">
-                            Our staff prioritizes smiles and kindness, creating a relaxing environment for all our patients.
+                            スタッフ一同、笑顔と優しさを大切にし、リラックスして受診いただける環境づくりに努めています。
                         </dd>
                     </div>
 
                     <div class="relative">
                         <dt>
                             <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                <!-- Heroicon name: outline/clock -->
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Efficient Scheduling</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">スムーズな予約システム</p>
                         </dt>
                         <dd class="mt-2 ml-16 text-base text-gray-500">
-                            Our online reservation system minimizes wait times and ensures smooth appointments.
+                            待ち時間を減らし、スムーズに受診いただけるよう、WEB予約システムを導入しています。
                         </dd>
                     </div>
                 </dl>
@@ -147,27 +151,27 @@
     <!-- Services Section -->
     <section id="services" class="py-16 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">Our Services</h2>
+            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">診療案内</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Service 1 -->
                 <div class="bg-blue-50 rounded-lg p-6 hover:shadow-lg transition duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">General Medicine</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">一般内科</h3>
                     <p class="text-gray-600">
-                        We provide comprehensive care for common illnesses such as colds, flu, and lifestyle-related diseases.
+                        風邪やインフルエンザ、生活習慣病など、日常的な体調不良について幅広く診療いたします。
                     </p>
                 </div>
                 <!-- Service 2 -->
                 <div class="bg-blue-50 rounded-lg p-6 hover:shadow-lg transition duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Health Screenings</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">健康診断・検診</h3>
                     <p class="text-gray-600">
-                        Regular health checkups support early detection and treatment of diseases.
+                        定期的な健康チェックにより、病気の早期発見・早期治療をサポートします。
                     </p>
                 </div>
                 <!-- Service 3 -->
                 <div class="bg-blue-50 rounded-lg p-6 hover:shadow-lg transition duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Vaccinations</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">予防接種</h3>
                     <p class="text-gray-600">
-                        We offer various vaccinations. Feel free to consult us about scheduling.
+                        各種予防接種を実施しております。スケジュールのご相談もお気軽にどうぞ。
                     </p>
                 </div>
             </div>
@@ -179,25 +183,25 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="md:flex md:justify-between md:items-start">
                 <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h2 class="text-3xl font-bold mb-4">Contact & Access</h2>
-                    <p class="mb-4">Please don't hesitate to call us for appointments or inquiries.</p>
-                    <div class="text-4xl font-bold mb-6">+81 3-1234-5678</div>
+                    <h2 class="text-3xl font-bold mb-4">お問い合わせ・アクセス</h2>
+                    <p class="mb-4">ご予約・ご質問はお気軽にお電話ください。</p>
+                    <div class="text-4xl font-bold mb-6">03-1234-5678</div>
                     <div class="bg-blue-700 p-4 rounded-lg inline-block">
-                        <p class="font-bold">Hours</p>
-                        <p>Mon-Fri: 9:00 AM - 6:00 PM</p>
-                        <p>Sat: 9:00 AM - 1:00 PM</p>
-                        <p>Sun & Holidays: Closed</p>
+                        <p class="font-bold">診療時間</p>
+                        <p>月〜金: 9:00 - 18:00</p>
+                        <p>土: 9:00 - 13:00</p>
+                        <p>日・祝: 休診</p>
                     </div>
                 </div>
                 <div class="md:w-1/2 bg-white text-gray-800 p-6 rounded-lg shadow-lg">
                     <h3 class="text-xl font-bold mb-4">{{COMPANY_NAME}}</h3>
-                    <p class="mb-2">1-1 Chiyoda, Chiyoda-ku</p>
-                    <p class="mb-4">Tokyo 100-0001, Japan</p>
+                    <p class="mb-2">〒100-0001</p>
+                    <p class="mb-4">東京都千代田区千代田1-1</p>
                     <div class="w-full h-48 bg-gray-200 rounded flex items-center justify-center text-gray-500">
                         Map Placeholder
                     </div>
                     <div class="mt-4">
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">View on Google Maps &rarr;</a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Google Mapで見る &rarr;</a>
                     </div>
                 </div>
             </div>
