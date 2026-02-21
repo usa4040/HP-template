@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oceanus Networks | Global Maritime Logistics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            900: '#164e63',
+                        },
+                        orange: {
+                            500: '#f97316',
+                        }
+                    },
+                    animation: {
+                        'radar-sweep': 'radar-sweep 4s linear infinite',
+                        'marquee': 'marquee 20s linear infinite',
+                    },
+                    keyframes: {
+                        'radar-sweep': {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        },
+                        'marquee': {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .radar-grid {
+            background-image:
+                linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .scan-line {
+            background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.2), transparent);
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased overflow-x-hidden relative">
+
+    <!-- Radar Background Overlay -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-20 radar-grid"></div>
+
+    <!-- Navbar -->
+    <nav x-data="{ mobileMenuOpen: false }" class="fixed w-full z-50 top-0 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <!-- Top Data Ticker -->
+        <div class="w-full bg-slate-950 border-b border-slate-800 overflow-hidden py-1">
+            <div class="flex animate-marquee whitespace-nowrap font-mono text-xs text-cyan-400/80">
+                <span class="mx-4">SYS.STATUS: ONLINE</span>
+                <span class="mx-4">LAT: 34.0522 N</span>
+                <span class="mx-4">LON: 118.2437 W</span>
+                <span class="mx-4">VESSEL_ID: ORION-7</span>
+                <span class="mx-4">ETA: 1400Z</span>
+                <span class="mx-4">CARGO: 89% CAP</span>
+                <span class="mx-4">ROUTE: PAC-ATL</span>
+                <span class="mx-4">WIND: 12KT NW</span>
+                <span class="mx-4">TEMP: 18°C</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="mx-4">SYS.STATUS: ONLINE</span>
+                <span class="mx-4">LAT: 34.0522 N</span>
+                <span class="mx-4">LON: 118.2437 W</span>
+                <span class="mx-4">VESSEL_ID: ORION-7</span>
+                <span class="mx-4">ETA: 1400Z</span>
+                <span class="mx-4">CARGO: 89% CAP</span>
+                <span class="mx-4">ROUTE: PAC-ATL</span>
+                <span class="mx-4">WIND: 12KT NW</span>
+                <span class="mx-4">TEMP: 18°C</span>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full border-2 border-cyan-400 flex items-center justify-center relative">
+                         <div class="w-full h-0.5 bg-cyan-400 absolute animate-[spin_4s_linear_infinite]"></div>
+                    </div>
+                    <span class="font-display font-bold text-xl tracking-wider text-white">OCEANUS<span class="text-cyan-400">NET</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#services" class="font-mono text-sm hover:text-cyan-400 transition-colors">/SERVICES</a>
+                        <a href="#network" class="font-mono text-sm hover:text-cyan-400 transition-colors">/NETWORK</a>
+                        <a href="#fleet" class="font-mono text-sm hover:text-cyan-400 transition-colors">/FLEET</a>
+                        <a href="#contact" class="px-4 py-2 border border-cyan-400/50 text-cyan-400 font-mono text-sm hover:bg-cyan-400/10 transition-colors">TRACK_SHIPMENT_</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{'hidden': !mobileMenuOpen, 'inline-flex': mobileMenuOpen }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-slate-900 border-b border-slate-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#services" class="block px-3 py-2 text-base font-mono hover:text-cyan-400">/SERVICES</a>
+                <a href="#network" class="block px-3 py-2 text-base font-mono hover:text-cyan-400">/NETWORK</a>
+                <a href="#fleet" class="block px-3 py-2 text-base font-mono hover:text-cyan-400">/FLEET</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-mono text-cyan-400 border border-cyan-400/30 bg-cyan-400/5">TRACK_SHIPMENT_</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1494412574643-35d324698427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Shipping Port" class="w-full h-full object-cover opacity-20 filter grayscale contrast-125">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+            <!-- Radial Radar Effect -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-cyan-400/20 rounded-full opacity-30"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-cyan-400/20 rounded-full opacity-30"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-cyan-400/20 rounded-full opacity-30"></div>
+            <!-- Rotating Sweep -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-conic-gradient-cyan opacity-10 animate-radar-sweep pointer-events-none"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 border border-cyan-400/30 rounded-none bg-cyan-400/5 backdrop-blur mb-6">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span class="font-mono text-xs text-cyan-300 tracking-wider">SYSTEM OPTIMIZED</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold leading-tight mb-6">
+                        GLOBAL <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">LOGISTICS</span><br>
+                        INTELLIGENCE
+                    </h1>
+                    <p class="text-lg text-slate-400 mb-8 max-w-xl font-light font-sans leading-relaxed">
+                        Precision tracking and AI-driven route optimization for the modern maritime supply chain. We connect continents with data-first reliability.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contact" class="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-display font-bold tracking-wide transition-all clip-path-polygon">
+                            INITIATE TRACKING
+                        </a>
+                        <a href="#services" class="px-8 py-4 border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 font-display font-medium tracking-wide transition-all">
+                            VIEW MANIFEST
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Stats Card -->
+                <div class="hidden lg:block relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-30 blur-lg"></div>
+                    <div class="relative bg-slate-900/90 backdrop-blur border border-slate-700 p-6 shadow-2xl">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+                            <span class="font-mono text-xs text-slate-500">LIVE_DATA_FEED</span>
+                            <span class="font-mono text-xs text-green-500">● CONNECTED</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="font-mono text-sm text-slate-400">ACTIVE VESSELS</span>
+                                <span class="font-display text-2xl text-white">1,402</span>
+                            </div>
+                             <div class="h-1 w-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-cyan-500 w-3/4"></div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-mono text-sm text-slate-400">TEU CAPACITY</span>
+                                <span class="font-display text-2xl text-white">8.2M</span>
+                            </div>
+                            <div class="h-1 w-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-blue-500 w-1/2"></div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-mono text-sm text-slate-400">ON-TIME RATE</span>
+                                <span class="font-display text-2xl text-cyan-400">99.8%</span>
+                            </div>
+                             <div class="h-1 w-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-orange-500 w-[99%]"></div>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-800 grid grid-cols-2 gap-4">
+                            <div>
+                                <div class="text-xs font-mono text-slate-500 mb-1">LATITUDE</div>
+                                <div class="font-mono text-sm text-cyan-300">34°03'N</div>
+                            </div>
+                            <div>
+                                <div class="text-xs font-mono text-slate-500 mb-1">LONGITUDE</div>
+                                <div class="font-mono text-sm text-cyan-300">118°15'W</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section id="services" class="py-20 relative bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <span class="font-mono text-cyan-400 text-sm tracking-wider">/ CAPABILITIES</span>
+                <h2 class="text-3xl md:text-4xl font-display font-bold mt-2">OPERATIONAL SECTORS</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group relative bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-colors duration-300 p-6">
+                    <div class="absolute top-0 right-0 p-2 opacity-50">
+                        <svg class="w-8 h-8 text-slate-600 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <div class="font-mono text-xs text-slate-500 mb-4">IDX: 001 // FREIGHT</div>
+                    <h3 class="text-xl font-display font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors">CONTAINER SHIPPING</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 font-light">
+                        Full container load (FCL) and less than container load (LCL) solutions utilizing our advanced fleet for maximum efficiency.
+                    </p>
+                    <ul class="space-y-2 border-t border-slate-700 pt-4">
+                        <li class="flex items-center text-xs font-mono text-slate-300">
+                            <span class="w-1.5 h-1.5 bg-orange-500 mr-2"></span> REAL-TIME TELEMETRY
+                        </li>
+                         <li class="flex items-center text-xs font-mono text-slate-300">
+                            <span class="w-1.5 h-1.5 bg-orange-500 mr-2"></span> CLIMATE CONTROL
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group relative bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-colors duration-300 p-6">
+                    <div class="absolute top-0 right-0 p-2 opacity-50">
+                        <svg class="w-8 h-8 text-slate-600 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path></svg>
+                    </div>
+                    <div class="font-mono text-xs text-slate-500 mb-4">IDX: 002 // DATA</div>
+                    <h3 class="text-xl font-display font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors">SUPPLY CHAIN ANALYTICS</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 font-light">
+                        Predictive algorithms to minimize dwell time and optimize route selection based on weather and port congestion data.
+                    </p>
+                    <ul class="space-y-2 border-t border-slate-700 pt-4">
+                        <li class="flex items-center text-xs font-mono text-slate-300">
+                            <span class="w-1.5 h-1.5 bg-orange-500 mr-2"></span> AI FORECASTING
+                        </li>
+                         <li class="flex items-center text-xs font-mono text-slate-300">
+                            <span class="w-1.5 h-1.5 bg-orange-500 mr-2"></span> PORT INTEGRATION
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group relative bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-colors duration-300 p-6">
+                    <div class="absolute top-0 right-0 p-2 opacity-50">
+                        <svg class="w-8 h-8 text-slate-600 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div class="font-mono text-xs text-slate-500 mb-4">IDX: 003 // GLOBAL</div>
+                    <h3 class="text-xl font-display font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors">CUSTOMS BROKERAGE</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 font-light">
+                        Navigating complex international regulations with automated documentation and compliance verification systems.
+                    </p>
+                    <ul class="space-y-2 border-t border-slate-700 pt-4">
+                        <li class="flex items-center text-xs font-mono text-slate-300">
+                            <span class="w-1.5 h-1.5 bg-orange-500 mr-2"></span> AUTO-CLEARANCE
+                        </li>
+                         <li class="flex items-center text-xs font-mono text-slate-300">
+                            <span class="w-1.5 h-1.5 bg-orange-500 mr-2"></span> TARIFF OPTIMIZATION
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Network Section -->
+    <section id="network" class="py-20 bg-slate-950 relative overflow-hidden">
+        <!-- Abstract World Map SVG Background -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path vector-effect="non-scaling-stroke" stroke-width="0.5" d="M0 50 Q 25 25 50 50 T 100 50" class="text-cyan-500 opacity-20" />
+                <path vector-effect="non-scaling-stroke" stroke-width="0.5" d="M0 60 Q 25 35 50 60 T 100 60" class="text-cyan-500 opacity-20" />
+                <path vector-effect="non-scaling-stroke" stroke-width="0.5" d="M0 40 Q 25 15 50 40 T 100 40" class="text-cyan-500 opacity-20" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                     <span class="font-mono text-orange-500 text-sm tracking-wider">/ GLOBAL REACH</span>
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mt-2 mb-6">NETWORK DENSITY</h2>
+                    <p class="text-slate-400 mb-8 font-light">
+                        Operating in over 120 countries with 500+ strategic ports of call. Our decentralized logistics network ensures redundancy and speed.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Stat Row -->
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                            <div>
+                                <div class="text-2xl font-display text-white">500+</div>
+                                <div class="text-xs font-mono text-slate-500">PORTS OF CALL</div>
+                            </div>
+                            <div class="h-8 w-px bg-slate-800"></div>
+                            <div>
+                                <div class="text-2xl font-display text-white">24/7</div>
+                                <div class="text-xs font-mono text-slate-500">SUPPORT OPS</div>
+                            </div>
+                            <div class="h-8 w-px bg-slate-800"></div>
+                            <div>
+                                <div class="text-2xl font-display text-white">50M+</div>
+                                <div class="text-xs font-mono text-slate-500">TONS SHIPPED</div>
+                            </div>
+                        </div>
+
+                        <!-- Terminal Output -->
+                        <div class="bg-slate-900 border border-slate-700 p-4 font-mono text-xs text-slate-300 h-48 overflow-y-auto">
+                            <div class="text-green-500 mb-2">> INITIATING NETWORK SCAN...</div>
+                            <div class="mb-1"><span class="text-slate-500">[10:42:01]</span> NODE_HKG (Hong Kong) ... <span class="text-cyan-400">ONLINE</span></div>
+                            <div class="mb-1"><span class="text-slate-500">[10:42:02]</span> NODE_SGP (Singapore) ... <span class="text-cyan-400">ONLINE</span></div>
+                            <div class="mb-1"><span class="text-slate-500">[10:42:03]</span> NODE_RTM (Rotterdam) ... <span class="text-cyan-400">ONLINE</span></div>
+                            <div class="mb-1"><span class="text-slate-500">[10:42:04]</span> NODE_LAX (Los Angeles) ... <span class="text-cyan-400">ONLINE</span></div>
+                            <div class="mb-1"><span class="text-slate-500">[10:42:05]</span> NODE_DXB (Dubai) ... <span class="text-cyan-400">ONLINE</span></div>
+                            <div class="mb-1"><span class="text-slate-500">[10:42:06]</span> NODE_HAM (Hamburg) ... <span class="text-yellow-500">LATENCY DETECTED</span></div>
+                            <div class="mb-1"><span class="text-slate-500">[10:42:07]</span> REROUTING TRAFFIC ... <span class="text-green-500">SUCCESS</span></div>
+                            <div class="animate-pulse">_</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative h-[400px] bg-slate-800/30 border border-slate-700 rounded-lg p-4 flex items-center justify-center">
+                    <!-- Placeholder for interactive map visualization -->
+                    <div class="absolute inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg')] bg-no-repeat bg-center bg-contain opacity-20 filter invert"></div>
+                    <!-- Dots -->
+                    <div class="absolute top-[40%] left-[20%] w-2 h-2 bg-orange-500 rounded-full animate-ping"></div>
+                    <div class="absolute top-[35%] left-[80%] w-2 h-2 bg-cyan-500 rounded-full animate-ping" style="animation-delay: 1s"></div>
+                    <div class="absolute top-[60%] left-[60%] w-2 h-2 bg-cyan-500 rounded-full animate-ping" style="animation-delay: 2s"></div>
+
+                    <div class="z-10 bg-slate-900/90 border border-cyan-500/30 p-4 rounded backdrop-blur max-w-xs">
+                        <div class="text-xs font-mono text-cyan-400 mb-2">ACTIVE ROUTE: PACIFIC-01</div>
+                        <div class="flex justify-between items-center text-sm font-bold text-white mb-1">
+                            <span>SHANGHAI</span>
+                            <span class="text-slate-500">>>></span>
+                            <span>LONG BEACH</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full mt-2">
+                            <div class="bg-orange-500 h-1.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <div class="flex justify-between mt-1 text-[10px] font-mono text-slate-400">
+                            <span>DIST: 65%</span>
+                            <span>ETA: 4D 12H</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracking / CTA Section -->
+    <section id="contact" class="py-20 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-display font-bold mb-8">TRACK SHIPMENT</h2>
+            <p class="text-slate-400 mb-12 font-light">Enter your Bill of Lading (BOL) or Container ID to access real-time telemetry.</p>
+
+            <form class="max-w-lg mx-auto relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 blur"></div>
+                <div class="relative flex bg-slate-950 p-2 rounded border border-slate-700">
+                    <span class="flex items-center pl-3 text-cyan-500 font-mono select-none">></span>
+                    <input type="text" placeholder="ENTER CONTAINER ID..." class="flex-1 bg-transparent border-none text-white font-mono placeholder-slate-600 focus:ring-0 px-4 py-2 uppercase">
+                    <button type="button" class="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 font-mono text-sm tracking-wide transition-colors">
+                        SEARCH
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center border-t border-slate-800 pt-12">
+                <div>
+                    <h4 class="text-white font-bold font-display mb-2">HEADQUARTERS</h4>
+                    <p class="text-slate-400 text-sm">Maritime Way, Port 4<br>Rotterdam, Netherlands</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold font-display mb-2">CONTACT</h4>
+                    <p class="text-slate-400 text-sm">ops@{{COMPANY_NAME}}.com<br>+31 10 555 0199</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold font-display mb-2">EMERGENCY</h4>
+                    <p class="text-slate-400 text-sm">24/7 Ops Center<br>Channel 16 VHF</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <div class="w-4 h-4 rounded-full border border-cyan-400 flex items-center justify-center">
+                    <div class="w-full h-0.5 bg-cyan-400"></div>
+                </div>
+                <span class="font-display font-bold text-lg text-white tracking-wider">OCEANUS<span class="text-cyan-400">NET</span></span>
+            </div>
+
+            <div class="flex gap-6 font-mono text-xs text-slate-500">
+                <a href="#" class="hover:text-cyan-400 transition-colors">PRIVACY_PROTOCOL</a>
+                <a href="#" class="hover:text-cyan-400 transition-colors">TERMS_OF_SERVICE</a>
+                <a href="#" class="hover:text-cyan-400 transition-colors">MANIFEST</a>
+            </div>
+
+            <div class="mt-4 md:mt-0 text-slate-600 text-xs font-mono">
+                © {{YEAR}} {{COMPANY_NAME}} LOGISTICS. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Optional: Add simple randomization to the "Live" data in the ticker
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Oceanus System Initialized.');
+        });
+    </script>
+</body>
+</html>
