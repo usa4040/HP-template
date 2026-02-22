@@ -1913,6 +1913,19 @@
         "Tech",
         "Fashion"
       ]
+    },
+    {
+      "id": "147",
+      "name": "Oceanus Networks",
+      "category": "Maritime Logistics",
+      "style": "Nautical Data",
+      "path": "catalog/template_145_maritime_logistics_nautical_data",
+      "description": "Dark mode, radar animations, and data-viz elements.",
+      "tags": [
+        "Maritime",
+        "Logistics",
+        "Data"
+      ]
     }
   ]
 }
