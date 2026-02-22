@@ -46,7 +46,10 @@
         "Classic",
         "Serif"
       ],
-      "languages": ["en", "ja"]
+      "languages": [
+        "en",
+        "ja"
+      ]
     },
     {
       "id": "004",
@@ -60,7 +63,10 @@
         "Blue",
         "JP Support"
       ],
-      "languages": ["en", "ja"]
+      "languages": [
+        "en",
+        "ja"
+      ]
     },
     {
       "id": "005",
@@ -1880,6 +1886,19 @@
         "Bold",
         "Patriot",
         "Community"
+      ]
+    },
+    {
+      "id": "145",
+      "name": "Oceanus Networks",
+      "category": "Maritime Logistics",
+      "style": "Nautical Data",
+      "path": "catalog/template_145_maritime_logistics_nautical_data",
+      "description": "Data-driven dark logistics",
+      "tags": [
+        "Data",
+        "Dark",
+        "Industrial"
       ]
     }
   ]
