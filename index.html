@@ -5,92 +5,427 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HP Template Catalog - Gallery</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            900: '#134e4a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            /* smooth scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #f1f5f9; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #cbd5e1; 
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8; 
+            }
+        }
+        
+        .card-hover-effect {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Iframe preview container */
+        .preview-container {
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            position: relative;
+            background-color: #e2e8f0;
+            overflow: hidden;
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+
+        .preview-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1280px; /* Fixed PC width for rendering */
+            height: 720px;
+            transform-origin: 0 0;
+            pointer-events: none; /* Disable interaction in thumbnail */
+            border: none;
+            background-color: #ffffff;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .preview-iframe.loaded {
+            opacity: 1;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(20, 184, 166, 0.2);
+            border-left-color: #14b8a6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <header class="bg-white border-b border-gray-200 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl font-extrabold text-indigo-600 mb-2">HP Template Catalog Gallery</h1>
-            <p class="text-gray-500">Julesが生成した高品質なテンプレートのコレクション</p>
+    <!-- Header Section -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm bg-opacity-95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-indigo-600 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        Template Catalog
+                    </h1>
+                    <p class="text-sm text-slate-500 mt-1">High-quality templates generated by Jules</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <!-- Search Input -->
+                    <div class="relative w-full sm:w-64">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <input type="text" id="searchInput" placeholder="Search templates..." class="block w-full pl-10 pr-3 py-2 border border-slate-300 rounded-lg leading-5 bg-slate-50 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:bg-white transition-colors sm:text-sm">
+                    </div>
+                    
+                    <!-- Category Filter -->
+                    <select id="categoryFilter" class="block w-full sm:w-48 pl-3 pr-10 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 sm:text-sm bg-slate-50 focus:bg-white text-slate-700 font-medium cursor-pointer transition-colors">
+                        <option value="all">All Categories</option>
+                        <!-- Categories injected via JS -->
+                    </select>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- テンプレートカードがここに挿入されます -->
+    <!-- Main Content -->
+    <main class="flex-grow max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Stats Bar -->
+        <div class="flex justify-between items-end mb-6 border-b border-slate-200 pb-2">
+            <h2 class="text-lg font-semibold text-slate-800" id="resultsCount">Loading templates...</h2>
+            <div class="flex items-center gap-2 text-sm text-slate-500">
+                <span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+                Local Server Active
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden py-20 text-center">
+            <svg class="mx-auto h-12 w-12 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-slate-900">No templates found</h3>
+            <p class="mt-1 text-sm text-slate-500">Try adjusting your search or filter criteria.</p>
+            <button onclick="resetFilters()" class="mt-4 px-4 py-2 border border-slate-300 rounded-md shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500">
+                Clear Filters
+            </button>
+        </div>
+
+        <!-- Grid -->
+        <div id="gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Cards injected via JS -->
         </div>
     </main>
 
-    <script>
-        async function loadGallery() {
-            try {
-                const response = await fetch('catalog-manifest.json');
-                const data = await response.json();
-                const gallery = document.getElementById('gallery');
-
-                data.templates.forEach(template => {
-                    const card = document.createElement('div');
-                    card.className = "bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md transition-shadow duration-300";
-                    
-                    const indexPath = `${template.path}/index.html`;
-                    const tagsHtml = (template.tags || []).map(tag => 
-                        `<span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">${tag}</span>`
-                    ).join(' ');
-                    
-                    card.innerHTML = `
-                        <div class="p-6 flex-grow">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-bold text-indigo-500 uppercase tracking-wider bg-indigo-50 px-2 py-1 rounded">ID: ${template.id}</span>
-                                <span class="text-xs font-medium text-gray-400 italic">${template.style}</span>
-                            </div>
-                            <h2 class="text-xl font-bold text-gray-800 mb-1">${template.name}</h2>
-                            <p class="text-xs text-gray-400 mb-3 font-semibold uppercase tracking-tight">${template.category}</p>
-                            
-                            <p class="text-sm text-gray-600 mb-4 leading-relaxed line-clamp-2">
-                                ${template.description || 'No description available.'}
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                ${tagsHtml}
-                            </div>
-                        </div>
-                        <div class="p-6 pt-0 mt-auto">
-                            ${template.languages && template.languages.length > 1 ? `
-                                <div class="grid grid-cols-2 gap-2">
-                                    <a href="${template.path}/index.html" target="_blank" class="text-center bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
-                                        English
-                                    </a>
-                                    <a href="${template.path}/index_ja.html" target="_blank" class="text-center bg-gray-700 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
-                                        日本語
-                                    </a>
-                                </div>
-                            ` : `
-                                <a href="${indexPath}" target="_blank" class="block w-full text-center bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors">
-                                    プレビューを開く
-                                </a>
-                            `}
-                        </div>
-                    `;
-                    gallery.appendChild(card);
-                });
-            } catch (error) {
-                console.error('Error loading manifest:', error);
-                document.getElementById('gallery').innerHTML = '<p class="text-red-500">マニフェストの読み込みに失敗しました。</p>';
-            }
-        }
-
-        loadGallery();
-    </script>
-
-    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400 text-sm">
-            &copy; 2026 HP Template Project. Automated by Jules.
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center justify-center">
+            <div class="text-slate-400 text-sm font-medium">
+                &copy; 2026 HP Template Project
+            </div>
+            <div class="text-slate-400 text-xs mt-1">
+                Automated by Jules.
+            </div>
         </div>
     </footer>
 
+    <script>
+        let allTemplates = [];
+        let uniqueCategories = new Set();
+
+        const galleryEl = document.getElementById('gallery');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const resultsCountEl = document.getElementById('resultsCount');
+        const emptyStateEl = document.getElementById('emptyState');
+
+        // Observer for lazy loading iframes
+        const iframeObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const iframe = entry.target;
+                    if (!iframe.src) {
+                        iframe.src = iframe.dataset.src;
+                        iframe.onload = () => {
+                            iframe.classList.add('loaded');
+                            // Hide spinner
+                            const spinner = iframe.previousElementSibling;
+                            if(spinner && spinner.classList.contains('spinner')) {
+                                spinner.style.display = 'none';
+                            }
+                        };
+                        observer.unobserve(iframe);
+                    }
+                }
+            });
+        }, {
+            rootMargin: '100px 0px', // Load slightly before coming into view
+            threshold: 0.1
+        });
+
+
+        async function init() {
+            try {
+                const response = await fetch('catalog-manifest.json');
+                const data = await response.json();
+                allTemplates = data.templates;
+                
+                // Extract categories
+                allTemplates.forEach(t => {
+                    if (t.category) {
+                        uniqueCategories.add(t.category);
+                    }
+                });
+
+                // Populate Category Dropdown
+                const sortedCategories = Array.from(uniqueCategories).sort();
+                sortedCategories.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = cat;
+                    categoryFilter.appendChild(option);
+                });
+
+                // Initial render
+                renderGallery(allTemplates);
+
+                // Setup Event Listeners
+                searchInput.addEventListener('input', handleFilter);
+                categoryFilter.addEventListener('change', handleFilter);
+
+            } catch (error) {
+                console.error('Error loading manifest:', error);
+                galleryEl.innerHTML = '<div class="col-span-full p-4 bg-red-50 text-red-600 rounded-lg border border-red-200">Failed to load catalog manifest. Ensure you are running via a local server (e.g., http-server).</div>';
+                resultsCountEl.textContent = 'Error';
+            }
+        }
+
+        function handleFilter() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            const filtered = allTemplates.filter(template => {
+                const matchesSearch = 
+                    template.name.toLowerCase().includes(searchTerm) || 
+                    (template.description && template.description.toLowerCase().includes(searchTerm)) ||
+                    (template.tags && template.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
+                
+                const matchesCategory = selectedCategory === 'all' || template.category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            renderGallery(filtered);
+        }
+
+        window.resetFilters = function() {
+            searchInput.value = '';
+            categoryFilter.value = 'all';
+            renderGallery(allTemplates);
+        }
+
+        function renderGallery(templates) {
+            galleryEl.innerHTML = '';
+            
+            if (templates.length === 0) {
+                emptyStateEl.classList.remove('hidden');
+                galleryEl.classList.add('hidden');
+            } else {
+                emptyStateEl.classList.add('hidden');
+                galleryEl.classList.remove('hidden');
+            }
+
+            resultsCountEl.textContent = `Showing ${templates.length} template${templates.length !== 1 ? 's' : ''}`;
+
+            templates.forEach((template, index) => {
+                // Calculate scale ratio for iframe based on container width vs 1280px native width
+                // We use CSS Custom Properties to pass the scale dynamically if needed, 
+                // but since container is fluid, we'll use a CSS inline style trick: 
+                // transform: scale(calc(100% / 1280)); doesn't work well across browsers.
+                // Instead we set the scale assuming a rough average card width (e.g. 350px / 1280 = ~0.27)
+                // A better approach is using resize sensor or just setting a fixed scale for the thumbnail.
+                // We will use standard zoom/scale via inline style for the iframe.
+                
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl border border-slate-200 flex flex-col card-hover-effect animate-fade-in group";
+                card.style.animationDelay = `${(index % 12) * 0.05}s`;
+                
+                const rootPath = template.path;
+                const indexPathEn = `${rootPath}/index.html`;
+                const indexPathJa = `${rootPath}/index_ja.html`;
+                
+                // Determine preview URL (prefer EN for thumbnail if available)
+                const previewUrl = template.languages && template.languages.includes('en') ? indexPathEn : indexPathEn;
+
+                const tagsHtml = (template.tags || []).slice(0, 3).map(tag => 
+                    `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-600">${tag}</span>`
+                ).join(' ');
+                
+                card.innerHTML = `
+                    <!-- Thumbnail Area -->
+                    <div class="preview-container border-b border-slate-100">
+                        <div class="spinner"></div>
+                        <iframe 
+                            class="preview-iframe" 
+                            data-src="${previewUrl}" 
+                            title="Preview of ${template.name}"
+                            scrolling="no"
+                            tabindex="-1"
+                        ></iframe>
+                    </div>
+
+                    <!-- Content Area -->
+                    <div class="p-5 flex-grow flex flex-col">
+                        <div class="flex items-start justify-between mb-2">
+                            <div>
+                                <p class="text-xs font-semibold text-brand-600 tracking-wider uppercase mb-1">${template.category || 'Uncategorized'}</p>
+                                <h2 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors line-clamp-1" title="${template.name}">${template.name}</h2>
+                            </div>
+                            <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-md bg-slate-100 text-slate-500 font-mono text-xs font-bold ring-1 ring-inset ring-slate-200">
+                                #${template.id}
+                            </span>
+                        </div>
+                        
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2 min-h-[2.5rem]">
+                            ${template.description || 'No description available for this template.'}
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-1.5 mb-5 mt-auto">
+                            ${tagsHtml}
+                            ${(template.tags && template.tags.length > 3) ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-50 text-slate-400">+${template.tags.length - 3}</span>` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Action Area -->
+                    <div class="px-5 pb-5 pt-0 mt-auto">
+                        <div class="bg-slate-50 rounded-lg p-1.5 flex gap-1.5">
+                            ${template.languages && template.languages.includes('en') ? `
+                                <a href="${indexPathEn}" target="_blank" class="flex-1 flex items-center justify-center px-3 py-2 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-md shadow-sm hover:bg-slate-50 hover:text-brand-600 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1">
+                                    English
+                                </a>
+                            ` : ''}
+                            ${template.languages && template.languages.includes('ja') ? `
+                                <a href="${indexPathJa}" target="_blank" class="flex-1 flex items-center justify-center px-3 py-2 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-md shadow-sm hover:bg-slate-50 hover:text-brand-600 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1">
+                                    日本語
+                                </a>
+                            ` : (!template.languages || template.languages.length === 0 ? `
+                                <a href="${indexPathEn}" target="_blank" class="w-full flex items-center justify-center px-3 py-2 text-sm font-semibold text-white bg-slate-900 rounded-md shadow-sm hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-1">
+                                    Open Preview
+                                </a>
+                            ` : '')}
+                        </div>
+                    </div>
+                `;
+                
+                galleryEl.appendChild(card);
+            });
+
+            // Adjust iframe scaling dynamically based on card width
+            setupIframeScaling();
+            
+            // Re-observe new iframes
+            document.querySelectorAll('.preview-iframe').forEach(iframe => {
+                iframeObserver.observe(iframe);
+            });
+        }
+
+        function setupIframeScaling() {
+            const containers = document.querySelectorAll('.preview-container');
+            if(containers.length === 0) return;
+            
+            // Function to update scale based on current container width
+            const updateScales = () => {
+                containers.forEach(container => {
+                    const width = container.getBoundingClientRect().width;
+                    const scale = width / 1280;
+                    const iframe = container.querySelector('.preview-iframe');
+                    if(iframe) {
+                        iframe.style.transform = `scale(${scale})`;
+                    }
+                });
+            };
+
+            // Run once
+            updateScales();
+
+            // Run on resize
+            window.addEventListener('resize', updateScales);
+            
+            // Cleanup previous resize listeners if re-rendered (not perfectly clean but ok for this scope)
+            // A better way is ResizeObserver on the container. Let's use ResizeObserver if available.
+            if(window.ResizeObserver) {
+                const ro = new ResizeObserver(entries => {
+                    for (let entry of entries) {
+                        const width = entry.contentRect.width;
+                        const scale = width / 1280;
+                        const iframe = entry.target.querySelector('.preview-iframe');
+                        if(iframe) iframe.style.transform = `scale(${scale})`;
+                    }
+                });
+                containers.forEach(c => ro.observe(c));
+            }
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
