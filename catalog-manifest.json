@@ -1900,6 +1900,19 @@
         "Sport",
         "Sharp"
       ]
+    },
+    {
+      "id": "146",
+      "name": "NeuralThreads",
+      "category": "Wearable Technology",
+      "style": "Smart Weave",
+      "path": "catalog/template_145_wearable_tech_smart_weave",
+      "description": "Neon fiber optics on dark mode",
+      "tags": [
+        "Wearable",
+        "Tech",
+        "Fashion"
+      ]
     }
   ]
 }
