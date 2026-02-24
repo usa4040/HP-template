@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - The Art of the Duel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Bodoni Moda', 'serif'],
+                        sans: ['Jost', 'sans-serif'],
+                    },
+                    colors: {
+                        steel: '#E2E8F0',
+                        blade: '#94A3B8',
+                        navy: '#0F172A',
+                        void: '#020617',
+                        hit: '#DC2626',
+                    },
+                    backgroundImage: {
+                        'mesh': "url('https://images.unsplash.com/photo-1616259648943-7f28b4c06283?q=80&w=2670&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .clip-slash {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .clip-diamond {
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        .text-shadow-sm {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94A3B8;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #CBD5E1;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-navy font-sans antialiased overflow-x-hidden selection:bg-navy selection:text-white" x-data="{ mobileMenu: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav :class="scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'" class="fixed w-full z-50 transition-all duration-300 border-b border-transparent" :class="{ 'border-slate-200': scrolled }">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl font-bold tracking-tight z-50 relative flex items-center gap-2">
+                <span class="w-8 h-8 bg-navy text-white flex items-center justify-center transform -skew-x-12">
+                    <span class="transform skew-x-12">E</span>
+                </span>
+                <span class="uppercase tracking-widest text-sm md:text-base">{{COMPANY_NAME}}</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-12">
+                <a href="#philosophy" class="text-sm uppercase tracking-widest hover:text-hit transition-colors duration-200">Philosophy</a>
+                <a href="#classes" class="text-sm uppercase tracking-widest hover:text-hit transition-colors duration-200">Classes</a>
+                <a href="#masters" class="text-sm uppercase tracking-widest hover:text-hit transition-colors duration-200">Masters</a>
+                <a href="#contact" class="px-6 py-2 bg-navy text-white text-sm uppercase tracking-widest hover:bg-hit transition-colors duration-200 transform -skew-x-12 group">
+                    <span class="inline-block transform skew-x-12 group-hover:translate-x-1 transition-transform">En Garde</span>
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden z-50 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition.opacity class="fixed inset-0 bg-white z-40 flex flex-col justify-center items-center gap-8 md:hidden" x-cloak>
+            <a href="#philosophy" @click="mobileMenu = false" class="font-serif text-3xl hover:text-hit">Philosophy</a>
+            <a href="#classes" @click="mobileMenu = false" class="font-serif text-3xl hover:text-hit">Classes</a>
+            <a href="#masters" @click="mobileMenu = false" class="font-serif text-3xl hover:text-hit">Masters</a>
+            <a href="#contact" @click="mobileMenu = false" class="font-serif text-3xl hover:text-hit">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1599307899026-6df7bf20979a?q=80&w=2670&auto=format&fit=crop" alt="Fencing Duel" class="w-full h-full object-cover object-center brightness-[0.8] grayscale hover:grayscale-0 transition-all duration-[2000ms]">
+            <div class="absolute inset-0 bg-gradient-to-r from-white via-white/40 to-transparent w-[60%] skew-x-[-12deg] -ml-[10%]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20">
+            <div class="max-w-2xl" x-data="{ show: false }" x-init="setTimeout(() => show = true, 300)">
+                <div class="w-20 h-1 bg-navy mb-8 transform origin-left transition-transform duration-1000" :class="show ? 'scale-x-100' : 'scale-x-0'"></div>
+                <h1 class="font-serif text-6xl md:text-8xl font-medium leading-none mb-6 opacity-0 translate-y-10 transition-all duration-1000 delay-300" :class="show ? 'opacity-100 translate-y-0' : ''">
+                    Precision.<br>
+                    <span class="italic text-slate-500">Elegance.</span><br>
+                    Legacy.
+                </h1>
+                <p class="text-lg md:text-xl text-slate-700 mb-10 max-w-md opacity-0 transition-opacity duration-1000 delay-700" :class="show ? 'opacity-100' : ''">
+                    Master the art of the blade at {{COMPANY_NAME}}. Where tradition meets athletic excellence.
+                </p>
+                <div class="flex gap-4 opacity-0 transition-opacity duration-1000 delay-1000" :class="show ? 'opacity-100' : ''">
+                    <a href="#classes" class="px-8 py-4 bg-navy text-white uppercase tracking-widest hover:bg-hit transition-colors duration-300 shadow-xl transform hover:-translate-y-1">
+                        Start Training
+                    </a>
+                    <a href="#philosophy" class="px-8 py-4 border border-navy text-navy uppercase tracking-widest hover:bg-navy hover:text-white transition-colors duration-300">
+                        Discover
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Philosophy / Stats -->
+    <section id="philosophy" class="py-24 bg-navy text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-slate-800 transform skew-x-[-20deg] translate-x-1/2 opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <h2 class="font-serif text-4xl md:text-5xl mb-8">The Mind is the<br>Sharpest Blade</h2>
+                <div class="space-y-6 text-slate-300 font-light text-lg">
+                    <p>Fencing is physical chess. It demands split-second decision making, explosive power, and absolute focus. At {{COMPANY_NAME}}, we cultivate not just athletes, but strategists.</p>
+                    <p>Our curriculum honors the classical French and Italian schools while integrating modern sports science for peak performance.</p>
+                </div>
+
+                <div class="mt-12 grid grid-cols-3 gap-8 border-t border-slate-700 pt-8">
+                    <div>
+                        <span class="block text-3xl font-serif text-white">3</span>
+                        <span class="text-xs uppercase tracking-widest text-slate-400">Weapons</span>
+                    </div>
+                    <div>
+                        <span class="block text-3xl font-serif text-white">12+</span>
+                        <span class="text-xs uppercase tracking-widest text-slate-400">Masters</span>
+                    </div>
+                    <div>
+                        <span class="block text-3xl font-serif text-white">500+</span>
+                        <span class="text-xs uppercase tracking-widest text-slate-400">Duelists</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative h-[600px] w-full group overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1591504789397-6a13d7e224e0?q=80&w=2670&auto=format&fit=crop" alt="Fencer Silhouette" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                <div class="absolute inset-0 border border-white/10 m-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weapons / Classes -->
+    <section id="classes" class="py-32 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <span class="text-navy uppercase tracking-[0.3em] text-sm font-semibold">Weapons of Choice</span>
+                <h2 class="font-serif text-5xl mt-4 text-navy">Choose Your Discipline</h2>
+                <div class="w-24 h-[1px] bg-navy mx-auto mt-8"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Foil -->
+                <div class="group bg-white border border-slate-200 p-10 hover:border-navy transition-all duration-300 hover:shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-slate-50 transform translate-x-10 -translate-y-10 rotate-45 group-hover:bg-navy transition-colors duration-300"></div>
+                    <h3 class="font-serif text-3xl mb-4 group-hover:text-hit transition-colors">Foil</h3>
+                    <p class="text-slate-500 mb-8 text-sm leading-relaxed">The foundational weapon. Light, flexible, and targeting the torso. Perfect for developing precise point control and tactical right-of-way.</p>
+                    <ul class="space-y-3 text-sm text-navy mb-10">
+                        <li class="flex items-center gap-2">
+                            <span class="w-1 h-1 bg-navy rounded-full"></span> Target: Torso
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-1 h-1 bg-navy rounded-full"></span> Style: Tactical & Precise
+                        </li>
+                    </ul>
+                    <a href="#" class="inline-block text-xs uppercase tracking-widest border-b border-navy pb-1 group-hover:text-hit group-hover:border-hit transition-colors">View Schedule</a>
+                </div>
+
+                <!-- Epee -->
+                <div class="group bg-navy text-white p-10 shadow-2xl relative overflow-hidden transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-slate-800 transform translate-x-10 -translate-y-10 rotate-45 group-hover:bg-white transition-colors duration-300"></div>
+                    <h3 class="font-serif text-3xl mb-4">Épée</h3>
+                    <p class="text-slate-300 mb-8 text-sm leading-relaxed">The duel in its purest form. Heavier blade, full-body target, no right-of-way rules. Strategy and patience are your greatest allies.</p>
+                    <ul class="space-y-3 text-sm text-slate-300 mb-10">
+                        <li class="flex items-center gap-2">
+                            <span class="w-1 h-1 bg-white rounded-full"></span> Target: Full Body
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-1 h-1 bg-white rounded-full"></span> Style: Strategic & Patient
+                        </li>
+                    </ul>
+                    <a href="#" class="inline-block text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-slate-300 hover:border-slate-300 transition-colors">View Schedule</a>
+                </div>
+
+                <!-- Sabre -->
+                <div class="group bg-white border border-slate-200 p-10 hover:border-navy transition-all duration-300 hover:shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-slate-50 transform translate-x-10 -translate-y-10 rotate-45 group-hover:bg-navy transition-colors duration-300"></div>
+                    <h3 class="font-serif text-3xl mb-4 group-hover:text-hit transition-colors">Sabre</h3>
+                    <p class="text-slate-500 mb-8 text-sm leading-relaxed">Fast, aggressive, and cutting. Based on cavalry combat, sabre rewards speed, athleticism, and decisive attacks.</p>
+                    <ul class="space-y-3 text-sm text-navy mb-10">
+                        <li class="flex items-center gap-2">
+                            <span class="w-1 h-1 bg-navy rounded-full"></span> Target: Upper Body
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-1 h-1 bg-navy rounded-full"></span> Style: Explosive & Fast
+                        </li>
+                    </ul>
+                    <a href="#" class="inline-block text-xs uppercase tracking-widest border-b border-navy pb-1 group-hover:text-hit group-hover:border-hit transition-colors">View Schedule</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Divider -->
+    <div class="h-96 w-full relative bg-fixed bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1596727284451-b0db033605c3?q=80&w=2670&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <h2 class="text-white font-serif text-5xl md:text-7xl italic opacity-90">En Garde. Prêt. Allez.</h2>
+        </div>
+    </div>
+
+    <!-- Masters / Team -->
+    <section id="masters" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div>
+                    <h2 class="font-serif text-4xl text-navy">Our Maîtres d'Armes</h2>
+                    <p class="text-slate-500 mt-4 max-w-md">World-class instruction from former Olympians and National Champions.</p>
+                </div>
+                <a href="#" class="px-6 py-3 border border-navy text-navy uppercase text-xs tracking-widest hover:bg-navy hover:text-white transition-colors">Meet The Full Team</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Instructor 1 -->
+                <div class="group cursor-pointer">
+                    <div class="aspect-[3/4] overflow-hidden mb-4 relative">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1288&auto=format&fit=crop" alt="Instructor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                        <div class="absolute bottom-0 left-0 bg-white px-4 py-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="text-xs font-bold uppercase tracking-widest">Foil Master</span>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl">Elena V.</h3>
+                    <p class="text-xs text-slate-400 uppercase tracking-widest mt-1">Olympic Silver Medalist</p>
+                </div>
+
+                <!-- Instructor 2 -->
+                <div class="group cursor-pointer md:mt-12">
+                    <div class="aspect-[3/4] overflow-hidden mb-4 relative">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1287&auto=format&fit=crop" alt="Instructor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                        <div class="absolute bottom-0 left-0 bg-white px-4 py-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="text-xs font-bold uppercase tracking-widest">Sabre Master</span>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl">Marcus Chen</h3>
+                    <p class="text-xs text-slate-400 uppercase tracking-widest mt-1">World Cup Finalist</p>
+                </div>
+
+                <!-- Instructor 3 -->
+                <div class="group cursor-pointer">
+                    <div class="aspect-[3/4] overflow-hidden mb-4 relative">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1364&auto=format&fit=crop" alt="Instructor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                        <div class="absolute bottom-0 left-0 bg-white px-4 py-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="text-xs font-bold uppercase tracking-widest">Epee Master</span>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl">Sarah O'Neil</h3>
+                    <p class="text-xs text-slate-400 uppercase tracking-widest mt-1">National Coach</p>
+                </div>
+
+                <!-- Instructor 4 -->
+                <div class="group cursor-pointer md:mt-12">
+                    <div class="aspect-[3/4] overflow-hidden mb-4 relative">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1287&auto=format&fit=crop" alt="Instructor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                        <div class="absolute bottom-0 left-0 bg-white px-4 py-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="text-xs font-bold uppercase tracking-widest">Fitness Coach</span>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl">David K.</h3>
+                    <p class="text-xs text-slate-400 uppercase tracking-widest mt-1">Sport Science Lead</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership CTA -->
+    <section class="py-24 bg-navy relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-10">
+            <div class="absolute top-0 left-1/4 w-[1px] h-full bg-white transform rotate-[15deg]"></div>
+            <div class="absolute top-0 left-1/3 w-[1px] h-full bg-white transform rotate-[15deg]"></div>
+            <div class="absolute top-0 right-1/4 w-[1px] h-full bg-white transform rotate-[-15deg]"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="font-serif text-5xl md:text-6xl text-white mb-8">Ready to step onto the strip?</h2>
+            <p class="text-slate-300 text-lg mb-12 max-w-2xl mx-auto">Join {{COMPANY_NAME}} today. First introductory lesson is complimentary.</p>
+
+            <form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+                <input type="email" placeholder="Enter your email" class="flex-1 bg-white/10 border border-white/20 text-white placeholder-slate-400 px-6 py-4 focus:outline-none focus:bg-white/20 transition-colors">
+                <button type="submit" class="bg-white text-navy px-8 py-4 uppercase tracking-widest font-bold hover:bg-slate-200 transition-colors">
+                    Join Now
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-void text-slate-400 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-1">
+                <a href="#" class="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2 mb-6">
+                    <span class="w-6 h-6 bg-white text-void flex items-center justify-center transform -skew-x-12">
+                        <span class="transform skew-x-12 text-sm">E</span>
+                    </span>
+                    <span class="uppercase tracking-widest text-sm">{{COMPANY_NAME}}</span>
+                </a>
+                <p class="text-sm leading-relaxed">
+                    Forging champions through discipline, strategy, and respect.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-white uppercase tracking-widest text-xs font-bold mb-6">Program</h4>
+                <ul class="space-y-4 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Youth Academy</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Adult Beginners</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Competitive Team</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Private Lessons</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white uppercase tracking-widest text-xs font-bold mb-6">Visit Us</h4>
+                <ul class="space-y-4 text-sm">
+                    <li>123 Duelist Avenue</li>
+                    <li>Metropolis, NY 10012</li>
+                    <li class="pt-4"><a href="tel:+15550123456" class="hover:text-white transition-colors">+1 (555) 012-3456</a></li>
+                    <li><a href="mailto:info@company.com" class="hover:text-white transition-colors">info@{{COMPANY_NAME}}.com</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white uppercase tracking-widest text-xs font-bold mb-6">Hours</h4>
+                <ul class="space-y-4 text-sm">
+                    <li class="flex justify-between border-b border-slate-800 pb-2">
+                        <span>Mon - Fri</span>
+                        <span class="text-white">10:00 - 21:00</span>
+                    </li>
+                    <li class="flex justify-between border-b border-slate-800 pb-2">
+                        <span>Saturday</span>
+                        <span class="text-white">09:00 - 18:00</span>
+                    </li>
+                    <li class="flex justify-between pb-2">
+                        <span>Sunday</span>
+                        <span class="text-white">Closed</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-xs">
+            <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
