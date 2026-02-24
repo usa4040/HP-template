@@ -1926,6 +1926,19 @@
         "Logistics",
         "Data"
       ]
+    },
+    {
+      "id": "148",
+      "name": "Tactile Pop",
+      "category": "Mechanical Keyboards",
+      "style": "Tactile Pop",
+      "path": "catalog/template_145_mechanical_keyboards_tactile_pop",
+      "description": "Vibrant mechanical keyboard showcase.",
+      "tags": [
+        "Tech",
+        "Keyboards",
+        "Pop"
+      ]
     }
   ]
 }
