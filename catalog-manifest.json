@@ -1939,6 +1939,19 @@
         "Keyboards",
         "Pop"
       ]
+    },
+    {
+      "id": "149",
+      "name": "Forge & Fold",
+      "category": "Bladesmithing",
+      "style": "Damascus Steel",
+      "path": "catalog/template_149_bladesmithing_damascus_steel",
+      "description": "Dark damascus & ember theme.",
+      "tags": [
+        "Artisan",
+        "Industrial",
+        "Dark"
+      ]
     }
   ]
 }
