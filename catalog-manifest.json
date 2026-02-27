@@ -1939,6 +1939,19 @@
         "Keyboards",
         "Pop"
       ]
+    },
+    {
+      "id": "149",
+      "name": "AquaVant",
+      "category": "Aquarium Architecture",
+      "style": "Hydro-Luxe",
+      "path": "catalog/template_149_aquarium_hydro_luxe",
+      "description": "Fluid luxury aquarium design.",
+      "tags": [
+        "Luxury",
+        "Water",
+        "Modern"
+      ]
     }
   ]
 }
