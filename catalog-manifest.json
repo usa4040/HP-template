@@ -1939,6 +1939,19 @@
         "Keyboards",
         "Pop"
       ]
+    },
+    {
+      "id": "149",
+      "name": "Zephyr",
+      "category": "Wind Energy",
+      "style": "Aero-Kinetic",
+      "path": "catalog/template_149_wind_energy_aero_kinetic",
+      "description": "Fluid wind dynamics with majestic turbine visuals.",
+      "tags": [
+        "Eco",
+        "Motion",
+        "Clean"
+      ]
     }
   ]
 }
