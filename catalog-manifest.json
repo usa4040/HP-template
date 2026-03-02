@@ -1952,6 +1952,19 @@
         "Motion",
         "Clean"
       ]
+    },
+    {
+      "id": "150",
+      "name": "Serenity Wellness",
+      "category": "Mental Health Clinic",
+      "style": "Serene Gradient",
+      "path": "catalog/template_150_mental_health_serene_gradient",
+      "description": "Calm gradients & typography",
+      "tags": [
+        "Wellness",
+        "Calm",
+        "Medical"
+      ]
     }
   ]
 }
