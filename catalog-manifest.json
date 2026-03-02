@@ -1952,6 +1952,19 @@
         "Motion",
         "Clean"
       ]
+    },
+    {
+      "id": "150",
+      "name": "Kogei Modern",
+      "category": "Traditional Crafts",
+      "style": "Modern Zen",
+      "path": "catalog/template_150_traditional_crafts_modern_zen",
+      "description": "Modern zen craft showcase.",
+      "tags": [
+        "Heritage",
+        "Minimal",
+        "Elegant"
+      ]
     }
   ]
 }
