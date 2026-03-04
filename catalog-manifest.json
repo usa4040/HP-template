@@ -1965,6 +1965,19 @@
         "Calm",
         "Medical"
       ]
+    },
+    {
+      "id": "151",
+      "name": "Apex Realty",
+      "category": "Real Estate",
+      "style": "Luxury Modern",
+      "path": "catalog/template_151_real_estate_luxury_modern",
+      "description": "High-end property portfolio.",
+      "tags": [
+        "Luxury",
+        "Real Estate",
+        "Modern"
+      ]
     }
   ]
 }
