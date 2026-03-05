@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | High-End Real Estate</title>
+
+    <!-- Google Fonts: Playfair Display for Serifs, Inter for Sans-Serifs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    },
+                    transitionProperty: {
+                        'height': 'height',
+                        'spacing': 'margin, padding',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .clip-path-diagonal {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+    </style>
+</head>
+<body class="font-sans text-stone-800 bg-stone-50 antialiased selection:bg-stone-900 selection:text-white" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <header :class="{ 'bg-stone-50/90 backdrop-blur-md shadow-sm': scrolled, 'bg-transparent text-white': !scrolled, 'text-stone-900': scrolled }" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-serif text-2xl tracking-widest uppercase font-semibold">
+                        {{COMPANY_NAME}}
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#philosophy" class="text-sm tracking-widest uppercase hover:opacity-70 transition-opacity">Philosophy</a>
+                    <a href="#properties" class="text-sm tracking-widest uppercase hover:opacity-70 transition-opacity">Properties</a>
+                    <a href="#services" class="text-sm tracking-widest uppercase hover:opacity-70 transition-opacity">Services</a>
+                    <a href="#contact" class="text-sm tracking-widest uppercase hover:opacity-70 transition-opacity">Contact</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg x-show="!mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="mobileMenuOpen" x-cloak class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition.opacity x-cloak class="md:hidden bg-stone-900 text-stone-50 absolute w-full h-screen top-0 left-0 -z-10 pt-24" id="mobile-menu">
+            <div class="px-4 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center justify-center h-full pb-32">
+                <a href="#philosophy" @click="mobileMenuOpen = false" class="block px-3 py-4 text-2xl font-serif tracking-wider hover:text-stone-300 transition-colors">Philosophy</a>
+                <a href="#properties" @click="mobileMenuOpen = false" class="block px-3 py-4 text-2xl font-serif tracking-wider hover:text-stone-300 transition-colors">Properties</a>
+                <a href="#services" @click="mobileMenuOpen = false" class="block px-3 py-4 text-2xl font-serif tracking-wider hover:text-stone-300 transition-colors">Services</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block px-3 py-4 text-2xl font-serif tracking-wider hover:text-stone-300 transition-colors">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80" alt="Luxury Home Exterior" class="w-full h-full object-cover object-center scale-105 transform origin-center" />
+            <div class="absolute inset-0 bg-stone-900/40"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto mt-16">
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 font-medium leading-tight opacity-0 translate-y-8" style="animation: fadeUp 1s ease-out forwards; animation-delay: 0.2s;">
+                Curating <br class="hidden md:block"> Elevated Living
+            </h1>
+            <p class="text-lg md:text-xl font-light tracking-wide mb-10 opacity-0 translate-y-8" style="animation: fadeUp 1s ease-out forwards; animation-delay: 0.5s;">
+                Exclusive properties for the discerning few.
+            </p>
+            <div class="opacity-0 translate-y-8" style="animation: fadeUp 1s ease-out forwards; animation-delay: 0.8s;">
+                <a href="#properties" class="inline-block border border-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-white hover:text-stone-900 transition-colors duration-300">
+                    Explore Portfolio
+                </a>
+            </div>
+        </div>
+
+        <style>
+            @keyframes fadeUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-24 md:py-32 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2053&q=80" alt="Interior Details" class="w-full h-auto aspect-[4/5] object-cover rounded-sm shadow-xl" />
+            </div>
+            <div class="w-full md:w-1/2 space-y-8">
+                <p class="text-sm tracking-widest uppercase text-stone-500 font-medium">Our Philosophy</p>
+                <h2 class="font-serif text-4xl md:text-5xl leading-tight text-stone-900">
+                    Beyond Architecture. <br> An Art Form.
+                </h2>
+                <div class="w-12 h-px bg-stone-900"></div>
+                <p class="text-stone-600 leading-relaxed font-light text-lg">
+                    At {{COMPANY_NAME}}, we believe that a home is more than a physical space; it is a profound reflection of your life's narrative. We specialize in uniting extraordinary individuals with properties of rare architectural significance and refined aesthetics.
+                </p>
+                <p class="text-stone-600 leading-relaxed font-light">
+                    Every property in our portfolio is meticulously selected not just for its location or scale, but for its intrinsic beauty, masterful design, and the seamless lifestyle it promises.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Showcase -->
+    <section id="properties" class="py-24 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="font-serif text-4xl md:text-5xl text-stone-900 mb-4">Featured Listings</h2>
+                    <p class="text-stone-500 font-light">A curated selection of our finest properties.</p>
+                </div>
+                <div class="hidden md:block">
+                    <a href="#" class="text-sm tracking-widest uppercase hover:opacity-70 transition-opacity border-b border-stone-900 pb-1">View All</a>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+
+                <!-- Property 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-6 aspect-[4/3] rounded-sm">
+                        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Villa Nova" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 text-xs tracking-wider uppercase">New</div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-serif text-2xl mb-1 group-hover:text-stone-600 transition-colors">The Glass Pavilion</h3>
+                            <p class="text-stone-500 text-sm font-light">Beverly Hills, CA</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-medium text-lg">$14,500,000</p>
+                            <p class="text-stone-500 text-xs mt-1">5 Bed • 6 Bath • 8,200 sqft</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 2 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-6 aspect-[4/3] rounded-sm">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Modern Estate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-serif text-2xl mb-1 group-hover:text-stone-600 transition-colors">Minimalist Retreat</h3>
+                            <p class="text-stone-500 text-sm font-light">Aspen, CO</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-medium text-lg">$9,850,000</p>
+                            <p class="text-stone-500 text-xs mt-1">4 Bed • 4.5 Bath • 5,400 sqft</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 3 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-6 aspect-[4/3] rounded-sm">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Penthouse" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-serif text-2xl mb-1 group-hover:text-stone-600 transition-colors">Skyline Penthouse</h3>
+                            <p class="text-stone-500 text-sm font-light">Manhattan, NY</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-medium text-lg">$22,000,000</p>
+                            <p class="text-stone-500 text-xs mt-1">3 Bed • 4 Bath • 4,800 sqft</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 4 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-6 aspect-[4/3] rounded-sm">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Coastal Villa" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-serif text-2xl mb-1 group-hover:text-stone-600 transition-colors">Coastal Sanctuary</h3>
+                            <p class="text-stone-500 text-sm font-light">Malibu, CA</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-medium text-lg">$18,250,000</p>
+                            <p class="text-stone-500 text-xs mt-1">6 Bed • 7 Bath • 10,000 sqft</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-16 text-center md:hidden">
+                <a href="#" class="inline-block border border-stone-900 px-8 py-3 text-sm tracking-widest uppercase hover:bg-stone-900 hover:text-white transition-colors">View All Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-24 bg-stone-900 text-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl mb-6">Bespoke Services</h2>
+                <div class="w-12 h-px bg-stone-50 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-stone-700">
+                <div class="pt-8 md:pt-0 px-4">
+                    <h3 class="font-serif text-2xl mb-4">Acquisition</h3>
+                    <p class="text-stone-400 font-light leading-relaxed text-sm">Strategic sourcing of off-market and highly sought-after properties, tailored precisely to your lifestyle requirements and investment goals.</p>
+                </div>
+                <div class="pt-8 md:pt-0 px-4">
+                    <h3 class="font-serif text-2xl mb-4">Representation</h3>
+                    <p class="text-stone-400 font-light leading-relaxed text-sm">Discreet, high-impact marketing for exceptional homes. We leverage a global network to ensure your property reaches the right echelon of buyers.</p>
+                </div>
+                <div class="pt-8 md:pt-0 px-4">
+                    <h3 class="font-serif text-2xl mb-4">Advisory</h3>
+                    <p class="text-stone-400 font-light leading-relaxed text-sm">Comprehensive guidance on market trends, architectural provenance, and portfolio diversification within the luxury real estate sector.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-serif text-4xl md:text-5xl mb-8">Begin the Conversation</h2>
+            <p class="text-stone-500 mb-12 font-light text-lg">Whether you are seeking a new residence or considering the sale of a significant property, our team is at your disposal.</p>
+
+            <form class="space-y-6 text-left max-w-2xl mx-auto" @submit.prevent>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-xs uppercase tracking-widest text-stone-500 mb-2">Name</label>
+                        <input type="text" id="name" class="w-full bg-transparent border-b border-stone-300 py-2 focus:outline-none focus:border-stone-900 transition-colors font-light placeholder-stone-300" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-xs uppercase tracking-widest text-stone-500 mb-2">Email</label>
+                        <input type="email" id="email" class="w-full bg-transparent border-b border-stone-300 py-2 focus:outline-none focus:border-stone-900 transition-colors font-light placeholder-stone-300" placeholder="john@example.com">
+                    </div>
+                </div>
+                <div>
+                    <label for="inquiry" class="block text-xs uppercase tracking-widest text-stone-500 mb-2">Inquiry Type</label>
+                    <select id="inquiry" class="w-full bg-transparent border-b border-stone-300 py-2 focus:outline-none focus:border-stone-900 transition-colors font-light appearance-none rounded-none text-stone-800">
+                        <option>Purchasing a Property</option>
+                        <option>Selling a Property</option>
+                        <option>General Advisory</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="message" class="block text-xs uppercase tracking-widest text-stone-500 mb-2">Message</label>
+                    <textarea id="message" rows="4" class="w-full bg-transparent border-b border-stone-300 py-2 focus:outline-none focus:border-stone-900 transition-colors font-light placeholder-stone-300 resize-none" placeholder="How may we assist you?"></textarea>
+                </div>
+                <div class="pt-4 text-center">
+                    <button type="submit" class="bg-stone-900 text-white px-12 py-4 text-sm tracking-widest uppercase hover:bg-stone-800 transition-colors w-full md:w-auto">
+                        Submit Inquiry
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <span class="font-serif text-2xl tracking-widest uppercase text-stone-200 block mb-2">{{COMPANY_NAME}}</span>
+                    <span class="text-xs uppercase tracking-wider">Fine Homes & Estates</span>
+                </div>
+                <div class="flex space-x-6 text-sm mb-6 md:mb-0">
+                    <a href="#" class="hover:text-stone-200 transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-stone-200 transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-stone-200 transition-colors">Journal</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center text-xs font-light">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All rights reserved.</p>
+                <div class="space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-stone-200 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-stone-200 transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
