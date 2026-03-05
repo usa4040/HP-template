@@ -2020,6 +2020,19 @@
     },
     {
       "id": "151",
+      "name": "Veritas Law",
+      "category": "Law Firm",
+      "style": "Modern Authority",
+      "path": "catalog/template_151_law_firm_modern_authority",
+      "description": "Professional and trustworthy",
+      "tags": [
+        "Trust",
+        "Professional",
+        "Authority"
+      ]
+    },
+    {
+      "id": "151",
       "name": "Apex Realty",
       "category": "Real Estate",
       "style": "Luxury Modern",
