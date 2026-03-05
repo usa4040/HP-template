@@ -1965,6 +1965,19 @@
         "Calm",
         "Medical"
       ]
+    },
+    {
+      "id": "151",
+      "name": "Lumina Residences",
+      "category": "Real Estate",
+      "style": "High-End Minimal",
+      "path": "catalog/template_151_real_estate_high_end_minimal",
+      "description": "Luxury real estate portfolio.",
+      "tags": [
+        "Luxury",
+        "Minimal",
+        "Property"
+      ]
     }
   ]
 }
