@@ -1952,6 +1952,71 @@
         "Trust",
         "Fluid"
       ]
+    },
+    {
+      "id": "149",
+      "name": "AquaVant",
+      "category": "Aquarium Architecture",
+      "style": "Hydro-Luxe",
+      "path": "catalog/template_149_aquarium_hydro_luxe",
+      "description": "Fluid luxury aquarium design.",
+      "tags": [
+        "Luxury",
+        "Water",
+        "Modern"
+      ]
+    },
+    {
+      "id": "149",
+      "name": "Forge & Fold",
+      "category": "Bladesmithing",
+      "style": "Damascus Steel",
+      "path": "catalog/template_149_bladesmithing_damascus_steel",
+      "description": "Dark damascus & ember theme.",
+      "tags": [
+        "Artisan",
+        "Industrial",
+        "Dark"
+      ]
+    },
+    {
+      "id": "149",
+      "name": "Zephyr",
+      "category": "Wind Energy",
+      "style": "Aero-Kinetic",
+      "path": "catalog/template_149_wind_energy_aero_kinetic",
+      "description": "Fluid wind dynamics with majestic turbine visuals.",
+      "tags": [
+        "Eco",
+        "Motion",
+        "Clean"
+      ]
+    },
+    {
+      "id": "150",
+      "name": "Serenity Wellness",
+      "category": "Mental Health Clinic",
+      "style": "Serene Gradient",
+      "path": "catalog/template_150_mental_health_serene_gradient",
+      "description": "Calm gradients & typography",
+      "tags": [
+        "Wellness",
+        "Calm",
+        "Medical"
+      ]
+    },
+    {
+      "id": "151",
+      "name": "Lumina Residences",
+      "category": "Real Estate",
+      "style": "High-End Minimal",
+      "path": "catalog/template_151_real_estate_high_end_minimal",
+      "description": "Luxury real estate portfolio.",
+      "tags": [
+        "Luxury",
+        "Minimal",
+        "Property"
+      ]
     }
   ]
 }
