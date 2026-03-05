@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Artisan Bladesmiths</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        forge: {
+                            50: '#f7f7f7',
+                            100: '#e3e3e3',
+                            200: '#c8c8c8',
+                            300: '#a4a4a4',
+                            400: '#818181',
+                            500: '#666666',
+                            600: '#515151',
+                            700: '#434343',
+                            800: '#383838',
+                            900: '#1a1a1a', // Primary Background
+                            950: '#0a0a0a', // Darker Background
+                        },
+                        ember: {
+                            400: '#fdba74',
+                            500: '#fb923c',
+                            600: '#f97316',
+                            700: '#ea580c', // Primary Accent
+                            800: '#c2410c',
+                            900: '#9a3412',
+                        },
+                        steel: {
+                            100: '#f1f5f9',
+                            300: '#cbd5e1', // Text
+                            500: '#64748b',
+                            700: '#334155',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Cinzel', 'serif'],
+                        body: ['Lato', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(10,10,10,0.3), rgba(10,10,10,0.9)), url('https://images.unsplash.com/photo-1595856407519-c68962c3f87d?q=80&w=2070&auto=format&fit=crop')",
+                        'damascus': "url('data:image/svg+xml,%3Csvg width=\\'40\\' height=\\'40\\' viewBox=\\'0 0 40 40\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cpath d=\\'M0 0h40v40H0V0zm20 20h20v20H20V20zM0 20h20v20H0V20z\\' fill=\\'%231a1a1a\\' fill-opacity=\\'0.4\\' fill-rule=\\'evenodd\\'/%3E%3C/svg%3E')",
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spark': 'spark 2s infinite',
+                    },
+                    keyframes: {
+                        spark: {
+                            '0%, 100%': { opacity: 0, transform: 'translateY(0)' },
+                            '50%': { opacity: 1, transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ea580c;
+        }
+
+        .text-shadow-glow {
+            text-shadow: 0 0 20px rgba(234, 88, 12, 0.5);
+        }
+
+        .blade-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(234, 88, 12, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-forge-950 text-steel-300 font-body antialiased selection:bg-ember-700 selection:text-white" x-data="{ mobileMenu: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 border-b border-transparent"
+         :class="{ 'bg-forge-950/90 backdrop-blur-md border-forge-800 py-3': scrolled, 'bg-transparent py-6': !scrolled }">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="font-display font-bold text-2xl tracking-widest text-white uppercase group">
+                <span class="text-ember-600 mr-1 group-hover:text-ember-500 transition-colors">✦</span>{{COMPANY_NAME}}
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="text-sm uppercase tracking-widest hover:text-ember-500 transition-colors">Our Craft</a>
+                <a href="#collection" class="text-sm uppercase tracking-widest hover:text-ember-500 transition-colors">Collection</a>
+                <a href="#process" class="text-sm uppercase tracking-widest hover:text-ember-500 transition-colors">Process</a>
+                <a href="#contact" class="px-6 py-2 border border-ember-700 text-ember-500 hover:bg-ember-700 hover:text-white transition-all duration-300 text-sm uppercase tracking-widest font-bold">
+                    Commission
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenu" x-transition.opacity class="fixed inset-0 bg-forge-950 z-40 flex flex-col justify-center items-center space-y-8" x-cloak>
+            <button @click="mobileMenu = false" class="absolute top-6 right-6 text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="#about" @click="mobileMenu = false" class="font-display text-2xl text-white hover:text-ember-500">Our Craft</a>
+            <a href="#collection" @click="mobileMenu = false" class="font-display text-2xl text-white hover:text-ember-500">Collection</a>
+            <a href="#process" @click="mobileMenu = false" class="font-display text-2xl text-white hover:text-ember-500">Process</a>
+            <a href="#contact" @click="mobileMenu = false" class="font-display text-2xl text-ember-500">Commission</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-forge-950 via-transparent to-transparent opacity-90"></div>
+
+        <!-- Animated Embers (Simulated with div) -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute bottom-0 left-1/4 w-2 h-2 bg-ember-500 rounded-full animate-spark opacity-0" style="animation-delay: 0.5s;"></div>
+            <div class="absolute bottom-10 left-1/2 w-1 h-1 bg-ember-400 rounded-full animate-spark opacity-0" style="animation-delay: 1.2s;"></div>
+            <div class="absolute bottom-5 right-1/3 w-2 h-2 bg-ember-600 rounded-full animate-spark opacity-0" style="animation-delay: 2.5s;"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
+            <h2 class="text-ember-500 text-sm md:text-base uppercase tracking-[0.3em] mb-4 font-bold opacity-0 transition-opacity duration-1000 delay-300" :class="{ 'opacity-100': show }">Est. 2024</h2>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl text-white font-bold mb-6 tracking-tight leading-tight opacity-0 transition-all duration-1000 delay-500 transform translate-y-10" :class="{ 'opacity-100 translate-y-0': show }">
+                Forged in <span class="text-transparent bg-clip-text bg-gradient-to-r from-ember-500 to-red-600 text-shadow-glow">Fire</span>
+            </h1>
+            <p class="text-steel-300 text-lg md:text-xl font-light tracking-wide mb-10 max-w-2xl mx-auto opacity-0 transition-all duration-1000 delay-700 transform translate-y-10" :class="{ 'opacity-100 translate-y-0': show }">
+                Mastercrafted Damascus steel blades, creating heirlooms that define precision and endure generations.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4 opacity-0 transition-all duration-1000 delay-1000" :class="{ 'opacity-100': show }">
+                <a href="#collection" class="px-8 py-4 bg-ember-700 text-white font-display font-bold tracking-widest uppercase hover:bg-ember-600 transition-all duration-300 border border-transparent shadow-lg shadow-ember-900/50">
+                    View Collection
+                </a>
+                <a href="#contact" class="px-8 py-4 bg-transparent border border-steel-500 text-white font-display font-bold tracking-widest uppercase hover:border-white hover:bg-white/5 transition-all duration-300 backdrop-blur-sm">
+                    Custom Order
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-steel-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- About / Philosophy Section -->
+    <section id="about" class="py-24 bg-forge-900 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-ember-700/50"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-ember-700/50"></div>
+                    <img src="https://images.unsplash.com/photo-1595462580798-250c60da622c?q=80&w=2070&auto=format&fit=crop" alt="Blacksmith at work" class="w-full h-[600px] object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl shadow-black/50">
+                </div>
+                <div class="order-1 md:order-2 space-y-8">
+                    <h2 class="font-display text-4xl md:text-5xl text-white font-bold">The Art of <span class="text-ember-500">Steel</span></h2>
+                    <div class="w-20 h-1 bg-ember-700"></div>
+                    <p class="text-lg leading-relaxed text-steel-300">
+                        At {{COMPANY_NAME}}, we believe a blade is more than a tool—it is an extension of the will. Each piece begins as raw high-carbon steel, folded hundreds of times to create the distinctive Damascus patterns that make every knife unique.
+                    </p>
+                    <p class="text-lg leading-relaxed text-steel-300">
+                        Our philosophy marries ancient Japanese forging techniques with modern metallurgical science. The result is a blade of unparalleled sharpness, resilience, and beauty.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8 pt-4">
+                        <div>
+                            <span class="block text-4xl font-display font-bold text-white mb-2">300+</span>
+                            <span class="text-sm uppercase tracking-widest text-ember-500">Layers of Steel</span>
+                        </div>
+                        <div>
+                            <span class="block text-4xl font-display font-bold text-white mb-2">60+</span>
+                            <span class="text-sm uppercase tracking-widest text-ember-500">HRC Hardness</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collection -->
+    <section id="collection" class="py-24 bg-forge-950">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-ember-500 uppercase tracking-widest text-sm font-bold">The Masterpiece Collection</span>
+                <h2 class="font-display text-4xl md:text-5xl text-white font-bold mt-4">Featured Blades</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="group bg-forge-900 border border-forge-800 hover:border-ember-900/50 transition-all duration-300 blade-hover relative overflow-hidden">
+                    <div class="aspect-[4/5] overflow-hidden bg-forge-800 relative">
+                         <!-- Placeholder for Knife Image -->
+                         <img src="https://images.unsplash.com/photo-1588729583489-02688b15d656?q=80&w=2070&auto=format&fit=crop" alt="Chef Knife" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                         <div class="absolute inset-0 bg-gradient-to-t from-forge-950 via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 relative">
+                        <div class="absolute -top-6 right-6 bg-ember-700 text-white text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-lg">In Stock</div>
+                        <h3 class="font-display text-2xl text-white mb-2 group-hover:text-ember-500 transition-colors">The Gyuto</h3>
+                        <p class="text-steel-500 text-sm mb-4">240mm • 1095 & 15N20 Damascus • Ebony Handle</p>
+                        <div class="flex justify-between items-center border-t border-forge-800 pt-4 mt-4">
+                            <span class="text-xl font-bold text-white">$450</span>
+                            <button class="text-sm uppercase tracking-widest text-ember-500 hover:text-white transition-colors font-bold flex items-center gap-2">
+                                Details <span class="text-lg">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group bg-forge-900 border border-forge-800 hover:border-ember-900/50 transition-all duration-300 blade-hover relative overflow-hidden">
+                    <div class="aspect-[4/5] overflow-hidden bg-forge-800 relative">
+                         <img src="https://images.unsplash.com/photo-1563821033-0c483984d72d?q=80&w=1974&auto=format&fit=crop" alt="Hunting Knife" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                         <div class="absolute inset-0 bg-gradient-to-t from-forge-950 via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 relative">
+                         <div class="absolute -top-6 right-6 bg-forge-700 text-white text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-lg">Sold Out</div>
+                        <h3 class="font-display text-2xl text-white mb-2 group-hover:text-ember-500 transition-colors">The Hunter</h3>
+                        <p class="text-steel-500 text-sm mb-4">120mm • Raindrop Pattern • Stag Bone Handle</p>
+                        <div class="flex justify-between items-center border-t border-forge-800 pt-4 mt-4">
+                            <span class="text-xl font-bold text-steel-500 line-through">$320</span>
+                            <button class="text-sm uppercase tracking-widest text-steel-500 cursor-not-allowed font-bold flex items-center gap-2">
+                                Waitlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group bg-forge-900 border border-forge-800 hover:border-ember-900/50 transition-all duration-300 blade-hover relative overflow-hidden">
+                    <div class="aspect-[4/5] overflow-hidden bg-forge-800 relative">
+                         <img src="https://images.unsplash.com/photo-1593155708892-e4070a7df846?q=80&w=2070&auto=format&fit=crop" alt="Santoku" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                         <div class="absolute inset-0 bg-gradient-to-t from-forge-950 via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 relative">
+                        <div class="absolute -top-6 right-6 bg-ember-700 text-white text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-lg">In Stock</div>
+                        <h3 class="font-display text-2xl text-white mb-2 group-hover:text-ember-500 transition-colors">The Santoku</h3>
+                        <p class="text-steel-500 text-sm mb-4">180mm • Feather Pattern • Ironwood Handle</p>
+                        <div class="flex justify-between items-center border-t border-forge-800 pt-4 mt-4">
+                            <span class="text-xl font-bold text-white">$380</span>
+                            <button class="text-sm uppercase tracking-widest text-ember-500 hover:text-white transition-colors font-bold flex items-center gap-2">
+                                Details <span class="text-lg">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="#" class="inline-block border-b border-ember-500 text-white font-display uppercase tracking-widest pb-1 hover:text-ember-500 transition-colors">View All Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-24 bg-forge-900 relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-forge-700 to-transparent"></div>
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                 <h2 class="font-display text-4xl md:text-5xl text-white font-bold">The Process</h2>
+                 <p class="text-steel-500 mt-4 max-w-2xl mx-auto">Creating a Damascus blade is a labor of intense patience. Fire, force, and finish converge to create a functional work of art.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 relative">
+                <!-- Connector Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-forge-800 -z-10"></div>
+
+                <!-- Step 1 -->
+                <div class="relative bg-forge-900 text-center group">
+                    <div class="w-24 h-24 mx-auto bg-forge-800 rounded-full flex items-center justify-center border-4 border-forge-900 group-hover:border-ember-700 transition-colors duration-500 mb-6 relative z-10 shadow-xl">
+                        <svg class="w-10 h-10 text-steel-300 group-hover:text-ember-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-2 uppercase tracking-wide">1. The Fire</h3>
+                    <p class="text-steel-500 text-sm px-4">Steel billets are heated to over 2000°F until they glow with the color of the setting sun, ready to be shaped.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative bg-forge-900 text-center group">
+                    <div class="w-24 h-24 mx-auto bg-forge-800 rounded-full flex items-center justify-center border-4 border-forge-900 group-hover:border-ember-700 transition-colors duration-500 mb-6 relative z-10 shadow-xl">
+                         <svg class="w-10 h-10 text-steel-300 group-hover:text-ember-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-2 uppercase tracking-wide">2. The Fold</h3>
+                    <p class="text-steel-500 text-sm px-4">Hammer and anvil compress the layers. The steel is folded, re-welded, and drawn out repeatedly to build structure.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative bg-forge-900 text-center group">
+                    <div class="w-24 h-24 mx-auto bg-forge-800 rounded-full flex items-center justify-center border-4 border-forge-900 group-hover:border-ember-700 transition-colors duration-500 mb-6 relative z-10 shadow-xl">
+                        <svg class="w-10 h-10 text-steel-300 group-hover:text-ember-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-2 uppercase tracking-wide">3. The Etch</h3>
+                    <p class="text-steel-500 text-sm px-4">After grinding and tempering, the blade is etched in acid to reveal the striking contrast of the Damascus pattern.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial / Quote -->
+    <section class="py-24 bg-forge-950 bg-fixed relative bg-cover bg-center" style="background-image: linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.8)), url('https://images.unsplash.com/photo-1598556776374-37050228373b?q=80&w=2070&auto=format&fit=crop');">
+        <div class="container mx-auto px-6 text-center">
+            <svg class="w-12 h-12 text-ember-700 mx-auto mb-6 opacity-80" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.0547 15.5641 15.1856 17.0191 14.778L17.2007 14.7267C18.1561 14.4566 18.8333 13.5904 18.8333 12.5852V6C18.8333 4.34315 17.4902 3 15.8333 3H8.5C6.84315 3 5.5 4.34315 5.5 6V12.5852C5.5 13.5904 6.17721 14.4566 7.13264 14.7267L7.31423 14.778C8.76923 15.1856 10.3163 16.0547 10.3163 18V21H14.017ZM17 10H14V6H17V10ZM10.3333 10H7.33333V6H10.3333V10Z"></path></svg>
+            <blockquote class="font-display text-2xl md:text-4xl text-white italic leading-relaxed max-w-4xl mx-auto">
+                "A knife from {{COMPANY_NAME}} is not just a tool. It is a companion in the kitchen, a work of art, and a legacy to be passed down. The balance is perfection."
+            </blockquote>
+            <cite class="block mt-8 text-ember-500 font-bold uppercase tracking-widest not-italic">— James Sterling, Executive Chef</cite>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <section id="contact" class="bg-forge-900 border-t border-forge-800">
+        <div class="container mx-auto px-6 py-24">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="font-display text-4xl text-white font-bold mb-6">Commission Your Blade</h2>
+                    <p class="text-steel-300 mb-8">
+                        Custom orders are currently open for 2024 delivery. Whether you desire a custom chef's knife or a bespoke hunting blade, let us forge your vision into reality.
+                    </p>
+                    <ul class="space-y-4 text-steel-300">
+                        <li class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-forge-800 flex items-center justify-center text-ember-500">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </span>
+                            forge@{{COMPANY_NAME}}.com
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-forge-800 flex items-center justify-center text-ember-500">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </span>
+                            108 Anvil Way, Kyoto, Japan
+                        </li>
+                    </ul>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-steel-500 mb-2">Name</label>
+                            <input type="text" class="w-full bg-forge-800 border border-forge-700 text-white px-4 py-3 focus:outline-none focus:border-ember-600 focus:ring-1 focus:ring-ember-600 transition-colors placeholder-forge-500" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-steel-500 mb-2">Email</label>
+                            <input type="email" class="w-full bg-forge-800 border border-forge-700 text-white px-4 py-3 focus:outline-none focus:border-ember-600 focus:ring-1 focus:ring-ember-600 transition-colors placeholder-forge-500" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-steel-500 mb-2">Blade Type</label>
+                        <select class="w-full bg-forge-800 border border-forge-700 text-white px-4 py-3 focus:outline-none focus:border-ember-600 focus:ring-1 focus:ring-ember-600 transition-colors">
+                            <option>Chef's Knife (Gyuto/Santoku)</option>
+                            <option>Utility/Paring</option>
+                            <option>Outdoor/Hunting</option>
+                            <option>Custom Set</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-steel-500 mb-2">Message</label>
+                        <textarea rows="4" class="w-full bg-forge-800 border border-forge-700 text-white px-4 py-3 focus:outline-none focus:border-ember-600 focus:ring-1 focus:ring-ember-600 transition-colors placeholder-forge-500" placeholder="Tell us about your vision..."></textarea>
+                    </div>
+                    <button type="button" class="w-full py-4 bg-ember-700 hover:bg-ember-600 text-white font-display font-bold uppercase tracking-widest transition-all duration-300 shadow-lg shadow-ember-900/30">
+                        Submit Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="border-t border-forge-800 bg-forge-950 py-8 text-center">
+            <p class="text-steel-600 text-sm">© 2024 {{COMPANY_NAME}}. All Rights Reserved. Hand-forged with passion.</p>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Bespoke Aquarium Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deep: {
+                            900: '#020617', // slate-950
+                            800: '#0f172a', // slate-900
+                        },
+                        aqua: {
+                            400: '#22d3ee', // cyan-400
+                            500: '#06b6d4', // cyan-500
+                        },
+                        lux: {
+                            400: '#fbbf24', // amber-400
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Italiana', 'serif'],
+                        sans: ['Manrope', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+
+        /* Water Caustics Effect Overlay */
+        .caustics-overlay {
+            background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            animation: pulse-slow 8s infinite alternate;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22d3ee;
+        }
+    </style>
+</head>
+<body class="bg-deep-900 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-aqua-500 selection:text-white">
+
+    <!-- Ambient Background -->
+    <div class="caustics-overlay"></div>
+
+    <!-- Navigation -->
+    <header x-data="{ mobileMenu: false, scrolled: false }"
+            @scroll.window="scrolled = (window.pageYOffset > 50)"
+            :class="{ 'bg-deep-900/80 backdrop-blur-md border-b border-white/5': scrolled, 'bg-transparent': !scrolled }"
+            class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif text-white tracking-widest relative group">
+                {{COMPANY_NAME}}
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-aqua-400 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#philosophy" class="text-sm uppercase tracking-widest hover:text-aqua-400 transition-colors">Philosophy</a>
+                <a href="#gallery" class="text-sm uppercase tracking-widest hover:text-aqua-400 transition-colors">Gallery</a>
+                <a href="#process" class="text-sm uppercase tracking-widest hover:text-aqua-400 transition-colors">Process</a>
+                <a href="#contact" class="px-6 py-2 border border-lux-400 text-lux-400 hover:bg-lux-400 hover:text-deep-900 transition-all duration-300 text-sm uppercase tracking-widest">Inquire</a>
+            </nav>
+
+            <!-- Mobile Button -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="mobileMenu" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="md:hidden bg-deep-900/95 backdrop-blur-xl border-b border-white/10">
+            <nav class="flex flex-col items-center py-8 space-y-6">
+                <a href="#philosophy" @click="mobileMenu = false" class="text-lg font-serif tracking-widest text-white">Philosophy</a>
+                <a href="#gallery" @click="mobileMenu = false" class="text-lg font-serif tracking-widest text-white">Gallery</a>
+                <a href="#process" @click="mobileMenu = false" class="text-lg font-serif tracking-widest text-white">Process</a>
+                <a href="#contact" @click="mobileMenu = false" class="text-lux-400 text-lg font-serif tracking-widest border-b border-lux-400 pb-1">Inquire</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1546026423-cc4642628d2b?q=80&w=2574&auto=format&fit=crop" alt="Deep Ocean" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-b from-deep-900/30 via-transparent to-deep-900"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-deep-900/80 via-transparent to-deep-900/80"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <p class="text-aqua-400 uppercase tracking-[0.3em] text-sm mb-6 animate-pulse-slow">The Essence of Fluidity</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white mb-8 leading-tight">
+                Living Art <br>
+                <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-white via-aqua-400 to-white">Submerged</span>
+            </h1>
+            <p class="text-slate-300 max-w-2xl mx-auto mb-10 text-lg font-light leading-relaxed">
+                We craft bespoke aquatic ecosystems that transcend mere decoration, becoming the living, breathing soul of your architectural space.
+            </p>
+            <a href="#gallery" class="inline-block px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white hover:bg-aqua-400/20 hover:border-aqua-400 transition-all duration-500 uppercase tracking-widest text-sm">
+                Explore Collection
+            </a>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2 relative">
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-aqua-400/20 to-lux-400/20 rounded-lg blur-2xl opacity-50"></div>
+                    <img src="https://images.unsplash.com/photo-1571781266270-466d526e0b74?q=80&w=2070&auto=format&fit=crop" alt="Aquarium Detail" class="relative rounded-lg shadow-2xl border border-white/10 w-full h-[600px] object-cover">
+                    <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-deep-900 border border-white/10 p-6 flex flex-col justify-center items-center text-center rounded-full glass-panel hidden lg:flex">
+                        <span class="text-4xl font-serif text-lux-400 mb-2">25+</span>
+                        <span class="text-xs uppercase tracking-widest text-slate-400">Years of<br>Excellence</span>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Orchestrating <br> <span class="text-aqua-400">Nature's Silence</span></h2>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        At {{COMPANY_NAME}}, we believe an aquarium is not just a container for water, but a portal to another world. Our philosophy blends biophilic design principles with cutting-edge engineering to create self-sustaining ecosystems.
+                    </p>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        From the ethereal sway of rare anemones to the silent glide of exotic marine life, our installations bring a meditative tranquility to luxury residences and corporate headquarters alike.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-slate-300">
+                            <span class="w-8 h-[1px] bg-lux-400 mr-4"></span>
+                            Zero-Edge Acrylic Fabrication
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <span class="w-8 h-[1px] bg-lux-400 mr-4"></span>
+                            Smart Bio-Filtration Systems
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <span class="w-8 h-[1px] bg-lux-400 mr-4"></span>
+                            Curated Marine Life Sourcing
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Gallery -->
+    <section id="gallery" class="py-24 bg-deep-800/50 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-lux-400 uppercase tracking-widest text-xs mb-2 block">Our Masterpieces</span>
+                <h2 class="font-serif text-4xl text-white">Curated Collections</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?q=80&w=2024&auto=format&fit=crop" alt="Project 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h3 class="font-serif text-2xl text-white mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Azure Residence</h3>
+                        <p class="text-aqua-400 text-sm tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Private Commission, Dubai</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer lg:mt-16">
+                    <img src="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?q=80&w=2069&auto=format&fit=crop" alt="Project 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h3 class="font-serif text-2xl text-white mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">The Reef Lounge</h3>
+                        <p class="text-aqua-400 text-sm tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Hospitality, Monaco</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1516972238977-89271fb2bab8?q=80&w=2070&auto=format&fit=crop" alt="Project 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h3 class="font-serif text-2xl text-white mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Abyssal Void</h3>
+                        <p class="text-aqua-400 text-sm tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Corporate HQ, Tokyo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-24 relative z-10 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <div class="lg:w-1/3">
+                    <span class="text-aqua-400 uppercase tracking-widest text-xs mb-2 block">The Journey</span>
+                    <h2 class="font-serif text-4xl text-white mb-6">From Vision to <br>Vessel</h2>
+                    <p class="text-slate-400 leading-relaxed mb-8">
+                        Creating a living masterpiece requires precision, patience, and passion. We handle every aspect of the lifecycle, ensuring your ecosystem thrives for years to come.
+                    </p>
+                    <a href="#contact" class="text-white border-b border-lux-400 pb-1 hover:text-lux-400 transition-colors inline-block">Start Your Project &rarr;</a>
+                </div>
+
+                <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Step 1 -->
+                    <div class="glass-panel p-8 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                        <span class="text-5xl font-serif text-white/10 block mb-4">01</span>
+                        <h3 class="text-xl text-white font-serif mb-3">Consultation</h3>
+                        <p class="text-sm text-slate-400">We analyze your space, lighting, and lifestyle to conceptualize the perfect aquatic integration.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="glass-panel p-8 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                        <span class="text-5xl font-serif text-white/10 block mb-4">02</span>
+                        <h3 class="text-xl text-white font-serif mb-3">Design & Engineering</h3>
+                        <p class="text-sm text-slate-400">3D renderings and structural calculations ensure safety, clarity, and aesthetic perfection.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="glass-panel p-8 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                        <span class="text-5xl font-serif text-white/10 block mb-4">03</span>
+                        <h3 class="text-xl text-white font-serif mb-3">Fabrication</h3>
+                        <p class="text-sm text-slate-400">Museum-grade acrylic bonding and custom cabinetry crafted by master artisans.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="glass-panel p-8 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                        <span class="text-5xl font-serif text-white/10 block mb-4">04</span>
+                        <h3 class="text-xl text-white font-serif mb-3">Curation & Care</h3>
+                        <p class="text-sm text-slate-400">Biological cycling, livestock introduction, and ongoing white-glove maintenance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Parallax -->
+    <section class="py-24 bg-fixed bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-deep-900/80"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <span class="block text-4xl md:text-5xl font-serif text-white mb-2">120+</span>
+                    <span class="text-xs uppercase tracking-widest text-aqua-400">Projects Completed</span>
+                </div>
+                <div>
+                    <span class="block text-4xl md:text-5xl font-serif text-white mb-2">50k</span>
+                    <span class="text-xs uppercase tracking-widest text-aqua-400">Gallons Installed</span>
+                </div>
+                <div>
+                    <span class="block text-4xl md:text-5xl font-serif text-white mb-2">15</span>
+                    <span class="text-xs uppercase tracking-widest text-aqua-400">Design Awards</span>
+                </div>
+                <div>
+                    <span class="block text-4xl md:text-5xl font-serif text-white mb-2">100%</span>
+                    <span class="text-xs uppercase tracking-widest text-aqua-400">Client Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto glass-panel rounded-2xl p-8 md:p-12 border border-white/10">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-3xl md:text-4xl text-white mb-4">Commission Your Masterpiece</h2>
+                    <p class="text-slate-400">Let us bring the depths of the ocean to your sanctuary.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Name</label>
+                            <input type="text" class="w-full bg-deep-900/50 border border-white/10 rounded px-4 py-3 text-white focus:outline-none focus:border-aqua-400 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Email</label>
+                            <input type="email" class="w-full bg-deep-900/50 border border-white/10 rounded px-4 py-3 text-white focus:outline-none focus:border-aqua-400 transition-colors">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Project Interest</label>
+                        <select class="w-full bg-deep-900/50 border border-white/10 rounded px-4 py-3 text-white focus:outline-none focus:border-aqua-400 transition-colors">
+                            <option>Residential Installation</option>
+                            <option>Commercial Display</option>
+                            <option>Maintenance Service</option>
+                            <option>Consultation Only</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Message</label>
+                        <textarea rows="4" class="w-full bg-deep-900/50 border border-white/10 rounded px-4 py-3 text-white focus:outline-none focus:border-aqua-400 transition-colors"></textarea>
+                    </div>
+                    <div class="text-center pt-4">
+                        <button type="button" class="px-10 py-4 bg-gradient-to-r from-aqua-500 to-cyan-600 text-white rounded hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-shadow duration-300 uppercase tracking-widest text-sm font-semibold">
+                            Send Inquiry
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-deep-950 border-t border-white/5 py-12 relative z-10 text-center md:text-left">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="text-2xl font-serif text-white tracking-widest mb-6 inline-block">{{COMPANY_NAME}}</a>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-sm mx-auto md:mx-0">
+                        Redefining the boundaries between architecture and nature through world-class aquatic design and engineering.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-serif mb-4">Explore</h4>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#philosophy" class="hover:text-aqua-400 transition-colors">Philosophy</a></li>
+                        <li><a href="#gallery" class="hover:text-aqua-400 transition-colors">Portfolio</a></li>
+                        <li><a href="#process" class="hover:text-aqua-400 transition-colors">Process</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-serif mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-aqua-400 transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-aqua-400 transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-aqua-400 transition-colors">Pinterest</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-600">
+                <p>&copy; 2024 {{COMPANY_NAME}}. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-400">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
