@@ -1942,6 +1942,19 @@
     },
     {
       "id": "149",
+      "name": "Mindful Balance",
+      "category": "Mental Health Clinic",
+      "style": "Serene Gradient",
+      "path": "catalog/template_149_mental_health_serene_gradient",
+      "description": "Soft gradients, fluid shapes.",
+      "tags": [
+        "Calm",
+        "Trust",
+        "Fluid"
+      ]
+    },
+    {
+      "id": "149",
       "name": "AquaVant",
       "category": "Aquarium Architecture",
       "style": "Hydro-Luxe",
