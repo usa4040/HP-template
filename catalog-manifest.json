@@ -2056,6 +2056,19 @@
         "Minimal",
         "Property"
       ]
+    },
+    {
+      "id": "152",
+      "name": "Precision Ledger",
+      "category": "Accounting Firm",
+      "style": "Modern Trust",
+      "path": "catalog/template_152_accounting_modern_trust",
+      "description": "Clean navy trust aesthetic.",
+      "tags": [
+        "Trust",
+        "Professional",
+        "Clean"
+      ]
     }
   ]
 }
