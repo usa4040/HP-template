@@ -2056,6 +2056,19 @@
         "Minimal",
         "Property"
       ]
+    },
+    {
+      "id": "152",
+      "name": "Modern Trust Advisory",
+      "category": "Accounting Firm",
+      "style": "Modern Trust",
+      "path": "catalog/template_152_accounting_firm_modern_trust",
+      "description": "Deep navy & emerald with Playfair",
+      "tags": [
+        "Corporate",
+        "Trustworthy",
+        "Professional"
+      ]
     }
   ]
 }
