@@ -2056,6 +2056,19 @@
         "Minimal",
         "Property"
       ]
+    },
+    {
+      "id": "152",
+      "name": "Neon Kinetic Fitness",
+      "category": "Fitness Gym",
+      "style": "Neon Kinetic",
+      "path": "catalog/template_152_fitness_gym_neon_kinetic",
+      "description": "Dark mode, energetic neon",
+      "tags": [
+        "Fitness",
+        "Energetic",
+        "Neon"
+      ]
     }
   ]
 }
