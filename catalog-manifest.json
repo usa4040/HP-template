@@ -2056,6 +2056,19 @@
         "Minimal",
         "Property"
       ]
+    },
+    {
+      "id": "152",
+      "name": "SalesFrontier",
+      "category": "営業代行",
+      "style": "エネルギッシュ×信頼",
+      "path": "catalog/template_152_sales_agency_energetic_trust",
+      "description": "Dynamic conversion B2B design",
+      "tags": [
+        "Dynamic",
+        "Conversion",
+        "B2B"
+      ]
     }
   ]
 }
