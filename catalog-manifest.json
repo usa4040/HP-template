@@ -2056,6 +2056,19 @@
         "Minimal",
         "Property"
       ]
+    },
+    {
+      "id": "152",
+      "name": "Trust Ledger",
+      "category": "Accounting Firm",
+      "style": "Modern Trust",
+      "path": "catalog/template_152_accounting_firm_modern_trust",
+      "description": "Deep Navy and Emerald trust",
+      "tags": [
+        "Trust",
+        "Finance",
+        "Corporate"
+      ]
     }
   ]
 }
