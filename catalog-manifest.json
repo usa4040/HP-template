@@ -2056,6 +2056,19 @@
         "Minimal",
         "Property"
       ]
+    },
+    {
+      "id": "152",
+      "name": "Sales Force Pro",
+      "category": "Sales Agency",
+      "style": "Energetic Trust",
+      "path": "catalog/template_152_sales_agency_energetic_trust",
+      "description": "Deep navy and vibrant orange",
+      "tags": [
+        "Energetic",
+        "Trust",
+        "Sales"
+      ]
     }
   ]
 }
