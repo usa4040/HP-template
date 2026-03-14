@@ -2056,6 +2056,19 @@
         "Minimal",
         "Property"
       ]
+    },
+    {
+      "id": "152",
+      "name": "CodeForge",
+      "category": "Software Development",
+      "style": "Cyber Minimalist",
+      "path": "catalog/template_152_software_development_cyber_minimalist",
+      "description": "Dark mode tech agency theme",
+      "tags": [
+        "Tech",
+        "Dark",
+        "Code"
+      ]
     }
   ]
 }
