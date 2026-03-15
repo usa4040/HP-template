@@ -2056,6 +2056,19 @@
         "Minimal",
         "Property"
       ]
+    },
+    {
+      "id": "152",
+      "name": "Modern Trust Accounting",
+      "category": "Accounting Firm",
+      "style": "Modern Trust",
+      "path": "catalog/template_152_accounting_firm_modern_trust",
+      "description": "Professional & trustworthy",
+      "tags": [
+        "Finance",
+        "Corporate",
+        "Reliable"
+      ]
     }
   ]
 }

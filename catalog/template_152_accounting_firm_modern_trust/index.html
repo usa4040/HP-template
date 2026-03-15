@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} | Modern Accounting & Advisory</title>
+
+    <!-- Google Fonts: Playfair Display for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0F172A',     // Deep Navy
+                            emerald: '#059669',  // Emerald
+                            gold: '#D4AF37',     // Accent Gold
+                            cream: '#F8FAFC',    // Light background
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .hero-pattern {
+            background-color: #0F172A;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 bg-brand-cream antialiased selection:bg-brand-emerald selection:text-white">
+
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenuOpen: false }" class="bg-brand-navy text-white sticky top-0 z-50 border-b border-slate-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 flex items-center space-x-2 group">
+                        <div class="w-10 h-10 bg-brand-emerald text-white rounded-sm flex items-center justify-center font-serif text-xl font-bold group-hover:bg-brand-gold transition-colors duration-300">
+                            <i data-lucide="landmark" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-serif text-2xl tracking-wide font-semibold">{{COMPANY_NAME}}</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-slate-300 hover:text-white transition-colors duration-200 text-sm font-medium">About Firm</a>
+                    <a href="#services" class="text-slate-300 hover:text-white transition-colors duration-200 text-sm font-medium">Our Expertise</a>
+                    <a href="#insights" class="text-slate-300 hover:text-white transition-colors duration-200 text-sm font-medium">Insights</a>
+                    <a href="#contact" class="bg-brand-emerald hover:bg-emerald-500 text-white px-6 py-2.5 rounded-sm text-sm font-medium transition-colors duration-200 flex items-center shadow-sm">
+                        Schedule Consultation
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="text-slate-300 hover:text-white p-2" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <i x-show="!mobileMenuOpen" data-lucide="menu" class="h-6 w-6"></i>
+                        <i x-show="mobileMenuOpen" x-cloak data-lucide="x" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-brand-navy border-b border-slate-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-sm">About Firm</a>
+                <a href="#services" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-sm">Our Expertise</a>
+                <a href="#insights" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-sm">Insights</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block px-3 py-2 mt-4 text-base font-medium text-center text-white bg-brand-emerald hover:bg-emerald-500 rounded-sm">Schedule Consultation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-pattern text-white overflow-hidden">
+        <div class="absolute inset-0 bg-brand-navy/90 mix-blend-multiply"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24 md:py-32 lg:py-40">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center space-x-2 bg-slate-800/50 rounded-full px-4 py-1.5 border border-slate-700 backdrop-blur-sm">
+                        <span class="w-2 h-2 rounded-full bg-brand-emerald animate-pulse"></span>
+                        <span class="text-xs font-medium text-slate-300 tracking-wider uppercase">Trusted Financial Advisors</span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-serif font-bold leading-tight">
+                        Precision in <span class="text-brand-emerald">Numbers.</span><br>
+                        Clarity in <span class="text-brand-emerald">Vision.</span>
+                    </h1>
+                    <p class="text-lg text-slate-300 max-w-xl leading-relaxed">
+                        At {{COMPANY_NAME}}, we provide modern, strategic accounting solutions to help visionary businesses and individuals protect and grow their wealth with absolute confidence.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#services" class="bg-brand-emerald hover:bg-emerald-500 text-white px-8 py-3.5 rounded-sm font-medium transition-all duration-300 text-center shadow-lg shadow-emerald-900/20 flex items-center justify-center group">
+                            Explore Services
+                            <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#contact" class="bg-transparent hover:bg-slate-800 border border-slate-600 text-white px-8 py-3.5 rounded-sm font-medium transition-colors duration-300 text-center">
+                            Speak with a Partner
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden lg:block relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-emerald/20 to-transparent rounded-sm transform translate-x-4 translate-y-4 -z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Professional Accounting Office" class="rounded-sm shadow-2xl w-full object-cover h-[500px] grayscale-[20%] sepia-[10%] border border-slate-700/50">
+
+                    <!-- Floating Stats Card -->
+                    <div class="absolute -bottom-8 -left-8 bg-white text-slate-900 p-6 rounded-sm shadow-xl border border-slate-100 flex items-start space-x-4">
+                        <div class="bg-brand-emerald/10 p-3 rounded-sm text-brand-emerald">
+                            <i data-lucide="trending-up" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Client Growth</p>
+                            <p class="text-3xl font-serif font-bold mt-1">45%</p>
+                            <p class="text-xs text-brand-emerald mt-1 font-medium">↑ Average annual retention</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Indicators / Stats -->
+    <section class="bg-white border-b border-slate-200 py-12 relative -mt-8 z-20 shadow-sm mx-4 sm:mx-6 lg:mx-8 rounded-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-slate-100">
+                <div class="px-4">
+                    <p class="text-4xl font-serif font-bold text-brand-navy">25+</p>
+                    <p class="text-sm text-slate-500 mt-2 font-medium">Years of Excellence</p>
+                </div>
+                <div class="px-4">
+                    <p class="text-4xl font-serif font-bold text-brand-navy">$2B+</p>
+                    <p class="text-sm text-slate-500 mt-2 font-medium">Assets Advised</p>
+                </div>
+                <div class="px-4">
+                    <p class="text-4xl font-serif font-bold text-brand-navy">500+</p>
+                    <p class="text-sm text-slate-500 mt-2 font-medium">Corporate Clients</p>
+                </div>
+                <div class="px-4">
+                    <p class="text-4xl font-serif font-bold text-brand-navy">99%</p>
+                    <p class="text-sm text-slate-500 mt-2 font-medium">Audit Accuracy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-brand-navy transform -translate-x-3 -translate-y-3 rounded-sm transition-transform group-hover:-translate-x-4 group-hover:-translate-y-4 duration-500 -z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Team Meeting" class="rounded-sm shadow-md w-full grayscale-[10%] object-cover h-[400px]">
+                </div>
+                <div>
+                    <h2 class="text-sm font-bold text-brand-emerald uppercase tracking-widest mb-3">About {{COMPANY_NAME}}</h2>
+                    <h3 class="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-6">A Legacy of Trust, Built for the Modern Economy.</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        We don't just crunch numbers; we illuminate paths. {{COMPANY_NAME}} was founded on the principle that exceptional accounting is the cornerstone of robust business strategy. Our partners bring decades of experience combined with cutting-edge analytical tools.
+                    </p>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        Whether navigating complex tax landscapes, structuring international acquisitions, or securing private wealth, our team operates with unwavering integrity, absolute discretion, and proactive intelligence.
+                    </p>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-emerald mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-slate-700 font-medium">Certified Public Accountants (CPA) & Certified Financial Analysts (CFA)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-emerald mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-slate-700 font-medium">Proactive Strategy Over Reactive Reporting</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-emerald mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-slate-700 font-medium">Strict Adherence to Fiduciary Standards</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold text-brand-emerald uppercase tracking-widest mb-3">Our Expertise</h2>
+                <h3 class="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-6">Comprehensive Financial Architecture</h3>
+                <p class="text-slate-600 text-lg">We offer specialized services tailored to middle-market enterprises, high-net-worth individuals, and institutional investors.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group bg-brand-cream p-8 rounded-sm border border-slate-100 hover:border-brand-emerald/30 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-emerald/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-white shadow-sm border border-slate-200 rounded-sm flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-emerald group-hover:text-white group-hover:border-brand-emerald transition-colors duration-300">
+                        <i data-lucide="calculator" class="w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-serif font-bold text-brand-navy mb-3 group-hover:text-brand-emerald transition-colors">Corporate Tax Strategy</h4>
+                    <p class="text-slate-600 leading-relaxed mb-6">Minimizing liabilities and maximizing compliance through strategic planning, R&D credits, and international tax structuring.</p>
+                    <a href="#" class="inline-flex items-center text-sm font-semibold text-brand-navy group-hover:text-brand-emerald transition-colors">
+                        Learn more <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group bg-brand-cream p-8 rounded-sm border border-slate-100 hover:border-brand-emerald/30 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-emerald/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-white shadow-sm border border-slate-200 rounded-sm flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-emerald group-hover:text-white group-hover:border-brand-emerald transition-colors duration-300">
+                        <i data-lucide="bar-chart-3" class="w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-serif font-bold text-brand-navy mb-3 group-hover:text-brand-emerald transition-colors">Audit & Assurance</h4>
+                    <p class="text-slate-600 leading-relaxed mb-6">Rigorous independent audits, financial statement reviews, and internal control assessments to ensure stakeholder confidence.</p>
+                    <a href="#" class="inline-flex items-center text-sm font-semibold text-brand-navy group-hover:text-brand-emerald transition-colors">
+                        Learn more <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group bg-brand-cream p-8 rounded-sm border border-slate-100 hover:border-brand-emerald/30 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-emerald/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-white shadow-sm border border-slate-200 rounded-sm flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-emerald group-hover:text-white group-hover:border-brand-emerald transition-colors duration-300">
+                        <i data-lucide="briefcase" class="w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-serif font-bold text-brand-navy mb-3 group-hover:text-brand-emerald transition-colors">M&A Advisory</h4>
+                    <p class="text-slate-600 leading-relaxed mb-6">Financial due diligence, valuation modeling, and post-merger integration services for strategic acquisitions.</p>
+                    <a href="#" class="inline-flex items-center text-sm font-semibold text-brand-navy group-hover:text-brand-emerald transition-colors">
+                        Learn more <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Testimonial / Quote -->
+    <section class="py-20 bg-brand-navy text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#059669 1px, transparent 1px); background-size: 32px 32px;"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <i data-lucide="quote" class="w-12 h-12 text-brand-emerald mx-auto mb-8 opacity-50"></i>
+            <blockquote class="text-2xl md:text-3xl font-serif leading-relaxed mb-8">
+                "{{COMPANY_NAME}} transformed our approach to financial governance. Their strategic foresight and meticulous attention to detail during our restructuring phase were nothing short of exemplary."
+            </blockquote>
+            <cite class="not-italic flex flex-col items-center">
+                <span class="font-bold text-lg tracking-wide">Jonathan Reed</span>
+                <span class="text-slate-400 text-sm mt-1 uppercase tracking-widest">CEO, Vertex Industrial Group</span>
+            </cite>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section id="contact" class="py-24 bg-brand-cream relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-sm shadow-xl border border-slate-200 overflow-hidden flex flex-col lg:flex-row">
+                <!-- Contact Info -->
+                <div class="bg-brand-navy text-white p-10 lg:w-2/5 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-brand-emerald rounded-full opacity-10 blur-3xl"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-3xl font-serif font-bold mb-2">Secure Your Future.</h3>
+                        <p class="text-slate-300 mb-8">Connect with a senior partner today to discuss your financial objectives in confidence.</p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-slate-800 p-2 rounded-sm text-brand-emerald">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider text-slate-300">Headquarters</h4>
+                                    <p class="mt-1 text-slate-100">100 Financial District Ave.<br>Suite 4500<br>New York, NY 10004</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-slate-800 p-2 rounded-sm text-brand-emerald">
+                                    <i data-lucide="phone" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider text-slate-300">Direct Line</h4>
+                                    <p class="mt-1 text-slate-100">+1 (212) 555-0199</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-slate-800 p-2 rounded-sm text-brand-emerald">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider text-slate-300">Email</h4>
+                                    <p class="mt-1 text-slate-100">advisory@{{COMPANY_NAME}}.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="p-10 lg:w-3/5">
+                    <h3 class="text-2xl font-serif font-bold text-brand-navy mb-6">Request a Consultation</h3>
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-slate-700 mb-2">First Name</label>
+                                <input type="text" id="firstName" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-sm focus:outline-none focus:ring-2 focus:ring-brand-emerald focus:border-transparent transition-shadow" placeholder="John">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
+                                <input type="text" id="lastName" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-sm focus:outline-none focus:ring-2 focus:ring-brand-emerald focus:border-transparent transition-shadow" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="company" class="block text-sm font-medium text-slate-700 mb-2">Company / Organization</label>
+                            <input type="text" id="company" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-sm focus:outline-none focus:ring-2 focus:ring-brand-emerald focus:border-transparent transition-shadow" placeholder="Acme Corp">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Business Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-sm focus:outline-none focus:ring-2 focus:ring-brand-emerald focus:border-transparent transition-shadow" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label for="inquiry" class="block text-sm font-medium text-slate-700 mb-2">Area of Interest</label>
+                            <select id="inquiry" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-sm focus:outline-none focus:ring-2 focus:ring-brand-emerald focus:border-transparent transition-shadow text-slate-600">
+                                <option>Corporate Tax Services</option>
+                                <option>Audit & Assurance</option>
+                                <option>M&A Advisory</option>
+                                <option>Private Wealth Management</option>
+                                <option>Other Inquiry</option>
+                            </select>
+                        </div>
+                        <button type="button" class="w-full bg-brand-emerald hover:bg-emerald-500 text-white font-medium py-3.5 px-6 rounded-sm transition-colors duration-300 shadow-md">
+                            Submit Request
+                        </button>
+                        <p class="text-xs text-slate-500 text-center mt-4">Your information is strictly confidential. See our <a href="#" class="text-brand-navy underline">Privacy Policy</a>.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center space-x-2 mb-6 group">
+                        <div class="w-8 h-8 bg-brand-emerald text-white rounded-sm flex items-center justify-center font-serif text-lg font-bold group-hover:bg-brand-gold transition-colors duration-300">
+                            <i data-lucide="landmark" class="w-4 h-4"></i>
+                        </div>
+                        <span class="font-serif text-xl tracking-wide font-semibold text-white">{{COMPANY_NAME}}</span>
+                    </a>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Modern strategic accounting solutions for visionary businesses and high-net-worth individuals.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 uppercase tracking-wider text-sm">Services</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">Corporate Tax</a></li>
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">Audit & Assurance</a></li>
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">M&A Advisory</a></li>
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">Wealth Management</a></li>
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">Forensic Accounting</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 uppercase tracking-wider text-sm">Company</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">About the Firm</a></li>
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">Our Partners</a></li>
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-brand-emerald transition-colors">Insights & News</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 uppercase tracking-wider text-sm">Stay Updated</h4>
+                    <p class="text-slate-400 text-sm mb-4">Subscribe to our quarterly tax and financial advisory newsletter.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Email Address" class="bg-slate-800 border border-slate-700 text-white px-4 py-2 text-sm w-full focus:outline-none focus:border-brand-emerald rounded-l-sm">
+                        <button type="button" class="bg-brand-emerald hover:bg-emerald-500 text-white px-4 py-2 text-sm font-medium rounded-r-sm transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm text-slate-500">
+                <p>&copy; 2025 {{COMPANY_NAME}} LLC. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Notice</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
